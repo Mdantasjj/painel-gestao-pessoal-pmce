@@ -56,17 +56,17 @@ function renderStaffNeeds() {
         <p>20 bases, 31 municípios satélite e 85,9% do efetivo em atividade operacional.</p>
       </div>
       <div class="staff-demand-item" style="--demand-color:#b58e35">
-        <span>Déficit de efetivo POG</span>
-        <div><strong>146</strong><small>policiais</small></div>
-        <p>21 dos 34 BPM apresentam saldo negativo nas movimentações de 2026.</p>
+        <span>Policiamento Ostensivo Geral (POG)</span>
+        <div><strong>304</strong><small>policiais</small></div>
+        <p>22 das 88 OPM analisadas apresentam saldo negativo nas movimentações.</p>
       </div>
       <div class="staff-demand-item" style="--demand-color:#2b8982">
-        <span>Necessidade COPAC</span>
+        <span>COPAC · Necessidade PReVio</span>
         <div><strong>229</strong><small>policiais</small></div>
         <p>Complemento para 12 bases, equivalente a 63,6% do padrão total projetado.</p>
       </div>
     </div>
-    <div class="analysis-warning">No POG, 146 representa a soma dos saldos negativos das movimentações; o déficit real exige comparar efetivo previsto e atual.</div>`;
+    <div class="analysis-warning">No Policiamento Ostensivo Geral (POG), 304 é a soma dos saldos negativos após excluir COGEIC, CGP e marcadores não OPM; o déficit real exige comparar efetivo previsto e atual.</div>`;
 }
 
 function renderPromotions() {

@@ -177,7 +177,7 @@ def generate_editable_powerpoint() -> None:
     card_x = [0.25, 2.82, 5.39, 7.96, 10.53]
     add_card(slide, card_x[0], "Demissões e exonerações", "340", "desligamentos", "252 demissões · 88 exonerações", GREEN_600, "E6F4ED")
     add_card(slide, card_x[1], "RAIO — Necessidade de efetivo\ndas bases satélites", "912", "policiais", "20 bases · 31 municípios satélite", BLUE, "E7F1F6")
-    add_card(slide, card_x[2], "Déficit de efetivo — POG", "304", "policiais", "Policiamento Ostensivo Geral · 22 OPM negativas", "B58E35", "F7EFD9")
+    add_card(slide, card_x[2], "Déficit de efetivo — POG", "304", "policiais", "POG — Policiamento Ostensivo Geral · 22 OPM negativas", "B58E35", "F7EFD9")
     add_card(slide, card_x[3], "COPAC — Necessidade PReVio", "229", "policiais", "Complemento para 12 bases", TEAL, "E3F3F1")
     add_card(slide, card_x[4], "Promoções requeridas", "207", "promoções", "153 acessos ao oficialato", OLIVE, "EDF3E4")
 

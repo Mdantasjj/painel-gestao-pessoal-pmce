@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0d3c2d" />
+    <meta name="description" content="Painel institucional para apresentação da Polícia Militar do Ceará" />
+    <title>Painel Institucional | PMCE</title>
+    <link rel="stylesheet" href="presentation.css" />
+  </head>
+  <body>
+    <svg class="icon-library" aria-hidden="true">
+      <symbol id="icon-alert" viewBox="0 0 24 24"><path d="M12 3 2.8 19a1.4 1.4 0 0 0 1.2 2h16a1.4 1.4 0 0 0 1.2-2L12 3Z"/><path d="M12 9v4.5M12 17h.01"/></symbol>
+      <symbol id="icon-users" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.9M16 3.1a4 4 0 0 1 0 7.8"/></symbol>
+      <symbol id="icon-car" viewBox="0 0 24 24"><path d="m5 17-2-1v-4l2-2 2-5h10l2 5 2 2v4l-2 1"/><path d="M5 17h14v2a1 1 0 0 1-1 1h-1a1 1 0 0 1-1-1H8a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1v-2ZM6 10h12M7 14h.01M17 14h.01"/></symbol>
+      <symbol id="icon-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+      <symbol id="icon-calendar" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 11h18"/></symbol>
+      <symbol id="icon-location" viewBox="0 0 24 24"><path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></symbol>
+      <symbol id="icon-screen" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M8 22h8M12 18v4"/></symbol>
+      <symbol id="icon-trend" viewBox="0 0 24 24"><path d="m3 17 6-6 4 4 8-9"/><path d="M15 6h6v6"/></symbol>
+      <symbol id="icon-award" viewBox="0 0 24 24"><circle cx="12" cy="8" r="5"/><path d="m8.8 12.2-1.4 8.3L12 18l4.6 2.5-1.4-8.3"/></symbol>
+    </svg>
+
+    <main class="presentation-board">
+      <header class="institutional-header">
+        <div class="official-signature">
+          <img src="assets/timbrado.png" alt="Polícia Militar do Ceará, Governo do Estado do Ceará e Secretaria da Segurança Pública e Defesa Social" />
+        </div>
+        <div class="header-title">
+          <span>Comando-Geral</span>
+          <h1>Gestão de Pessoal e Expansão</h1>
+          <p>Indicadores estratégicos consolidados · 2026</p>
+        </div>
+        <div class="header-status">
+          <div class="date-block"><span id="currentDate">—</span><strong id="currentTime">--:--</strong></div>
+          <button class="screen-button" id="fullscreenButton" type="button" title="Exibir em tela cheia">
+            <svg><use href="#icon-screen"></use></svg><span>Tela cheia</span>
+          </button>
+        </div>
+      </header>
+
+      <section class="context-strip" aria-label="Contexto da apresentação">
+        <div class="context-heading"><i></i><div><strong>Panorama executivo integrado</strong><span>Os mostradores abaixo consolidam simultaneamente as cinco abas</span></div></div>
+        <div class="context-filters">
+          <div class="context-item"><svg><use href="#icon-calendar"></use></svg><span>Referência</span><strong>2026</strong></div>
+          <div class="context-item"><svg><use href="#icon-location"></use></svg><span>Arquivo consolidado</span><strong>21/08/2026</strong></div>
+        </div>
+        <div class="online-status"><i></i><span>5 bases consolidadas</span></div>
+      </section>
+
+      <section class="metrics" aria-label="Indicadores principais">
+        <article class="metric-card metric-card--green">
+          <div class="metric-top"><span>Demissões e exonerações</span><div class="metric-icon"><svg><use href="#icon-alert"></use></svg></div></div>
+          <div class="metric-main"><strong>340</strong><small>desligamentos</small></div>
+          <div class="metric-foot"><i></i><span>252 demissões · 88 exonerações</span></div>
+        </article>
+        <article class="metric-card metric-card--blue">
+          <div class="metric-top"><span>RAIO — Necessidade de efetivo das bases satélites</span><div class="metric-icon"><svg><use href="#icon-users"></use></svg></div></div>
+          <div class="metric-main"><strong>912</strong><small>policiais</small></div>
+          <div class="metric-foot"><i></i><span>20 bases · 31 municípios satélite</span></div>
+        </article>
+        <article class="metric-card metric-card--gold">
+          <div class="metric-top"><span>Déficit de efetivo POG</span><div class="metric-icon"><svg><use href="#icon-trend"></use></svg></div></div>
+          <div class="metric-main"><strong>146</strong><small>policiais</small></div>
+          <div class="metric-foot"><i></i><span>21 dos 34 BPM com saldo negativo</span></div>
+        </article>
+        <article class="metric-card metric-card--teal">
+          <div class="metric-top"><span>Necessidade COPAC</span><div class="metric-icon"><svg><use href="#icon-location"></use></svg></div></div>
+          <div class="metric-main"><strong>229</strong><small>policiais</small></div>
+          <div class="metric-foot"><i></i><span>Complemento para 12 bases</span></div>
+        </article>
+        <article class="metric-card metric-card--olive">
+          <div class="metric-top"><span>Promoções requeridas</span><div class="metric-icon"><svg><use href="#icon-award"></use></svg></div></div>
+          <div class="metric-main"><strong>207</strong><small>promoções</small></div>
+          <div class="metric-foot"><i></i><span>153 acessos ao oficialato</span></div>
+        </article>
+      </section>
+
+      <section class="visual-grid">
+        <article class="panel trend-panel">
+          <header class="panel-header">
+            <div><span class="section-number">01</span><div><h2 id="mainTitle">Demissões e exonerações por mês</h2><p id="mainSubtitle">Janeiro a agosto de 2026</p></div></div>
+            <span class="panel-chip" id="mainChip"><svg><use href="#icon-trend"></use></svg>Evolução mensal</span>
+          </header>
+          <div class="dynamic-chart" id="mainChart" aria-live="polite"></div>
+        </article>
+
+        <article class="panel detail-panel">
+          <header class="panel-header"><div><span class="section-number">02</span><div><h2 id="detailTitle">Necessidades de efetivo</h2><p id="detailSubtitle">RAIO, POG e COPAC</p></div></div></header>
+          <div class="detail-content" id="detailContent"></div>
+        </article>
+
+        <article class="panel situation-panel">
+          <header class="panel-header"><div><span class="section-number">03</span><div><h2 id="compositionTitle">Promoções requeridas</h2><p id="compositionSubtitle">Acesso ao oficialato e oficiais</p></div></div></header>
+          <div class="donut-wrap">
+            <div class="donut" id="donutChart"><div><strong id="donutTotal">207</strong><span>Total</span></div></div>
+            <ul class="legend" id="donutLegend"></ul>
+          </div>
+        </article>
+      </section>
+
+      <footer class="presentation-footer">
+        <span>POLÍCIA MILITAR DO CEARÁ · PAINEL ESTRATÉGICO INSTITUCIONAL</span>
+        <div><i></i><span id="lastUpdate">Fonte consolidada em 21/08/2026</span></div>
+      </footer>
+    </main>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <script src="presentation.js"></script>
+  </body>
+</html>

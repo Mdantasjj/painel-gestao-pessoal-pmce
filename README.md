@@ -12,7 +12,7 @@ A assinatura institucional oficial fornecida está preservada em `assets/timbrad
 
 ## Próxima etapa
 
-O primeiro card apresenta o cálculo estratégico de **547 saídas de efetivo**: 252 demissões, 88 exonerações e 207 aposentadorias. Conforme orientação do projeto, o quantitativo de promoções requeridas foi adotado como referência das aposentadorias. Os demais cards mantêm as necessidades de efetivo do RAIO, do Policiamento Ostensivo Geral (POG) e do COPAC/PReVio.
+O primeiro dos quatro cards apresenta o cálculo estratégico de **547 saídas de efetivo**: 252 demissões, 88 exonerações e 207 aposentadorias. Conforme orientação do projeto, o quantitativo de promoções requeridas foi adotado como referência das aposentadorias. Os demais cards mantêm as necessidades de efetivo do RAIO, do Policiamento Ostensivo Geral (POG) e do COPAC/PReVio. As aposentadorias continuam detalhadas no mostrador inferior, sem card individual.
 
 O visualizador inferior apresenta, sem nomes ou matrículas, as OPMs e os municípios de origem de 326 registros únicos de demissão e exoneração. A fonte individualizada não foi incluída no repositório público por conter dados pessoais; somente os agregados estatísticos foram publicados.
 

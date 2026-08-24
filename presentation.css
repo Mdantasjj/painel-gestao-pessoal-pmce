@@ -96,7 +96,7 @@ svg { display: block; }
 .online-status { display: flex; align-items: center; gap: 7px; padding: 7px 10px; border-radius: 20px; color: var(--green-700); background: var(--green-50); font-size: 9px; font-weight: 650; }
 .online-status i { width: 7px; height: 7px; border-radius: 50%; background: #34ae76; box-shadow: 0 0 0 3px rgba(52,174,118,.12); }
 
-.metrics { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: clamp(10px, 1vw, 16px); }
+.metrics { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(10px, 1vw, 16px); }
 .metric-card { position: relative; min-width: 0; overflow: hidden; padding: clamp(14px, 1.25vw, 21px); border: 1px solid var(--line); border-radius: 14px; color: var(--ink); text-align: left; background: #fff; box-shadow: 0 7px 24px rgba(10, 50, 35, .055); }
 .metric-card::before { position: absolute; inset: 0 auto 0 0; width: 4px; background: var(--accent); content: ""; }
 .metric-card::after { position: absolute; right: 0; bottom: 0; left: 0; height: 3px; background: var(--accent); content: ""; opacity: 0; transform: scaleX(.35); transition: opacity .2s, transform .2s; }
@@ -227,7 +227,7 @@ svg { display: block; }
   .date-block span { display: none; }
   .context-strip { grid-template-columns: 1fr auto; }
   .online-status { display: none; }
-  .metrics { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .visual-grid { grid-template-columns: 1.4fr 1fr; }
   .situation-panel { grid-column: 1 / -1; }
   .origin-columns { grid-template-columns: 1fr; }

@@ -12,7 +12,9 @@ A assinatura institucional oficial fornecida está preservada em `assets/timbrad
 
 ## Próxima etapa
 
-Os cinco cards representam os totais das cinco abas da planilha consolidada. Os três mostradores inferiores apresentam simultaneamente: desligamentos; necessidades de efetivo do RAIO, do Policiamento Ostensivo Geral (POG) e do COPAC/PReVio; e promoções requeridas.
+O primeiro card apresenta o cálculo estratégico de **547 saídas de efetivo**: 252 demissões, 88 exonerações e 207 aposentadorias. Conforme orientação do projeto, o quantitativo de promoções requeridas foi adotado como referência das aposentadorias. Os demais cards mantêm as necessidades de efetivo do RAIO, do Policiamento Ostensivo Geral (POG) e do COPAC/PReVio.
+
+O visualizador inferior apresenta, sem nomes ou matrículas, as OPMs e os municípios de origem de 326 registros únicos de demissão e exoneração. A fonte individualizada não foi incluída no repositório público por conter dados pessoais; somente os agregados estatísticos foram publicados.
 
 As fontes estão preservadas na pasta `data`. Os valores das quatro primeiras bases da planilha foram conferidos com suas fórmulas; o estudo de déficit foi recalculado a partir de `MOVIMENTAÇÕES DO BCG 025-2025 AO BCG 153-2026.pdf`, excluindo COGEIC, CGP e marcadores não OPM.
 
@@ -20,6 +22,6 @@ O detalhamento metodológico e o ranking completo estão em `ESTUDO_DEFICIT_2025
 
 ## Exportações
 
-- `exportacoes/Painel_Gestao_Pessoal_PMCE.pdf`: painel em PDF de página única 16:9.
-- `exportacoes/Painel_Gestao_Pessoal_PMCE_EDITAVEL.pptx`: apresentação PowerPoint 16:9 com textos, formas e gráficos editáveis.
+- `exportacoes/Painel_Gestao_Pessoal_PMCE.pdf`: painel em PDF com duas páginas 16:9.
+- `exportacoes/Painel_Gestao_Pessoal_PMCE_EDITAVEL.pptx`: apresentação PowerPoint com dois slides 16:9, textos, formas e gráficos editáveis.
 - `gerar_exportacoes.py`: recria as duas exportações a partir da prévia atualizada.

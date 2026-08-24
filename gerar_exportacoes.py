@@ -1,6 +1,5 @@
 from pathlib import Path
 
-from PIL import Image
 from pptx import Presentation
 from pptx.chart.data import ChartData
 from pptx.dml.color import RGBColor
@@ -11,7 +10,6 @@ from pptx.util import Inches, Pt
 
 
 ROOT = Path(__file__).resolve().parent
-SOURCE_IMAGE = ROOT / "presentation-preview.png"
 LOGO_IMAGE = ROOT / "assets" / "timbrado.png"
 EXPORTS = ROOT / "exportacoes"
 PDF_PATH = EXPORTS / "Painel_Gestao_Pessoal_PMCE.pdf"
@@ -124,19 +122,50 @@ def add_demand_box(slide, x, y, label, value, description, accent):
     add_text(slide, description, x + 0.14, y + 0.51, 2.4, 0.08, 4.3, MUTED)
 
 
+def add_summary_box(slide, x, label, value, description, accent):
+    add_shape(slide, MSO_SHAPE.ROUNDED_RECTANGLE, x, 1.55, 4.12, 0.68, WHITE)
+    bar = add_shape(slide, MSO_SHAPE.RECTANGLE, x, 1.62, 0.035, 0.54, accent, accent)
+    bar.line.fill.background()
+    add_text(slide, label.upper(), x + 0.16, 1.66, 2.35, 0.12, 6.0, MUTED, True)
+    add_text(slide, value, x + 3.10, 1.67, 0.72, 0.24, 18, GREEN_900, True, PP_ALIGN.RIGHT)
+    add_text(slide, description, x + 0.16, 1.91, 3.62, 0.12, 5.2, MUTED)
+
+
+def add_ranked_bars(slide, x, y, width, rows, total, accent, row_step=0.34, label_width=0.92):
+    maximum = max(value for _, value in rows)
+    track_x = x + 0.28 + label_width
+    track_width = width - label_width - 1.28
+    for index, (label, value) in enumerate(rows, start=1):
+        row_y = y + (index - 1) * row_step
+        add_text(slide, f"{index:02d}", x, row_y, 0.18, 0.14, 4.8, "9AA49F", True)
+        add_text(slide, label, x + 0.23, row_y, label_width, 0.14, 5.4, "526059", True)
+        track = add_shape(slide, MSO_SHAPE.ROUNDED_RECTANGLE, track_x, row_y + 0.035, track_width, 0.075, "EAF0ED", "EAF0ED")
+        track.line.fill.background()
+        bar_width = max(track_width * value / maximum, 0.05)
+        bar = add_shape(slide, MSO_SHAPE.ROUNDED_RECTANGLE, track_x, row_y + 0.035, bar_width, 0.075, accent, accent)
+        bar.line.fill.background()
+        share = f"{value / total * 100:.1f}".replace(".", ",")
+        add_text(slide, f"{value} · {share}%", x + width - 0.72, row_y, 0.72, 0.14, 5.2, INK, True, PP_ALIGN.RIGHT)
+
+
 def generate_pdf() -> None:
-    with Image.open(SOURCE_IMAGE) as source:
-        image = source.convert("RGB")
-        image.save(
-            PDF_PATH,
-            format="PDF",
-            resolution=144.0,
-            quality=95,
-            optimize=True,
-            title="Painel de Gestão de Pessoal e Expansão - PMCE",
-            author="Polícia Militar do Ceará",
-            subject="Indicadores estratégicos consolidados de 2025-2026",
-        )
+    import pythoncom
+    from win32com.client import DispatchEx
+
+    pythoncom.CoInitialize()
+    powerpoint = None
+    deck = None
+    try:
+        powerpoint = DispatchEx("PowerPoint.Application")
+        powerpoint.DisplayAlerts = 0
+        deck = powerpoint.Presentations.Open(str(PPTX_PATH.resolve()), ReadOnly=True, WithWindow=False)
+        deck.SaveAs(str(PDF_PATH.resolve()), 32)
+    finally:
+        if deck is not None:
+            deck.Close()
+        if powerpoint is not None:
+            powerpoint.Quit()
+        pythoncom.CoUninitialize()
 
 
 def generate_editable_powerpoint() -> None:
@@ -175,14 +204,14 @@ def generate_editable_powerpoint() -> None:
 
     # Cards editáveis
     card_x = [0.25, 2.82, 5.39, 7.96, 10.53]
-    add_card(slide, card_x[0], "Demissões e exonerações", "340", "desligamentos", "252 demissões · 88 exonerações", GREEN_600, "E6F4ED")
+    add_card(slide, card_x[0], "Saídas de efetivo", "547", "saídas", "252 dem. · 88 exon. · 207 aposent.", GREEN_600, "E6F4ED")
     add_card(slide, card_x[1], "RAIO — Necessidade de efetivo\ndas bases satélites", "912", "policiais", "20 bases · 31 municípios satélite", BLUE, "E7F1F6")
     add_card(slide, card_x[2], "Déficit de efetivo — POG", "304", "policiais", "POG — Policiamento Ostensivo Geral · 22 OPM negativas", "B58E35", "F7EFD9")
     add_card(slide, card_x[3], "COPAC — Necessidade PReVio", "229", "policiais", "Complemento para 12 bases", TEAL, "E3F3F1")
-    add_card(slide, card_x[4], "Promoções requeridas", "207", "promoções", "153 acessos ao oficialato", OLIVE, "EDF3E4")
+    add_card(slide, card_x[4], "Aposentadorias", "207", "militares", "Referência: promoções requeridas", OLIVE, "EDF3E4")
 
     # Painel esquerdo: gráfico editável
-    add_panel(slide, 0.25, 2.72, 6.73, 4.49, "01", "Demissões e exonerações por mês", "Janeiro a agosto de 2026")
+    add_panel(slide, 0.25, 2.72, 6.73, 4.49, "01", "Demissões e exonerações por mês", "340 das 547 saídas · janeiro a agosto de 2026")
     chart_data = ChartData()
     chart_data.categories = ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago"]
     chart_data.add_series("Demissões", (8, 2, 0, 7, 143, 76, 14, 2))
@@ -226,7 +255,7 @@ def generate_editable_powerpoint() -> None:
     plot.series[1].format.fill.solid()
     plot.series[1].format.fill.fore_color.rgb = color(GOLD)
     plot.series[1].format.line.color.rgb = color(GOLD)
-    add_text(slide, "Maio concentrou 165 desligamentos, equivalente a 48,5% do total apurado até agosto.", 0.46, 6.89, 6.0, 0.12, 5.1, MUTED)
+    add_text(slide, "Esta série detalha 340 das 547 saídas; maio concentrou 165 demissões/exonerações.", 0.46, 6.89, 6.0, 0.12, 5.1, MUTED)
 
     # Painel central: necessidades de efetivo
     add_panel(slide, 7.10, 2.72, 3.05, 4.49, "02", "Necessidades de efetivo", "RAIO, POG e COPAC/PReVio")
@@ -237,7 +266,7 @@ def generate_editable_powerpoint() -> None:
     add_text(slide, "●  304 soma os saldos negativos após excluir COGEIC, CGP e marcadores não OPM.", 7.36, 6.75, 2.55, 0.22, 4.3, "806D3C")
 
     # Painel direito: gráfico de rosca editável
-    add_panel(slide, 10.27, 2.72, 2.81, 4.49, "03", "Promoções requeridas", "Acesso ao oficialato e oficiais")
+    add_panel(slide, 10.27, 2.72, 2.81, 4.49, "03", "Aposentadorias", "Impacto nas promoções requeridas")
     donut_data = ChartData()
     donut_data.categories = ["Acesso ao oficialato", "Entre postos de oficiais"]
     donut_data.add_series("Promoções", (153, 54))
@@ -261,7 +290,7 @@ def generate_editable_powerpoint() -> None:
     donut_series.points[1].format.fill.fore_color.rgb = color(BLUE)
     donut_series.points[1].format.line.color.rgb = color(BLUE)
     add_text(slide, "207", 11.22, 4.29, 0.92, 0.34, 21, INK, True, PP_ALIGN.CENTER)
-    add_text(slide, "Total", 11.42, 4.62, 0.52, 0.12, 5.5, MUTED, False, PP_ALIGN.CENTER)
+    add_text(slide, "Aposent.", 11.32, 4.62, 0.72, 0.12, 5.5, MUTED, False, PP_ALIGN.CENTER)
     add_shape(slide, MSO_SHAPE.RECTANGLE, 10.49, 5.92, 0.07, 0.07, OLIVE, OLIVE)
     add_text(slide, "Acesso ao oficialato", 10.62, 5.87, 1.35, 0.16, 5.3, MUTED)
     add_text(slide, "153 · 73,9%", 12.10, 5.87, 0.70, 0.16, 5.3, INK, True, PP_ALIGN.RIGHT)
@@ -273,20 +302,72 @@ def generate_editable_powerpoint() -> None:
     add_text(slide, "POLÍCIA MILITAR DO CEARÁ · PAINEL ESTRATÉGICO INSTITUCIONAL", 0.25, 7.31, 4.2, 0.08, 4.2, MUTED, True)
     add_text(slide, "●  Fontes consolidadas em 21/08/2026", 10.52, 7.31, 2.55, 0.08, 4.2, GREEN_800, False, PP_ALIGN.RIGHT)
 
+    # Segundo slide: origem territorial das saídas
+    origin_slide = presentation.slides.add_slide(presentation.slide_layouts[6])
+    origin_slide.background.fill.solid()
+    origin_slide.background.fill.fore_color.rgb = color(BG)
+
+    add_shape(origin_slide, MSO_SHAPE.ROUNDED_RECTANGLE, 0.25, 0.15, 12.83, 0.78, GREEN_900, GREEN_900)
+    logo_bg = add_shape(origin_slide, MSO_SHAPE.ROUNDED_RECTANGLE, 0.25, 0.15, 2.68, 0.78, WHITE, GREEN_900)
+    logo_bg.line.width = Pt(0.7)
+    origin_slide.shapes.add_picture(str(LOGO_IMAGE), Inches(0.48), Inches(0.29), width=Inches(2.22), height=Inches(0.48))
+    add_text(origin_slide, "GESTÃO DE PESSOAL", 3.12, 0.27, 2.0, 0.13, 6.8, "74D5A6", True)
+    add_text(origin_slide, "De onde estão saindo os militares", 3.12, 0.42, 6.2, 0.28, 19, WHITE, True)
+    add_text(origin_slide, "Origem por OPM e município · dados agregados, sem nomes ou matrículas", 3.12, 0.70, 5.5, 0.13, 7, "B7D0C6")
+    add_text(origin_slide, "PERÍODO DA FONTE", 10.70, 0.33, 1.30, 0.10, 4.6, "B7D0C6", False, PP_ALIGN.RIGHT)
+    add_text(origin_slide, "01/01 a 10/08/2026", 10.42, 0.52, 1.58, 0.15, 8.2, WHITE, True, PP_ALIGN.RIGHT)
+    add_shape(origin_slide, MSO_SHAPE.ROUNDED_RECTANGLE, 12.42, 0.35, 0.36, 0.36, "234F40", "537668")
+    add_text(origin_slide, "04", 12.42, 0.35, 0.36, 0.36, 8, WHITE, True, PP_ALIGN.CENTER)
+
+    add_shape(origin_slide, MSO_SHAPE.ROUNDED_RECTANGLE, 0.25, 1.04, 12.83, 0.38, WHITE)
+    ctx_bar = add_shape(origin_slide, MSO_SHAPE.RECTANGLE, 0.38, 1.12, 0.025, 0.22, GREEN_600, GREEN_600)
+    ctx_bar.line.fill.background()
+    add_text(origin_slide, "Leitura territorial das saídas", 0.49, 1.09, 2.3, 0.14, 7.1, INK, True)
+    add_text(origin_slide, "O ranking cobre demissões e exonerações individualizadas; aposentadorias não possuem OPM na base atual.", 0.49, 1.24, 6.4, 0.09, 4.9, MUTED)
+    add_shape(origin_slide, MSO_SHAPE.ROUNDED_RECTANGLE, 11.46, 1.12, 1.38, 0.20, GREEN_050, GREEN_050)
+    add_text(origin_slide, "326 registros únicos", 11.50, 1.12, 1.30, 0.20, 5.2, GREEN_800, True, PP_ALIGN.CENTER)
+
+    add_summary_box(origin_slide, 0.25, "Registros com origem", "326", "Demissões e exonerações individualizadas", GREEN_600)
+    add_summary_box(origin_slide, 4.60, "Unidades identificadas", "65", "OPMs consolidadas pela unidade principal", BLUE)
+    add_summary_box(origin_slide, 8.95, "Municípios identificados", "53", "Fortaleza concentra 153 registros", GOLD)
+
+    add_panel(origin_slide, 0.25, 2.39, 6.28, 4.72, "04A", "OPMs com mais saídas", "Companhias agrupadas pela unidade principal · Top 10")
+    opm_rows = [
+        ("CPRAIO", 17), ("12º BPM", 17), ("17º BPM", 14), ("18º BPM", 14), ("6º BPM", 14),
+        ("BPTUR", 13), ("COPAC", 13), ("19º BPM", 12), ("20º BPM", 11), ("24º BPM", 10),
+    ]
+    add_ranked_bars(origin_slide, 0.48, 3.10, 5.80, opm_rows, 326, GREEN_600, row_step=0.325, label_width=0.86)
+    add_text(origin_slide, "CPRAIO e 12º BPM lideram, com 17 registros cada (5,2% do recorte).", 0.48, 6.55, 5.75, 0.14, 5.2, MUTED)
+
+    add_panel(origin_slide, 6.68, 2.39, 6.40, 4.72, "04B", "Municípios com mais saídas", "Município informado no registro · Top 8")
+    city_rows = [
+        ("Fortaleza", 153), ("Caucaia", 27), ("Maracanaú", 12), ("Maranguape", 8),
+        ("Juazeiro do Norte", 8), ("Quixadá", 7), ("Eusébio", 6), ("Sobral", 6),
+    ]
+    add_ranked_bars(origin_slide, 6.91, 3.10, 5.91, city_rows, 326, BLUE, row_step=0.39, label_width=1.22)
+    add_text(origin_slide, "Fortaleza reúne 153 registros, equivalentes a 46,9% do recorte individualizado.", 6.91, 6.55, 5.75, 0.14, 5.2, MUTED)
+
+    note = add_shape(origin_slide, MSO_SHAPE.ROUNDED_RECTANGLE, 0.48, 6.78, 12.34, 0.22, "FBF8EF", "EEE4C9")
+    note.line.width = Pt(0.5)
+    add_text(origin_slide, "Cobertura metodológica: 326 registros únicos. O total executivo de 340 segue a base mensal consolidada; as 207 aposentadorias não possuem origem territorial informada.", 0.60, 6.81, 12.08, 0.14, 4.8, "806D3C", False, PP_ALIGN.CENTER)
+
+    add_text(origin_slide, "POLÍCIA MILITAR DO CEARÁ · PAINEL ESTRATÉGICO INSTITUCIONAL", 0.25, 7.31, 4.2, 0.08, 4.2, MUTED, True)
+    add_text(origin_slide, "●  Dados agregados · sem exposição de informações pessoais", 9.45, 7.31, 3.63, 0.08, 4.2, GREEN_800, False, PP_ALIGN.RIGHT)
+
     presentation.core_properties.title = "Painel de Gestão de Pessoal e Expansão - PMCE"
     presentation.core_properties.subject = "Indicadores estratégicos consolidados de 2025-2026"
     presentation.core_properties.author = "Polícia Militar do Ceará"
-    presentation.core_properties.comments = "Elementos, textos e gráficos editáveis em formato 16:9."
+    presentation.core_properties.comments = "Dois slides com elementos, textos e gráficos editáveis em formato 16:9."
     presentation.save(PPTX_PATH)
 
 
 def main() -> None:
-    for required in (SOURCE_IMAGE, LOGO_IMAGE):
+    for required in (LOGO_IMAGE,):
         if not required.exists():
             raise FileNotFoundError(f"Arquivo de origem não encontrado: {required}")
     EXPORTS.mkdir(exist_ok=True)
-    generate_pdf()
     generate_editable_powerpoint()
+    generate_pdf()
     print(f"PDF: {PDF_PATH}")
     print(f"PowerPoint editável: {PPTX_PATH}")
 

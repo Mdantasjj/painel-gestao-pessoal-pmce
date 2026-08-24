@@ -50,9 +50,9 @@
 
       <section class="metrics" aria-label="Indicadores principais">
         <article class="metric-card metric-card--green">
-          <div class="metric-top"><span>Demissões e exonerações</span><div class="metric-icon"><svg><use href="#icon-alert"></use></svg></div></div>
-          <div class="metric-main"><strong>340</strong><small>desligamentos</small></div>
-          <div class="metric-foot"><i></i><span>252 demissões · 88 exonerações</span></div>
+          <div class="metric-top"><span>Saídas de efetivo</span><div class="metric-icon"><svg><use href="#icon-alert"></use></svg></div></div>
+          <div class="metric-main"><strong>547</strong><small>saídas</small></div>
+          <div class="metric-foot"><i></i><span>252 demissões · 88 exonerações · 207 aposentadorias</span></div>
         </article>
         <article class="metric-card metric-card--blue">
           <div class="metric-top"><span>RAIO — Necessidade de efetivo das bases satélites</span><div class="metric-icon"><svg><use href="#icon-users"></use></svg></div></div>
@@ -70,16 +70,16 @@
           <div class="metric-foot"><i></i><span>Complemento para 12 bases</span></div>
         </article>
         <article class="metric-card metric-card--olive">
-          <div class="metric-top"><span>Promoções requeridas</span><div class="metric-icon"><svg><use href="#icon-award"></use></svg></div></div>
-          <div class="metric-main"><strong>207</strong><small>promoções</small></div>
-          <div class="metric-foot"><i></i><span>153 acessos ao oficialato</span></div>
+          <div class="metric-top"><span>Aposentadorias</span><div class="metric-icon"><svg><use href="#icon-award"></use></svg></div></div>
+          <div class="metric-main"><strong>207</strong><small>militares</small></div>
+          <div class="metric-foot"><i></i><span>Referência: promoções requeridas</span></div>
         </article>
       </section>
 
       <section class="visual-grid">
         <article class="panel trend-panel">
           <header class="panel-header">
-            <div><span class="section-number">01</span><div><h2 id="mainTitle">Demissões e exonerações por mês</h2><p id="mainSubtitle">Janeiro a agosto de 2026</p></div></div>
+            <div><span class="section-number">01</span><div><h2 id="mainTitle">Demissões e exonerações por mês</h2><p id="mainSubtitle">340 das 547 saídas · janeiro a agosto de 2026</p></div></div>
             <span class="panel-chip" id="mainChip"><svg><use href="#icon-trend"></use></svg>Evolução mensal</span>
           </header>
           <div class="dynamic-chart" id="mainChart" aria-live="polite"></div>
@@ -91,12 +91,37 @@
         </article>
 
         <article class="panel situation-panel">
-          <header class="panel-header"><div><span class="section-number">03</span><div><h2 id="compositionTitle">Promoções requeridas</h2><p id="compositionSubtitle">Acesso ao oficialato e oficiais</p></div></div></header>
+          <header class="panel-header"><div><span class="section-number">03</span><div><h2 id="compositionTitle">Aposentadorias</h2><p id="compositionSubtitle">Impacto nas promoções requeridas</p></div></div></header>
           <div class="donut-wrap">
-            <div class="donut" id="donutChart"><div><strong id="donutTotal">207</strong><span>Total</span></div></div>
+            <div class="donut" id="donutChart"><div><strong id="donutTotal">207</strong><span>Aposent.</span></div></div>
             <ul class="legend" id="donutLegend"></ul>
           </div>
         </article>
+      </section>
+
+      <section class="panel origins-panel" aria-labelledby="originsTitle">
+        <header class="panel-header">
+          <div><span class="section-number">04</span><div><h2 id="originsTitle">De onde estão saindo os militares</h2><p>Origem por OPM e município · somente registros individualizados de demissão e exoneração</p></div></div>
+          <span class="panel-chip"><svg><use href="#icon-location"></use></svg>326 registros únicos</span>
+        </header>
+        <div class="origins-content">
+          <div class="origin-kpis" aria-label="Síntese da cobertura do visualizador">
+            <div><span>Registros com origem</span><strong>326</strong><small>demissões e exonerações</small></div>
+            <div><span>Unidades identificadas</span><strong>65</strong><small>OPMs consolidadas</small></div>
+            <div><span>Municípios identificados</span><strong>53</strong><small>Fortaleza concentra 153</small></div>
+          </div>
+          <div class="origin-columns">
+            <section class="origin-chart-block" aria-labelledby="opmOriginTitle">
+              <div class="origin-block-heading"><div><strong id="opmOriginTitle">OPMs com mais saídas</strong><span>Companhias agrupadas pela unidade principal</span></div><small>Top 10</small></div>
+              <div class="horizontal-bars" id="opmOriginChart"></div>
+            </section>
+            <section class="origin-chart-block" aria-labelledby="cityOriginTitle">
+              <div class="origin-block-heading"><div><strong id="cityOriginTitle">Municípios com mais saídas</strong><span>Município informado no registro de desligamento</span></div><small>Top 8</small></div>
+              <div class="horizontal-bars horizontal-bars--city" id="cityOriginChart"></div>
+            </section>
+          </div>
+          <p class="origin-methodology">Cobertura: 326 registros únicos extraídos da relação cumulativa de 01/01 a 10/08/2026. O total executivo de 340 segue a base mensal consolidada. As 207 aposentadorias não possuem OPM de origem na base atual.</p>
+        </div>
       </section>
 
       <footer class="presentation-footer">

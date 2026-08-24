@@ -44,7 +44,7 @@ function renderDismissalsChart() {
   document.querySelector('#mainChart').innerHTML = `
     <div class="chart-key">${key}</div>
     <div class="bar-stage" style="--count:8">${groups}</div>
-    <div class="chart-source-note">Maio concentrou 165 desligamentos, equivalente a 48,5% do total apurado até agosto.</div>`;
+    <div class="chart-source-note">Esta série detalha 340 das 547 saídas. Maio concentrou 165 demissões/exonerações, ou 48,5% desse recorte.</div>`;
 }
 
 function renderStaffNeeds() {
@@ -88,6 +88,49 @@ function renderPromotions() {
   }).join('');
 }
 
+const originByOpm = [
+  ['CPRAIO', 17],
+  ['12º BPM', 17],
+  ['17º BPM', 14],
+  ['18º BPM', 14],
+  ['6º BPM', 14],
+  ['BPTUR', 13],
+  ['COPAC', 13],
+  ['19º BPM', 12],
+  ['20º BPM', 11],
+  ['24º BPM', 10]
+];
+
+const originByCity = [
+  ['Fortaleza', 153],
+  ['Caucaia', 27],
+  ['Maracanaú', 12],
+  ['Maranguape', 8],
+  ['Juazeiro do Norte', 8],
+  ['Quixadá', 7],
+  ['Eusébio', 6],
+  ['Sobral', 6]
+];
+
+function renderHorizontalBars(target, rows, total, color) {
+  const maximum = Math.max(...rows.map(([, value]) => value));
+  document.querySelector(target).innerHTML = rows.map(([label, value], index) => {
+    const width = Math.max((value / maximum) * 100, 3);
+    const share = ((value / total) * 100).toLocaleString('pt-BR', { maximumFractionDigits: 1 });
+    return `<div class="horizontal-bar-row">
+      <span class="horizontal-rank">${String(index + 1).padStart(2, '0')}</span>
+      <strong>${label}</strong>
+      <div class="horizontal-track"><i style="width:${width}%;--origin-color:${color}"></i></div>
+      <span class="horizontal-value">${value} <small>${share}%</small></span>
+    </div>`;
+  }).join('');
+}
+
+function renderOrigins() {
+  renderHorizontalBars('#opmOriginChart', originByOpm, 326, '#1b8258');
+  renderHorizontalBars('#cityOriginChart', originByCity, 326, '#3b7e9d');
+}
+
 async function toggleFullscreen() {
   try {
     if (!document.fullscreenElement) await document.documentElement.requestFullscreen();
@@ -106,4 +149,5 @@ updateDateTime();
 renderDismissalsChart();
 renderStaffNeeds();
 renderPromotions();
+renderOrigins();
 setInterval(updateDateTime, 30000);

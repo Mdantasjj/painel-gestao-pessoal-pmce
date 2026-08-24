@@ -203,8 +203,8 @@ def generate_editable_powerpoint() -> None:
     add_text(slide, "●  5 bases consolidadas", 11.96, 1.13, 0.86, 0.20, 4.7, GREEN_800, True, PP_ALIGN.CENTER)
 
     # Cards editáveis
-    card_x = [0.25, 3.50, 6.75, 10.00]
-    card_width = 3.08
+    card_x = [0.84, 3.80, 6.76, 9.72]
+    card_width = 2.78
     add_card(slide, card_x[0], "Saídas de efetivo", "547", "saídas", "252 dem. · 88 exon. · 207 aposent.", GREEN_600, "E6F4ED", card_width)
     add_card(slide, card_x[1], "RAIO — Necessidade de efetivo das bases satélites", "912", "policiais", "20 bases · 31 municípios satélite", BLUE, "E7F1F6", card_width)
     add_card(slide, card_x[2], "Déficit de efetivo — POG", "304", "policiais", "POG — Policiamento Ostensivo Geral · 22 OPM negativas", "B58E35", "F7EFD9", card_width)

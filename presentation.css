@@ -266,6 +266,32 @@ body.modal-open { overflow: hidden; }
 .detail-table td:last-child, .detail-table th:last-child { text-align: right; }
 .detail-methodology { display: flex; gap: 8px; margin: 16px 0 0; padding: 11px 13px; border: 1px solid #eadfbe; border-radius: 9px; color: #77663c; background: #fbf8ef; font-size: 9px; line-height: 1.5; }
 .detail-methodology::before { flex: 0 0 auto; color: var(--gold); content: "●"; }
+.raio-level-section { border-color: #cbdfe8; background: linear-gradient(180deg, #fafdff, #fff); }
+.raio-level-selector { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 11px; }
+.raio-level-button { display: flex; min-width: 0; padding: 14px 15px; align-items: flex-start; flex-direction: column; border: 1px solid #d7e4e9; border-radius: 11px; color: #263b45; text-align: left; background: #fff; box-shadow: 0 5px 14px rgba(25,73,94,.045); cursor: pointer; transition: border-color .2s, box-shadow .2s, transform .2s, background .2s; }
+.raio-level-button:hover { border-color: #80adc0; box-shadow: 0 9px 20px rgba(25,73,94,.11); transform: translateY(-2px); }
+.raio-level-button:focus-visible { outline: 3px solid rgba(59,126,157,.27); outline-offset: 2px; }
+.raio-level-button.is-active { border-color: #3b7e9d; background: #eef7fb; box-shadow: inset 0 0 0 1px #3b7e9d, 0 8px 19px rgba(25,73,94,.10); }
+.raio-level-button > span { color: #3b7e9d; font-size: 8px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+.raio-level-button > strong { margin-top: 4px; font-size: 12px; }
+.raio-level-button > b { margin-top: 12px; color: #174f68; font-size: 24px; line-height: 1; }
+.raio-level-button > b small { color: #718087; font-size: 8px; font-weight: 650; }
+.raio-level-button > em { margin-top: 7px; color: #7f8d93; font-size: 8px; font-style: normal; }
+.raio-level-detail { margin-top: 13px; scroll-margin-top: 12px; }
+.raio-level-empty { display: flex; min-height: 72px; padding: 15px; align-items: center; justify-content: center; flex-direction: column; border: 1px dashed #bad0da; border-radius: 10px; color: #61747d; text-align: center; background: #f7fbfd; }
+.raio-level-empty strong { font-size: 10px; }
+.raio-level-empty span { max-width: 580px; margin-top: 5px; font-size: 8px; line-height: 1.45; }
+.raio-level-heading { display: flex; margin-bottom: 10px; padding: 13px 15px; align-items: center; justify-content: space-between; gap: 14px; border-radius: 10px; color: #fff; background: linear-gradient(110deg, #205f7b, #3b7e9d); }
+.raio-level-heading span { color: #bfe2f0; font-size: 8px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+.raio-level-heading h4 { margin: 3px 0 0; font-size: 14px; }
+.raio-level-heading > strong { font-size: 15px; white-space: nowrap; }
+.raio-level-summary { display: grid; grid-template-columns: repeat(8, minmax(72px, 1fr)); gap: 7px; margin-bottom: 13px; }
+.raio-level-summary > div { padding: 9px 8px; border: 1px solid #dfe8ec; border-radius: 8px; background: #fff; }
+.raio-level-summary span { display: block; min-height: 18px; color: #7f8c91; font-size: 6.5px; font-weight: 700; line-height: 1.25; text-transform: uppercase; }
+.raio-level-summary strong { display: block; margin-top: 4px; color: #264856; font-size: 15px; }
+.raio-cities-heading { display: flex; margin: 0 1px 8px; align-items: flex-end; justify-content: space-between; gap: 12px; }
+.raio-cities-heading strong { color: #334b55; font-size: 10px; }
+.raio-cities-heading span { color: #829096; font-size: 8px; }
 
 .presentation-footer { display: flex; min-height: 24px; align-items: center; justify-content: space-between; gap: 15px; color: #7e8984; font-size: 8px; font-weight: 650; letter-spacing: .045em; }
 .presentation-footer > div { display: flex; align-items: center; gap: 7px; font-weight: 500; letter-spacing: 0; }
@@ -313,6 +339,8 @@ body.modal-open { overflow: hidden; }
   .metric-dialog-body { padding: 15px; }
   .detail-stat-grid { grid-template-columns: 1fr 1fr; }
   .detail-breakdown-row { grid-template-columns: 105px 1fr 72px; gap: 8px; }
+  .raio-level-selector { grid-template-columns: 1fr; }
+  .raio-level-summary { grid-template-columns: repeat(4, minmax(68px, 1fr)); }
   .origins-panel { min-height: 0; }
   .situation-panel { grid-column: auto; }
   .panel, .trend-panel, .territory-panel, .situation-panel { min-height: 360px; }
@@ -328,6 +356,8 @@ body.modal-open { overflow: hidden; }
   .panel-chip { display: none; }
   .horizontal-bar-row { grid-template-columns: 20px 76px minmax(55px, 1fr) 60px; gap: 6px; }
   .detail-stat-grid { grid-template-columns: 1fr; }
+  .raio-level-summary { grid-template-columns: repeat(2, minmax(68px, 1fr)); }
+  .raio-level-heading, .raio-cities-heading { align-items: flex-start; flex-direction: column; }
   .line-chart { padding-right: 14px; padding-left: 8px; }
   .chart-message { min-width: 190px; }
 }

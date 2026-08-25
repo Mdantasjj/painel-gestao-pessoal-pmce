@@ -185,6 +185,73 @@ const metricDetails = {
       ['Nível 3 · Polo + 3', '2', '6', '2', '124', '126'],
       ['Total', '20', '31', '20', '892', '912']
     ],
+    levels: [
+      {
+        id: 'nivel-1',
+        name: 'Nível 1',
+        model: 'Polo + 1 satélite',
+        bases: 11,
+        cities: 11,
+        officers: 11,
+        enlisted: 418,
+        administrative: 22,
+        guard: 33,
+        operational: 363,
+        total: 429,
+        rows: [
+          ['Chaval', 'Barroquinha', '1', '38', '2', '3', '33', '39'],
+          ['Cariús', 'Jucás', '1', '38', '2', '3', '33', '39'],
+          ['Penaforte', 'Jati', '1', '38', '2', '3', '33', '39'],
+          ['Palhano', 'Itaiçaba', '1', '38', '2', '3', '33', '39'],
+          ['São Luís do Curu', 'Umirim', '1', '38', '2', '3', '33', '39'],
+          ['Capistrano', 'Itapiúna', '1', '38', '2', '3', '33', '39'],
+          ['Tururu', 'Uruburetama', '1', '38', '2', '3', '33', '39'],
+          ['Meruoca', 'Alcântaras', '1', '38', '2', '3', '33', '39'],
+          ['Aratuba', 'Mulungu', '1', '38', '2', '3', '33', '39'],
+          ['Iracema', 'Ererê', '1', '38', '2', '3', '33', '39'],
+          ['Alto Santo', 'Potiretama', '1', '38', '2', '3', '33', '39']
+        ]
+      },
+      {
+        id: 'nivel-2',
+        name: 'Nível 2',
+        model: 'Polo + 2 satélites',
+        bases: 7,
+        cities: 14,
+        officers: 7,
+        enlisted: 350,
+        administrative: 21,
+        guard: 21,
+        operational: 308,
+        total: 357,
+        rows: [
+          ['Nova Olinda', 'Santana do Cariri; Altaneira', '1', '50', '3', '3', '44', '51'],
+          ['Mucambo', 'Pacujá; Graça', '1', '50', '3', '3', '44', '51'],
+          ['Ararendá', 'Poranga; Ipaporanga', '1', '50', '3', '3', '44', '51'],
+          ['Milhã', 'Solonópole; Deputado Irapuan Pinheiro', '1', '50', '3', '3', '44', '51'],
+          ['Baixio', 'Umari; Ipaumirim', '1', '50', '3', '3', '44', '51'],
+          ['Assaré', 'Antonina do Norte; Tarrafas', '1', '50', '3', '3', '44', '51'],
+          ['Guaramiranga', 'Palmácia; Pacoti', '1', '50', '3', '3', '44', '51']
+        ]
+      },
+      {
+        id: 'nivel-3',
+        name: 'Nível 3',
+        model: 'Polo + 3 satélites',
+        bases: 2,
+        cities: 6,
+        officers: 2,
+        enlisted: 124,
+        administrative: 6,
+        guard: 6,
+        operational: 112,
+        total: 126,
+        rows: [
+          ['Cariré', 'Groaíras; Varjota; Reriutaba', '1', '62', '3', '3', '56', '63'],
+          ['General Sampaio', 'Tejuçuoca; Apuiarés; Paramoti', '1', '62', '3', '3', '56', '63']
+        ]
+      }
+    ],
     note: 'O quantitativo representa necessidade projetada para implantação. Não deve ser interpretado como efetivo já incorporado ou disponível.'
   },
   pog: {
@@ -266,6 +333,62 @@ function renderDetailTable(data) {
   return `<div class="detail-table-wrap"><table class="detail-table"><thead><tr>${head}</tr></thead><tbody>${rows}</tbody></table></div>`;
 }
 
+function renderRaioLevelSelector(data) {
+  const buttons = data.levels.map((level) => `
+    <button class="raio-level-button" type="button" data-raio-level="${level.id}" aria-pressed="false" aria-controls="raioLevelDetail">
+      <span>${level.name}</span>
+      <strong>${level.model}</strong>
+      <b>${level.total} <small>policiais</small></b>
+      <em>${level.bases} bases · ${level.cities} municípios satélites</em>
+    </button>`).join('');
+  return `
+    <section class="detail-section raio-level-section">
+      <div class="detail-section-heading">
+        <div><h3>Escolha o nível para aprofundar</h3><p>Os três botões já apresentam os totais comparativos para facilitar a decisão.</p></div>
+        <span>Seleção por nível</span>
+      </div>
+      <div class="raio-level-selector">${buttons}</div>
+      <div class="raio-level-detail" id="raioLevelDetail" aria-live="polite">
+        <div class="raio-level-empty"><strong>Selecione um dos níveis acima</strong><span>Serão exibidos os nomes das cidades-polo, dos municípios satélites e a composição do efetivo de cada base.</span></div>
+      </div>
+    </section>`;
+}
+
+function renderRaioLevelDetail(levelId) {
+  const data = metricDetails.raio;
+  const level = data.levels.find((item) => item.id === levelId);
+  const detail = document.querySelector('#raioLevelDetail');
+  if (!level || !detail) return;
+  metricDetailContent.querySelectorAll('[data-raio-level]').forEach((button) => {
+    const isActive = button.dataset.raioLevel === levelId;
+    button.classList.toggle('is-active', isActive);
+    button.setAttribute('aria-pressed', String(isActive));
+  });
+  const summary = [
+    ['Bases', level.bases],
+    ['Municípios satélites', level.cities],
+    ['Oficiais', level.officers],
+    ['Praças', level.enlisted],
+    ['Administrativo', level.administrative],
+    ['Guarda', level.guard],
+    ['Operacional', level.operational],
+    ['Efetivo total', level.total]
+  ].map(([label, value]) => `<div><span>${label}</span><strong>${value}</strong></div>`).join('');
+  const table = renderDetailTable({
+    tableColumns: ['Cidade-polo / sede', 'Município(s) satélite(s)', 'Oficiais', 'Praças', 'Adm.', 'Guarda', 'Operacional', 'Total'],
+    tableRows: level.rows
+  });
+  detail.innerHTML = `
+    <div class="raio-level-heading">
+      <div><span>${level.name}</span><h4>${level.model}</h4></div>
+      <strong>${level.total} policiais</strong>
+    </div>
+    <div class="raio-level-summary">${summary}</div>
+    <div class="raio-cities-heading"><strong>Cidades e efetivo por base</strong><span>${level.bases} cidades-polo · ${level.cities} municípios satélites</span></div>
+    ${table}`;
+  detail.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
 function renderMetricDetail(key) {
   const data = metricDetails[key];
   if (!data) return;
@@ -279,6 +402,12 @@ function renderMetricDetail(key) {
       <div class="detail-breakdown-track"><i style="width:${share}%;--row-color:${rowColor}"></i></div>
       <strong>${value}</strong>
     </div>`).join('');
+  const levelSelector = key === 'raio' ? renderRaioLevelSelector(data) : '';
+  const discriminatedTable = key === 'raio' ? '' : `
+    <section class="detail-section">
+      <div class="detail-section-heading"><div><h3>${data.sectionTitle}</h3><p>${data.sectionSubtitle}</p></div><span>Dados discriminados</span></div>
+      ${renderDetailTable(data)}
+    </section>`;
   metricDetailContent.innerHTML = `
     <div class="detail-hero-grid">
       <div class="detail-total-card" style="--detail-accent:${data.accent}">
@@ -287,14 +416,12 @@ function renderMetricDetail(key) {
       </div>
       <div class="detail-stat-grid">${stats}</div>
     </div>
+    ${levelSelector}
     <section class="detail-section">
       <div class="detail-section-heading"><div><h3>Composição do indicador</h3><p>Participação de cada componente no total ou no recorte analisado.</p></div><span>Leitura percentual</span></div>
       <div class="detail-breakdown">${breakdown}</div>
     </section>
-    <section class="detail-section">
-      <div class="detail-section-heading"><div><h3>${data.sectionTitle}</h3><p>${data.sectionSubtitle}</p></div><span>Dados discriminados</span></div>
-      ${renderDetailTable(data)}
-    </section>
+    ${discriminatedTable}
     <p class="detail-methodology">${data.note}</p>`;
 }
 
@@ -330,6 +457,10 @@ metricCards.forEach((card) => {
 
 metricDetailClose.addEventListener('click', closeMetricDetail);
 metricModal.querySelector('[data-modal-close]').addEventListener('click', closeMetricDetail);
+metricDetailContent.addEventListener('click', (event) => {
+  const button = event.target.closest('[data-raio-level]');
+  if (button) renderRaioLevelDetail(button.dataset.raioLevel);
+});
 metricModal.addEventListener('keydown', (event) => {
   if (event.key === 'Escape') closeMetricDetail();
   if (event.key !== 'Tab') return;

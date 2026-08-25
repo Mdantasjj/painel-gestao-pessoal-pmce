@@ -10,6 +10,8 @@ Abra o arquivo `index.html` no navegador e use o botão de tela cheia no cabeça
 
 Os quatro cards são clicáveis e também podem ser acionados pelas teclas `Enter` ou `Espaço`. Cada card abre uma memória de cálculo com composição do total, percentuais, tabelas discriminadas e ressalvas metodológicas. A janela pode ser fechada pelo botão, pela tecla `Esc` ou por um clique fora dela.
 
+Nas tabelas de detalhamento, as colunas de identificação e os valores estratégicos recebem tipografia ampliada e destaque em verde: cidade-polo e total no RAIO, mês e total mensal nas saídas, OPM e saldo no POG, unidade/base e necessidade no COPAC.
+
 O detalhamento apresenta somente informações agregadas, sem nomes ou matrículas. No COPAC, a janela destaca que o título estratégico menciona 10 bases e 04 prioritárias, enquanto a fonte quantitativa disponível contém 12 unidades e não identifica quais são as quatro prioridades.
 
 No detalhamento do RAIO, três botões permitem escolher os níveis de implantação. Antes da escolha, cada botão informa o total de bases, municípios satélites e policiais do respectivo nível. Após a seleção, o painel discrimina as cidades-polo, os municípios satélites e a composição do efetivo por base.

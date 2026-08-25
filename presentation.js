@@ -393,6 +393,7 @@ function renderMetricDetail(key) {
   const data = metricDetails[key];
   if (!data) return;
   metricModal.style.setProperty('--detail-accent', data.accent);
+  metricDetailContent.dataset.detail = key;
   metricDetailEyebrow.textContent = data.eyebrow;
   metricDetailTitle.textContent = data.title;
   const stats = data.stats.map(([label, value, note]) => `<div class="detail-stat"><span>${label}</span><strong>${value}</strong><small>${note}</small></div>`).join('');

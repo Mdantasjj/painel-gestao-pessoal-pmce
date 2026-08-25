@@ -86,8 +86,8 @@ def add_line(slide, x1, y1, x2, y2, line_color=LINE, width=0.7):
 
 
 def add_card(slide, x, label, value, unit, foot, accent, soft, width=2.45, label_size=7.8, label_height=0.26, foot_size=5.5, foot_height=0.16):
-    y = 1.57
-    height = 1.03
+    y = 1.52
+    height = 1.14
     add_shape(slide, MSO_SHAPE.ROUNDED_RECTANGLE, x, y, width, height, WHITE)
     accent_bar = add_shape(slide, MSO_SHAPE.RECTANGLE, x, y + 0.07, 0.035, height - 0.14, accent, accent)
     accent_bar.line.fill.background()
@@ -96,10 +96,10 @@ def add_card(slide, x, label, value, unit, foot, accent, soft, width=2.45, label
     badge = add_shape(slide, MSO_SHAPE.ROUNDED_RECTANGLE, badge_x, y + 0.13, 0.28, 0.28, soft, soft)
     badge.line.fill.background()
     add_text(slide, "●", badge_x, y + 0.13, 0.28, 0.28, 8, accent, True, PP_ALIGN.CENTER)
-    add_text(slide, value, x + 0.14, y + 0.46, 0.78, 0.33, 23, INK, True)
-    add_text(slide, unit, x + 0.84, y + 0.55, 0.9, 0.15, 6.7, MUTED)
-    add_line(slide, x + 0.14, y + 0.86, x + 0.28, y + 0.86, accent, 1.3)
-    add_text(slide, foot, x + 0.34, y + 0.77, width - 0.49, foot_height, foot_size, MUTED, valign=MSO_ANCHOR.TOP)
+    add_text(slide, value, x + 0.14, y + 0.50, 0.84, 0.36, 25, INK, True)
+    add_text(slide, unit, x + 0.91, y + 0.60, 0.9, 0.15, 6.9, MUTED)
+    add_line(slide, x + 0.14, y + 0.96, x + 0.30, y + 0.96, accent, 1.3)
+    add_text(slide, foot, x + 0.35, y + 0.87, width - 0.50, foot_height, foot_size, MUTED, valign=MSO_ANCHOR.TOP)
 
 
 def add_panel(slide, x, y, width, height, number, title, subtitle):
@@ -203,8 +203,8 @@ def generate_editable_powerpoint() -> None:
     add_text(slide, "●  5 bases consolidadas", 11.96, 1.13, 0.86, 0.20, 4.7, GREEN_800, True, PP_ALIGN.CENTER)
 
     # Cards editáveis
-    card_x = [0.84, 3.80, 6.76, 9.72]
-    card_width = 2.78
+    card_x = [0.49, 3.61, 6.73, 9.85]
+    card_width = 3.00
     add_card(slide, card_x[0], "Saídas de efetivo\n(exoneração — aposentadoria)", "547", "saídas", "252 dem. · 88 exon. · 207 aposent.", GREEN_600, "E6F4ED", card_width, label_size=6.8, label_height=0.30)
     add_card(slide, card_x[1], "RAIO — Necessidade de efetivo para compor\nas 20 bases satélites em 3 níveis de implementação", "912", "policiais", "20 bases · 31 municípios satélite", BLUE, "E7F1F6", card_width, label_size=6.2, label_height=0.34)
     add_card(slide, card_x[2], "Déficit de efetivo — POG", "304", "policiais", "POG — Policiamento Ordinário · principais unidades militares", "B58E35", "F7EFD9", card_width, foot_size=4.4, foot_height=0.22)

@@ -96,8 +96,8 @@ svg { display: block; }
 .online-status { display: flex; align-items: center; gap: 7px; padding: 7px 10px; border-radius: 20px; color: var(--green-700); background: var(--green-50); font-size: 9px; font-weight: 650; }
 .online-status i { width: 7px; height: 7px; border-radius: 50%; background: #34ae76; box-shadow: 0 0 0 3px rgba(52,174,118,.12); }
 
-.metrics { display: grid; width: min(100%, 1500px); grid-template-columns: repeat(4, minmax(0, 1fr)); justify-self: center; gap: clamp(10px, 1vw, 16px); }
-.metric-card { position: relative; min-width: 0; overflow: hidden; padding: clamp(14px, 1.25vw, 21px); border: 1px solid var(--line); border-radius: 14px; color: var(--ink); text-align: left; background: #fff; box-shadow: 0 7px 24px rgba(10, 50, 35, .055); }
+.metrics { display: grid; width: min(100%, 1700px); grid-template-columns: repeat(4, minmax(0, 1fr)); justify-self: center; gap: clamp(12px, 1.15vw, 20px); }
+.metric-card { position: relative; min-width: 0; min-height: 168px; overflow: hidden; padding: clamp(17px, 1.4vw, 25px); border: 1px solid var(--line); border-radius: 14px; color: var(--ink); text-align: left; background: #fff; box-shadow: 0 7px 24px rgba(10, 50, 35, .055); }
 .metric-card::before { position: absolute; inset: 0 auto 0 0; width: 4px; background: var(--accent); content: ""; }
 .metric-card::after { position: absolute; right: 0; bottom: 0; left: 0; height: 3px; background: var(--accent); content: ""; opacity: 0; transform: scaleX(.35); transition: opacity .2s, transform .2s; }
 .metric-card--green { --accent: #23845b; --soft: #e6f4ed; }
@@ -105,14 +105,14 @@ svg { display: block; }
 .metric-card--gold { --accent: #ae8b37; --soft: #f7efd9; }
 .metric-card--teal { --accent: #2b8982; --soft: #e3f3f1; }
 .metric-card--olive { --accent: #698342; --soft: #edf3e4; }
-.metric-top { display: flex; align-items: center; justify-content: space-between; gap: 10px; color: #5e6a64; font-size: clamp(9px, .7vw, 12px); font-weight: 650; }
+.metric-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; color: #5e6a64; font-size: clamp(10px, .72vw, 13px); font-weight: 650; }
 .metric-top > span { line-height: 1.25; }
-.metric-icon { display: grid; width: 33px; height: 33px; flex: 0 0 auto; place-items: center; border-radius: 9px; color: var(--accent); background: var(--soft); }
+.metric-icon { display: grid; width: 37px; height: 37px; flex: 0 0 auto; place-items: center; border-radius: 10px; color: var(--accent); background: var(--soft); }
 .metric-icon svg { width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.7; }
-.metric-main { display: flex; align-items: baseline; gap: 8px; margin-top: 8px; }
-.metric-main strong { font-size: clamp(27px, 2.2vw, 43px); letter-spacing: -.05em; line-height: 1; }
+.metric-main { display: flex; align-items: baseline; gap: 9px; margin-top: 12px; }
+.metric-main strong { font-size: clamp(31px, 2.4vw, 47px); letter-spacing: -.05em; line-height: 1; }
 .metric-main small { color: #8a958f; font-size: 9px; }
-.metric-foot { display: flex; align-items: center; gap: 6px; margin-top: 10px; color: #8e9893; font-size: 8px; }
+.metric-foot { display: flex; align-items: center; gap: 7px; margin-top: 12px; color: #8e9893; font-size: 8.5px; }
 .metric-foot i { width: 16px; height: 2px; border-radius: 2px; background: var(--accent); opacity: .7; }
 
 .visual-grid { display: grid; min-height: 0; grid-template-columns: minmax(0, 1.65fr) minmax(260px, .75fr) minmax(260px, .72fr); gap: clamp(10px, 1.1vw, 18px); }
@@ -219,7 +219,7 @@ svg { display: block; }
 .toast { position: fixed; z-index: 20; right: 28px; bottom: 28px; padding: 12px 16px; border: 1px solid #cde4d8; border-radius: 9px; color: var(--green-800); background: #f8fcfa; box-shadow: 0 12px 30px rgba(9,50,34,.15); font-size: 11px; opacity: 0; transform: translateY(10px); transition: .2s; pointer-events: none; }.toast.is-visible { opacity: 1; transform: translateY(0); }
 
 @media (min-width: 1300px) and (min-height: 760px) {
-  .metric-card { min-height: 132px; }
+  .metric-card { min-height: 168px; }
 }
 
 @media (max-width: 1050px) {

@@ -49,25 +49,29 @@
       </section>
 
       <section class="metrics" aria-label="Indicadores principais">
-        <article class="metric-card metric-card--green">
+        <article class="metric-card metric-card--green metric-card--interactive" data-detail="exits" tabindex="0" role="button" aria-haspopup="dialog" aria-controls="metricDetailModal" aria-label="Detalhar as 547 saídas de efetivo">
           <div class="metric-top"><span>Saídas de efetivo (exoneração — aposentadoria)</span><div class="metric-icon"><svg><use href="#icon-alert"></use></svg></div></div>
           <div class="metric-main"><strong>547</strong><small>saídas</small></div>
           <div class="metric-foot"><i></i><span>252 demissões · 88 exonerações · 207 aposentadorias</span></div>
+          <span class="metric-detail-hint">Detalhar <b>→</b></span>
         </article>
-        <article class="metric-card metric-card--blue">
+        <article class="metric-card metric-card--blue metric-card--interactive" data-detail="raio" tabindex="0" role="button" aria-haspopup="dialog" aria-controls="metricDetailModal" aria-label="Detalhar a necessidade de 912 policiais para as bases satélites do RAIO">
           <div class="metric-top"><span>RAIO — Necessidade de efetivo para compor as 20 bases satélites em 3 níveis de implementação</span><div class="metric-icon"><svg><use href="#icon-users"></use></svg></div></div>
           <div class="metric-main"><strong>912</strong><small>policiais</small></div>
           <div class="metric-foot"><i></i><span>20 bases · 31 municípios satélite</span></div>
+          <span class="metric-detail-hint">Detalhar <b>→</b></span>
         </article>
-        <article class="metric-card metric-card--gold">
+        <article class="metric-card metric-card--gold metric-card--interactive" data-detail="pog" tabindex="0" role="button" aria-haspopup="dialog" aria-controls="metricDetailModal" aria-label="Detalhar o déficit de 304 policiais do POG">
           <div class="metric-top"><span>Déficit de efetivo — POG</span><div class="metric-icon"><svg><use href="#icon-trend"></use></svg></div></div>
           <div class="metric-main"><strong>304</strong><small>policiais</small></div>
           <div class="metric-foot"><i></i><span>POG — Policiamento Ordinário · principais unidades militares</span></div>
+          <span class="metric-detail-hint">Detalhar <b>→</b></span>
         </article>
-        <article class="metric-card metric-card--teal">
+        <article class="metric-card metric-card--teal metric-card--interactive" data-detail="copac" tabindex="0" role="button" aria-haspopup="dialog" aria-controls="metricDetailModal" aria-label="Detalhar a necessidade de 229 policiais para o COPAC PReVio">
           <div class="metric-top"><span>COPAC — Necessidade de efetivo para compor as 10 bases, sendo 04 prioritárias em 2026 (PReVio)</span><div class="metric-icon"><svg><use href="#icon-location"></use></svg></div></div>
           <div class="metric-main"><strong>229</strong><small>policiais</small></div>
           <div class="metric-foot"><i></i><span>10 bases · 04 prioritárias em 2026</span></div>
+          <span class="metric-detail-hint">Detalhar <b>→</b></span>
         </article>
       </section>
 
@@ -124,6 +128,16 @@
         <div><i></i><span id="lastUpdate">Fonte consolidada em 21/08/2026</span></div>
       </footer>
     </main>
+    <div class="metric-modal" id="metricDetailModal" aria-hidden="true">
+      <div class="metric-modal-backdrop" data-modal-close></div>
+      <section class="metric-dialog" role="dialog" aria-modal="true" aria-labelledby="metricDetailTitle" aria-describedby="metricDetailDescription">
+        <header class="metric-dialog-header">
+          <div><span id="metricDetailEyebrow">Detalhamento do indicador</span><h2 id="metricDetailTitle">Indicador</h2></div>
+          <button class="metric-dialog-close" id="metricDetailClose" type="button" aria-label="Fechar detalhamento">×</button>
+        </header>
+        <div class="metric-dialog-body" id="metricDetailContent"></div>
+      </section>
+    </div>
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
     <script src="presentation.js"></script>
   </body>

@@ -295,8 +295,9 @@ body.modal-open { overflow: hidden; }
 .raio-cities-heading { display: flex; margin: 0 1px 8px; align-items: flex-end; justify-content: space-between; gap: 12px; }
 .raio-cities-heading strong { color: #334b55; font-size: 10px; }
 .raio-cities-heading span { color: #829096; font-size: 8px; }
-.raio-level-detail .detail-table td:first-child { color: #1b5d40; font-size: 10.5px; font-weight: 800; letter-spacing: .025em; text-transform: uppercase; }
-.raio-level-detail .detail-table td:last-child { color: #176541; font-size: 12px; font-weight: 850; }
+.raio-level-detail .detail-table th:first-child, .raio-level-detail .detail-table th:last-child { color: #155b3d; font-size: 8.5px; font-weight: 850; }
+.raio-level-detail .detail-table td:first-child { color: #155b3d; font-size: 12px; font-weight: 850; letter-spacing: .025em; text-transform: uppercase; }
+.raio-level-detail .detail-table td:last-child { border-left: 1px solid #d9eadf; color: #155b3d; background: #f0f8f3; font-size: 14px; font-weight: 850; letter-spacing: .025em; text-transform: uppercase; }
 
 .presentation-footer { display: flex; min-height: 24px; align-items: center; justify-content: space-between; gap: 15px; color: #7e8984; font-size: 8px; font-weight: 650; letter-spacing: .045em; }
 .presentation-footer > div { display: flex; align-items: center; gap: 7px; font-weight: 500; letter-spacing: 0; }

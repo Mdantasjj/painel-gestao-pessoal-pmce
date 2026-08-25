@@ -106,6 +106,7 @@ svg { display: block; }
 .metric-card--teal { --accent: #2b8982; --soft: #e3f3f1; }
 .metric-card--olive { --accent: #698342; --soft: #edf3e4; }
 .metric-top { display: flex; align-items: center; justify-content: space-between; gap: 10px; color: #5e6a64; font-size: clamp(9px, .7vw, 12px); font-weight: 650; }
+.metric-top > span { line-height: 1.25; }
 .metric-icon { display: grid; width: 33px; height: 33px; flex: 0 0 auto; place-items: center; border-radius: 9px; color: var(--accent); background: var(--soft); }
 .metric-icon svg { width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.7; }
 .metric-main { display: flex; align-items: baseline; gap: 8px; margin-top: 8px; }

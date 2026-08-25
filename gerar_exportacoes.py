@@ -85,13 +85,13 @@ def add_line(slide, x1, y1, x2, y2, line_color=LINE, width=0.7):
     return line
 
 
-def add_card(slide, x, label, value, unit, foot, accent, soft, width=2.45):
+def add_card(slide, x, label, value, unit, foot, accent, soft, width=2.45, label_size=7.8, label_height=0.26):
     y = 1.57
     height = 1.03
     add_shape(slide, MSO_SHAPE.ROUNDED_RECTANGLE, x, y, width, height, WHITE)
     accent_bar = add_shape(slide, MSO_SHAPE.RECTANGLE, x, y + 0.07, 0.035, height - 0.14, accent, accent)
     accent_bar.line.fill.background()
-    add_text(slide, label, x + 0.14, y + 0.13, width - 0.73, 0.26, 7.8, INK, True, valign=MSO_ANCHOR.TOP)
+    add_text(slide, label, x + 0.14, y + 0.13, width - 0.73, label_height, label_size, INK, True, valign=MSO_ANCHOR.TOP)
     badge_x = x + width - 0.41
     badge = add_shape(slide, MSO_SHAPE.ROUNDED_RECTANGLE, badge_x, y + 0.13, 0.28, 0.28, soft, soft)
     badge.line.fill.background()
@@ -206,7 +206,7 @@ def generate_editable_powerpoint() -> None:
     card_x = [0.84, 3.80, 6.76, 9.72]
     card_width = 2.78
     add_card(slide, card_x[0], "Saídas de efetivo", "547", "saídas", "252 dem. · 88 exon. · 207 aposent.", GREEN_600, "E6F4ED", card_width)
-    add_card(slide, card_x[1], "RAIO — Necessidade de efetivo das bases satélites", "912", "policiais", "20 bases · 31 municípios satélite", BLUE, "E7F1F6", card_width)
+    add_card(slide, card_x[1], "RAIO — Necessidade de efetivo para compor\nas 20 bases satélites em 3 níveis de implementação", "912", "policiais", "20 bases · 31 municípios satélite", BLUE, "E7F1F6", card_width, label_size=6.2, label_height=0.34)
     add_card(slide, card_x[2], "Déficit de efetivo — POG", "304", "policiais", "POG — Policiamento Ostensivo Geral · 22 OPM negativas", "B58E35", "F7EFD9", card_width)
     add_card(slide, card_x[3], "COPAC — Necessidade PReVio", "229", "policiais", "Complemento para 12 bases", TEAL, "E3F3F1", card_width)
 

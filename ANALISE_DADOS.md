@@ -11,7 +11,7 @@ Fontes analisadas:
 | Aba | Total utilizado no card | Composição principal |
 |---|---:|---|
 | Saídas de efetivo | 547 saídas | 252 demissões, 88 exonerações e 207 aposentadorias |
-| RAIO — Necessidade de efetivo das bases satélites | 912 policiais | 20 oficiais e 892 praças |
+| RAIO — Necessidade de efetivo para compor as 20 bases satélites em 3 níveis de implementação | 912 policiais | 20 oficiais e 892 praças |
 | Déficit de efetivo do Policiamento Ostensivo Geral (POG) | 304 policiais | Soma dos saldos negativos de 22 OPM, excluídas COGEIC e CGP |
 | COPAC — Necessidade PReVio | 229 policiais | Necessidade complementar para 12 bases |
 | Aposentadorias | 207 militares | Referência estratégica adotada: quantitativo das promoções requeridas |

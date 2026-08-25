@@ -85,7 +85,7 @@ def add_line(slide, x1, y1, x2, y2, line_color=LINE, width=0.7):
     return line
 
 
-def add_card(slide, x, label, value, unit, foot, accent, soft, width=2.45, label_size=7.8, label_height=0.26):
+def add_card(slide, x, label, value, unit, foot, accent, soft, width=2.45, label_size=7.8, label_height=0.26, foot_size=5.5, foot_height=0.16):
     y = 1.57
     height = 1.03
     add_shape(slide, MSO_SHAPE.ROUNDED_RECTANGLE, x, y, width, height, WHITE)
@@ -99,7 +99,7 @@ def add_card(slide, x, label, value, unit, foot, accent, soft, width=2.45, label
     add_text(slide, value, x + 0.14, y + 0.46, 0.78, 0.33, 23, INK, True)
     add_text(slide, unit, x + 0.84, y + 0.55, 0.9, 0.15, 6.7, MUTED)
     add_line(slide, x + 0.14, y + 0.86, x + 0.28, y + 0.86, accent, 1.3)
-    add_text(slide, foot, x + 0.34, y + 0.79, width - 0.49, 0.16, 5.5, MUTED)
+    add_text(slide, foot, x + 0.34, y + 0.77, width - 0.49, foot_height, foot_size, MUTED, valign=MSO_ANCHOR.TOP)
 
 
 def add_panel(slide, x, y, width, height, number, title, subtitle):
@@ -205,10 +205,10 @@ def generate_editable_powerpoint() -> None:
     # Cards editáveis
     card_x = [0.84, 3.80, 6.76, 9.72]
     card_width = 2.78
-    add_card(slide, card_x[0], "Saídas de efetivo", "547", "saídas", "252 dem. · 88 exon. · 207 aposent.", GREEN_600, "E6F4ED", card_width)
+    add_card(slide, card_x[0], "Saídas de efetivo\n(exoneração — aposentadoria)", "547", "saídas", "252 dem. · 88 exon. · 207 aposent.", GREEN_600, "E6F4ED", card_width, label_size=6.8, label_height=0.30)
     add_card(slide, card_x[1], "RAIO — Necessidade de efetivo para compor\nas 20 bases satélites em 3 níveis de implementação", "912", "policiais", "20 bases · 31 municípios satélite", BLUE, "E7F1F6", card_width, label_size=6.2, label_height=0.34)
-    add_card(slide, card_x[2], "Déficit de efetivo — POG", "304", "policiais", "POG — Policiamento Ostensivo Geral · 22 OPM negativas", "B58E35", "F7EFD9", card_width)
-    add_card(slide, card_x[3], "COPAC — Necessidade PReVio", "229", "policiais", "Complemento para 12 bases", TEAL, "E3F3F1", card_width)
+    add_card(slide, card_x[2], "Déficit de efetivo — POG", "304", "policiais", "POG — Policiamento Ordinário · principais unidades militares", "B58E35", "F7EFD9", card_width, foot_size=4.4, foot_height=0.22)
+    add_card(slide, card_x[3], "COPAC — Necessidade de efetivo\npara compor as 10 bases, sendo 04\nprioritárias em 2026 (PReVio)", "229", "policiais", "10 bases · 04 prioritárias em 2026", TEAL, "E3F3F1", card_width, label_size=5.4, label_height=0.30)
 
     # Painel esquerdo: gráfico editável
     add_panel(slide, 0.25, 2.72, 6.73, 4.49, "01", "Demissões e exonerações por mês", "340 das 547 saídas · janeiro a agosto de 2026")
@@ -260,10 +260,10 @@ def generate_editable_powerpoint() -> None:
     # Painel central: necessidades de efetivo
     add_panel(slide, 7.10, 2.72, 3.05, 4.49, "02", "Necessidades de efetivo", "RAIO, POG e COPAC/PReVio")
     add_demand_box(slide, 7.27, 3.34, "RAIO · Bases satélites", "912", "20 bases, 31 municípios satélite e 85,9% operacional.", BLUE)
-    add_demand_box(slide, 7.27, 4.08, "Policiamento Ostensivo Geral (POG)", "304", "22 das 88 OPM apresentam saldo negativo.", "B58E35")
-    add_demand_box(slide, 7.27, 4.82, "COPAC · Necessidade PReVio", "229", "Complemento para 12 bases; 63,6% do padrão projetado.", TEAL)
+    add_demand_box(slide, 7.27, 4.08, "POG · Policiamento Ordinário", "304", "Déficit nas principais unidades militares analisadas.", "B58E35")
+    add_demand_box(slide, 7.27, 4.82, "COPAC · Necessidade PReVio", "229", "10 bases; 04 prioritárias em 2026.", TEAL)
     warning = add_shape(slide, MSO_SHAPE.ROUNDED_RECTANGLE, 7.27, 6.72, 2.72, 0.30, "FBF8EF", "EEE4C9")
-    add_text(slide, "●  304 soma os saldos negativos após excluir COGEIC, CGP e marcadores não OPM.", 7.36, 6.75, 2.55, 0.22, 4.3, "806D3C")
+    add_text(slide, "●  POG — Policiamento Ordinário: 304 soma os saldos negativos após as exclusões.", 7.36, 6.75, 2.55, 0.22, 4.3, "806D3C")
 
     # Painel direito: gráfico de rosca editável
     add_panel(slide, 10.27, 2.72, 2.81, 4.49, "03", "Aposentadorias", "Impacto nas promoções requeridas")

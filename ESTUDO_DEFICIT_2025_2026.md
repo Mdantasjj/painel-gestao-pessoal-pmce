@@ -1,4 +1,4 @@
-# Estudo do déficit de efetivo do Policiamento Ostensivo Geral (POG)
+# Estudo do déficit de efetivo do POG — Policiamento Ordinário
 
 ## Escopo
 

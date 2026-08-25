@@ -12,8 +12,8 @@ Fontes analisadas:
 |---|---:|---|
 | Saídas de efetivo | 547 saídas | 252 demissões, 88 exonerações e 207 aposentadorias |
 | RAIO — Necessidade de efetivo para compor as 20 bases satélites em 3 níveis de implementação | 912 policiais | 20 oficiais e 892 praças |
-| Déficit de efetivo do Policiamento Ostensivo Geral (POG) | 304 policiais | Soma dos saldos negativos de 22 OPM, excluídas COGEIC e CGP |
-| COPAC — Necessidade PReVio | 229 policiais | Necessidade complementar para 12 bases |
+| Déficit de efetivo do POG — Policiamento Ordinário | 304 policiais | Principais unidades militares; soma dos saldos negativos de 22 OPM, excluídas COGEIC e CGP |
+| COPAC — Necessidade de efetivo PReVio | 229 policiais | Composição de 10 bases, sendo 04 prioritárias em 2026 |
 | Aposentadorias | 207 militares | Referência estratégica adotada: quantitativo das promoções requeridas |
 
 ## Principais achados
@@ -25,7 +25,7 @@ Fontes analisadas:
 - Após as exclusões metodológicas, 88 OPM foram analisadas: 22 apresentaram saldo negativo, 64 ganho líquido e duas equilíbrio. A soma dos saldos negativos é 304 policiais.
 - O saldo líquido das OPM incluídas é +676, com 2.309 registros de origem e 2.985 de destino. Esse saldo positivo não elimina os déficits localizados.
 - O 1º CRPM tem o maior saldo negativo individual (-145), seguido pelo 12º BPM (-37) e pelo 8º BPM (-23). Juntos, representam 67,4% do déficit acumulado.
-- O COPAC requer complemento de 229 policiais, equivalente a 63,6% do padrão total de 360. Julho concentra a maior necessidade mensal, com 90 policiais.
+- O COPAC mantém o indicador de 229 policiais e destaca a composição de 10 bases, sendo 04 prioritárias em 2026.
 - Das 207 promoções requeridas, 153 correspondem ao acesso de SUBTEN PM a 2ºTEN QOAPM, representando 73,9% do total.
 
 ## Ressalvas metodológicas

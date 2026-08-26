@@ -264,8 +264,7 @@ const metricDetails = {
     stats: [
       ['OPMs analisadas', '88', 'Após as exclusões metodológicas'],
       ['Saldo negativo', '22 OPM', 'Unidades que compõem o déficit de 304'],
-      ['Ganho líquido', '64 OPM', 'Duas outras OPM ficaram em equilíbrio'],
-      ['Saldo global', '+676', '2.309 origens e 2.985 destinos']
+      ['Ganho líquido', '64 OPM', 'Duas outras OPM ficaram em equilíbrio']
     ],
     breakdown: [
       ['1º CRPM', 47.7, '145 · 47,7%', '#9b7626'],

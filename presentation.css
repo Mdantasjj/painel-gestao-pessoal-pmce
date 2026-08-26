@@ -243,7 +243,7 @@ body.modal-open { overflow: hidden; }
 .detail-total-card small { color: #6f7c75; font-size: 11.5px; }
 .detail-total-card p { margin: 12px 0 0; color: #59675f; font-size: 11.5px; line-height: 1.5; }
 .detail-stat-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
-.detail-stat { padding: 14px 15px; border: 1px solid #dfe7e3; border-radius: 11px; background: #fff; }
+.detail-stat { display: flex; min-height: 94px; padding: 14px 15px; align-items: center; justify-content: center; flex-direction: column; border: 1px solid #dfe7e3; border-radius: 11px; text-align: center; background: #fff; }
 .detail-stat span { display: block; color: #74817a; font-size: 9.5px; font-weight: 720; text-transform: uppercase; letter-spacing: .045em; }
 .detail-stat strong { display: block; margin-top: 5px; color: #26372f; font-size: 23px; }
 .detail-stat small { display: block; margin-top: 4px; color: #7b8781; font-size: 9.5px; line-height: 1.35; }

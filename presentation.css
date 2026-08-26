@@ -315,6 +315,10 @@ body.modal-open { overflow: hidden; }
 #metricDetailContent[data-detail="copac"] .detail-table td:nth-child(5) { border-left: 1px solid #9bc9ab; color: #083f29; background: #c7e5d1; box-shadow: inset 4px 0 #23794f; font-size: 15px; font-weight: 850; letter-spacing: .025em; }
 #metricDetailContent[data-detail="exits"] .detail-table th:last-child,
 #metricDetailContent[data-detail="exits"] .detail-table td:last-child { text-align: center; }
+#metricDetailContent[data-detail="pog"] .detail-table th:nth-child(5),
+#metricDetailContent[data-detail="pog"] .detail-table td:nth-child(5),
+#metricDetailContent[data-detail="copac"] .detail-table th:nth-child(5),
+#metricDetailContent[data-detail="copac"] .detail-table td:nth-child(5) { text-align: center; }
 #metricDetailContent[data-detail="exits"] .detail-table tbody tr:hover td:first-child,
 #metricDetailContent[data-detail="pog"] .detail-table tbody tr:hover td:nth-child(2),
 #metricDetailContent[data-detail="copac"] .detail-table tbody tr:hover td:nth-child(2) { background: #d5eadc; }

@@ -254,7 +254,7 @@ body.modal-open { overflow: hidden; }
 .detail-section-heading > span { color: var(--green-700); font-size: 9.5px; font-weight: 750; text-transform: uppercase; }
 .detail-breakdown { display: grid; gap: 9px; }
 .detail-breakdown-row { display: grid; grid-template-columns: minmax(130px, 1fr) minmax(180px, 2.5fr) 92px; align-items: center; gap: 12px; }
-.detail-breakdown-row > span { color: #45534c; font-size: 10.5px; font-weight: 680; }
+.detail-breakdown-row > span { color: #45534c; font-size: 10.5px; font-weight: 720; letter-spacing: .035em; text-transform: uppercase; }
 .detail-breakdown-track { height: 10px; overflow: hidden; border-radius: 9px; background: #eaf0ed; }
 .detail-breakdown-track i { display: block; height: 100%; border-radius: inherit; background: var(--row-color, var(--green-600)); }
 .detail-breakdown-row strong { color: #2d3d35; font-size: 10.5px; text-align: right; }

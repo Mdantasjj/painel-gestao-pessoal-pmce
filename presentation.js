@@ -274,13 +274,13 @@ const metricDetails = {
     ],
     sectionTitle: 'Principais unidades com saldo negativo',
     sectionSubtitle: 'Ranking das dez maiores perdas dentro do déficit acumulado de 304 policiais.',
-    tableColumns: ['Posição', 'OPM', 'Origem', 'Destino', 'Saldo', 'Participação'],
+    tableColumns: ['Posição', 'OPM', 'Origem', 'Destino', 'Participação', 'Saldo'],
     tableRows: [
-      ['1', '1º CRPM', '154', '9', '-145', '47,7%'], ['2', '12º BPM', '96', '59', '-37', '12,2%'],
-      ['3', '8º BPM', '66', '43', '-23', '7,6%'], ['4', '2º CRPM', '14', '1', '-13', '4,3%'],
-      ['5', 'BPMA', '29', '17', '-12', '3,9%'], ['6', '22º BPM', '51', '41', '-10', '3,3%'],
-      ['7', '26º BPM', '57', '48', '-9', '3,0%'], ['8', '5º BPM', '54', '45', '-9', '3,0%'],
-      ['9', '23º BPM', '42', '34', '-8', '2,6%'], ['10', '3º CRPM', '7', '1', '-6', '2,0%']
+      ['1', '1º CRPM', '154', '9', '47,7%', '-145'], ['2', '12º BPM', '96', '59', '12,2%', '-37'],
+      ['3', '8º BPM', '66', '43', '7,6%', '-23'], ['4', '2º CRPM', '14', '1', '4,3%', '-13'],
+      ['5', 'BPMA', '29', '17', '3,9%', '-12'], ['6', '22º BPM', '51', '41', '3,3%', '-10'],
+      ['7', '26º BPM', '57', '48', '3,0%', '-9'], ['8', '5º BPM', '54', '45', '3,0%', '-9'],
+      ['9', '23º BPM', '42', '34', '2,6%', '-8'], ['10', '3º CRPM', '7', '1', '2,0%', '-6']
     ],
     note: 'Foram excluídos COGEIC, CGP e os marcadores não OPM “-” e “(vazio)”. O indicador mede perdas nas movimentações; o déficit estrutural exige comparar efetivo previsto e efetivo atual.'
   },

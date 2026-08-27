@@ -313,22 +313,22 @@ body.modal-open { overflow: hidden; }
 #metricDetailContent[data-detail="copac"] .detail-table td:nth-child(2) { border-left: 4px solid #2f8b5d; color: #104e34; background: #e4f2e9; font-size: 13px; font-weight: 850; letter-spacing: .025em; text-transform: uppercase; }
 #metricDetailContent[data-detail="exits"] .detail-table th:last-child,
 #metricDetailContent[data-detail="pog"] .detail-table th:nth-child(5),
-#metricDetailContent[data-detail="copac"] .detail-table th:nth-child(5) { color: #fff; background: #216f4c; font-size: 10px; font-weight: 850; }
+#metricDetailContent[data-detail="copac"] .detail-table th:last-child { color: #fff; background: #216f4c; font-size: 10px; font-weight: 850; }
 #metricDetailContent[data-detail="exits"] .detail-table td:last-child,
 #metricDetailContent[data-detail="pog"] .detail-table td:nth-child(5),
-#metricDetailContent[data-detail="copac"] .detail-table td:nth-child(5) { border-left: 1px solid #9bc9ab; color: #083f29; background: #c7e5d1; box-shadow: inset 4px 0 #23794f; font-size: 15px; font-weight: 850; letter-spacing: .025em; }
+#metricDetailContent[data-detail="copac"] .detail-table td:last-child { border-left: 1px solid #9bc9ab; color: #083f29; background: #c7e5d1; box-shadow: inset 4px 0 #23794f; font-size: 15px; font-weight: 850; letter-spacing: .025em; }
 #metricDetailContent[data-detail="exits"] .detail-table th:last-child,
 #metricDetailContent[data-detail="exits"] .detail-table td:last-child { text-align: center; }
 #metricDetailContent[data-detail="pog"] .detail-table th:nth-child(5),
 #metricDetailContent[data-detail="pog"] .detail-table td:nth-child(5),
-#metricDetailContent[data-detail="copac"] .detail-table th:nth-child(5),
-#metricDetailContent[data-detail="copac"] .detail-table td:nth-child(5) { text-align: center; }
+#metricDetailContent[data-detail="copac"] .detail-table th:last-child,
+#metricDetailContent[data-detail="copac"] .detail-table td:last-child { text-align: center; }
 #metricDetailContent[data-detail="exits"] .detail-table tbody tr:hover td:first-child,
 #metricDetailContent[data-detail="pog"] .detail-table tbody tr:hover td:nth-child(2),
 #metricDetailContent[data-detail="copac"] .detail-table tbody tr:hover td:nth-child(2) { background: #d5eadc; }
 #metricDetailContent[data-detail="exits"] .detail-table tbody tr:hover td:last-child,
 #metricDetailContent[data-detail="pog"] .detail-table tbody tr:hover td:nth-child(5),
-#metricDetailContent[data-detail="copac"] .detail-table tbody tr:hover td:nth-child(5) { background: #b4d9c0; }
+#metricDetailContent[data-detail="copac"] .detail-table tbody tr:hover td:last-child { background: #b4d9c0; }
 
 .presentation-footer { display: flex; min-height: 27px; align-items: center; justify-content: space-between; gap: 15px; color: #6f7c75; font-size: 9.5px; font-weight: 650; letter-spacing: .045em; }
 .presentation-footer > div { display: flex; align-items: center; gap: 7px; font-weight: 500; letter-spacing: 0; }

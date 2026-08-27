@@ -304,14 +304,14 @@ const metricDetails = {
     ],
     sectionTitle: 'Unidades existentes na base quantitativa',
     sectionSubtitle: 'Detalhamento das 12 unidades que, somadas, produzem o indicador atual de 229 policiais.',
-    tableColumns: ['Nº', 'Unidade/base', 'Entrega', 'Padrão mínimo', 'Necessidade', 'Situação'],
+    tableColumns: ['Nº', 'Unidade/base', 'Entrega', 'Padrão mínimo', 'Situação', 'Necessidade'],
     tableRows: [
-      ['1', 'Itapipoca', 'Abril', '30', '30', 'Integral'], ['2', 'Quixadá', 'Abril', '30', '30', 'Integral'],
-      ['3', 'Maranguape', 'Abril', '30', '15', 'Parcial'], ['4', 'Caucaia 1', 'Maio', '30', '0', 'Sem complemento'],
-      ['5', 'Fortaleza', 'Maio', '30', '15', 'Parcial'], ['6', 'Iguatu', 'Junho', '30', '30', 'Integral'],
-      ['7', 'Juazeiro do Norte', 'Junho', '30', '2', 'Parcial'], ['8', 'Maracanaú 1', 'Junho', '30', '15', 'Parcial'],
-      ['9', 'Sobral', 'Junho', '30', '2', 'Parcial'], ['10', 'Caucaia 2', 'Julho', '30', '30', 'Integral'],
-      ['11', 'Crato', 'Julho', '30', '30', 'Integral'], ['12', 'Maracanaú 2', 'Julho', '30', '30', 'Integral']
+      ['1', 'Itapipoca', 'Abril', '30', 'Integral', '30'], ['2', 'Quixadá', 'Abril', '30', 'Integral', '30'],
+      ['3', 'Maranguape', 'Abril', '30', 'Parcial', '15'], ['4', 'Caucaia 1', 'Maio', '30', 'Sem complemento', '0'],
+      ['5', 'Fortaleza', 'Maio', '30', 'Parcial', '15'], ['6', 'Iguatu', 'Junho', '30', 'Integral', '30'],
+      ['7', 'Juazeiro do Norte', 'Junho', '30', 'Parcial', '2'], ['8', 'Maracanaú 1', 'Junho', '30', 'Parcial', '15'],
+      ['9', 'Sobral', 'Junho', '30', 'Parcial', '2'], ['10', 'Caucaia 2', 'Julho', '30', 'Integral', '30'],
+      ['11', 'Crato', 'Julho', '30', 'Integral', '30'], ['12', 'Maracanaú 2', 'Julho', '30', 'Integral', '30']
     ],
     note: 'Ponto de atenção: o título estratégico menciona 10 bases e 04 prioritárias, mas a planilha disponível contém 12 unidades e não identifica as quatro prioridades. Para recalcular o total de 229 no novo escopo, é necessário indicar quais duas unidades serão retiradas e quais quatro são prioritárias.'
   }

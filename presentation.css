@@ -218,6 +218,9 @@ svg { display: block; }
 .horizontal-bar-row { display: grid; min-width: 0; grid-template-columns: 22px minmax(65px, 95px) minmax(80px, 1fr) 74px; align-items: center; gap: 8px; }
 .horizontal-rank { color: #89948f; font-size: 8.5px; font-weight: 800; font-variant-numeric: tabular-nums; }
 .horizontal-bar-row > strong { overflow: hidden; color: #45534c; font-size: 9.5px; text-overflow: ellipsis; white-space: nowrap; }
+.horizontal-unit-label { display: flex; min-width: 0; align-items: flex-start; flex-direction: column; gap: 2px; }
+.horizontal-unit-label strong { overflow: hidden; max-width: 100%; color: #28533f; font-size: 9.5px; line-height: 1.1; text-overflow: ellipsis; white-space: nowrap; }
+.horizontal-unit-label small { overflow: hidden; max-width: 100%; color: #668073; font-size: 8px; font-weight: 650; line-height: 1.15; text-overflow: ellipsis; white-space: nowrap; }
 .horizontal-track { height: 9px; overflow: hidden; border-radius: 9px; background: #eaf0ed; }
 .horizontal-track i { display: block; height: 100%; border-radius: inherit; background: var(--origin-color, var(--green-600)); box-shadow: 0 2px 6px color-mix(in srgb, var(--origin-color, var(--green-600)), transparent 76%); }
 .horizontal-value { color: #2d3d35; font-size: 9.5px; font-weight: 800; text-align: right; font-variant-numeric: tabular-nums; }
@@ -259,6 +262,9 @@ body.modal-open { overflow: hidden; }
 .detail-breakdown { display: grid; gap: 9px; }
 .detail-breakdown-row { display: grid; grid-template-columns: minmax(130px, 1fr) minmax(180px, 2.5fr) 92px; align-items: center; gap: 12px; }
 .detail-breakdown-row > span { color: #45534c; font-size: 10.5px; font-weight: 720; letter-spacing: .035em; text-transform: uppercase; }
+.detail-breakdown-row > .detail-breakdown-label { display: flex; align-items: flex-start; flex-direction: column; gap: 3px; text-transform: none; }
+.detail-breakdown-label strong { color: #28533f; font-size: 10.5px; line-height: 1.1; text-transform: uppercase; }
+.detail-breakdown-label small { color: #668073; font-size: 8.5px; font-weight: 650; letter-spacing: .01em; line-height: 1.2; }
 .detail-breakdown-track { height: 10px; overflow: hidden; border-radius: 9px; background: #eaf0ed; }
 .detail-breakdown-track i { display: block; height: 100%; border-radius: inherit; background: var(--row-color, var(--green-600)); }
 .detail-breakdown-row strong { color: #2d3d35; font-size: 10.5px; text-align: right; }

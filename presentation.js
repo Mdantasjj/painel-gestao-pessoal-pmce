@@ -112,14 +112,18 @@ const originByCity = [
   ['Sobral', 6]
 ];
 
-function renderHorizontalBars(target, rows, total, color) {
+function renderHorizontalBars(target, rows, total, color, showTerritory = false) {
   const maximum = Math.max(...rows.map(([, value]) => value));
   document.querySelector(target).innerHTML = rows.map(([label, value], index) => {
     const width = Math.max((value / maximum) * 100, 3);
     const share = ((value / total) * 100).toLocaleString('pt-BR', { maximumFractionDigits: 1 });
+    const territory = showTerritory ? getPogTerritory(label) : null;
+    const unitLabel = territory
+      ? `<span class="horizontal-unit-label"><strong>${label}</strong><small>${territory.cities[0]}</small></span>`
+      : `<strong>${label}</strong>`;
     return `<div class="horizontal-bar-row">
       <span class="horizontal-rank">${String(index + 1).padStart(2, '0')}</span>
-      <strong>${label}</strong>
+      ${unitLabel}
       <div class="horizontal-track"><i style="width:${width}%;--origin-color:${color}"></i></div>
       <span class="horizontal-value">${value} <small>${share}%</small></span>
     </div>`;
@@ -127,7 +131,7 @@ function renderHorizontalBars(target, rows, total, color) {
 }
 
 function renderOrigins() {
-  renderHorizontalBars('#opmOriginChart', originByOpm, 326, '#1b8258');
+  renderHorizontalBars('#opmOriginChart', originByOpm, 326, '#1b8258', true);
   renderHorizontalBars('#cityOriginChart', originByCity, 326, '#3b7e9d');
 }
 
@@ -487,7 +491,7 @@ function renderPogUnitDetail(unitName) {
   const signedBalance = balance > 0 ? `+${balance}` : String(balance);
   const share = netLoss ? `${(netLoss / 304 * 100).toFixed(1).replace('.', ',')}% do déficit acumulado` : 'Não compõe o déficit acumulado';
   const sourceNote = name === '1º CRPM'
-    ? 'O PDF atribui diretamente 154 saídas e 9 entradas ao 1º CRPM. Como a fonte é consolidada por OPM e não informa o batalhão de vínculo de cada movimentação, essas 154 saídas não podem ser redistribuídas com segurança entre os batalhões.'
+    ? 'O PDF atribui diretamente 154 saídas e 9 entradas ao 1º CRPM — Fortaleza. Como a fonte é consolidada por OPM e não informa o batalhão de vínculo de cada movimentação, essas 154 saídas não podem ser redistribuídas com segurança entre os batalhões.'
     : 'O PDF fornece totais consolidados por OPM. Ele não identifica o militar, o batalhão subordinado ou o pareamento individual entre unidade de origem e unidade de destino.';
   const territory = getPogTerritory(name);
   const territoryLine = territory
@@ -515,12 +519,18 @@ function renderMetricDetail(key) {
   metricDetailEyebrow.textContent = data.eyebrow;
   metricDetailTitle.textContent = data.title;
   const stats = data.stats.map(([label, value, note]) => `<div class="detail-stat"><span>${label}</span><strong>${value}</strong><small>${note}</small></div>`).join('');
-  const breakdown = data.breakdown.map(([label, share, value, rowColor]) => `
+  const breakdown = data.breakdown.map(([label, share, value, rowColor]) => {
+    const territory = key === 'pog' ? getPogTerritory(label) : null;
+    const breakdownLabel = territory
+      ? `<span class="detail-breakdown-label"><strong>${label}</strong><small>${territory.cities[0]}</small></span>`
+      : `<span>${label}</span>`;
+    return `
     <div class="detail-breakdown-row">
-      <span>${label}</span>
+      ${breakdownLabel}
       <div class="detail-breakdown-track"><i style="width:${share}%;--row-color:${rowColor}"></i></div>
       <strong>${value}</strong>
-    </div>`).join('');
+    </div>`;
+  }).join('');
   const levelSelector = key === 'raio' ? renderRaioLevelSelector(data) : '';
   const pogUnitExplorer = key === 'pog' ? renderPogUnitExplorer(data) : '';
   const discriminatedTable = key === 'raio' ? '' : `

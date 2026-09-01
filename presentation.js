@@ -282,6 +282,37 @@ const metricDetails = {
       ['7', '26º BPM', '57', '48', '3,0%', '-9'], ['8', '5º BPM', '54', '45', '3,0%', '-9'],
       ['9', '23º BPM', '42', '34', '2,6%', '-8'], ['10', '3º CRPM', '7', '1', '2,0%', '-6']
     ],
+    units: [
+      ['10º BPM', 9, 27, 18], ['11º BPM', 56, 54, -2], ['12º BPM', 96, 59, -37],
+      ['13º BPM', 17, 28, 11], ['14º BPM', 45, 51, 6], ['15º BPM', 38, 37, -1],
+      ['16º BPM', 103, 106, 3], ['17º BPM', 53, 49, -4], ['18º BPM', 77, 85, 8],
+      ['19º BPM', 57, 70, 13], ['1ª CPG', 20, 84, 64], ['1º BPM', 27, 50, 23],
+      ['1º BPRAIO', 12, 11, -1], ['1º CRPM', 154, 9, -145], ['20º BPM', 76, 80, 4],
+      ['21º BPM', 81, 84, 3], ['22º BPM', 51, 41, -10], ['23º BPM', 42, 34, -8],
+      ['24º BPM', 33, 29, -4], ['25º BPM', 46, 45, -1], ['26º BPM', 57, 48, -9],
+      ['27º BPM', 13, 10, -3], ['28º BPM', 14, 19, 5], ['29º BPM', 28, 28, 0],
+      ['2ª CPG', 11, 24, 13], ['2º BPM', 50, 78, 28], ['2º BPRAIO', 15, 31, 16],
+      ['2º CRPM', 14, 1, -13], ['30º BPM', 16, 22, 6], ['31º BPM', 10, 22, 12],
+      ['32º BPM', 8, 17, 9], ['33º BPM', 6, 18, 12], ['34º BPM', 14, 15, 1],
+      ['3ª CPG', 10, 37, 27], ['3º BPM', 76, 79, 3], ['3º BPRAIO', 6, 66, 60],
+      ['3º CRPM', 7, 1, -6], ['4º BPM', 21, 21, 0], ['4º BPRAIO', 21, 48, 27],
+      ['4º CRPM', 2, 1, -1], ['5º BPM', 54, 45, -9], ['5º BPRAIO', 12, 66, 54],
+      ['5º CRPM', 12, 121, 109], ['6º BPM', 43, 47, 4], ['7º BPM', 34, 37, 3],
+      ['8º BPM', 66, 43, -23], ['8º CRPM', 2, 8, 6], ['9º BPM', 42, 71, 29],
+      ['AGCG', 4, 7, 3], ['ASCOM', 6, 4, -2], ['ASINT', 6, 15, 9],
+      ['ASJUR', 2, 3, 1], ['BEPI', 35, 37, 2], ['BOPE', 1, 3, 2],
+      ['BPCHOQUE', 28, 81, 53], ['BPGEP', 41, 44, 3], ['BPMA', 29, 17, -12],
+      ['BPRE', 57, 61, 4], ['BPTUR', 62, 70, 8], ['CCPM', 20, 33, 13],
+      ['CGD', 3, 6, 3], ['COAFI', 8, 10, 2], ['CODIP', 3, 7, 4],
+      ['COGEPRO', 7, 16, 9], ['COLOG', 22, 34, 12], ['COPAC', 68, 65, -3],
+      ['COTAM', 25, 26, 1], ['COTIC', 3, 7, 4], ['CPE', 20, 15, -5],
+      ['CPJMD', 5, 7, 2], ['DPGI', 4, 8, 4], ['DPGO', 7, 8, 1],
+      ['DS', 8, 56, 48], ['OUVIDORIA', 5, 6, 1], ['QCG', 23, 52, 29],
+      ['RPMONT', 17, 12, -5], ['SSPDS', 26, 175, 149], ['SUBCMDO GERAL', 7, 8, 1],
+      ['1º BPCHOQUE', 0, 1, 1], ['1º CPMGEF', 0, 2, 2], ['6º CRPM', 0, 14, 14],
+      ['7º CRPM', 0, 7, 7], ['ASCOI', 0, 2, 2], ['BSP', 0, 1, 1],
+      ['CBMPM', 0, 1, 1], ['CPCHOQUE', 0, 3, 3], ['CPRAIO', 0, 3, 3], ['SENASP', 0, 1, 1]
+    ],
     note: 'Foram excluídos COGEIC, CGP e os marcadores não OPM “-” e “(vazio)”. O indicador mede perdas nas movimentações; o déficit estrutural exige comparar efetivo previsto e efetivo atual.'
   },
   copac: {
@@ -388,6 +419,52 @@ function renderRaioLevelDetail(levelId) {
   detail.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }
 
+function renderPogUnitExplorer(data) {
+  const options = [...data.units]
+    .sort((a, b) => a[0].localeCompare(b[0], 'pt-BR', { numeric: true }))
+    .map(([name]) => `<option value="${name}"${name === '1º CRPM' ? ' selected' : ''}>${name}</option>`)
+    .join('');
+  return `
+    <section class="detail-section pog-unit-section">
+      <div class="detail-section-heading">
+        <div><h3>Consultar perdas por unidade</h3><p>Selecione uma das 88 OPMs para discriminar saídas, entradas, saldo e perda líquida.</p></div>
+        <span>Consulta individual</span>
+      </div>
+      <label class="pog-unit-control" for="pogUnitSelect">
+        <span>Unidade militar</span>
+        <select id="pogUnitSelect">${options}</select>
+      </label>
+      <div class="pog-unit-result" id="pogUnitResult" aria-live="polite"></div>
+    </section>`;
+}
+
+function renderPogUnitDetail(unitName) {
+  const unit = metricDetails.pog.units.find(([name]) => name === unitName);
+  const result = document.querySelector('#pogUnitResult');
+  if (!unit || !result) return;
+  const [name, exits, entries, balance] = unit;
+  const netLoss = Math.max(0, -balance);
+  const status = balance < 0 ? 'Perda líquida' : balance > 0 ? 'Ganho líquido' : 'Equilíbrio';
+  const statusClass = balance < 0 ? 'is-loss' : balance > 0 ? 'is-gain' : 'is-balanced';
+  const signedBalance = balance > 0 ? `+${balance}` : String(balance);
+  const share = netLoss ? `${(netLoss / 304 * 100).toFixed(1).replace('.', ',')}% do déficit acumulado` : 'Não compõe o déficit acumulado';
+  const sourceNote = name === '1º CRPM'
+    ? 'O PDF atribui diretamente 154 saídas e 9 entradas ao 1º CRPM. Como a fonte é consolidada por OPM e não informa o batalhão de vínculo de cada movimentação, essas 154 saídas não podem ser redistribuídas com segurança entre os batalhões.'
+    : 'O PDF fornece totais consolidados por OPM. Ele não identifica o militar, o batalhão subordinado ou o pareamento individual entre unidade de origem e unidade de destino.';
+  result.innerHTML = `
+    <div class="pog-unit-result-heading">
+      <div><span>Unidade selecionada</span><strong>${name}</strong></div>
+      <b class="${statusClass}">${status}</b>
+    </div>
+    <div class="pog-unit-values">
+      <div><span>Saídas registradas</span><strong>${exits.toLocaleString('pt-BR')}</strong><small>Total lançado na coluna Origem</small></div>
+      <div><span>Entradas registradas</span><strong>${entries.toLocaleString('pt-BR')}</strong><small>Total lançado na coluna Destino</small></div>
+      <div><span>Saldo da unidade</span><strong>${signedBalance}</strong><small>${entries} entradas − ${exits} saídas</small></div>
+      <div class="${netLoss ? 'is-loss' : ''}"><span>Perda líquida</span><strong>${netLoss}</strong><small>${share}</small></div>
+    </div>
+    <p class="pog-unit-source-note">${sourceNote}</p>`;
+}
+
 function renderMetricDetail(key) {
   const data = metricDetails[key];
   if (!data) return;
@@ -403,6 +480,7 @@ function renderMetricDetail(key) {
       <strong>${value}</strong>
     </div>`).join('');
   const levelSelector = key === 'raio' ? renderRaioLevelSelector(data) : '';
+  const pogUnitExplorer = key === 'pog' ? renderPogUnitExplorer(data) : '';
   const discriminatedTable = key === 'raio' ? '' : `
     <section class="detail-section">
       <div class="detail-section-heading"><div><h3>${data.sectionTitle}</h3><p>${data.sectionSubtitle}</p></div><span>Dados discriminados</span></div>
@@ -417,12 +495,14 @@ function renderMetricDetail(key) {
       <div class="detail-stat-grid">${stats}</div>
     </div>
     ${levelSelector}
+    ${pogUnitExplorer}
     <section class="detail-section">
       <div class="detail-section-heading"><div><h3>Composição do indicador</h3><p>Participação de cada componente no total ou no recorte analisado.</p></div><span>Leitura percentual</span></div>
       <div class="detail-breakdown">${breakdown}</div>
     </section>
     ${discriminatedTable}
     <p class="detail-methodology">${data.note}</p>`;
+  if (key === 'pog') renderPogUnitDetail('1º CRPM');
 }
 
 function openMetricDetail(card) {
@@ -460,6 +540,9 @@ metricModal.querySelector('[data-modal-close]').addEventListener('click', closeM
 metricDetailContent.addEventListener('click', (event) => {
   const button = event.target.closest('[data-raio-level]');
   if (button) renderRaioLevelDetail(button.dataset.raioLevel);
+});
+metricDetailContent.addEventListener('change', (event) => {
+  if (event.target.matches('#pogUnitSelect')) renderPogUnitDetail(event.target.value);
 });
 metricModal.addEventListener('keydown', (event) => {
   if (event.key === 'Escape') closeMetricDetail();

@@ -12,6 +12,8 @@ Os quatro cards são clicáveis e também podem ser acionados pelas teclas `Ente
 
 Nas tabelas de detalhamento, as colunas de identificação e os valores estratégicos recebem tipografia ampliada e destaque em verde: cidade-polo e total no RAIO, mês e total mensal nas saídas, OPM e saldo no POG, unidade/base e necessidade no COPAC.
 
+O detalhamento do POG possui uma consulta para as 88 OPMs válidas do estudo. Ao selecionar uma unidade, são apresentados os totais de saídas, entradas, saldo e perda líquida. Para o 1º CRPM, o painel ressalta que os 154 registros de origem são atribuídos diretamente ao comando regional pelo PDF consolidado e não podem ser redistribuídos entre batalhões sem a base individualizada.
+
 O detalhamento apresenta somente informações agregadas, sem nomes ou matrículas. No COPAC, a janela destaca que o título estratégico menciona 10 bases e 04 prioritárias, enquanto a fonte quantitativa disponível contém 12 unidades e não identifica quais são as quatro prioridades.
 
 No detalhamento do RAIO, três botões permitem escolher os níveis de implantação. Antes da escolha, cada botão informa o total de bases, municípios satélites e policiais do respectivo nível. Após a seleção, o painel discrimina as cidades-polo, os municípios satélites e a composição do efetivo por base.

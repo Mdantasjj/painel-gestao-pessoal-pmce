@@ -305,6 +305,27 @@ body.modal-open { overflow: hidden; }
 .raio-level-detail .detail-table th:last-child, .raio-level-detail .detail-table td:last-child { text-align: center; }
 .raio-level-detail .detail-table tbody tr:hover td:first-child { background: #d5eadc; }
 .raio-level-detail .detail-table tbody tr:hover td:last-child { background: #b4d9c0; }
+.pog-unit-section { border-color: #dfd3b3; background: linear-gradient(180deg, #fffdf8, #fff); }
+.pog-unit-control { display: grid; grid-template-columns: 145px minmax(220px, 1fr); align-items: center; gap: 12px; padding: 12px 14px; border: 1px solid #e3e8e5; border-radius: 10px; background: #f8faf9; }
+.pog-unit-control > span { color: #53615a; font-size: 10px; font-weight: 800; letter-spacing: .045em; text-transform: uppercase; }
+.pog-unit-control select { width: 100%; min-height: 42px; padding: 8px 36px 8px 12px; border: 1px solid #bfcfc7; border-radius: 8px; color: #20342a; background: #fff; font-size: 12px; font-weight: 720; cursor: pointer; }
+.pog-unit-control select:focus-visible { outline: 3px solid rgba(181, 142, 53, .24); outline-offset: 2px; border-color: #b58e35; }
+.pog-unit-result { margin-top: 12px; }
+.pog-unit-result-heading { display: flex; padding: 12px 14px; align-items: center; justify-content: space-between; gap: 14px; border-radius: 10px 10px 0 0; color: #fff; background: linear-gradient(110deg, #725919, #a47d26); }
+.pog-unit-result-heading span { display: block; color: #f0dfb5; font-size: 8.5px; font-weight: 800; letter-spacing: .07em; text-transform: uppercase; }
+.pog-unit-result-heading strong { display: block; margin-top: 3px; font-size: 17px; }
+.pog-unit-result-heading > b { padding: 6px 9px; border: 1px solid rgba(255,255,255,.28); border-radius: 14px; font-size: 9px; text-transform: uppercase; }
+.pog-unit-result-heading > b.is-loss { color: #fff; background: rgba(114, 25, 25, .34); }
+.pog-unit-result-heading > b.is-gain { color: #fff; background: rgba(16, 92, 60, .38); }
+.pog-unit-result-heading > b.is-balanced { color: #fff; background: rgba(255,255,255,.12); }
+.pog-unit-values { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1px; overflow: hidden; border: 1px solid #dde5e1; border-top: 0; background: #dde5e1; }
+.pog-unit-values > div { display: flex; min-height: 92px; padding: 12px; align-items: center; justify-content: center; flex-direction: column; text-align: center; background: #fff; }
+.pog-unit-values span { color: #6b7871; font-size: 8.5px; font-weight: 760; letter-spacing: .035em; text-transform: uppercase; }
+.pog-unit-values strong { margin-top: 5px; color: #24372e; font-size: 24px; line-height: 1; }
+.pog-unit-values small { margin-top: 5px; color: #7b8781; font-size: 8.5px; line-height: 1.3; }
+.pog-unit-values > div.is-loss { background: #f7e9e7; }
+.pog-unit-values > div.is-loss strong { color: #9b3c32; }
+.pog-unit-source-note { margin: 0; padding: 11px 13px; border: 1px solid #e6d7ae; border-top: 0; border-radius: 0 0 10px 10px; color: #69582f; background: #fbf6e9; font-size: 9.5px; line-height: 1.5; }
 #metricDetailContent[data-detail="exits"] .detail-table th:first-child,
 #metricDetailContent[data-detail="pog"] .detail-table th:nth-child(2),
 #metricDetailContent[data-detail="copac"] .detail-table th:nth-child(2) { color: #fff; background: #216f4c; font-size: 10px; font-weight: 850; }
@@ -380,6 +401,7 @@ body.modal-open { overflow: hidden; }
   .detail-breakdown-row { grid-template-columns: 105px 1fr 72px; gap: 8px; }
   .raio-level-selector { grid-template-columns: 1fr; }
   .raio-level-summary { grid-template-columns: repeat(4, minmax(68px, 1fr)); }
+  .pog-unit-values { grid-template-columns: 1fr 1fr; }
   .origins-panel { min-height: 0; }
   .situation-panel { grid-column: auto; }
   .panel, .trend-panel, .territory-panel, .situation-panel { min-height: 360px; }
@@ -397,6 +419,9 @@ body.modal-open { overflow: hidden; }
   .detail-stat-grid { grid-template-columns: 1fr; }
   .raio-level-summary { grid-template-columns: repeat(2, minmax(68px, 1fr)); }
   .raio-level-heading, .raio-cities-heading { align-items: flex-start; flex-direction: column; }
+  .pog-unit-control { grid-template-columns: 1fr; gap: 7px; }
+  .pog-unit-values { grid-template-columns: 1fr; }
+  .pog-unit-result-heading { align-items: flex-start; flex-direction: column; }
   .line-chart { padding-right: 14px; padding-left: 8px; }
   .chart-message { min-width: 190px; }
 }

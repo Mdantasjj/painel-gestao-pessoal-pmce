@@ -25,12 +25,14 @@ Fontes analisadas:
 - Após as exclusões metodológicas, 88 OPM foram analisadas: 22 apresentaram saldo negativo, 64 ganho líquido e duas equilíbrio. A soma dos saldos negativos é 304 policiais.
 - O saldo líquido das OPM incluídas é +676, com 2.309 registros de origem e 2.985 de destino. Esse saldo positivo não elimina os déficits localizados.
 - O 1º CRPM tem o maior saldo negativo individual (-145), seguido pelo 12º BPM (-37) e pelo 8º BPM (-23). Juntos, representam 67,4% do déficit acumulado.
+- O quantitativo do 1º CRPM é apresentado conforme o PDF consolidado: 154 origens e 9 destinos. Como a fonte não traz os batalhões de vínculo nem os registros individualizados das movimentações, o painel não redistribui essas saídas entre unidades subordinadas.
 - O COPAC mantém o indicador de 229 policiais e destaca a composição de 10 bases, sendo 04 prioritárias em 2026.
 - Das 207 promoções requeridas, 153 correspondem ao acesso de SUBTEN PM a 2ºTEN QOAPM, representando 73,9% do total.
 
 ## Ressalvas metodológicas
 
 - O valor de 304 é a soma dos saldos negativos das movimentações, após excluir COGEIC, CGP e os marcadores não OPM `-` e `(vazio)`. Não representa, isoladamente, o déficit real de efetivo, que exige comparar efetivo previsto e atual.
+- A consulta por unidade discrimina os totais agregados disponíveis — saídas, entradas, saldo e perda líquida — mas não identifica o militar, o batalhão subordinado ou o pareamento individual entre origem e destino.
 - O novo estudo de movimentações abrange do BCG 025/2025 ao BCG 153/2026. Os demais recortes continuam concentrados em 2026.
 - A projeção do COPAC não inclui o comando das unidades, conforme ressalva da própria fonte.
 - Os quantitativos das bases satélite e do COPAC não devem ser somados sem confirmação de que os escopos de efetivo são independentes.

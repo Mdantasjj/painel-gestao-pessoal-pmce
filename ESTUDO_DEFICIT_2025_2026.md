@@ -63,5 +63,6 @@ O saldo líquido global é positivo, mas existem perdas concentradas em determin
 ## Interpretação
 
 - O 1º CRPM concentra 47,7% de todo o déficit acumulado calculado.
+- Esse valor é uma transcrição direta do consolidado, que registra 154 origens e 9 destinos no 1º CRPM. A fonte não identifica os batalhões de vínculo dos militares nem permite redistribuir essas movimentações entre unidades subordinadas.
 - As três primeiras unidades do ranking concentram 67,4% do déficit.
 - O indicador mede o saldo das movimentações do período. Para medir déficit estrutural, ainda é necessário comparar o efetivo atual com o efetivo previsto em cada OPM.

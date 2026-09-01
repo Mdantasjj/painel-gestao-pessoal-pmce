@@ -313,7 +313,26 @@ const metricDetails = {
       ['7º CRPM', 0, 7, 7], ['ASCOI', 0, 2, 2], ['BSP', 0, 1, 1],
       ['CBMPM', 0, 1, 1], ['CPCHOQUE', 0, 3, 3], ['CPRAIO', 0, 3, 3], ['SENASP', 0, 1, 1]
     ],
-    note: 'Foram excluídos COGEIC, CGP e os marcadores não OPM “-” e “(vazio)”. O indicador mede perdas nas movimentações; o déficit estrutural exige comparar efetivo previsto e efetivo atual.'
+    territories: {
+      '1º BPM': ['Russas'], '2º BPM': ['Crato'], '3º BPM': ['Sobral'], '4º BPM': ['Canindé'],
+      '5º BPM': ['Fortaleza'], '6º BPM': ['Fortaleza'], '7º BPM': ['Santa Quitéria'], '8º BPM': ['Fortaleza'],
+      '9º BPM': ['Quixeramobim'], '10º BPM': ['Acopiara'], '11º BPM': ['Itapipoca'], '12º BPM': ['Caucaia'],
+      '13º BPM': ['Tauá'], '14º BPM': ['Maracanaú'], '15º BPM': ['Cascavel'], '16º BPM': ['Fortaleza'],
+      '17º BPM': ['Fortaleza'], '18º BPM': ['Fortaleza'], '19º BPM': ['Fortaleza'], '20º BPM': ['Fortaleza'],
+      '21º BPM': ['Fortaleza'], '22º BPM': ['Fortaleza'], '23º BPM': ['Trairi'], '24º BPM': ['Maranguape'],
+      '25º BPM': ['Chorozinho'], '26º BPM': ['Caucaia'], '27º BPM': ['Viçosa do Ceará'], '28º BPM': ['Granja'],
+      '29º BPM': ['Ocara'], '30º BPM': ['Beberibe'], '31º BPM': ['Jaguaribe'], '32º BPM': ['Mauriti'],
+      '33º BPM': ['Assaré'], '34º BPM': ['Icó'],
+      '1º CRPM': ['Fortaleza'],
+      '2º CRPM': ['Trairi', 'São Gonçalo do Amarante', 'Paracuru'],
+      '3º CRPM': ['Santa Quitéria', 'Independência', 'Crateús'],
+      '4º CRPM': ['Tauá', 'Aiuaba', 'Parambu'],
+      '5º CRPM': ['Fortaleza'],
+      '6º CRPM': ['Cascavel', 'Maranguape', 'Aquiraz'],
+      '7º CRPM': ['Canindé', 'Boa Viagem', 'Itapipoca'],
+      '8º CRPM': ['Quixeramobim', 'Morada Nova', 'Quixadá']
+    },
+    note: 'Foram excluídos COGEIC, CGP e os marcadores não OPM “-” e “(vazio)”. O indicador mede perdas nas movimentações; o déficit estrutural exige comparar efetivo previsto e efetivo atual. As referências territoriais vêm da aba BASE de “DISTRI VTR (1).xlsx”: para cada BPM, é exibido o município vinculado de maior area_km2; para cada CRPM, até três municípios distintos de maior área.'
   },
   copac: {
     accent: '#2b8982',
@@ -357,9 +376,27 @@ const metricDetailClose = document.querySelector('#metricDetailClose');
 const metricCards = [...document.querySelectorAll('.metric-card[data-detail]')];
 let detailTrigger = null;
 
-function renderDetailTable(data) {
+function getPogTerritory(unitName) {
+  const cities = metricDetails.pog.territories[unitName];
+  if (!cities) return null;
+  return {
+    cities,
+    label: unitName.endsWith('CRPM') ? 'Maiores áreas' : 'Município de maior área'
+  };
+}
+
+function renderPogUnitLabel(unitName) {
+  const territory = getPogTerritory(unitName);
+  if (!territory) return unitName;
+  return `<span class="pog-opm-label"><strong>${unitName}</strong><small>${territory.label} · ${territory.cities.join(' · ')}</small></span>`;
+}
+
+function renderDetailTable(data, detailKey = '') {
   const head = data.tableColumns.map((column) => `<th scope="col">${column}</th>`).join('');
-  const rows = data.tableRows.map((row) => `<tr>${row.map((cell) => `<td>${cell}</td>`).join('')}</tr>`).join('');
+  const rows = data.tableRows.map((row) => `<tr>${row.map((cell, index) => {
+    const content = detailKey === 'pog' && index === 1 ? renderPogUnitLabel(cell) : cell;
+    return `<td>${content}</td>`;
+  }).join('')}</tr>`).join('');
   return `<div class="detail-table-wrap"><table class="detail-table"><thead><tr>${head}</tr></thead><tbody>${rows}</tbody></table></div>`;
 }
 
@@ -422,7 +459,11 @@ function renderRaioLevelDetail(levelId) {
 function renderPogUnitExplorer(data) {
   const options = [...data.units]
     .sort((a, b) => a[0].localeCompare(b[0], 'pt-BR', { numeric: true }))
-    .map(([name]) => `<option value="${name}"${name === '1º CRPM' ? ' selected' : ''}>${name}</option>`)
+    .map(([name]) => {
+      const territory = getPogTerritory(name);
+      const reference = territory ? ` — ${territory.cities.join(' · ')}` : '';
+      return `<option value="${name}"${name === '1º CRPM' ? ' selected' : ''}>${name}${reference}</option>`;
+    })
     .join('');
   return `
     <section class="detail-section pog-unit-section">
@@ -451,9 +492,13 @@ function renderPogUnitDetail(unitName) {
   const sourceNote = name === '1º CRPM'
     ? 'O PDF atribui diretamente 154 saídas e 9 entradas ao 1º CRPM. Como a fonte é consolidada por OPM e não informa o batalhão de vínculo de cada movimentação, essas 154 saídas não podem ser redistribuídas com segurança entre os batalhões.'
     : 'O PDF fornece totais consolidados por OPM. Ele não identifica o militar, o batalhão subordinado ou o pareamento individual entre unidade de origem e unidade de destino.';
+  const territory = getPogTerritory(name);
+  const territoryLine = territory
+    ? `<small class="pog-unit-territory">${territory.label} · ${territory.cities.join(' · ')}</small>`
+    : '';
   result.innerHTML = `
     <div class="pog-unit-result-heading">
-      <div><span>Unidade selecionada</span><strong>${name}</strong></div>
+      <div><span>Unidade selecionada</span><strong>${name}</strong>${territoryLine}</div>
       <b class="${statusClass}">${status}</b>
     </div>
     <div class="pog-unit-values">
@@ -484,7 +529,7 @@ function renderMetricDetail(key) {
   const discriminatedTable = key === 'raio' ? '' : `
     <section class="detail-section">
       <div class="detail-section-heading"><div><h3>${data.sectionTitle}</h3><p>${data.sectionSubtitle}</p></div><span>Dados discriminados</span></div>
-      ${renderDetailTable(data)}
+      ${renderDetailTable(data, key)}
     </section>`;
   metricDetailContent.innerHTML = `
     <div class="detail-hero-grid">

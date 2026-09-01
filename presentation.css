@@ -314,6 +314,7 @@ body.modal-open { overflow: hidden; }
 .pog-unit-result-heading { display: flex; padding: 12px 14px; align-items: center; justify-content: space-between; gap: 14px; border-radius: 10px 10px 0 0; color: #fff; background: linear-gradient(110deg, #0f5138, #23845b); }
 .pog-unit-result-heading span { display: block; color: #bce8d1; font-size: 8.5px; font-weight: 800; letter-spacing: .07em; text-transform: uppercase; }
 .pog-unit-result-heading strong { display: block; margin-top: 3px; font-size: 17px; }
+.pog-unit-result-heading .pog-unit-territory { display: block; margin-top: 5px; color: #d7f2e3; font-size: 9px; font-weight: 700; letter-spacing: .025em; line-height: 1.35; text-transform: none; }
 .pog-unit-result-heading > b { padding: 6px 9px; border: 1px solid rgba(255,255,255,.28); border-radius: 14px; font-size: 9px; text-transform: uppercase; }
 .pog-unit-result-heading > b.is-loss { color: #fff; background: rgba(5, 52, 34, .42); }
 .pog-unit-result-heading > b.is-gain { color: #fff; background: rgba(101, 185, 143, .28); }
@@ -326,6 +327,9 @@ body.modal-open { overflow: hidden; }
 .pog-unit-values > div.is-loss { background: #e2f2e9; }
 .pog-unit-values > div.is-loss strong { color: #176a47; }
 .pog-unit-source-note { margin: 0; padding: 11px 13px; border: 1px solid #c7ddd0; border-top: 0; border-radius: 0 0 10px 10px; color: #365b48; background: #f0f7f3; font-size: 9.5px; line-height: 1.5; }
+.pog-opm-label { display: flex; align-items: flex-start; flex-direction: column; gap: 3px; }
+.pog-opm-label > strong { color: #145c40; font-size: 12px; line-height: 1.1; }
+.pog-opm-label > small { color: #4f7160; font-size: 8.5px; font-weight: 680; letter-spacing: .01em; line-height: 1.3; text-transform: none; }
 #metricDetailContent[data-detail="exits"] .detail-table th:first-child,
 #metricDetailContent[data-detail="pog"] .detail-table th:nth-child(2),
 #metricDetailContent[data-detail="copac"] .detail-table th:nth-child(2) { color: #fff; background: #216f4c; font-size: 10px; font-weight: 850; }

@@ -14,7 +14,7 @@ Nas tabelas de detalhamento, as colunas de identificação e os valores estraté
 
 O detalhamento do POG possui uma consulta para as 88 OPMs válidas do estudo. Ao selecionar uma unidade, são apresentados os totais de saídas, entradas, saldo e perda líquida. Para o 1º CRPM, o painel ressalta que os 154 registros de origem são atribuídos diretamente ao comando regional pelo PDF consolidado e não podem ser redistribuídos entre batalhões sem a base individualizada.
 
-Os BPMs e CRPMs também recebem uma referência territorial discreta baseada na aba `BASE` de `DISTRI VTR (1).xlsx`. Como a planilha não identifica formalmente a sede, o BPM mostra o município vinculado de maior `area_km2`; o CRPM mostra até três municípios distintos de maior área. A indicação aparece sob o nome da unidade na tabela e no detalhamento individual.
+Os BPMs e CRPMs também recebem uma referência territorial discreta baseada na aba `BASE` de `DISTRI VTR (1).xlsx`. Como a planilha não identifica formalmente a sede, cada unidade mostra somente o município vinculado de maior `area_km2`, sem rótulo adicional. A indicação aparece sob o nome da unidade na tabela e no detalhamento individual.
 
 O detalhamento apresenta somente informações agregadas, sem nomes ou matrículas. No COPAC, a janela destaca que o título estratégico menciona 10 bases e 04 prioritárias, enquanto a fonte quantitativa disponível contém 12 unidades e não identifica quais são as quatro prioridades.
 

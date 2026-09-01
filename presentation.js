@@ -324,15 +324,15 @@ const metricDetails = {
       '29º BPM': ['Ocara'], '30º BPM': ['Beberibe'], '31º BPM': ['Jaguaribe'], '32º BPM': ['Mauriti'],
       '33º BPM': ['Assaré'], '34º BPM': ['Icó'],
       '1º CRPM': ['Fortaleza'],
-      '2º CRPM': ['Trairi', 'São Gonçalo do Amarante', 'Paracuru'],
-      '3º CRPM': ['Santa Quitéria', 'Independência', 'Crateús'],
-      '4º CRPM': ['Tauá', 'Aiuaba', 'Parambu'],
+      '2º CRPM': ['Trairi'],
+      '3º CRPM': ['Santa Quitéria'],
+      '4º CRPM': ['Tauá'],
       '5º CRPM': ['Fortaleza'],
-      '6º CRPM': ['Cascavel', 'Maranguape', 'Aquiraz'],
-      '7º CRPM': ['Canindé', 'Boa Viagem', 'Itapipoca'],
-      '8º CRPM': ['Quixeramobim', 'Morada Nova', 'Quixadá']
+      '6º CRPM': ['Cascavel'],
+      '7º CRPM': ['Canindé'],
+      '8º CRPM': ['Quixeramobim']
     },
-    note: 'Foram excluídos COGEIC, CGP e os marcadores não OPM “-” e “(vazio)”. O indicador mede perdas nas movimentações; o déficit estrutural exige comparar efetivo previsto e efetivo atual. As referências territoriais vêm da aba BASE de “DISTRI VTR (1).xlsx”: para cada BPM, é exibido o município vinculado de maior area_km2; para cada CRPM, até três municípios distintos de maior área.'
+    note: 'Foram excluídos COGEIC, CGP e os marcadores não OPM “-” e “(vazio)”. O indicador mede perdas nas movimentações; o déficit estrutural exige comparar efetivo previsto e efetivo atual. As referências territoriais vêm da aba BASE de “DISTRI VTR (1).xlsx”: para cada BPM e CRPM, é exibido somente o município vinculado de maior area_km2.'
   },
   copac: {
     accent: '#2b8982',
@@ -379,16 +379,13 @@ let detailTrigger = null;
 function getPogTerritory(unitName) {
   const cities = metricDetails.pog.territories[unitName];
   if (!cities) return null;
-  return {
-    cities,
-    label: unitName.endsWith('CRPM') ? 'Maiores áreas' : 'Município de maior área'
-  };
+  return { cities };
 }
 
 function renderPogUnitLabel(unitName) {
   const territory = getPogTerritory(unitName);
   if (!territory) return unitName;
-  return `<span class="pog-opm-label"><strong>${unitName}</strong><small>${territory.label} · ${territory.cities.join(' · ')}</small></span>`;
+  return `<span class="pog-opm-label"><strong>${unitName}</strong><small>${territory.cities[0]}</small></span>`;
 }
 
 function renderDetailTable(data, detailKey = '') {
@@ -494,7 +491,7 @@ function renderPogUnitDetail(unitName) {
     : 'O PDF fornece totais consolidados por OPM. Ele não identifica o militar, o batalhão subordinado ou o pareamento individual entre unidade de origem e unidade de destino.';
   const territory = getPogTerritory(name);
   const territoryLine = territory
-    ? `<small class="pog-unit-territory">${territory.label} · ${territory.cities.join(' · ')}</small>`
+    ? `<small class="pog-unit-territory">${territory.cities[0]}</small>`
     : '';
   result.innerHTML = `
     <div class="pog-unit-result-heading">

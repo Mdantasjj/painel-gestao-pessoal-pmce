@@ -55,10 +55,10 @@ function renderStaffNeeds() {
         <div><strong>912</strong><small>policiais</small></div>
         <p>20 bases, 31 municípios satélite e 85,9% do efetivo em atividade operacional.</p>
       </div>
-      <div class="staff-demand-item" style="--demand-color:#b58e35">
+      <div class="staff-demand-item" style="--demand-color:#216f4c">
         <span>POG · Policiamento Ordinário</span>
-        <div><strong>304</strong><small>policiais</small></div>
-        <p>Déficit concentrado nas principais unidades militares analisadas.</p>
+        <div><strong>111</strong><small>policiais</small></div>
+        <p>Déficit calculado exclusivamente nos 34 BPMs territoriais.</p>
       </div>
       <div class="staff-demand-item" style="--demand-color:#2b8982">
         <span>COPAC · Necessidade PReVio</span>
@@ -66,7 +66,7 @@ function renderStaffNeeds() {
         <p>Necessidade para compor 10 bases, sendo 04 prioritárias em 2026.</p>
       </div>
     </div>
-    <div class="analysis-warning">No POG — Policiamento Ordinário, 304 é a soma dos saldos negativos após excluir COGEIC, CGP e marcadores não OPM; o déficit real exige comparar efetivo previsto e atual.</div>`;
+    <div class="analysis-warning">No POG — Policiamento Ordinário, 111 é a soma dos saldos negativos dos 34 BPMs. Comandos regionais e demais unidades não integram este recorte por batalhão.</div>`;
 }
 
 function renderPromotions() {
@@ -89,13 +89,10 @@ function renderPromotions() {
 }
 
 const originByOpm = [
-  ['CPRAIO', 17],
   ['12º BPM', 17],
   ['17º BPM', 14],
   ['18º BPM', 14],
   ['6º BPM', 14],
-  ['BPTUR', 13],
-  ['COPAC', 13],
   ['19º BPM', 12],
   ['20º BPM', 11],
   ['24º BPM', 10]
@@ -259,63 +256,48 @@ const metricDetails = {
     note: 'O quantitativo representa necessidade projetada para implantação. Não deve ser interpretado como efetivo já incorporado ou disponível.'
   },
   pog: {
-    accent: '#b58e35',
+    accent: '#216f4c',
     eyebrow: 'Memória de cálculo · POG',
-    title: '304 policiais em déficit acumulado',
-    total: '304',
+    title: '111 policiais em déficit nos batalhões',
+    total: '111',
     unit: 'policiais',
-    description: 'Soma dos valores absolutos dos saldos negativos encontrados nas principais unidades militares incluídas no estudo de movimentações.',
+    description: 'Soma dos valores absolutos dos saldos negativos encontrados nos 34 BPMs territoriais incluídos no estudo de movimentações.',
     stats: [
-      ['OPMs analisadas', '88', 'Após as exclusões metodológicas'],
-      ['Saldo negativo', '22 OPM', 'Unidades que compõem o déficit de 304'],
-      ['Ganho líquido', '64 OPM', 'Duas outras OPM ficaram em equilíbrio']
+      ['Batalhões analisados', '34 BPM', 'Recorte territorial com município identificado'],
+      ['Saldo negativo', '12 BPM', 'Batalhões que compõem o déficit de 111'],
+      ['Ganho líquido', '20 BPM', 'Dois outros BPMs ficaram em equilíbrio']
     ],
     breakdown: [
-      ['1º CRPM', 47.7, '145 · 47,7%', '#9b7626'],
-      ['12º BPM', 12.2, '37 · 12,2%', '#b58e35'],
-      ['8º BPM', 7.6, '23 · 7,6%', '#c8a850'],
-      ['Demais 19 OPM', 32.5, '99 · 32,5%', '#d8c58d']
+      ['12º BPM', 33.3, '37 · 33,3%', '#145c40'],
+      ['8º BPM', 20.7, '23 · 20,7%', '#23794f'],
+      ['22º BPM', 9.0, '10 · 9,0%', '#3d9065'],
+      ['26º BPM', 8.1, '9 · 8,1%', '#65a982'],
+      ['5º BPM', 8.1, '9 · 8,1%', '#83b99a'],
+      ['Demais 7 BPM', 20.7, '23 · 20,7%', '#a8cfb7']
     ],
-    sectionTitle: 'Principais unidades com saldo negativo',
-    sectionSubtitle: 'Ranking das dez maiores perdas dentro do déficit acumulado de 304 policiais.',
-    tableColumns: ['Posição', 'OPM', 'Origem', 'Destino', 'Participação', 'Saldo'],
+    sectionTitle: 'Batalhões com maior saldo negativo',
+    sectionSubtitle: 'Ranking das dez maiores perdas dentro do déficit acumulado de 111 policiais nos BPMs.',
+    tableColumns: ['Posição', 'Batalhão', 'Origem', 'Destino', 'Participação', 'Saldo'],
     tableRows: [
-      ['1', '1º CRPM', '154', '9', '47,7%', '-145'], ['2', '12º BPM', '96', '59', '12,2%', '-37'],
-      ['3', '8º BPM', '66', '43', '7,6%', '-23'], ['4', '2º CRPM', '14', '1', '4,3%', '-13'],
-      ['5', 'BPMA', '29', '17', '3,9%', '-12'], ['6', '22º BPM', '51', '41', '3,3%', '-10'],
-      ['7', '26º BPM', '57', '48', '3,0%', '-9'], ['8', '5º BPM', '54', '45', '3,0%', '-9'],
-      ['9', '23º BPM', '42', '34', '2,6%', '-8'], ['10', '3º CRPM', '7', '1', '2,0%', '-6']
+      ['1', '12º BPM', '96', '59', '33,3%', '-37'], ['2', '8º BPM', '66', '43', '20,7%', '-23'],
+      ['3', '22º BPM', '51', '41', '9,0%', '-10'], ['4', '26º BPM', '57', '48', '8,1%', '-9'],
+      ['5', '5º BPM', '54', '45', '8,1%', '-9'], ['6', '23º BPM', '42', '34', '7,2%', '-8'],
+      ['7', '17º BPM', '53', '49', '3,6%', '-4'], ['8', '24º BPM', '33', '29', '3,6%', '-4'],
+      ['9', '27º BPM', '13', '10', '2,7%', '-3'], ['10', '11º BPM', '56', '54', '1,8%', '-2']
     ],
     units: [
       ['10º BPM', 9, 27, 18], ['11º BPM', 56, 54, -2], ['12º BPM', 96, 59, -37],
       ['13º BPM', 17, 28, 11], ['14º BPM', 45, 51, 6], ['15º BPM', 38, 37, -1],
       ['16º BPM', 103, 106, 3], ['17º BPM', 53, 49, -4], ['18º BPM', 77, 85, 8],
-      ['19º BPM', 57, 70, 13], ['1ª CPG', 20, 84, 64], ['1º BPM', 27, 50, 23],
-      ['1º BPRAIO', 12, 11, -1], ['1º CRPM', 154, 9, -145], ['20º BPM', 76, 80, 4],
+      ['19º BPM', 57, 70, 13], ['1º BPM', 27, 50, 23], ['20º BPM', 76, 80, 4],
       ['21º BPM', 81, 84, 3], ['22º BPM', 51, 41, -10], ['23º BPM', 42, 34, -8],
       ['24º BPM', 33, 29, -4], ['25º BPM', 46, 45, -1], ['26º BPM', 57, 48, -9],
       ['27º BPM', 13, 10, -3], ['28º BPM', 14, 19, 5], ['29º BPM', 28, 28, 0],
-      ['2ª CPG', 11, 24, 13], ['2º BPM', 50, 78, 28], ['2º BPRAIO', 15, 31, 16],
-      ['2º CRPM', 14, 1, -13], ['30º BPM', 16, 22, 6], ['31º BPM', 10, 22, 12],
+      ['2º BPM', 50, 78, 28], ['30º BPM', 16, 22, 6], ['31º BPM', 10, 22, 12],
       ['32º BPM', 8, 17, 9], ['33º BPM', 6, 18, 12], ['34º BPM', 14, 15, 1],
-      ['3ª CPG', 10, 37, 27], ['3º BPM', 76, 79, 3], ['3º BPRAIO', 6, 66, 60],
-      ['3º CRPM', 7, 1, -6], ['4º BPM', 21, 21, 0], ['4º BPRAIO', 21, 48, 27],
-      ['4º CRPM', 2, 1, -1], ['5º BPM', 54, 45, -9], ['5º BPRAIO', 12, 66, 54],
-      ['5º CRPM', 12, 121, 109], ['6º BPM', 43, 47, 4], ['7º BPM', 34, 37, 3],
-      ['8º BPM', 66, 43, -23], ['8º CRPM', 2, 8, 6], ['9º BPM', 42, 71, 29],
-      ['AGCG', 4, 7, 3], ['ASCOM', 6, 4, -2], ['ASINT', 6, 15, 9],
-      ['ASJUR', 2, 3, 1], ['BEPI', 35, 37, 2], ['BOPE', 1, 3, 2],
-      ['BPCHOQUE', 28, 81, 53], ['BPGEP', 41, 44, 3], ['BPMA', 29, 17, -12],
-      ['BPRE', 57, 61, 4], ['BPTUR', 62, 70, 8], ['CCPM', 20, 33, 13],
-      ['CGD', 3, 6, 3], ['COAFI', 8, 10, 2], ['CODIP', 3, 7, 4],
-      ['COGEPRO', 7, 16, 9], ['COLOG', 22, 34, 12], ['COPAC', 68, 65, -3],
-      ['COTAM', 25, 26, 1], ['COTIC', 3, 7, 4], ['CPE', 20, 15, -5],
-      ['CPJMD', 5, 7, 2], ['DPGI', 4, 8, 4], ['DPGO', 7, 8, 1],
-      ['DS', 8, 56, 48], ['OUVIDORIA', 5, 6, 1], ['QCG', 23, 52, 29],
-      ['RPMONT', 17, 12, -5], ['SSPDS', 26, 175, 149], ['SUBCMDO GERAL', 7, 8, 1],
-      ['1º BPCHOQUE', 0, 1, 1], ['1º CPMGEF', 0, 2, 2], ['6º CRPM', 0, 14, 14],
-      ['7º CRPM', 0, 7, 7], ['ASCOI', 0, 2, 2], ['BSP', 0, 1, 1],
-      ['CBMPM', 0, 1, 1], ['CPCHOQUE', 0, 3, 3], ['CPRAIO', 0, 3, 3], ['SENASP', 0, 1, 1]
+      ['3º BPM', 76, 79, 3], ['4º BPM', 21, 21, 0], ['5º BPM', 54, 45, -9],
+      ['6º BPM', 43, 47, 4], ['7º BPM', 34, 37, 3], ['8º BPM', 66, 43, -23],
+      ['9º BPM', 42, 71, 29]
     ],
     territories: {
       '1º BPM': ['Russas'], '2º BPM': ['Crato'], '3º BPM': ['Sobral'], '4º BPM': ['Canindé'],
@@ -326,17 +308,9 @@ const metricDetails = {
       '21º BPM': ['Fortaleza'], '22º BPM': ['Fortaleza'], '23º BPM': ['Trairi'], '24º BPM': ['Maranguape'],
       '25º BPM': ['Chorozinho'], '26º BPM': ['Caucaia'], '27º BPM': ['Viçosa do Ceará'], '28º BPM': ['Granja'],
       '29º BPM': ['Ocara'], '30º BPM': ['Beberibe'], '31º BPM': ['Jaguaribe'], '32º BPM': ['Mauriti'],
-      '33º BPM': ['Assaré'], '34º BPM': ['Icó'],
-      '1º CRPM': ['Fortaleza'],
-      '2º CRPM': ['Trairi', 'São Gonçalo do Amarante', 'Paracuru'],
-      '3º CRPM': ['Santa Quitéria', 'Independência', 'Crateús'],
-      '4º CRPM': ['Tauá', 'Aiuaba', 'Parambu'],
-      '5º CRPM': ['Fortaleza'],
-      '6º CRPM': ['Cascavel', 'Maranguape', 'Aquiraz'],
-      '7º CRPM': ['Canindé', 'Boa Viagem', 'Itapipoca'],
-      '8º CRPM': ['Quixeramobim', 'Morada Nova', 'Quixadá']
+      '33º BPM': ['Assaré'], '34º BPM': ['Icó']
     },
-    note: 'Foram excluídos COGEIC, CGP e os marcadores não OPM “-” e “(vazio)”. O indicador mede perdas nas movimentações; o déficit estrutural exige comparar efetivo previsto e efetivo atual. As referências territoriais vêm da aba BASE de “DISTRI VTR (1).xlsx”: cada BPM exibe o município vinculado de maior area_km2; cada CRPM exibe até três municípios distintos de maior área. Quando o comando regional possui apenas um município distinto na fonte, somente ele é apresentado.'
+    note: 'O recorte apresenta exclusivamente os 34 BPMs numerados, totalizando 1.459 registros na origem, 1.549 no destino e saldo conjunto de +90. O déficit de 111 corresponde à soma das perdas dos 12 BPMs com saldo negativo. Comandos regionais e demais unidades foram retirados; a fonte consolidada não permite redistribuir seus registros entre batalhões. A cidade exibida em cada BPM vem da aba BASE de “DISTRI VTR (1).xlsx”.'
   },
   copac: {
     accent: '#2b8982',
@@ -463,17 +437,17 @@ function renderPogUnitExplorer(data) {
     .map(([name]) => {
       const territory = getPogTerritory(name);
       const reference = territory ? ` — ${territory.cities.join(' · ')}` : '';
-      return `<option value="${name}"${name === '1º CRPM' ? ' selected' : ''}>${name}${reference}</option>`;
+      return `<option value="${name}"${name === '12º BPM' ? ' selected' : ''}>${name}${reference}</option>`;
     })
     .join('');
   return `
     <section class="detail-section pog-unit-section">
       <div class="detail-section-heading">
-        <div><h3>Consultar perdas por unidade</h3><p>Selecione uma das 88 OPMs para discriminar saídas, entradas, saldo e perda líquida.</p></div>
+        <div><h3>Consultar perdas por batalhão</h3><p>Selecione um dos 34 BPMs para discriminar saídas, entradas, saldo e perda líquida.</p></div>
         <span>Consulta individual</span>
       </div>
       <label class="pog-unit-control" for="pogUnitSelect">
-        <span>Unidade militar</span>
+        <span>Batalhão</span>
         <select id="pogUnitSelect">${options}</select>
       </label>
       <div class="pog-unit-result" id="pogUnitResult" aria-live="polite"></div>
@@ -489,17 +463,15 @@ function renderPogUnitDetail(unitName) {
   const status = balance < 0 ? 'Perda líquida' : balance > 0 ? 'Ganho líquido' : 'Equilíbrio';
   const statusClass = balance < 0 ? 'is-loss' : balance > 0 ? 'is-gain' : 'is-balanced';
   const signedBalance = balance > 0 ? `+${balance}` : String(balance);
-  const share = netLoss ? `${(netLoss / 304 * 100).toFixed(1).replace('.', ',')}% do déficit acumulado` : 'Não compõe o déficit acumulado';
-  const sourceNote = name === '1º CRPM'
-    ? 'O PDF atribui diretamente 154 saídas e 9 entradas ao 1º CRPM — Fortaleza. Como a fonte é consolidada por OPM e não informa o batalhão de vínculo de cada movimentação, essas 154 saídas não podem ser redistribuídas com segurança entre os batalhões.'
-    : 'O PDF fornece totais consolidados por OPM. Ele não identifica o militar, o batalhão subordinado ou o pareamento individual entre unidade de origem e unidade de destino.';
+  const share = netLoss ? `${(netLoss / 111 * 100).toFixed(1).replace('.', ',')}% do déficit acumulado` : 'Não compõe o déficit acumulado';
+  const sourceNote = 'O PDF fornece totais consolidados por BPM. Ele não identifica o militar nem o pareamento individual entre unidade de origem e unidade de destino. Comandos regionais e demais unidades não integram este recorte por batalhão.';
   const territory = getPogTerritory(name);
   const territoryLine = territory
     ? `<small class="pog-unit-territory">${territory.cities.join(' · ')}</small>`
     : '';
   result.innerHTML = `
     <div class="pog-unit-result-heading">
-      <div><span>Unidade selecionada</span><strong>${name}</strong>${territoryLine}</div>
+      <div><span>Batalhão selecionado</span><strong>${name}</strong>${territoryLine}</div>
       <b class="${statusClass}">${status}</b>
     </div>
     <div class="pog-unit-values">
@@ -554,7 +526,7 @@ function renderMetricDetail(key) {
     </section>
     ${discriminatedTable}
     <p class="detail-methodology">${data.note}</p>`;
-  if (key === 'pog') renderPogUnitDetail('1º CRPM');
+  if (key === 'pog') renderPogUnitDetail('12º BPM');
 }
 
 function openMetricDetail(card) {

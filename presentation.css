@@ -102,7 +102,7 @@ svg { display: block; }
 .metric-card::after { position: absolute; right: 0; bottom: 0; left: 0; height: 3px; background: var(--accent); content: ""; opacity: 0; transform: scaleX(.35); transition: opacity .2s, transform .2s; }
 .metric-card--green { --accent: #23845b; --soft: #e6f4ed; }
 .metric-card--blue { --accent: #3b7e9d; --soft: #e7f1f6; }
-.metric-card--gold { --accent: #ae8b37; --soft: #f7efd9; }
+.metric-card--gold { --accent: #216f4c; --soft: #e4f2e9; }
 .metric-card--teal { --accent: #2b8982; --soft: #e3f3f1; }
 .metric-card--olive { --accent: #698342; --soft: #edf3e4; }
 .metric-card--interactive { cursor: pointer; transition: border-color .2s, box-shadow .2s, transform .2s; }

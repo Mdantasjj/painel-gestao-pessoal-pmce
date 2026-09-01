@@ -1,68 +1,49 @@
-# Estudo do déficit de efetivo do POG — Policiamento Ordinário
+# Estudo do déficit de efetivo do POG — recorte por batalhão
 
 ## Escopo
 
 - Fonte: `data/MOVIMENTAÇÕES DO BCG 025-2025 AO BCG 153-2026.pdf`.
 - Período documental: BCG 025/2025 ao BCG 153/2026.
 - Fórmula do saldo: `DESTINO - ORIGEM`.
-- Déficit acumulado: soma do valor absoluto dos saldos negativos das OPM incluídas.
-- Exclusões solicitadas: `COGEIC` e `CGP`.
-- Exclusões metodológicas adicionais: `-` (admissão de candidatos) e `(vazio)` (classificação de cadetes), pois são marcadores e não OPM.
+- Déficit acumulado: soma do valor absoluto dos saldos negativos dos BPMs incluídos.
+- Recorte solicitado: somente os 34 BPMs numerados, que possuem referência municipal na aba `BASE` de `DISTRI VTR (1).xlsx`.
+- CRPMs, batalhões especializados e demais OPMs não integram este cálculo. A fonte consolidada não permite redistribuir os registros dos CRPMs entre batalhões subordinados.
 
-## Resultado consolidado
+## Resultado por batalhão
 
 | Indicador | Resultado |
 |---|---:|
-| OPM analisadas | 88 |
-| Registros de origem | 2.309 |
-| Registros de destino | 2.985 |
-| Saldo líquido | +676 |
-| Déficit acumulado | 304 |
-| OPM com saldo negativo | 22 |
-| OPM com ganho líquido | 64 |
-| OPM em equilíbrio | 2 |
+| BPMs analisados | 34 |
+| Registros de origem | 1.459 |
+| Registros de destino | 1.549 |
+| Saldo líquido | +90 |
+| Déficit acumulado | 111 |
+| BPMs com saldo negativo | 12 |
+| BPMs com ganho líquido | 20 |
+| BPMs em equilíbrio | 2 |
 
-O saldo líquido global é positivo, mas existem perdas concentradas em determinadas unidades. Por isso, o déficit acumulado de 304 não deve ser confundido com o saldo líquido de +676.
+O saldo líquido dos 34 BPMs é positivo, mas existem perdas concentradas em 12 batalhões. Por isso, o déficit acumulado de 111 não deve ser confundido com o saldo líquido de +90.
 
-## Ranking das OPM com saldo negativo
+## BPMs com saldo negativo
 
-| Posição | OPM | Origem | Destino | Saldo | Participação no déficit |
-|---:|---|---:|---:|---:|---:|
-| 1 | 1º CRPM | 154 | 9 | -145 | 47,7% |
-| 2 | 12º BPM | 96 | 59 | -37 | 12,2% |
-| 3 | 8º BPM | 66 | 43 | -23 | 7,6% |
-| 4 | 2º CRPM | 14 | 1 | -13 | 4,3% |
-| 5 | BPMA | 29 | 17 | -12 | 3,9% |
-| 6 | 22º BPM | 51 | 41 | -10 | 3,3% |
-| 7 | 26º BPM | 57 | 48 | -9 | 3,0% |
-| 8 | 5º BPM | 54 | 45 | -9 | 3,0% |
-| 9 | 23º BPM | 42 | 34 | -8 | 2,6% |
-| 10 | 3º CRPM | 7 | 1 | -6 | 2,0% |
-| 11 | CPE | 20 | 15 | -5 | 1,6% |
-| 12 | RPMONT | 17 | 12 | -5 | 1,6% |
-| 13 | 17º BPM | 53 | 49 | -4 | 1,3% |
-| 14 | 24º BPM | 33 | 29 | -4 | 1,3% |
-| 15 | 27º BPM | 13 | 10 | -3 | 1,0% |
-| 16 | COPAC | 68 | 65 | -3 | 1,0% |
-| 17 | 11º BPM | 56 | 54 | -2 | 0,7% |
-| 18 | ASCOM | 6 | 4 | -2 | 0,7% |
-| 19 | 15º BPM | 38 | 37 | -1 | 0,3% |
-| 20 | 1º BPRAIO | 12 | 11 | -1 | 0,3% |
-| 21 | 25º BPM | 46 | 45 | -1 | 0,3% |
-| 22 | 4º CRPM | 2 | 1 | -1 | 0,3% |
-
-## Registros removidos do cálculo
-
-| Registro | Origem | Destino | Saldo | Motivo |
-|---|---:|---:|---:|---|
-| COGEIC | 616 | 343 | -273 | Exclusão solicitada |
-| CGP | 332 | 74 | -258 | Exclusão solicitada |
-| `-` | 83 | 0 | -83 | Admissão de candidatos; não é OPM |
-| `(vazio)` | 62 | 0 | -62 | Classificação de cadetes; não é OPM |
+| Posição | Batalhão | Município de referência | Origem | Destino | Saldo | Participação |
+|---:|---|---|---:|---:|---:|---:|
+| 1 | 12º BPM | Caucaia | 96 | 59 | -37 | 33,3% |
+| 2 | 8º BPM | Fortaleza | 66 | 43 | -23 | 20,7% |
+| 3 | 22º BPM | Fortaleza | 51 | 41 | -10 | 9,0% |
+| 4 | 26º BPM | Caucaia | 57 | 48 | -9 | 8,1% |
+| 5 | 5º BPM | Fortaleza | 54 | 45 | -9 | 8,1% |
+| 6 | 23º BPM | Trairi | 42 | 34 | -8 | 7,2% |
+| 7 | 17º BPM | Fortaleza | 53 | 49 | -4 | 3,6% |
+| 8 | 24º BPM | Maranguape | 33 | 29 | -4 | 3,6% |
+| 9 | 27º BPM | Viçosa do Ceará | 13 | 10 | -3 | 2,7% |
+| 10 | 11º BPM | Itapipoca | 56 | 54 | -2 | 1,8% |
+| 11 | 15º BPM | Cascavel | 38 | 37 | -1 | 0,9% |
+| 12 | 25º BPM | Chorozinho | 46 | 45 | -1 | 0,9% |
 
 ## Interpretação
 
-- O 1º CRPM concentra 47,7% de todo o déficit acumulado calculado.
-- Esse valor é uma transcrição direta do consolidado, que registra 154 origens e 9 destinos no 1º CRPM. A fonte não identifica os batalhões de vínculo dos militares nem permite redistribuir essas movimentações entre unidades subordinadas.
-- As três primeiras unidades do ranking concentram 67,4% do déficit.
-- O indicador mede o saldo das movimentações do período. Para medir déficit estrutural, ainda é necessário comparar o efetivo atual com o efetivo previsto em cada OPM.
+- O 12º BPM apresenta a maior perda líquida: 37 policiais, equivalentes a 33,3% do déficit por batalhão.
+- O 12º e o 8º BPM, juntos, concentram 54,1% das perdas acumuladas dos BPMs.
+- O indicador mede o saldo das movimentações no período. Para medir déficit estrutural, ainda é necessário comparar efetivo atual e efetivo previsto em cada batalhão.
+- Os registros lançados diretamente em CRPMs foram excluídos, pois a fonte não informa o batalhão de vínculo e não permite uma redistribuição segura.

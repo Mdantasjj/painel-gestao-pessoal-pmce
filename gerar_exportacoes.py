@@ -207,7 +207,7 @@ def generate_editable_powerpoint() -> None:
     card_width = 3.00
     add_card(slide, card_x[0], "Saídas de efetivo\n(exoneração — aposentadoria)", "547", "saídas", "252 dem. · 88 exon. · 207 aposent.", GREEN_600, "E6F4ED", card_width, label_size=6.8, label_height=0.30)
     add_card(slide, card_x[1], "RAIO — Necessidade de efetivo para compor\nas 20 bases satélites em 3 níveis de implementação", "912", "policiais", "20 bases · 31 municípios satélite", BLUE, "E7F1F6", card_width, label_size=6.2, label_height=0.34)
-    add_card(slide, card_x[2], "Déficit de efetivo — POG", "304", "policiais", "POG — Policiamento Ordinário · principais unidades militares", "B58E35", "F7EFD9", card_width, foot_size=4.4, foot_height=0.22)
+    add_card(slide, card_x[2], "Déficit de efetivo — POG", "111", "policiais", "POG — Policiamento Ordinário · 34 BPMs territoriais", "216F4C", "E4F2E9", card_width, foot_size=4.4, foot_height=0.22)
     add_card(slide, card_x[3], "COPAC — Necessidade de efetivo\npara compor as 10 bases, sendo 04\nprioritárias em 2026 (PReVio)", "229", "policiais", "10 bases · 04 prioritárias em 2026", TEAL, "E3F3F1", card_width, label_size=5.4, label_height=0.30)
 
     # Painel esquerdo: gráfico editável
@@ -260,10 +260,10 @@ def generate_editable_powerpoint() -> None:
     # Painel central: necessidades de efetivo
     add_panel(slide, 7.10, 2.72, 3.05, 4.49, "02", "Necessidades de efetivo", "RAIO, POG e COPAC/PReVio")
     add_demand_box(slide, 7.27, 3.34, "RAIO · Bases satélites", "912", "20 bases, 31 municípios satélite e 85,9% operacional.", BLUE)
-    add_demand_box(slide, 7.27, 4.08, "POG · Policiamento Ordinário", "304", "Déficit nas principais unidades militares analisadas.", "B58E35")
+    add_demand_box(slide, 7.27, 4.08, "POG · Policiamento Ordinário", "111", "Déficit calculado nos 34 BPMs territoriais.", "216F4C")
     add_demand_box(slide, 7.27, 4.82, "COPAC · Necessidade PReVio", "229", "10 bases; 04 prioritárias em 2026.", TEAL)
     warning = add_shape(slide, MSO_SHAPE.ROUNDED_RECTANGLE, 7.27, 6.72, 2.72, 0.30, "FBF8EF", "EEE4C9")
-    add_text(slide, "●  POG — Policiamento Ordinário: 304 soma os saldos negativos após as exclusões.", 7.36, 6.75, 2.55, 0.22, 4.3, "806D3C")
+    add_text(slide, "●  POG — Policiamento Ordinário: 111 soma as perdas dos 12 BPMs com saldo negativo.", 7.36, 6.75, 2.55, 0.22, 4.3, "216F4C")
 
     # Painel direito: gráfico de rosca editável
     add_panel(slide, 10.27, 2.72, 2.81, 4.49, "03", "Aposentadorias", "Impacto nas promoções requeridas")
@@ -328,16 +328,17 @@ def generate_editable_powerpoint() -> None:
     add_text(origin_slide, "326 registros únicos", 11.50, 1.12, 1.30, 0.20, 5.2, GREEN_800, True, PP_ALIGN.CENTER)
 
     add_summary_box(origin_slide, 0.25, "Registros com origem", "326", "Demissões e exonerações individualizadas", GREEN_600)
-    add_summary_box(origin_slide, 4.60, "Unidades identificadas", "65", "OPMs consolidadas pela unidade principal", BLUE)
+    add_summary_box(origin_slide, 4.60, "Batalhões destacados", "7", "BPMs no ranking territorial de origens", GREEN_800)
     add_summary_box(origin_slide, 8.95, "Municípios identificados", "53", "Fortaleza concentra 153 registros", GOLD)
 
-    add_panel(origin_slide, 0.25, 2.39, 6.28, 4.72, "04A", "OPMs com mais saídas", "Companhias agrupadas pela unidade principal · Top 10")
+    add_panel(origin_slide, 0.25, 2.39, 6.28, 4.72, "04A", "Batalhões com mais saídas", "BPMs presentes entre as principais origens · Top 7")
     opm_rows = [
-        ("CPRAIO", 17), ("12º BPM", 17), ("17º BPM", 14), ("18º BPM", 14), ("6º BPM", 14),
-        ("BPTUR", 13), ("COPAC", 13), ("19º BPM", 12), ("20º BPM", 11), ("24º BPM", 10),
+        ("12º BPM · Caucaia", 17), ("17º BPM · Fortaleza", 14), ("18º BPM · Fortaleza", 14),
+        ("6º BPM · Fortaleza", 14), ("19º BPM · Fortaleza", 12), ("20º BPM · Fortaleza", 11),
+        ("24º BPM · Maranguape", 10),
     ]
-    add_ranked_bars(origin_slide, 0.48, 3.10, 5.80, opm_rows, 326, GREEN_600, row_step=0.325, label_width=0.86)
-    add_text(origin_slide, "CPRAIO e 12º BPM lideram, com 17 registros cada (5,2% do recorte).", 0.48, 6.55, 5.75, 0.14, 5.2, MUTED)
+    add_ranked_bars(origin_slide, 0.48, 3.10, 5.80, opm_rows, 326, GREEN_600, row_step=0.41, label_width=1.70)
+    add_text(origin_slide, "O 12º BPM lidera o recorte por batalhão, com 17 registros (5,2% do total individualizado).", 0.48, 6.55, 5.75, 0.14, 5.2, MUTED)
 
     add_panel(origin_slide, 6.68, 2.39, 6.40, 4.72, "04B", "Municípios com mais saídas", "Município informado no registro · Top 8")
     city_rows = [

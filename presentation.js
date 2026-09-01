@@ -119,7 +119,7 @@ function renderHorizontalBars(target, rows, total, color, showTerritory = false)
     const share = ((value / total) * 100).toLocaleString('pt-BR', { maximumFractionDigits: 1 });
     const territory = showTerritory ? getPogTerritory(label) : null;
     const unitLabel = territory
-      ? `<span class="horizontal-unit-label"><strong>${label}</strong><small>${territory.cities[0]}</small></span>`
+      ? `<span class="horizontal-unit-label"><strong>${label}</strong><small>${territory.cities.join(' · ')}</small></span>`
       : `<strong>${label}</strong>`;
     return `<div class="horizontal-bar-row">
       <span class="horizontal-rank">${String(index + 1).padStart(2, '0')}</span>
@@ -328,15 +328,15 @@ const metricDetails = {
       '29º BPM': ['Ocara'], '30º BPM': ['Beberibe'], '31º BPM': ['Jaguaribe'], '32º BPM': ['Mauriti'],
       '33º BPM': ['Assaré'], '34º BPM': ['Icó'],
       '1º CRPM': ['Fortaleza'],
-      '2º CRPM': ['Trairi'],
-      '3º CRPM': ['Santa Quitéria'],
-      '4º CRPM': ['Tauá'],
+      '2º CRPM': ['Trairi', 'São Gonçalo do Amarante', 'Paracuru'],
+      '3º CRPM': ['Santa Quitéria', 'Independência', 'Crateús'],
+      '4º CRPM': ['Tauá', 'Aiuaba', 'Parambu'],
       '5º CRPM': ['Fortaleza'],
-      '6º CRPM': ['Cascavel'],
-      '7º CRPM': ['Canindé'],
-      '8º CRPM': ['Quixeramobim']
+      '6º CRPM': ['Cascavel', 'Maranguape', 'Aquiraz'],
+      '7º CRPM': ['Canindé', 'Boa Viagem', 'Itapipoca'],
+      '8º CRPM': ['Quixeramobim', 'Morada Nova', 'Quixadá']
     },
-    note: 'Foram excluídos COGEIC, CGP e os marcadores não OPM “-” e “(vazio)”. O indicador mede perdas nas movimentações; o déficit estrutural exige comparar efetivo previsto e efetivo atual. As referências territoriais vêm da aba BASE de “DISTRI VTR (1).xlsx”: para cada BPM e CRPM, é exibido somente o município vinculado de maior area_km2.'
+    note: 'Foram excluídos COGEIC, CGP e os marcadores não OPM “-” e “(vazio)”. O indicador mede perdas nas movimentações; o déficit estrutural exige comparar efetivo previsto e efetivo atual. As referências territoriais vêm da aba BASE de “DISTRI VTR (1).xlsx”: cada BPM exibe o município vinculado de maior area_km2; cada CRPM exibe até três municípios distintos de maior área. Quando o comando regional possui apenas um município distinto na fonte, somente ele é apresentado.'
   },
   copac: {
     accent: '#2b8982',
@@ -389,7 +389,7 @@ function getPogTerritory(unitName) {
 function renderPogUnitLabel(unitName) {
   const territory = getPogTerritory(unitName);
   if (!territory) return unitName;
-  return `<span class="pog-opm-label"><strong>${unitName}</strong><small>${territory.cities[0]}</small></span>`;
+  return `<span class="pog-opm-label"><strong>${unitName}</strong><small>${territory.cities.join(' · ')}</small></span>`;
 }
 
 function renderDetailTable(data, detailKey = '') {
@@ -495,7 +495,7 @@ function renderPogUnitDetail(unitName) {
     : 'O PDF fornece totais consolidados por OPM. Ele não identifica o militar, o batalhão subordinado ou o pareamento individual entre unidade de origem e unidade de destino.';
   const territory = getPogTerritory(name);
   const territoryLine = territory
-    ? `<small class="pog-unit-territory">${territory.cities[0]}</small>`
+    ? `<small class="pog-unit-territory">${territory.cities.join(' · ')}</small>`
     : '';
   result.innerHTML = `
     <div class="pog-unit-result-heading">
@@ -522,7 +522,7 @@ function renderMetricDetail(key) {
   const breakdown = data.breakdown.map(([label, share, value, rowColor]) => {
     const territory = key === 'pog' ? getPogTerritory(label) : null;
     const breakdownLabel = territory
-      ? `<span class="detail-breakdown-label"><strong>${label}</strong><small>${territory.cities[0]}</small></span>`
+      ? `<span class="detail-breakdown-label"><strong>${label}</strong><small>${territory.cities.join(' · ')}</small></span>`
       : `<span>${label}</span>`;
     return `
     <div class="detail-breakdown-row">

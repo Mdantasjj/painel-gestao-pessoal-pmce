@@ -211,7 +211,7 @@ def generate_editable_powerpoint() -> None:
     add_card(slide, card_x[3], "COPAC — Necessidade de efetivo\npara compor as 10 bases, sendo 04\nprioritárias em 2026 (PReVio)", "229", "policiais", "10 bases · 04 prioritárias em 2026", TEAL, "E3F3F1", card_width, label_size=5.4, label_height=0.30)
 
     # Painel esquerdo: gráfico editável
-    add_panel(slide, 0.25, 2.72, 6.73, 4.49, "01", "Demissões e exonerações por mês", "340 das 547 saídas · janeiro a agosto de 2026")
+    add_panel(slide, 0.25, 2.72, 8.25, 4.49, "01", "Demissões e exonerações por mês", "340 das 547 saídas · janeiro a agosto de 2026")
     chart_data = ChartData()
     chart_data.categories = ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago"]
     chart_data.add_series("Demissões", (8, 2, 0, 7, 143, 76, 14, 2))
@@ -220,7 +220,7 @@ def generate_editable_powerpoint() -> None:
         XL_CHART_TYPE.COLUMN_CLUSTERED,
         Inches(0.46),
         Inches(3.31),
-        Inches(6.25),
+        Inches(7.76),
         Inches(3.42),
         chart_data,
     )
@@ -255,27 +255,19 @@ def generate_editable_powerpoint() -> None:
     plot.series[1].format.fill.solid()
     plot.series[1].format.fill.fore_color.rgb = color(GOLD)
     plot.series[1].format.line.color.rgb = color(GOLD)
-    add_text(slide, "Esta série detalha 340 das 547 saídas; maio concentrou 165 demissões/exonerações.", 0.46, 6.89, 6.0, 0.12, 5.1, MUTED)
-
-    # Painel central: necessidades de efetivo
-    add_panel(slide, 7.10, 2.72, 3.05, 4.49, "02", "Necessidades de efetivo", "RAIO, POG e COPAC/PReVio")
-    add_demand_box(slide, 7.27, 3.34, "RAIO · Bases satélites", "912", "20 bases, 31 municípios satélite e 85,9% operacional.", BLUE)
-    add_demand_box(slide, 7.27, 4.08, "POG · Policiamento Ordinário", "111", "Déficit calculado nos 34 BPMs territoriais.", "216F4C")
-    add_demand_box(slide, 7.27, 4.82, "COPAC · Necessidade PReVio", "229", "10 bases; 04 prioritárias em 2026.", TEAL)
-    warning = add_shape(slide, MSO_SHAPE.ROUNDED_RECTANGLE, 7.27, 6.72, 2.72, 0.30, "FBF8EF", "EEE4C9")
-    add_text(slide, "●  POG — Policiamento Ordinário: 111 soma as perdas dos 12 BPMs com saldo negativo.", 7.36, 6.75, 2.55, 0.22, 4.3, "216F4C")
+    add_text(slide, "Esta série detalha 340 das 547 saídas; maio concentrou 165 demissões/exonerações.", 0.46, 6.89, 7.60, 0.12, 5.1, MUTED)
 
     # Painel direito: gráfico de rosca editável
-    add_panel(slide, 10.27, 2.72, 2.81, 4.49, "03", "Aposentadorias", "Impacto nas promoções requeridas")
+    add_panel(slide, 8.62, 2.72, 4.46, 4.49, "02", "Aposentadorias", "Impacto nas promoções requeridas")
     donut_data = ChartData()
     donut_data.categories = ["Acesso ao oficialato", "Entre postos de oficiais"]
     donut_data.add_series("Promoções", (153, 54))
     donut_frame = slide.shapes.add_chart(
         XL_CHART_TYPE.DOUGHNUT,
-        Inches(10.65),
-        Inches(3.65),
-        Inches(2.05),
-        Inches(2.10),
+        Inches(9.42),
+        Inches(3.45),
+        Inches(2.85),
+        Inches(2.50),
         donut_data,
     )
     donut = donut_frame.chart
@@ -289,14 +281,14 @@ def generate_editable_powerpoint() -> None:
     donut_series.points[1].format.fill.solid()
     donut_series.points[1].format.fill.fore_color.rgb = color(BLUE)
     donut_series.points[1].format.line.color.rgb = color(BLUE)
-    add_text(slide, "207", 11.22, 4.29, 0.92, 0.34, 21, INK, True, PP_ALIGN.CENTER)
-    add_text(slide, "Aposent.", 11.32, 4.62, 0.72, 0.12, 5.5, MUTED, False, PP_ALIGN.CENTER)
-    add_shape(slide, MSO_SHAPE.RECTANGLE, 10.49, 5.92, 0.07, 0.07, OLIVE, OLIVE)
-    add_text(slide, "Acesso ao oficialato", 10.62, 5.87, 1.35, 0.16, 5.3, MUTED)
-    add_text(slide, "153 · 73,9%", 12.10, 5.87, 0.70, 0.16, 5.3, INK, True, PP_ALIGN.RIGHT)
-    add_shape(slide, MSO_SHAPE.RECTANGLE, 10.49, 6.14, 0.07, 0.07, BLUE, BLUE)
-    add_text(slide, "Entre postos de oficiais", 10.62, 6.09, 1.35, 0.16, 5.3, MUTED)
-    add_text(slide, "54 · 26,1%", 12.10, 6.09, 0.70, 0.16, 5.3, INK, True, PP_ALIGN.RIGHT)
+    add_text(slide, "207", 10.38, 4.27, 0.92, 0.34, 21, INK, True, PP_ALIGN.CENTER)
+    add_text(slide, "Aposent.", 10.48, 4.60, 0.72, 0.12, 5.5, MUTED, False, PP_ALIGN.CENTER)
+    add_shape(slide, MSO_SHAPE.RECTANGLE, 9.08, 6.02, 0.07, 0.07, OLIVE, OLIVE)
+    add_text(slide, "Acesso ao oficialato", 9.21, 5.97, 2.00, 0.16, 5.3, MUTED)
+    add_text(slide, "153 · 73,9%", 12.05, 5.97, 0.70, 0.16, 5.3, INK, True, PP_ALIGN.RIGHT)
+    add_shape(slide, MSO_SHAPE.RECTANGLE, 9.08, 6.25, 0.07, 0.07, BLUE, BLUE)
+    add_text(slide, "Entre postos de oficiais", 9.21, 6.20, 2.00, 0.16, 5.3, MUTED)
+    add_text(slide, "54 · 26,1%", 12.05, 6.20, 0.70, 0.16, 5.3, INK, True, PP_ALIGN.RIGHT)
 
     # Rodapé
     add_text(slide, "POLÍCIA MILITAR DO CEARÁ · PAINEL ESTRATÉGICO INSTITUCIONAL", 0.25, 7.31, 4.2, 0.08, 4.2, MUTED, True)
@@ -313,17 +305,17 @@ def generate_editable_powerpoint() -> None:
     origin_slide.shapes.add_picture(str(LOGO_IMAGE), Inches(0.48), Inches(0.29), width=Inches(2.22), height=Inches(0.48))
     add_text(origin_slide, "GESTÃO DE PESSOAL", 3.12, 0.27, 2.0, 0.13, 6.8, "74D5A6", True)
     add_text(origin_slide, "De onde estão saindo os militares", 3.12, 0.42, 6.2, 0.28, 19, WHITE, True)
-    add_text(origin_slide, "Origem por OPM e município · dados agregados, sem nomes ou matrículas", 3.12, 0.70, 5.5, 0.13, 7, "B7D0C6")
+    add_text(origin_slide, "Origem por batalhão e município · dados agregados, sem nomes ou matrículas", 3.12, 0.70, 5.5, 0.13, 7, "B7D0C6")
     add_text(origin_slide, "PERÍODO DA FONTE", 10.70, 0.33, 1.30, 0.10, 4.6, "B7D0C6", False, PP_ALIGN.RIGHT)
     add_text(origin_slide, "01/01 a 10/08/2026", 10.42, 0.52, 1.58, 0.15, 8.2, WHITE, True, PP_ALIGN.RIGHT)
     add_shape(origin_slide, MSO_SHAPE.ROUNDED_RECTANGLE, 12.42, 0.35, 0.36, 0.36, "234F40", "537668")
-    add_text(origin_slide, "04", 12.42, 0.35, 0.36, 0.36, 8, WHITE, True, PP_ALIGN.CENTER)
+    add_text(origin_slide, "03", 12.42, 0.35, 0.36, 0.36, 8, WHITE, True, PP_ALIGN.CENTER)
 
     add_shape(origin_slide, MSO_SHAPE.ROUNDED_RECTANGLE, 0.25, 1.04, 12.83, 0.38, WHITE)
     ctx_bar = add_shape(origin_slide, MSO_SHAPE.RECTANGLE, 0.38, 1.12, 0.025, 0.22, GREEN_600, GREEN_600)
     ctx_bar.line.fill.background()
     add_text(origin_slide, "Leitura territorial das saídas", 0.49, 1.09, 2.3, 0.14, 7.1, INK, True)
-    add_text(origin_slide, "O ranking cobre demissões e exonerações individualizadas; aposentadorias não possuem OPM na base atual.", 0.49, 1.24, 6.4, 0.09, 4.9, MUTED)
+    add_text(origin_slide, "O ranking cobre demissões e exonerações individualizadas; aposentadorias não possuem unidade de origem na base atual.", 0.49, 1.24, 6.4, 0.09, 4.9, MUTED)
     add_shape(origin_slide, MSO_SHAPE.ROUNDED_RECTANGLE, 11.46, 1.12, 1.38, 0.20, GREEN_050, GREEN_050)
     add_text(origin_slide, "326 registros únicos", 11.50, 1.12, 1.30, 0.20, 5.2, GREEN_800, True, PP_ALIGN.CENTER)
 
@@ -331,7 +323,7 @@ def generate_editable_powerpoint() -> None:
     add_summary_box(origin_slide, 4.60, "Batalhões destacados", "7", "BPMs no ranking territorial de origens", GREEN_800)
     add_summary_box(origin_slide, 8.95, "Municípios identificados", "53", "Fortaleza concentra 153 registros", GOLD)
 
-    add_panel(origin_slide, 0.25, 2.39, 6.28, 4.72, "04A", "Batalhões com mais saídas", "BPMs presentes entre as principais origens · Top 7")
+    add_panel(origin_slide, 0.25, 2.39, 6.28, 4.72, "03A", "Batalhões com mais saídas", "BPMs presentes entre as principais origens · Top 7")
     opm_rows = [
         ("12º BPM · Caucaia", 17), ("17º BPM · Fortaleza", 14), ("18º BPM · Fortaleza", 14),
         ("6º BPM · Fortaleza", 14), ("19º BPM · Fortaleza", 12), ("20º BPM · Fortaleza", 11),
@@ -340,7 +332,7 @@ def generate_editable_powerpoint() -> None:
     add_ranked_bars(origin_slide, 0.48, 3.10, 5.80, opm_rows, 326, GREEN_600, row_step=0.41, label_width=1.70)
     add_text(origin_slide, "O 12º BPM lidera o recorte por batalhão, com 17 registros (5,2% do total individualizado).", 0.48, 6.55, 5.75, 0.14, 5.2, MUTED)
 
-    add_panel(origin_slide, 6.68, 2.39, 6.40, 4.72, "04B", "Municípios com mais saídas", "Município informado no registro · Top 8")
+    add_panel(origin_slide, 6.68, 2.39, 6.40, 4.72, "03B", "Municípios com mais saídas", "Município informado no registro · Top 8")
     city_rows = [
         ("Fortaleza", 153), ("Caucaia", 27), ("Maracanaú", 12), ("Maranguape", 8),
         ("Juazeiro do Norte", 8), ("Quixadá", 7), ("Eusébio", 6), ("Sobral", 6),

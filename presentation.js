@@ -47,28 +47,6 @@ function renderDismissalsChart() {
     <div class="chart-source-note">Esta série detalha 340 das 547 saídas. Maio concentrou 165 demissões/exonerações, ou 48,5% desse recorte.</div>`;
 }
 
-function renderStaffNeeds() {
-  document.querySelector('#detailContent').innerHTML = `
-    <div class="staff-demand-grid">
-      <div class="staff-demand-item" style="--demand-color:#3b7e9d">
-        <span>RAIO · Bases satélites</span>
-        <div><strong>912</strong><small>policiais</small></div>
-        <p>20 bases, 31 municípios satélite e 85,9% do efetivo em atividade operacional.</p>
-      </div>
-      <div class="staff-demand-item" style="--demand-color:#216f4c">
-        <span>POG · Policiamento Ordinário</span>
-        <div><strong>111</strong><small>policiais</small></div>
-        <p>Déficit calculado exclusivamente nos 34 BPMs territoriais.</p>
-      </div>
-      <div class="staff-demand-item" style="--demand-color:#2b8982">
-        <span>COPAC · Necessidade PReVio</span>
-        <div><strong>229</strong><small>policiais</small></div>
-        <p>Necessidade para compor 10 bases, sendo 04 prioritárias em 2026.</p>
-      </div>
-    </div>
-    <div class="analysis-warning">No POG — Policiamento Ordinário, 111 é a soma dos saldos negativos dos 34 BPMs. Comandos regionais e demais unidades não integram este recorte por batalhão.</div>`;
-}
-
 function renderPromotions() {
   const segments = [
     { label: 'Acesso ao oficialato', value: 153, color: '#698342' },
@@ -595,7 +573,6 @@ document.addEventListener('fullscreenchange', () => {
 
 updateDateTime();
 renderDismissalsChart();
-renderStaffNeeds();
 renderPromotions();
 renderOrigins();
 setInterval(updateDateTime, 30000);

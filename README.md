@@ -8,15 +8,17 @@ Abra o arquivo `index.html` no navegador e use o botão de tela cheia no cabeça
 
 ## Detalhamento interativo
 
-Os quatro cards são clicáveis e também podem ser acionados pelas teclas `Enter` ou `Espaço`. Cada card abre uma memória de cálculo com composição do total, percentuais, tabelas discriminadas e ressalvas metodológicas. A janela pode ser fechada pelo botão, pela tecla `Esc` ou por um clique fora dela.
+Os cinco cards são clicáveis e também podem ser acionados pelas teclas `Enter` ou `Espaço`. Cada card abre uma memória de cálculo com composição do total, percentuais, tabelas discriminadas e ressalvas metodológicas. A janela pode ser fechada pelo botão, pela tecla `Esc` ou por um clique fora dela.
 
-Nas tabelas de detalhamento, as colunas de identificação e os valores estratégicos recebem tipografia ampliada e destaque em verde: cidade-polo e total no RAIO, mês e total mensal nas saídas, OPM e saldo no POG, unidade/base e necessidade no COPAC.
+Nas tabelas de detalhamento, as colunas de identificação e os valores estratégicos recebem tipografia ampliada e destaque em verde: cidade-polo e total no RAIO, mês e total mensal nas saídas, OPM e saldo no POG, unidade/base e necessidade no COPAC, e batalhão e defasagem na reestruturação do interior.
 
 O detalhamento do POG possui uma consulta para os 34 BPMs territoriais. Ao selecionar um batalhão, são apresentados a cidade de referência, os totais de saídas e entradas, o saldo e a perda líquida. CRPMs e demais OPMs não integram esse recorte, pois a fonte consolidada não permite redistribuir seus registros entre batalhões.
 
 Os 34 BPMs recebem uma referência territorial discreta baseada na aba `BASE` de `DISTRI VTR (1).xlsx`. Como a planilha não identifica formalmente a sede, cada batalhão mostra o município vinculado de maior `area_km2`. A cidade acompanha todas as ocorrências visuais dos BPMs: gráfico de origens, composição do indicador, seletor, tabela e detalhamento individual.
 
 O detalhamento apresenta somente informações agregadas, sem nomes ou matrículas. No COPAC, a janela destaca que o título estratégico menciona 10 bases e 04 prioritárias, enquanto a fonte quantitativa disponível contém 12 unidades e não identifica quais são as quatro prioridades.
+
+O card **Reestruturação dos batalhões do interior** utiliza somente a aba `Resumo Executivo` de `Resumo Organograma - Defasagem efetivo Unidades criadas.xlsx`. Após excluir 6º, 7º, 8º e 9º BPRAIO, o recorte apresenta nove batalhões: oito abaixo da média do respectivo comando, um acima e 520,5 de defasagem acumulada. A planilha integral não é publicada; somente os agregados necessários ao painel são incorporados.
 
 No detalhamento do RAIO, três botões permitem escolher os níveis de implantação. Antes da escolha, cada botão informa o total de bases, municípios satélites e policiais do respectivo nível. Após a seleção, o painel discrimina as cidades-polo, os municípios satélites e a composição do efetivo por base.
 
@@ -26,7 +28,7 @@ A assinatura institucional oficial fornecida está preservada em `assets/timbrad
 
 ## Próxima etapa
 
-O primeiro dos quatro cards apresenta o cálculo estratégico de **547 saídas de efetivo**: 252 demissões, 88 exonerações e 207 aposentadorias. Conforme orientação do projeto, o quantitativo de promoções requeridas foi adotado como referência das aposentadorias. Os demais cards mantêm as necessidades de efetivo do RAIO, do POG — Policiamento Ordinário, com déficit de 111 policiais nos 34 BPMs territoriais — e do COPAC/PReVio, considerando 10 bases, sendo 04 prioritárias em 2026. As aposentadorias continuam detalhadas no mostrador inferior, sem card individual.
+O primeiro dos cinco cards apresenta o cálculo estratégico de **547 saídas de efetivo**: 252 demissões, 88 exonerações e 207 aposentadorias. Conforme orientação do projeto, o quantitativo de promoções requeridas foi adotado como referência das aposentadorias. Os demais cards mantêm as necessidades de efetivo do RAIO, do POG — Policiamento Ordinário, com déficit de 111 policiais nos 34 BPMs territoriais —, do COPAC/PReVio e da reestruturação dos batalhões do interior. As aposentadorias continuam detalhadas no mostrador inferior, sem card individual.
 
 O visualizador inferior apresenta, sem nomes ou matrículas, as OPMs e os municípios de origem de 326 registros únicos de demissão e exoneração. A fonte individualizada não foi incluída no repositório público por conter dados pessoais; somente os agregados estatísticos foram publicados.
 

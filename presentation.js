@@ -290,6 +290,38 @@ const metricDetails = {
     },
     note: 'O recorte apresenta exclusivamente os 34 BPMs numerados, totalizando 1.459 registros na origem, 1.549 no destino e saldo conjunto de +90. O déficit de 111 corresponde à soma das perdas dos 12 BPMs com saldo negativo. Comandos regionais e demais unidades foram retirados; a fonte consolidada não permite redistribuir seus registros entre batalhões. A cidade exibida em cada BPM vem da aba BASE de “DISTRI VTR (1).xlsx”.'
   },
+  restructuring: {
+    accent: '#557c45',
+    eyebrow: 'Memória de cálculo · reestruturação',
+    title: 'Reestruturação dos batalhões do interior',
+    total: '9',
+    unit: 'batalhões',
+    description: 'Recorte dos batalhões do interior apresentados na aba Resumo Executivo, com comparação entre efetivo atual e média do comando.',
+    stats: [
+      ['Abaixo da média', '8 BPM', '88,9% dos batalhões analisados'],
+      ['Acima da média', '1 BPM', '29º BPM · 12,3 acima da média'],
+      ['Defasagem acumulada', '520,5', 'Soma das diferenças positivas para a média']
+    ],
+    breakdown: [
+      ['Abaixo da média', 88.9, '8 · 88,9%', '#23794f'],
+      ['Acima da média', 11.1, '1 · 11,1%', '#83b99a']
+    ],
+    sectionTitle: 'Batalhões ordenados pela maior defasagem',
+    sectionSubtitle: 'Efetivo atual comparado à média do respectivo comando.',
+    tableColumns: ['Posição', 'Batalhão / cidade', 'Efetivo atual', 'Média do comando', 'Situação', 'Defasagem'],
+    tableRows: [
+      ['1', '33º BPM', '138', '253,5', 'Abaixo da média', '115,5'],
+      ['2', '28º BPM', '202', '297,25', 'Abaixo da média', '95,25'],
+      ['3', '31º BPM', '168', '257,25', 'Abaixo da média', '89,25'],
+      ['4', '27º BPM', '234', '297,25', 'Abaixo da média', '63,25'],
+      ['5', '34º BPM', '202', '253,5', 'Abaixo da média', '51,5'],
+      ['6', '26º BPM', '294', '335', 'Abaixo da média', '41'],
+      ['7', '30º BPM', '217', '257,25', 'Abaixo da média', '40,25'],
+      ['8', '32º BPM', '229', '253,5', 'Abaixo da média', '24,5'],
+      ['9', '29º BPM', '281', '268,67', 'Acima da média', '-12,33']
+    ],
+    note: 'Fonte: aba “Resumo Executivo” de “Resumo Organograma - Defasagem efetivo Unidades criadas.xlsx”. Foram excluídas as quatro unidades vinculadas ao CPRAIO: 6º, 7º, 8º e 9º BPRAIO. A defasagem corresponde à média do comando menos o efetivo atual; por decorrer de médias, o resultado pode conter frações. Os nove batalhões somam 1.965 policiais no efetivo atual.'
+  },
   copac: {
     accent: '#2b8982',
     eyebrow: 'Memória de cálculo · COPAC/PReVio',
@@ -347,7 +379,7 @@ function renderPogUnitLabel(unitName) {
 function renderDetailTable(data, detailKey = '') {
   const head = data.tableColumns.map((column) => `<th scope="col">${column}</th>`).join('');
   const rows = data.tableRows.map((row) => `<tr>${row.map((cell, index) => {
-    const content = detailKey === 'pog' && index === 1 ? renderPogUnitLabel(cell) : cell;
+    const content = ['pog', 'restructuring'].includes(detailKey) && index === 1 ? renderPogUnitLabel(cell) : cell;
     return `<td>${content}</td>`;
   }).join('')}</tr>`).join('');
   return `<div class="detail-table-wrap"><table class="detail-table"><thead><tr>${head}</tr></thead><tbody>${rows}</tbody></table></div>`;

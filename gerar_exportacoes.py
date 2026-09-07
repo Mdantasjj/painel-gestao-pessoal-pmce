@@ -194,21 +194,22 @@ def generate_editable_powerpoint() -> None:
     ctx_bar = add_shape(slide, MSO_SHAPE.RECTANGLE, 0.38, 1.13, 0.025, 0.22, GREEN_600, GREEN_600)
     ctx_bar.line.fill.background()
     add_text(slide, "Panorama executivo integrado", 0.49, 1.10, 2.5, 0.14, 7.1, INK, True)
-    add_text(slide, "Os mostradores consolidam simultaneamente as cinco bases", 0.49, 1.25, 3.3, 0.09, 4.9, MUTED)
+    add_text(slide, "Os mostradores consolidam os indicadores estratégicos das bases analisadas", 0.49, 1.25, 3.8, 0.09, 4.9, MUTED)
     add_text(slide, "REFERÊNCIA", 9.65, 1.10, 0.65, 0.09, 4.4, MUTED)
     add_text(slide, "2025–2026", 9.65, 1.22, 0.8, 0.12, 6.3, INK, True)
     add_text(slide, "ARQUIVO CONSOLIDADO", 10.75, 1.10, 1.15, 0.09, 4.4, MUTED)
     add_text(slide, "21/08/2026", 10.75, 1.22, 0.75, 0.12, 6.3, INK, True)
     add_shape(slide, MSO_SHAPE.ROUNDED_RECTANGLE, 11.92, 1.13, 0.95, 0.20, GREEN_050, GREEN_050)
-    add_text(slide, "●  5 bases consolidadas", 11.96, 1.13, 0.86, 0.20, 4.7, GREEN_800, True, PP_ALIGN.CENTER)
+    add_text(slide, "●  6 bases consolidadas", 11.96, 1.13, 0.86, 0.20, 4.7, GREEN_800, True, PP_ALIGN.CENTER)
 
     # Cards editáveis
-    card_x = [0.49, 3.61, 6.73, 9.85]
-    card_width = 3.00
-    add_card(slide, card_x[0], "Saídas de efetivo\n(exoneração — aposentadoria)", "547", "saídas", "252 dem. · 88 exon. · 207 aposent.", GREEN_600, "E6F4ED", card_width, label_size=6.8, label_height=0.30)
-    add_card(slide, card_x[1], "RAIO — Necessidade de efetivo para compor\nas 20 bases satélites em 3 níveis de implementação", "912", "policiais", "20 bases · 31 municípios satélite", BLUE, "E7F1F6", card_width, label_size=6.2, label_height=0.34)
-    add_card(slide, card_x[2], "Déficit de efetivo — POG", "111", "policiais", "POG — Policiamento Ordinário · 34 BPMs territoriais", "216F4C", "E4F2E9", card_width, foot_size=4.4, foot_height=0.22)
-    add_card(slide, card_x[3], "COPAC — Necessidade de efetivo\npara compor as 10 bases, sendo 04\nprioritárias em 2026 (PReVio)", "229", "policiais", "10 bases · 04 prioritárias em 2026", TEAL, "E3F3F1", card_width, label_size=5.4, label_height=0.30)
+    card_x = [0.36, 2.91, 5.46, 8.01, 10.56]
+    card_width = 2.43
+    add_card(slide, card_x[0], "Saídas de efetivo\n(exoneração — aposentadoria)", "547", "saídas", "252 dem. · 88 exon. · 207 aposent.", GREEN_600, "E6F4ED", card_width, label_size=6.2, label_height=0.30, foot_size=4.6)
+    add_card(slide, card_x[1], "RAIO — Necessidade para as 20 bases\nsatélites em 3 níveis de implementação", "912", "policiais", "20 bases · 31 municípios satélite", BLUE, "E7F1F6", card_width, label_size=5.3, label_height=0.34, foot_size=4.4)
+    add_card(slide, card_x[2], "Déficit de efetivo — POG", "111", "policiais", "Policiamento Ordinário · 34 BPMs", "216F4C", "E4F2E9", card_width, label_size=6.1, foot_size=4.4, foot_height=0.22)
+    add_card(slide, card_x[3], "COPAC — Necessidade para 10 bases,\nsendo 04 prioritárias em 2026 (PReVio)", "229", "policiais", "10 bases · 04 prioritárias", TEAL, "E3F3F1", card_width, label_size=5.1, label_height=0.34, foot_size=4.4)
+    add_card(slide, card_x[4], "Reestruturação dos batalhões\ndo interior", "9", "batalhões", "8 abaixo da média · 1 acima", OLIVE, "EDF3E4", card_width, label_size=5.8, label_height=0.30, foot_size=4.3)
 
     # Painel esquerdo: gráfico editável
     add_panel(slide, 0.25, 2.72, 8.25, 4.49, "01", "Demissões e exonerações por mês", "340 das 547 saídas · janeiro a agosto de 2026")

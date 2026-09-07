@@ -96,7 +96,7 @@ svg { display: block; }
 .online-status { display: flex; align-items: center; gap: 7px; padding: 7px 10px; border-radius: 20px; color: var(--green-700); background: var(--green-50); font-size: 10px; font-weight: 650; }
 .online-status i { width: 7px; height: 7px; border-radius: 50%; background: #34ae76; box-shadow: 0 0 0 3px rgba(52,174,118,.12); }
 
-.metrics { display: grid; width: 100%; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(14px, 1.25vw, 24px); }
+.metrics { display: grid; width: 100%; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: clamp(12px, 1vw, 18px); }
 .metric-card { position: relative; min-width: 0; min-height: 195px; overflow: hidden; padding: clamp(22px, 1.65vw, 32px); border: 1px solid var(--line); border-radius: 16px; color: var(--ink); text-align: left; background: #fff; box-shadow: 0 9px 28px rgba(10, 50, 35, .07); }
 .metric-card::before { position: absolute; inset: 0 auto 0 0; width: 4px; background: var(--accent); content: ""; }
 .metric-card::after { position: absolute; right: 0; bottom: 0; left: 0; height: 3px; background: var(--accent); content: ""; opacity: 0; transform: scaleX(.35); transition: opacity .2s, transform .2s; }
@@ -317,30 +317,40 @@ body.modal-open { overflow: hidden; }
 .pog-opm-label > small { color: #4f7160; font-size: 8.5px; font-weight: 680; letter-spacing: .01em; line-height: 1.3; text-transform: none; }
 #metricDetailContent[data-detail="exits"] .detail-table th:first-child,
 #metricDetailContent[data-detail="pog"] .detail-table th:nth-child(2),
+#metricDetailContent[data-detail="restructuring"] .detail-table th:nth-child(2),
 #metricDetailContent[data-detail="copac"] .detail-table th:nth-child(2) { color: #fff; background: #216f4c; font-size: 10px; font-weight: 850; }
 #metricDetailContent[data-detail="exits"] .detail-table td:first-child,
 #metricDetailContent[data-detail="pog"] .detail-table td:nth-child(2),
+#metricDetailContent[data-detail="restructuring"] .detail-table td:nth-child(2),
 #metricDetailContent[data-detail="copac"] .detail-table td:nth-child(2) { border-left: 4px solid #2f8b5d; color: #104e34; background: #e4f2e9; font-size: 13px; font-weight: 850; letter-spacing: .025em; text-transform: uppercase; }
 #metricDetailContent[data-detail="exits"] .detail-table th:last-child,
 #metricDetailContent[data-detail="pog"] .detail-table th:last-child,
+#metricDetailContent[data-detail="restructuring"] .detail-table th:last-child,
 #metricDetailContent[data-detail="copac"] .detail-table th:last-child { color: #fff; background: #216f4c; font-size: 10px; font-weight: 850; }
 #metricDetailContent[data-detail="exits"] .detail-table td:last-child,
 #metricDetailContent[data-detail="pog"] .detail-table td:last-child,
+#metricDetailContent[data-detail="restructuring"] .detail-table td:last-child,
 #metricDetailContent[data-detail="copac"] .detail-table td:last-child { border-left: 1px solid #9bc9ab; color: #083f29; background: #c7e5d1; box-shadow: inset 4px 0 #23794f; font-size: 15px; font-weight: 850; letter-spacing: .025em; }
 #metricDetailContent[data-detail="exits"] .detail-table th:last-child,
 #metricDetailContent[data-detail="exits"] .detail-table td:last-child { text-align: center; }
 #metricDetailContent[data-detail="pog"] .detail-table th:last-child,
 #metricDetailContent[data-detail="pog"] .detail-table td:last-child,
+#metricDetailContent[data-detail="restructuring"] .detail-table th:last-child,
+#metricDetailContent[data-detail="restructuring"] .detail-table td:last-child,
 #metricDetailContent[data-detail="copac"] .detail-table th:last-child,
 #metricDetailContent[data-detail="copac"] .detail-table td:last-child { text-align: center; }
 #metricDetailContent[data-detail="exits"] .detail-table tbody tr:hover td:first-child,
 #metricDetailContent[data-detail="pog"] .detail-table tbody tr:hover td:nth-child(2),
+#metricDetailContent[data-detail="restructuring"] .detail-table tbody tr:hover td:nth-child(2),
 #metricDetailContent[data-detail="copac"] .detail-table tbody tr:hover td:nth-child(2) { background: #d5eadc; }
 #metricDetailContent[data-detail="exits"] .detail-table tbody tr:hover td:last-child,
 #metricDetailContent[data-detail="pog"] .detail-table tbody tr:hover td:last-child,
+#metricDetailContent[data-detail="restructuring"] .detail-table tbody tr:hover td:last-child,
 #metricDetailContent[data-detail="copac"] .detail-table tbody tr:hover td:last-child { background: #b4d9c0; }
 #metricDetailContent[data-detail="pog"] .detail-table th:first-child,
-#metricDetailContent[data-detail="pog"] .detail-table td:first-child { width: 58px; padding-right: 6px; padding-left: 6px; text-align: center; white-space: nowrap; }
+#metricDetailContent[data-detail="pog"] .detail-table td:first-child,
+#metricDetailContent[data-detail="restructuring"] .detail-table th:first-child,
+#metricDetailContent[data-detail="restructuring"] .detail-table td:first-child { width: 58px; padding-right: 6px; padding-left: 6px; text-align: center; white-space: nowrap; }
 
 .presentation-footer { display: flex; min-height: 27px; align-items: center; justify-content: space-between; gap: 15px; color: #6f7c75; font-size: 9.5px; font-weight: 650; letter-spacing: .045em; }
 .presentation-footer > div { display: flex; align-items: center; gap: 7px; font-weight: 500; letter-spacing: 0; }

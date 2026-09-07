@@ -2,13 +2,15 @@
 
 Fontes analisadas:
 
+- `Resumo Organograma - Defasagem efetivo Unidades criadas.xlsx` — SHA-256 `64CEF17C93D1A5042975F5D72C2CE0D814386ABB6D7FEE13F6B759F513447A45`. Foi utilizada somente a aba `Resumo Executivo`. As quatro unidades ligadas ao CPRAIO/BPRAIO foram excluídas do novo indicador.
+
 - `DISTRI VTR (1).xlsx` — SHA-256 `5BC0B6767E532ACBFDBBE8948B15BD18047FA1005565A20BACA990ACC0B0561A`. A aba `BASE` foi utilizada exclusivamente para relacionar os 34 BPMs numerados aos municípios e ao campo `area_km2`. Como a planilha não contém uma coluna formal de sede, o painel apresenta o município vinculado de maior área como referência territorial de cada batalhão.
 
 - `data/Juntada_Dados_Demissoes_Exoneracoes_2026.xlsx` — SHA-256 `3FB25096CD58E846DFD43DD1C89547ABFF6A27F2715F1ADD77095DDA5DB2E6FE`.
 - `data/MOVIMENTAÇÕES DO BCG 025-2025 AO BCG 153-2026.pdf` — SHA-256 `3643F9840C3C312C97CEAB6D13345F2C57ACD3C2D6171791C4B0AB674AA36063`.
 - `RELAÇÃO DOS PEDIDOS DE EXONERAÇÃO E DEMISSÃO - 2026 - AGOSTO.pdf` — SHA-256 `EE9B7090ACAF7E18635930BA87DDB2E5592FBF09740396CB1F19E281830DC312`. A fonte detalhada contém dados pessoais e, por isso, não foi copiada para o repositório público; somente os agregados por OPM e município foram utilizados.
 
-## Totais das cinco abas
+## Indicadores consolidados
 
 | Aba | Total utilizado no card | Composição principal |
 |---|---:|---|
@@ -16,6 +18,7 @@ Fontes analisadas:
 | RAIO — Necessidade de efetivo para compor as 20 bases satélites em 3 níveis de implementação | 912 policiais | 20 oficiais e 892 praças |
 | Déficit de efetivo do POG — Policiamento Ordinário | 111 policiais | Recorte dos 34 BPMs territoriais; soma dos saldos negativos de 12 batalhões |
 | COPAC — Necessidade de efetivo PReVio | 229 policiais | Composição de 10 bases, sendo 04 prioritárias em 2026 |
+| Reestruturação dos batalhões do interior | 9 batalhões | 8 abaixo da média, 1 acima e 520,5 de defasagem acumulada; RAIO excluído |
 | Aposentadorias | 207 militares | Referência estratégica adotada: quantitativo das promoções requeridas |
 
 ## Principais achados
@@ -28,6 +31,7 @@ Fontes analisadas:
 - Os 34 BPMs registram 1.459 origens e 1.549 destinos, produzindo saldo conjunto de +90. Esse saldo positivo não elimina os déficits localizados.
 - O 12º BPM tem o maior saldo negativo (-37), seguido pelo 8º BPM (-23) e pelo 22º BPM (-10). Os dois primeiros concentram 54,1% do déficit por batalhão.
 - CRPMs, unidades especializadas e demais OPMs foram retirados do indicador. Os registros dos comandos regionais não foram redistribuídos porque a fonte não identifica o batalhão de vínculo.
+- Na reestruturação do interior, nove batalhões permanecem após excluir quatro unidades do RAIO. Oito estão abaixo da média do respectivo comando; a defasagem acumulada é 520,5 e o 33º BPM apresenta a maior diferença, com 115,5.
 - O COPAC mantém o indicador de 229 policiais e destaca a composição de 10 bases, sendo 04 prioritárias em 2026.
 - Das 207 promoções requeridas, 153 correspondem ao acesso de SUBTEN PM a 2ºTEN QOAPM, representando 73,9% do total.
 
@@ -41,3 +45,4 @@ Fontes analisadas:
 - O valor de 207 foi classificado como aposentadorias por orientação do projeto, utilizando a aba de promoções requeridas como referência estratégica. A fonte original registra promoções requeridas, não atos individuais de aposentadoria.
 - O visualizador de origem usa 326 registros únicos da relação cumulativa entre 01/01 e 10/08/2026. O total executivo de 340 permanece baseado na consolidação mensal; os dois recortes não devem ser tratados como uma conciliação individual exata.
 - A base atual não informa a OPM de origem das 207 aposentadorias; por isso, o ranking territorial cobre apenas demissões e exonerações.
+- A defasagem da reestruturação compara o efetivo atual à média do comando e pode conter frações. Ela não deve ser interpretada como quantitativo inteiro já autorizado para movimentação.

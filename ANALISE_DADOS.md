@@ -4,7 +4,7 @@ Fontes analisadas:
 
 - `Resumo Organograma - Defasagem efetivo Unidades criadas.xlsx` — SHA-256 `64CEF17C93D1A5042975F5D72C2CE0D814386ABB6D7FEE13F6B759F513447A45`. Foi utilizada somente a aba `Resumo Executivo`. As quatro unidades ligadas ao CPRAIO/BPRAIO foram excluídas do novo indicador.
 
-- `DISTRI VTR (1).xlsx` — SHA-256 `5BC0B6767E532ACBFDBBE8948B15BD18047FA1005565A20BACA990ACC0B0561A`. A aba `BASE` foi utilizada exclusivamente para relacionar os 34 BPMs numerados aos municípios e ao campo `area_km2`. Como a planilha não contém uma coluna formal de sede, o painel apresenta o município vinculado de maior área como referência territorial de cada batalhão.
+- `DISTRI VTR (1).xlsx` — SHA-256 `5BC0B6767E532ACBFDBBE8948B15BD18047FA1005565A20BACA990ACC0B0561A`. A aba `BASE` foi utilizada exclusivamente para relacionar os 34 BPMs numerados aos municípios e ao campo `area_km2`. Como a planilha não contém uma coluna formal de sede, o painel apresenta o município vinculado de maior área como referência territorial de cada batalhão, com ajuste do 28º BPM para Camocim por orientação do projeto.
 
 - `data/Juntada_Dados_Demissoes_Exoneracoes_2026.xlsx` — SHA-256 `3FB25096CD58E846DFD43DD1C89547ABFF6A27F2715F1ADD77095DDA5DB2E6FE`.
 - `data/MOVIMENTAÇÕES DO BCG 025-2025 AO BCG 153-2026.pdf` — SHA-256 `3643F9840C3C312C97CEAB6D13345F2C57ACD3C2D6171791C4B0AB674AA36063`.

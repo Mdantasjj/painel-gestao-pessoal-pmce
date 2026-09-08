@@ -285,8 +285,8 @@ const metricDetails = {
       '17º BPM': ['Fortaleza'], '18º BPM': ['Fortaleza'], '19º BPM': ['Fortaleza'], '20º BPM': ['Fortaleza'],
       '21º BPM': ['Fortaleza'], '22º BPM': ['Fortaleza'], '23º BPM': ['Trairi'], '24º BPM': ['Maranguape'],
       '25º BPM': ['Chorozinho'], '26º BPM': ['Caucaia'], '27º BPM': ['Viçosa do Ceará'], '28º BPM': ['Camocim'],
-      '29º BPM': ['Ocara'], '30º BPM': ['Beberibe'], '31º BPM': ['Jaguaribe'], '32º BPM': ['Brejo Santo'],
-      '33º BPM': ['Assaré'], '34º BPM': ['Icó']
+      '29º BPM': ['Ocara'], '30º BPM': ['Aracati'], '31º BPM': ['Jaguaribe'], '32º BPM': ['Brejo Santo'],
+      '33º BPM': ['Campos Sales'], '34º BPM': ['Icó']
     },
     note: 'O recorte apresenta exclusivamente os 34 BPMs numerados, totalizando 1.459 registros na origem, 1.549 no destino e saldo conjunto de +90. O déficit de 111 corresponde à soma das perdas dos 12 BPMs com saldo negativo. Comandos regionais e demais unidades foram retirados; a fonte consolidada não permite redistribuir seus registros entre batalhões. A cidade exibida em cada BPM vem da aba BASE de “DISTRI VTR (1).xlsx”.'
   },

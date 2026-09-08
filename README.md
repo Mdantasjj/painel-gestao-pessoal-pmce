@@ -14,7 +14,7 @@ Nas tabelas de detalhamento, as colunas de identificação e os valores estraté
 
 O detalhamento do POG possui uma consulta para os 34 BPMs territoriais. Ao selecionar um batalhão, são apresentados a cidade de referência, os totais de saídas e entradas, o saldo e a perda líquida. CRPMs e demais OPMs não integram esse recorte, pois a fonte consolidada não permite redistribuir seus registros entre batalhões.
 
-Os 34 BPMs recebem uma referência territorial discreta baseada na aba `BASE` de `DISTRI VTR (1).xlsx`. Como a planilha não identifica formalmente a sede, cada batalhão mostra o município vinculado de maior `area_km2`. Por orientação do projeto, o 28º BPM utiliza Camocim e o 32º BPM utiliza Brejo Santo como cidades de referência. A cidade acompanha todas as ocorrências visuais dos BPMs: gráfico de origens, composição do indicador, seletor, tabela e detalhamento individual.
+Os 34 BPMs recebem uma referência territorial discreta baseada na aba `BASE` de `DISTRI VTR (1).xlsx`. Como a planilha não identifica formalmente a sede, cada batalhão mostra o município vinculado de maior `area_km2`. Por orientação do projeto, foram adotadas as seguintes referências: 28º BPM — Camocim; 30º BPM — Aracati; 32º BPM — Brejo Santo; e 33º BPM — Campos Sales. A cidade acompanha todas as ocorrências visuais dos BPMs: gráfico de origens, composição do indicador, seletor, tabela e detalhamento individual.
 
 O detalhamento apresenta somente informações agregadas, sem nomes ou matrículas. No COPAC, a janela destaca que o título estratégico menciona 10 bases e 04 prioritárias, enquanto a fonte quantitativa disponível contém 12 unidades e não identifica quais são as quatro prioridades.
 

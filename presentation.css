@@ -293,7 +293,7 @@ body.modal-open { overflow: hidden; }
 .raio-level-detail .detail-table th:last-child, .raio-level-detail .detail-table td:last-child { text-align: center; }
 .raio-level-detail .detail-table tbody tr:hover td:first-child { background: #d5eadc; }
 .raio-level-detail .detail-table tbody tr:hover td:last-child { background: #b4d9c0; }
-.pog-unit-section { border-color: #bad8c7; background: linear-gradient(180deg, #f7fcf9, #fff); }
+.pog-unit-section, .restructuring-unit-section { border-color: #bad8c7; background: linear-gradient(180deg, #f7fcf9, #fff); }
 .pog-unit-control { display: grid; grid-template-columns: 145px minmax(220px, 1fr); align-items: center; gap: 12px; padding: 12px 14px; border: 1px solid #e3e8e5; border-radius: 10px; background: #f8faf9; }
 .pog-unit-control > span { color: #53615a; font-size: 10px; font-weight: 800; letter-spacing: .045em; text-transform: uppercase; }
 .pog-unit-control select { width: 100%; min-height: 42px; padding: 8px 36px 8px 12px; border: 1px solid #bfcfc7; border-radius: 8px; color: #20342a; background: #fff; font-size: 12px; font-weight: 720; cursor: pointer; }

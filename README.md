@@ -18,7 +18,7 @@ Os 34 BPMs recebem uma referência territorial discreta baseada na aba `BASE` de
 
 O detalhamento apresenta somente informações agregadas, sem nomes ou matrículas. No COPAC, a janela destaca que o título estratégico menciona 10 bases e 04 prioritárias, enquanto a fonte quantitativa disponível contém 12 unidades e não identifica quais são as quatro prioridades.
 
-O card **Reestruturação dos batalhões do interior** utiliza somente a aba `Resumo Executivo` de `Resumo Organograma - Defasagem efetivo Unidades criadas.xlsx`. Após excluir 6º, 7º, 8º e 9º BPRAIO, o recorte apresenta nove batalhões: oito abaixo da média do respectivo comando, um acima e 520,5 de defasagem acumulada. A planilha integral não é publicada; somente os agregados necessários ao painel são incorporados.
+O card **Reestruturação dos batalhões do interior** utiliza somente a aba `Resumo Executivo` de `Resumo Organograma - Defasagem efetivo Unidades criadas.xlsx`. Após excluir 6º, 7º, 8º e 9º BPRAIO, o recorte apresenta nove batalhões: oito abaixo da média do respectivo comando, um acima e 520,5 de defasagem acumulada. A consulta individual permite selecionar cada BPM e visualizar cidade, efetivo atual, média de referência, defasagem, cobertura percentual e interpretação do resultado. A planilha integral não é publicada; somente os agregados necessários ao painel são incorporados.
 
 No detalhamento do RAIO, três botões permitem escolher os níveis de implantação. Antes da escolha, cada botão informa o total de bases, municípios satélites e policiais do respectivo nível. Após a seleção, o painel discrimina as cidades-polo, os municípios satélites e a composição do efetivo por base.
 

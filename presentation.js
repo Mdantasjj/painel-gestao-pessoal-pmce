@@ -311,6 +311,17 @@ const metricDetails = {
       ['27º BPM', 12.2, '63,25 · 12,2%', '#65a982'],
       ['Demais 4 BPM', 30.2, '157,25 · 30,2%', '#83b99a']
     ],
+    units: [
+      ['33º BPM', 138, 253.5, 115.5],
+      ['28º BPM', 202, 297.25, 95.25],
+      ['31º BPM', 168, 257.25, 89.25],
+      ['27º BPM', 234, 297.25, 63.25],
+      ['34º BPM', 202, 253.5, 51.5],
+      ['26º BPM', 294, 335, 41],
+      ['30º BPM', 217, 257.25, 40.25],
+      ['32º BPM', 229, 253.5, 24.5],
+      ['29º BPM', 281, 268.6666666667, -12.3333333333]
+    ],
     sectionTitle: 'Batalhões ordenados pela maior defasagem',
     sectionSubtitle: 'Efetivo atual comparado à média do respectivo comando.',
     tableColumns: ['Posição', 'Batalhão / cidade', 'Efetivo atual', 'Média do comando', 'Situação', 'Defasagem'],
@@ -498,6 +509,58 @@ function renderPogUnitDetail(unitName) {
     <p class="pog-unit-source-note">${sourceNote}</p>`;
 }
 
+function renderRestructuringUnitExplorer(data) {
+  const options = data.units.map(([name]) => {
+    const territory = getPogTerritory(name);
+    const reference = territory ? ` — ${territory.cities.join(' · ')}` : '';
+    return `<option value="${name}"${name === '33º BPM' ? ' selected' : ''}>${name}${reference}</option>`;
+  }).join('');
+  return `
+    <section class="detail-section restructuring-unit-section">
+      <div class="detail-section-heading">
+        <div><h3>Consultar detalhamento por batalhão</h3><p>Selecione um dos nove BPMs para comparar efetivo atual, média, defasagem e cobertura.</p></div>
+        <span>Consulta individual</span>
+      </div>
+      <label class="pog-unit-control" for="restructuringUnitSelect">
+        <span>Batalhão</span>
+        <select id="restructuringUnitSelect">${options}</select>
+      </label>
+      <div class="pog-unit-result" id="restructuringUnitResult" aria-live="polite"></div>
+    </section>`;
+}
+
+function renderRestructuringUnitDetail(unitName) {
+  const unit = metricDetails.restructuring.units.find(([name]) => name === unitName);
+  const result = document.querySelector('#restructuringUnitResult');
+  if (!unit || !result) return;
+  const [name, current, reference, difference] = unit;
+  const coverage = current / reference * 100;
+  const belowAverage = difference > 0;
+  const status = belowAverage ? 'Abaixo da média' : 'Acima da média';
+  const statusClass = belowAverage ? 'is-loss' : 'is-gain';
+  const formatNumber = (value) => value.toLocaleString('pt-BR', { minimumFractionDigits: 0, maximumFractionDigits: 2 });
+  const share = belowAverage ? difference / 520.5 * 100 : 0;
+  const territory = getPogTerritory(name);
+  const territoryLine = territory
+    ? `<small class="pog-unit-territory">${territory.cities.join(' · ')}</small>`
+    : '';
+  const interpretation = belowAverage
+    ? `Necessidade de ${formatNumber(difference)} policiais para alcançar a média de referência. O batalhão representa ${formatNumber(share)}% da defasagem acumulada de 520,5.`
+    : `O efetivo atual está ${formatNumber(Math.abs(difference))} policiais acima da média de referência e não compõe a defasagem acumulada.`;
+  result.innerHTML = `
+    <div class="pog-unit-result-heading">
+      <div><span>Batalhão selecionado</span><strong>${name}</strong>${territoryLine}</div>
+      <b class="${statusClass}">${status}</b>
+    </div>
+    <div class="pog-unit-values">
+      <div><span>Efetivo atual</span><strong>${formatNumber(current)}</strong><small>Policiais registrados na unidade</small></div>
+      <div><span>Média de referência</span><strong>${formatNumber(reference)}</strong><small>Média informada na aba Resumo Executivo</small></div>
+      <div class="${belowAverage ? 'is-loss' : ''}"><span>Defasagem</span><strong>${formatNumber(difference)}</strong><small>Média menos efetivo atual</small></div>
+      <div><span>Cobertura da média</span><strong>${formatNumber(coverage)}%</strong><small>Efetivo atual em relação à referência</small></div>
+    </div>
+    <p class="pog-unit-source-note">${interpretation}</p>`;
+}
+
 function renderMetricDetail(key) {
   const data = metricDetails[key];
   if (!data) return;
@@ -520,6 +583,7 @@ function renderMetricDetail(key) {
   }).join('');
   const levelSelector = key === 'raio' ? renderRaioLevelSelector(data) : '';
   const pogUnitExplorer = key === 'pog' ? renderPogUnitExplorer(data) : '';
+  const restructuringUnitExplorer = key === 'restructuring' ? renderRestructuringUnitExplorer(data) : '';
   const discriminatedTable = key === 'raio' ? '' : `
     <section class="detail-section">
       <div class="detail-section-heading"><div><h3>${data.sectionTitle}</h3><p>${data.sectionSubtitle}</p></div><span>Dados discriminados</span></div>
@@ -535,6 +599,7 @@ function renderMetricDetail(key) {
     </div>
     ${levelSelector}
     ${pogUnitExplorer}
+    ${restructuringUnitExplorer}
     <section class="detail-section">
       <div class="detail-section-heading"><div><h3>${data.breakdownTitle || 'Composição do indicador'}</h3><p>${data.breakdownSubtitle || 'Participação de cada componente no total ou no recorte analisado.'}</p></div><span>Leitura percentual</span></div>
       <div class="detail-breakdown">${breakdown}</div>
@@ -542,6 +607,7 @@ function renderMetricDetail(key) {
     ${discriminatedTable}
     <p class="detail-methodology">${data.note}</p>`;
   if (key === 'pog') renderPogUnitDetail('12º BPM');
+  if (key === 'restructuring') renderRestructuringUnitDetail('33º BPM');
 }
 
 function openMetricDetail(card) {
@@ -582,6 +648,7 @@ metricDetailContent.addEventListener('click', (event) => {
 });
 metricDetailContent.addEventListener('change', (event) => {
   if (event.target.matches('#pogUnitSelect')) renderPogUnitDetail(event.target.value);
+  if (event.target.matches('#restructuringUnitSelect')) renderRestructuringUnitDetail(event.target.value);
 });
 metricModal.addEventListener('keydown', (event) => {
   if (event.key === 'Escape') closeMetricDetail();

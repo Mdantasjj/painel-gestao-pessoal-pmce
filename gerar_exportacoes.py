@@ -85,21 +85,25 @@ def add_line(slide, x1, y1, x2, y2, line_color=LINE, width=0.7):
     return line
 
 
-def add_card(slide, x, label, value, unit, foot, accent, soft, width=2.45, label_size=7.8, label_height=0.26, foot_size=5.5, foot_height=0.16):
-    y = 1.52
-    height = 1.14
+def add_card(slide, x, label, value, unit, foot, accent, soft, width=2.45, label_size=7.8, label_height=0.26, foot_size=5.5, foot_height=0.16, y=1.52, height=1.14):
     add_shape(slide, MSO_SHAPE.ROUNDED_RECTANGLE, x, y, width, height, WHITE)
     accent_bar = add_shape(slide, MSO_SHAPE.RECTANGLE, x, y + 0.07, 0.035, height - 0.14, accent, accent)
     accent_bar.line.fill.background()
-    add_text(slide, label, x + 0.14, y + 0.13, width - 0.73, label_height, label_size, INK, True, valign=MSO_ANCHOR.TOP)
+    compact = height < 1
+    label_y = y + (0.08 if compact else 0.13)
+    add_text(slide, label, x + 0.14, label_y, width - 0.73, label_height, label_size, INK, True, valign=MSO_ANCHOR.TOP)
     badge_x = x + width - 0.41
-    badge = add_shape(slide, MSO_SHAPE.ROUNDED_RECTANGLE, badge_x, y + 0.13, 0.28, 0.28, soft, soft)
+    badge_y = y + (0.08 if compact else 0.13)
+    badge = add_shape(slide, MSO_SHAPE.ROUNDED_RECTANGLE, badge_x, badge_y, 0.28, 0.28, soft, soft)
     badge.line.fill.background()
-    add_text(slide, "●", badge_x, y + 0.13, 0.28, 0.28, 8, accent, True, PP_ALIGN.CENTER)
-    add_text(slide, value, x + 0.14, y + 0.50, 0.84, 0.36, 25, INK, True)
-    add_text(slide, unit, x + 0.91, y + 0.60, 0.9, 0.15, 6.9, MUTED)
-    add_line(slide, x + 0.14, y + 0.96, x + 0.30, y + 0.96, accent, 1.3)
-    add_text(slide, foot, x + 0.35, y + 0.87, width - 0.50, foot_height, foot_size, MUTED, valign=MSO_ANCHOR.TOP)
+    add_text(slide, "●", badge_x, badge_y, 0.28, 0.28, 8, accent, True, PP_ALIGN.CENTER)
+    value_y = y + (0.36 if compact else 0.50)
+    add_text(slide, value, x + 0.14, value_y, 0.84, 0.30 if compact else 0.36, 21 if compact else 25, INK, True)
+    add_text(slide, unit, x + 0.91, value_y + 0.08, 0.9, 0.15, 6.4 if compact else 6.9, MUTED)
+    foot_line_y = y + height - (0.11 if compact else 0.18)
+    foot_text_y = y + height - (0.18 if compact else 0.27)
+    add_line(slide, x + 0.14, foot_line_y, x + 0.30, foot_line_y, accent, 1.3)
+    add_text(slide, foot, x + 0.35, foot_text_y, width - 0.50, foot_height, foot_size, MUTED, valign=MSO_ANCHOR.TOP)
 
 
 def add_panel(slide, x, y, width, height, number, title, subtitle):
@@ -203,16 +207,17 @@ def generate_editable_powerpoint() -> None:
     add_text(slide, "●  6 bases consolidadas", 11.96, 1.13, 0.86, 0.20, 4.7, GREEN_800, True, PP_ALIGN.CENTER)
 
     # Cards editáveis
-    card_x = [0.36, 2.91, 5.46, 8.01, 10.56]
-    card_width = 2.43
-    add_card(slide, card_x[0], "Saídas de efetivo\n(exoneração — aposentadoria)", "547", "saídas", "252 dem. · 88 exon. · 207 aposent.", GREEN_600, "E6F4ED", card_width, label_size=6.2, label_height=0.30, foot_size=4.6)
-    add_card(slide, card_x[1], "RAIO — Necessidade para as 20 bases\nsatélites em 3 níveis de implementação", "912", "policiais", "20 bases · 31 municípios satélite", BLUE, "E7F1F6", card_width, label_size=5.3, label_height=0.34, foot_size=4.4)
-    add_card(slide, card_x[2], "Déficit de efetivo — POG", "111", "policiais", "Policiamento Ordinário · 34 BPMs", "216F4C", "E4F2E9", card_width, label_size=6.1, foot_size=4.4, foot_height=0.22)
-    add_card(slide, card_x[3], "COPAC — Necessidade para 10 bases,\nsendo 04 prioritárias em 2026 (PReVio)", "229", "policiais", "10 bases · 04 prioritárias", TEAL, "E3F3F1", card_width, label_size=5.1, label_height=0.34, foot_size=4.4)
-    add_card(slide, card_x[4], "Reestruturação dos batalhões\ndo interior", "9", "batalhões", "8 abaixo da média · 1 acima", OLIVE, "EDF3E4", card_width, label_size=5.8, label_height=0.30, foot_size=4.3)
+    card_width = 3.75
+    top_x = [0.35, 4.79, 9.23]
+    bottom_x = [2.57, 7.01]
+    add_card(slide, top_x[0], "Saídas de efetivo (exoneração — aposentadoria)", "547", "saídas", "252 dem. · 88 exon. · 207 aposent.", GREEN_600, "E6F4ED", card_width, label_size=6.2, label_height=0.22, foot_size=4.7, y=1.52, height=0.82)
+    add_card(slide, top_x[1], "Déficit de efetivo — POG", "111", "policiais", "Policiamento Ordinário · 34 BPMs", "216F4C", "E4F2E9", card_width, label_size=6.2, label_height=0.22, foot_size=4.7, y=1.52, height=0.82)
+    add_card(slide, top_x[2], "Reestruturação dos batalhões do interior", "9", "batalhões", "8 abaixo da média · 1 acima", OLIVE, "EDF3E4", card_width, label_size=6.2, label_height=0.22, foot_size=4.7, y=1.52, height=0.82)
+    add_card(slide, bottom_x[0], "RAIO — Necessidade para as 20 bases satélites em 3 níveis de implementação", "912", "policiais", "20 bases · 31 municípios satélite", BLUE, "E7F1F6", card_width, label_size=5.6, label_height=0.26, foot_size=4.7, y=2.44, height=0.82)
+    add_card(slide, bottom_x[1], "COPAC — Necessidade para 10 bases, sendo 04 prioritárias em 2026 (PReVio)", "229", "policiais", "10 bases · 04 prioritárias", TEAL, "E3F3F1", card_width, label_size=5.6, label_height=0.26, foot_size=4.7, y=2.44, height=0.82)
 
     # Painel esquerdo: gráfico editável
-    add_panel(slide, 0.25, 2.72, 8.25, 4.49, "01", "Demissões e exonerações por mês", "340 das 547 saídas · janeiro a agosto de 2026")
+    add_panel(slide, 0.25, 3.36, 8.25, 3.85, "01", "Demissões e exonerações por mês", "340 das 547 saídas · janeiro a agosto de 2026")
     chart_data = ChartData()
     chart_data.categories = ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago"]
     chart_data.add_series("Demissões", (8, 2, 0, 7, 143, 76, 14, 2))
@@ -220,9 +225,9 @@ def generate_editable_powerpoint() -> None:
     chart_frame = slide.shapes.add_chart(
         XL_CHART_TYPE.COLUMN_CLUSTERED,
         Inches(0.46),
-        Inches(3.31),
+        Inches(3.95),
         Inches(7.76),
-        Inches(3.42),
+        Inches(2.70),
         chart_data,
     )
     chart = chart_frame.chart
@@ -259,16 +264,16 @@ def generate_editable_powerpoint() -> None:
     add_text(slide, "Esta série detalha 340 das 547 saídas; maio concentrou 165 demissões/exonerações.", 0.46, 6.89, 7.60, 0.12, 5.1, MUTED)
 
     # Painel direito: gráfico de rosca editável
-    add_panel(slide, 8.62, 2.72, 4.46, 4.49, "02", "Aposentadorias", "Impacto nas promoções requeridas")
+    add_panel(slide, 8.62, 3.36, 4.46, 3.85, "02", "Aposentadorias", "Impacto nas promoções requeridas")
     donut_data = ChartData()
     donut_data.categories = ["Acesso ao oficialato", "Entre postos de oficiais"]
     donut_data.add_series("Promoções", (153, 54))
     donut_frame = slide.shapes.add_chart(
         XL_CHART_TYPE.DOUGHNUT,
         Inches(9.42),
-        Inches(3.45),
+        Inches(4.03),
         Inches(2.85),
-        Inches(2.50),
+        Inches(2.10),
         donut_data,
     )
     donut = donut_frame.chart
@@ -282,14 +287,14 @@ def generate_editable_powerpoint() -> None:
     donut_series.points[1].format.fill.solid()
     donut_series.points[1].format.fill.fore_color.rgb = color(BLUE)
     donut_series.points[1].format.line.color.rgb = color(BLUE)
-    add_text(slide, "207", 10.38, 4.27, 0.92, 0.34, 21, INK, True, PP_ALIGN.CENTER)
-    add_text(slide, "Aposent.", 10.48, 4.60, 0.72, 0.12, 5.5, MUTED, False, PP_ALIGN.CENTER)
-    add_shape(slide, MSO_SHAPE.RECTANGLE, 9.08, 6.02, 0.07, 0.07, OLIVE, OLIVE)
-    add_text(slide, "Acesso ao oficialato", 9.21, 5.97, 2.00, 0.16, 5.3, MUTED)
-    add_text(slide, "153 · 73,9%", 12.05, 5.97, 0.70, 0.16, 5.3, INK, True, PP_ALIGN.RIGHT)
-    add_shape(slide, MSO_SHAPE.RECTANGLE, 9.08, 6.25, 0.07, 0.07, BLUE, BLUE)
-    add_text(slide, "Entre postos de oficiais", 9.21, 6.20, 2.00, 0.16, 5.3, MUTED)
-    add_text(slide, "54 · 26,1%", 12.05, 6.20, 0.70, 0.16, 5.3, INK, True, PP_ALIGN.RIGHT)
+    add_text(slide, "207", 10.38, 4.72, 0.92, 0.34, 21, INK, True, PP_ALIGN.CENTER)
+    add_text(slide, "Aposent.", 10.48, 5.05, 0.72, 0.12, 5.5, MUTED, False, PP_ALIGN.CENTER)
+    add_shape(slide, MSO_SHAPE.RECTANGLE, 9.08, 6.35, 0.07, 0.07, OLIVE, OLIVE)
+    add_text(slide, "Acesso ao oficialato", 9.21, 6.30, 2.00, 0.16, 5.3, MUTED)
+    add_text(slide, "153 · 73,9%", 12.05, 6.30, 0.70, 0.16, 5.3, INK, True, PP_ALIGN.RIGHT)
+    add_shape(slide, MSO_SHAPE.RECTANGLE, 9.08, 6.58, 0.07, 0.07, BLUE, BLUE)
+    add_text(slide, "Entre postos de oficiais", 9.21, 6.53, 2.00, 0.16, 5.3, MUTED)
+    add_text(slide, "54 · 26,1%", 12.05, 6.53, 0.70, 0.16, 5.3, INK, True, PP_ALIGN.RIGHT)
 
     # Rodapé
     add_text(slide, "POLÍCIA MILITAR DO CEARÁ · PAINEL ESTRATÉGICO INSTITUCIONAL", 0.25, 7.31, 4.2, 0.08, 4.2, MUTED, True)

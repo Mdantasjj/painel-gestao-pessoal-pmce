@@ -302,9 +302,14 @@ const metricDetails = {
       ['Acima da média', '1 BPM', '29º BPM · 12,3 acima da média'],
       ['Defasagem acumulada', '520,5', 'Soma das diferenças positivas para a média']
     ],
+    breakdownTitle: 'Concentração da defasagem por batalhão',
+    breakdownSubtitle: 'Participação de cada BPM nos 520,5 policiais de defasagem acumulada.',
     breakdown: [
-      ['Abaixo da média', 88.9, '8 · 88,9%', '#23794f'],
-      ['Acima da média', 11.1, '1 · 11,1%', '#83b99a']
+      ['33º BPM', 22.2, '115,5 · 22,2%', '#145c40'],
+      ['28º BPM', 18.3, '95,25 · 18,3%', '#23794f'],
+      ['31º BPM', 17.1, '89,25 · 17,1%', '#3d9065'],
+      ['27º BPM', 12.2, '63,25 · 12,2%', '#65a982'],
+      ['Demais 4 BPM', 30.2, '157,25 · 30,2%', '#83b99a']
     ],
     sectionTitle: 'Batalhões ordenados pela maior defasagem',
     sectionSubtitle: 'Efetivo atual comparado à média do respectivo comando.',
@@ -502,7 +507,7 @@ function renderMetricDetail(key) {
   metricDetailTitle.textContent = data.title;
   const stats = data.stats.map(([label, value, note]) => `<div class="detail-stat"><span>${label}</span><strong>${value}</strong><small>${note}</small></div>`).join('');
   const breakdown = data.breakdown.map(([label, share, value, rowColor]) => {
-    const territory = key === 'pog' ? getPogTerritory(label) : null;
+    const territory = ['pog', 'restructuring'].includes(key) ? getPogTerritory(label) : null;
     const breakdownLabel = territory
       ? `<span class="detail-breakdown-label"><strong>${label}</strong><small>${territory.cities.join(' · ')}</small></span>`
       : `<span>${label}</span>`;
@@ -531,7 +536,7 @@ function renderMetricDetail(key) {
     ${levelSelector}
     ${pogUnitExplorer}
     <section class="detail-section">
-      <div class="detail-section-heading"><div><h3>Composição do indicador</h3><p>Participação de cada componente no total ou no recorte analisado.</p></div><span>Leitura percentual</span></div>
+      <div class="detail-section-heading"><div><h3>${data.breakdownTitle || 'Composição do indicador'}</h3><p>${data.breakdownSubtitle || 'Participação de cada componente no total ou no recorte analisado.'}</p></div><span>Leitura percentual</span></div>
       <div class="detail-breakdown">${breakdown}</div>
     </section>
     ${discriminatedTable}

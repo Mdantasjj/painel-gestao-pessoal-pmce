@@ -96,8 +96,11 @@ svg { display: block; }
 .online-status { display: flex; align-items: center; gap: 7px; padding: 7px 10px; border-radius: 20px; color: var(--green-700); background: var(--green-50); font-size: 10px; font-weight: 650; }
 .online-status i { width: 7px; height: 7px; border-radius: 50%; background: #34ae76; box-shadow: 0 0 0 3px rgba(52,174,118,.12); }
 
-.metrics { display: grid; width: 100%; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: clamp(12px, 1vw, 18px); }
+.metrics { display: grid; width: 100%; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: clamp(14px, 1.25vw, 24px); }
 .metric-card { position: relative; min-width: 0; min-height: 195px; overflow: hidden; padding: clamp(22px, 1.65vw, 32px); border: 1px solid var(--line); border-radius: 16px; color: var(--ink); text-align: left; background: #fff; box-shadow: 0 9px 28px rgba(10, 50, 35, .07); }
+.metrics > .metric-card { grid-column: span 2; }
+.metrics > .metric-card[data-detail="raio"] { grid-column: 2 / span 2; }
+.metrics > .metric-card[data-detail="copac"] { grid-column: 4 / span 2; }
 .metric-card::before { position: absolute; inset: 0 auto 0 0; width: 4px; background: var(--accent); content: ""; }
 .metric-card::after { position: absolute; right: 0; bottom: 0; left: 0; height: 3px; background: var(--accent); content: ""; opacity: 0; transform: scaleX(.35); transition: opacity .2s, transform .2s; }
 .metric-card--green { --accent: #23845b; --soft: #e6f4ed; }
@@ -367,7 +370,6 @@ body.modal-open { overflow: hidden; }
   .date-block span { display: none; }
   .context-strip { grid-template-columns: 1fr auto; }
   .online-status { display: none; }
-  .metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .visual-grid { grid-template-columns: 1.4fr 1fr; }
   .situation-panel { grid-column: auto; }
   .origin-columns { grid-template-columns: 1fr; }
@@ -390,6 +392,10 @@ body.modal-open { overflow: hidden; }
   .context-filters { display: grid; grid-template-columns: 1fr 1fr; }
   .context-item { min-width: 0; }
   .metrics { grid-template-columns: 1fr 1fr; }
+  .metrics > .metric-card,
+  .metrics > .metric-card[data-detail="raio"],
+  .metrics > .metric-card[data-detail="copac"] { grid-column: auto; }
+  .metrics > .metric-card[data-detail="copac"] { width: calc(50% - 7px); grid-column: 1 / -1; justify-self: center; }
   .visual-grid { grid-template-columns: 1fr; }
   .origin-kpis { grid-template-columns: 1fr; }
   .metric-modal { padding: 10px; }
@@ -411,6 +417,7 @@ body.modal-open { overflow: hidden; }
 
 @media (max-width: 470px) {
   .metrics, .context-filters { grid-template-columns: 1fr; }
+  .metrics > .metric-card[data-detail="copac"] { width: 100%; grid-column: auto; }
   .metric-card { min-height: 155px; }
   .panel-header { align-items: flex-start; }
   .panel-chip { display: none; }

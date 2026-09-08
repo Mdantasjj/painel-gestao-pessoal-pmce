@@ -561,6 +561,37 @@ function renderRestructuringUnitDetail(unitName) {
     <p class="pog-unit-source-note">${interpretation}</p>`;
 }
 
+function renderRestructuringTopFive(data) {
+  const rankedUnits = [...data.units]
+    .filter(([, , , difference]) => difference > 0)
+    .sort((a, b) => b[3] - a[3])
+    .slice(0, 5);
+  const maximum = rankedUnits[0][3];
+  const rows = rankedUnits.map(([name, , , difference], index) => {
+    const territory = getPogTerritory(name);
+    const city = territory ? territory.cities.join(' · ') : 'Cidade não identificada';
+    const width = difference / maximum * 100;
+    const share = difference / 520.5 * 100;
+    const formattedDifference = difference.toLocaleString('pt-BR', { maximumFractionDigits: 2 });
+    const formattedShare = share.toLocaleString('pt-BR', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+    return `
+      <div class="restructuring-rank-row">
+        <span class="restructuring-rank-position">${String(index + 1).padStart(2, '0')}</span>
+        <span class="restructuring-rank-unit"><strong>${name}</strong><small>${city}</small></span>
+        <div class="restructuring-rank-track"><i style="width:${width}%"></i></div>
+        <span class="restructuring-rank-value"><strong>${formattedDifference}</strong><small>${formattedShare}% do total</small></span>
+      </div>`;
+  }).join('');
+  return `
+    <section class="detail-section restructuring-ranking-section">
+      <div class="detail-section-heading">
+        <div><h3>Top 5 maiores níveis de defasagem</h3><p>Batalhões que concentram as maiores diferenças entre o efetivo atual e a média de referência.</p></div>
+        <span>79,7% da defasagem</span>
+      </div>
+      <div class="restructuring-ranking">${rows}</div>
+    </section>`;
+}
+
 function renderMetricDetail(key) {
   const data = metricDetails[key];
   if (!data) return;
@@ -584,6 +615,7 @@ function renderMetricDetail(key) {
   const levelSelector = key === 'raio' ? renderRaioLevelSelector(data) : '';
   const pogUnitExplorer = key === 'pog' ? renderPogUnitExplorer(data) : '';
   const restructuringUnitExplorer = key === 'restructuring' ? renderRestructuringUnitExplorer(data) : '';
+  const restructuringTopFive = key === 'restructuring' ? renderRestructuringTopFive(data) : '';
   const discriminatedTable = key === 'raio' ? '' : `
     <section class="detail-section">
       <div class="detail-section-heading"><div><h3>${data.sectionTitle}</h3><p>${data.sectionSubtitle}</p></div><span>Dados discriminados</span></div>
@@ -600,6 +632,7 @@ function renderMetricDetail(key) {
     ${levelSelector}
     ${pogUnitExplorer}
     ${restructuringUnitExplorer}
+    ${restructuringTopFive}
     <section class="detail-section">
       <div class="detail-section-heading"><div><h3>${data.breakdownTitle || 'Composição do indicador'}</h3><p>${data.breakdownSubtitle || 'Participação de cada componente no total ou no recorte analisado.'}</p></div><span>Leitura percentual</span></div>
       <div class="detail-breakdown">${breakdown}</div>

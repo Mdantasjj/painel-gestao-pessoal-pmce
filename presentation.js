@@ -304,6 +304,7 @@ const metricDetails = {
     ],
     breakdownTitle: 'Concentração da defasagem por batalhão',
     breakdownSubtitle: 'Participação de cada BPM nos 520,5 policiais de defasagem acumulada.',
+    hideBreakdown: true,
     breakdown: [
       ['33º BPM', 22.2, '115,5 · 22,2%', '#145c40'],
       ['28º BPM', 18.3, '95,25 · 18,3%', '#23794f'],
@@ -612,6 +613,11 @@ function renderMetricDetail(key) {
       <strong>${value}</strong>
     </div>`;
   }).join('');
+  const breakdownSection = data.hideBreakdown ? '' : `
+    <section class="detail-section">
+      <div class="detail-section-heading"><div><h3>${data.breakdownTitle || 'Composição do indicador'}</h3><p>${data.breakdownSubtitle || 'Participação de cada componente no total ou no recorte analisado.'}</p></div><span>Leitura percentual</span></div>
+      <div class="detail-breakdown">${breakdown}</div>
+    </section>`;
   const levelSelector = key === 'raio' ? renderRaioLevelSelector(data) : '';
   const pogUnitExplorer = key === 'pog' ? renderPogUnitExplorer(data) : '';
   const restructuringUnitExplorer = key === 'restructuring' ? renderRestructuringUnitExplorer(data) : '';
@@ -633,10 +639,7 @@ function renderMetricDetail(key) {
     ${pogUnitExplorer}
     ${restructuringUnitExplorer}
     ${restructuringTopFive}
-    <section class="detail-section">
-      <div class="detail-section-heading"><div><h3>${data.breakdownTitle || 'Composição do indicador'}</h3><p>${data.breakdownSubtitle || 'Participação de cada componente no total ou no recorte analisado.'}</p></div><span>Leitura percentual</span></div>
-      <div class="detail-breakdown">${breakdown}</div>
-    </section>
+    ${breakdownSection}
     ${discriminatedTable}
     <p class="detail-methodology">${data.note}</p>`;
   if (key === 'pog') renderPogUnitDetail('12º BPM');

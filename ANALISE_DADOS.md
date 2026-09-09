@@ -2,6 +2,8 @@
 
 Fontes analisadas:
 
+- Documento oficial COPAC/PReVio de 08/09/2026 — SHA-256 `4A3AE90FC3C6EBF855941F69127F4F330BA4297E135016F59332A9D028D0BEFD`. Foram utilizados somente os dados agregados da resposta do COPAC. Como o processo está classificado com acesso restrito, o PDF integral, o identificador processual e os dados pessoais não foram publicados no repositório.
+
 - `Resumo Organograma - Defasagem efetivo Unidades criadas.xlsx` — SHA-256 `64CEF17C93D1A5042975F5D72C2CE0D814386ABB6D7FEE13F6B759F513447A45`. Foi utilizada somente a aba `Resumo Executivo`. As quatro unidades ligadas ao CPRAIO/BPRAIO foram excluídas do novo indicador.
 
 - `DISTRI VTR (1).xlsx` — SHA-256 `5BC0B6767E532ACBFDBBE8948B15BD18047FA1005565A20BACA990ACC0B0561A`. A aba `BASE` foi utilizada exclusivamente para relacionar os 34 BPMs numerados aos municípios e ao campo `area_km2`. Como a planilha não contém uma coluna formal de sede, o painel apresenta o município vinculado de maior área como referência territorial de cada batalhão, com ajustes definidos pelo projeto: 28º BPM — Camocim; 30º BPM — Aracati; 32º BPM — Brejo Santo; e 33º BPM — Campos Sales.
@@ -17,7 +19,7 @@ Fontes analisadas:
 | Saídas de efetivo | 547 saídas | 252 demissões, 88 exonerações e 207 aposentadorias |
 | RAIO — Necessidade de efetivo para compor as 20 bases satélites em 3 níveis de implementação | 912 policiais | 20 oficiais e 892 praças |
 | Déficit de efetivo do POG — Policiamento Ordinário | 111 policiais | Recorte dos 34 BPMs territoriais; soma dos saldos negativos de 12 batalhões |
-| COPAC — Necessidade de efetivo PReVio | 229 policiais | Composição de 10 bases, sendo 04 prioritárias em 2026 |
+| COPAC/PReVio — Efetivo mínimo das bases cidadãs | 360 policiais | 12 bases × 30 policiais; projeção bruta, sem dedução de efetivo disponível |
 | Reestruturação dos batalhões do interior | 9 batalhões | 8 abaixo da média, 1 acima e 520,5 de defasagem acumulada; RAIO excluído |
 | Aposentadorias | 207 militares | Referência estratégica adotada: quantitativo das promoções requeridas |
 
@@ -32,7 +34,8 @@ Fontes analisadas:
 - O 12º BPM tem o maior saldo negativo (-37), seguido pelo 8º BPM (-23) e pelo 22º BPM (-10). Os dois primeiros concentram 54,1% do déficit por batalhão.
 - CRPMs, unidades especializadas e demais OPMs foram retirados do indicador. Os registros dos comandos regionais não foram redistribuídos porque a fonte não identifica o batalhão de vínculo.
 - Na reestruturação do interior, nove batalhões permanecem após excluir quatro unidades do RAIO. Oito estão abaixo da média do respectivo comando; a defasagem acumulada é 520,5 e o 33º BPM apresenta a maior diferença, com 115,5.
-- O COPAC mantém o indicador de 229 policiais e destaca a composição de 10 bases, sendo 04 prioritárias em 2026.
+- O COPAC informa 12 bases cidadãs e padrão mínimo de 30 policiais por unidade, totalizando 360 policiais. A frota mínima consolidada é de 36 viaturas.
+- A composição consolidada prevê 96 policiais na guarda, 48 na reserva de armamento, 36 no GAVV, 36 no GSC, 36 no GPF, 36 no administrativo, 24 no GSE A, 24 no GSE B e 24 na mediação de conflitos.
 - Das 207 promoções requeridas, 153 correspondem ao acesso de SUBTEN PM a 2ºTEN QOAPM, representando 73,9% do total.
 
 ## Ressalvas metodológicas
@@ -40,7 +43,8 @@ Fontes analisadas:
 - O valor de 111 é a soma dos saldos negativos dos 12 BPMs com perdas dentro do universo de 34 BPMs numerados. Não representa, isoladamente, o déficit estrutural, que exige comparar efetivo previsto e atual.
 - A consulta por batalhão discrimina saídas, entradas, saldo e perda líquida, mas não identifica o militar nem o pareamento individual entre origem e destino.
 - O novo estudo de movimentações abrange do BCG 025/2025 ao BCG 153/2026. Os demais recortes continuam concentrados em 2026.
-- A projeção do COPAC não inclui o comando das unidades, conforme ressalva da própria fonte.
+- A projeção de 360 policiais do COPAC representa o efetivo mínimo bruto das 12 bases. O documento não informa efetivo já disponível que possa ser aproveitado e, portanto, não permite calcular o déficit líquido.
+- O COPAC informa não dispor do cronograma das obras, inauguração e disponibilização do mobiliário; essas informações deverão ser obtidas junto ao PReVio.
 - Os quantitativos das bases satélite e do COPAC não devem ser somados sem confirmação de que os escopos de efetivo são independentes.
 - O valor de 207 foi classificado como aposentadorias por orientação do projeto, utilizando a aba de promoções requeridas como referência estratégica. A fonte original registra promoções requeridas, não atos individuais de aposentadoria.
 - O visualizador de origem usa 326 registros únicos da relação cumulativa entre 01/01 e 10/08/2026. O total executivo de 340 permanece baseado na consolidação mensal; os dois recortes não devem ser tratados como uma conciliação individual exata.

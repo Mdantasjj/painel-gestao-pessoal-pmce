@@ -24,7 +24,7 @@ MUTED = "6D7973"
 LINE = "DFE6E2"
 GOLD = "C1A253"
 BLUE = "3B7E9D"
-TEAL = "2B8982"
+TEAL = "2F855A"
 OLIVE = "698342"
 WHITE = "FFFFFF"
 BG = "F3F7F5"
@@ -188,7 +188,7 @@ def generate_editable_powerpoint() -> None:
     add_text(slide, "COMANDO-GERAL", 3.12, 0.27, 2.0, 0.13, 6.8, "74D5A6", True)
     add_text(slide, "Gestão de Pessoal e Expansão", 3.12, 0.42, 5.8, 0.28, 20, WHITE, True)
     add_text(slide, "Indicadores estratégicos consolidados · 2025–2026", 3.12, 0.70, 4.5, 0.13, 7, "B7D0C6")
-    add_text(slide, "21 de agosto de 2026", 10.7, 0.35, 1.5, 0.12, 5.5, "B7D0C6", False, PP_ALIGN.RIGHT)
+    add_text(slide, "09 de setembro de 2026", 10.7, 0.35, 1.5, 0.12, 5.5, "B7D0C6", False, PP_ALIGN.RIGHT)
     add_text(slide, "16:27", 11.32, 0.53, 0.9, 0.2, 13, WHITE, True, PP_ALIGN.RIGHT)
     screen = add_shape(slide, MSO_SHAPE.ROUNDED_RECTANGLE, 12.42, 0.35, 0.36, 0.36, "234F40", "537668")
     add_text(slide, "▣", 12.42, 0.35, 0.36, 0.36, 11, WHITE, False, PP_ALIGN.CENTER)
@@ -202,7 +202,7 @@ def generate_editable_powerpoint() -> None:
     add_text(slide, "REFERÊNCIA", 9.65, 1.10, 0.65, 0.09, 4.4, MUTED)
     add_text(slide, "2025–2026", 9.65, 1.22, 0.8, 0.12, 6.3, INK, True)
     add_text(slide, "ARQUIVO CONSOLIDADO", 10.75, 1.10, 1.15, 0.09, 4.4, MUTED)
-    add_text(slide, "21/08/2026", 10.75, 1.22, 0.75, 0.12, 6.3, INK, True)
+    add_text(slide, "09/09/2026", 10.75, 1.22, 0.75, 0.12, 6.3, INK, True)
     add_shape(slide, MSO_SHAPE.ROUNDED_RECTANGLE, 11.92, 1.13, 0.95, 0.20, GREEN_050, GREEN_050)
     add_text(slide, "●  6 bases consolidadas", 11.96, 1.13, 0.86, 0.20, 4.7, GREEN_800, True, PP_ALIGN.CENTER)
 
@@ -214,7 +214,7 @@ def generate_editable_powerpoint() -> None:
     add_card(slide, top_x[1], "Déficit de efetivo — POG", "111", "policiais", "Policiamento Ordinário · 34 BPMs", "216F4C", "E4F2E9", card_width, label_size=6.2, label_height=0.22, foot_size=4.7, y=1.52, height=0.82)
     add_card(slide, top_x[2], "Reestruturação dos batalhões do interior", "9", "batalhões", "8 abaixo da média · 1 acima", OLIVE, "EDF3E4", card_width, label_size=6.2, label_height=0.22, foot_size=4.7, y=1.52, height=0.82)
     add_card(slide, bottom_x[0], "RAIO — Necessidade para as 20 bases satélites em 3 níveis de implementação", "912", "policiais", "20 bases · 31 municípios satélite", BLUE, "E7F1F6", card_width, label_size=5.6, label_height=0.26, foot_size=4.7, y=2.44, height=0.82)
-    add_card(slide, bottom_x[1], "COPAC — Necessidade para 10 bases, sendo 04 prioritárias em 2026 (PReVio)", "229", "policiais", "10 bases · 04 prioritárias", TEAL, "E3F3F1", card_width, label_size=5.6, label_height=0.26, foot_size=4.7, y=2.44, height=0.82)
+    add_card(slide, bottom_x[1], "COPAC — Efetivo mínimo para 12 bases cidadãs do PReVio", "360", "policiais", "12 bases · 30 policiais por base", TEAL, "E5F3EA", card_width, label_size=5.8, label_height=0.26, foot_size=4.7, y=2.44, height=0.82)
 
     # Painel esquerdo: gráfico editável
     add_panel(slide, 0.25, 3.36, 8.25, 3.85, "01", "Demissões e exonerações por mês", "340 das 547 saídas · janeiro a agosto de 2026")
@@ -298,7 +298,7 @@ def generate_editable_powerpoint() -> None:
 
     # Rodapé
     add_text(slide, "POLÍCIA MILITAR DO CEARÁ · PAINEL ESTRATÉGICO INSTITUCIONAL", 0.25, 7.31, 4.2, 0.08, 4.2, MUTED, True)
-    add_text(slide, "●  Fontes consolidadas em 21/08/2026", 10.52, 7.31, 2.55, 0.08, 4.2, GREEN_800, False, PP_ALIGN.RIGHT)
+    add_text(slide, "●  Fontes consolidadas em 09/09/2026", 10.52, 7.31, 2.55, 0.08, 4.2, GREEN_800, False, PP_ALIGN.RIGHT)
 
     # Segundo slide: origem territorial das saídas
     origin_slide = presentation.slides.add_slide(presentation.slide_layouts[6])

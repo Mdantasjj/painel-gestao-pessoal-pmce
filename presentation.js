@@ -340,35 +340,58 @@ const metricDetails = {
     note: 'Fonte: aba “Resumo Executivo” de “Resumo Organograma - Defasagem efetivo Unidades criadas.xlsx”. Foram excluídas as quatro unidades vinculadas ao CPRAIO: 6º, 7º, 8º e 9º BPRAIO. A defasagem corresponde à média do comando menos o efetivo atual; por decorrer de médias, o resultado pode conter frações. Os nove batalhões somam 1.965 policiais no efetivo atual.'
   },
   copac: {
-    accent: '#2b8982',
+    accent: '#2f855a',
     eyebrow: 'Memória de cálculo · COPAC/PReVio',
-    title: '229 policiais de necessidade complementar',
-    total: '229',
+    title: '360 policiais de efetivo mínimo projetado',
+    total: '360',
     unit: 'policiais',
-    description: 'Indicador de necessidade complementar associado à implantação das bases do Policiamento Preventivo de Base Comunitária.',
+    description: 'Projeção bruta do efetivo mínimo para o funcionamento de 12 bases cidadãs do PReVio, considerando 30 policiais por unidade.',
     stats: [
-      ['Escopo estratégico', '10 bases', 'Conforme título definido para o card'],
-      ['Prioridade 2026', '04 bases', 'Unidades prioritárias ainda não identificadas na fonte'],
-      ['Base quantitativa', '12 unidades', 'Planilha que sustenta o total atual de 229']
+      ['Bases projetadas', '12', 'Municípios e bases identificados pelo COPAC'],
+      ['Efetivo por base', '30 PM', 'Composição funcional mínima informada'],
+      ['Frota mínima', '36 VTR', 'Três viaturas previstas para cada base']
     ],
+    breakdownTitle: 'Composição funcional do efetivo',
+    breakdownSubtitle: 'Quantitativo consolidado para as 12 bases e participação no total de 360 policiais.',
     breakdown: [
-      ['Abril', 32.8, '75 · 32,8%', '#2b8982'],
-      ['Maio', 6.6, '15 · 6,6%', '#4aa099'],
-      ['Junho', 21.4, '49 · 21,4%', '#75b6b0'],
-      ['Julho', 39.3, '90 · 39,3%', '#176a64']
+      ['Guarda', 26.7, '96 · 26,7%', '#145c40'],
+      ['Reserva de armamento', 13.3, '48 · 13,3%', '#23794f'],
+      ['GAVV', 10, '36 · 10,0%', '#2f855a'],
+      ['GSC', 10, '36 · 10,0%', '#3d9065'],
+      ['GPF', 10, '36 · 10,0%', '#4c9b70'],
+      ['Administrativo', 10, '36 · 10,0%', '#5daa7d'],
+      ['GSE A', 6.7, '24 · 6,7%', '#73b78e'],
+      ['GSE B', 6.7, '24 · 6,7%', '#89c29f'],
+      ['Mediação de conflitos', 6.7, '24 · 6,7%', '#a0cdb0']
     ],
-    sectionTitle: 'Unidades existentes na base quantitativa',
-    sectionSubtitle: 'Detalhamento das 12 unidades que, somadas, produzem o indicador atual de 229 policiais.',
-    tableColumns: ['Nº', 'Unidade/base', 'Entrega', 'Padrão mínimo', 'Situação', 'Necessidade'],
+    resources: [
+      ['Coletes balísticos', '384', '32 por base'],
+      ['Pistolas', '384', '32 por base'],
+      ['Escopetas calibre 12', '36', '03 por base'],
+      ['Carabinas .40', '36', '03 por base'],
+      ['Dispositivos SPARK', '48', '04 por base'],
+      ['Rádios fixos', '24', '02 por base'],
+      ['Rádios portáteis HT', '60', '05 por base'],
+      ['Viaturas', '36', '03 por base']
+    ],
+    sectionTitle: 'Bases cidadãs previstas',
+    sectionSubtitle: 'As 12 unidades recebem o mesmo padrão mínimo de 30 policiais e três viaturas.',
+    tableColumns: ['Nº', 'Unidade/base', 'Localização', 'Viaturas', 'Comunicação', 'Necessidade'],
     tableRows: [
-      ['1', 'Itapipoca', 'Abril', '30', 'Integral', '30'], ['2', 'Quixadá', 'Abril', '30', 'Integral', '30'],
-      ['3', 'Maranguape', 'Abril', '30', 'Parcial', '15'], ['4', 'Caucaia 1', 'Maio', '30', 'Sem complemento', '0'],
-      ['5', 'Fortaleza', 'Maio', '30', 'Parcial', '15'], ['6', 'Iguatu', 'Junho', '30', 'Integral', '30'],
-      ['7', 'Juazeiro do Norte', 'Junho', '30', 'Parcial', '2'], ['8', 'Maracanaú 1', 'Junho', '30', 'Parcial', '15'],
-      ['9', 'Sobral', 'Junho', '30', 'Parcial', '2'], ['10', 'Caucaia 2', 'Julho', '30', 'Integral', '30'],
-      ['11', 'Crato', 'Julho', '30', 'Integral', '30'], ['12', 'Maracanaú 2', 'Julho', '30', 'Integral', '30']
+      ['1', 'Fortaleza — Jóquei', 'Fortaleza', '03', '02 fixos · 05 HT', '30'],
+      ['2', 'Caucaia 1', 'Caucaia', '03', '02 fixos · 05 HT', '30'],
+      ['3', 'Caucaia 2', 'Caucaia', '03', '02 fixos · 05 HT', '30'],
+      ['4', 'Maracanaú 1', 'Maracanaú', '03', '02 fixos · 05 HT', '30'],
+      ['5', 'Maracanaú 2', 'Maracanaú', '03', '02 fixos · 05 HT', '30'],
+      ['6', 'Maranguape', 'Maranguape', '03', '02 fixos · 05 HT', '30'],
+      ['7', 'Itapipoca', 'Itapipoca', '03', '02 fixos · 05 HT', '30'],
+      ['8', 'Sobral', 'Sobral', '03', '02 fixos · 05 HT', '30'],
+      ['9', 'Quixadá', 'Quixadá', '03', '02 fixos · 05 HT', '30'],
+      ['10', 'Juazeiro do Norte', 'Juazeiro do Norte', '03', '02 fixos · 05 HT', '30'],
+      ['11', 'Crato', 'Crato', '03', '02 fixos · 05 HT', '30'],
+      ['12', 'Iguatu', 'Iguatu', '03', '02 fixos · 05 HT', '30']
     ],
-    note: 'Ponto de atenção: o título estratégico menciona 10 bases e 04 prioritárias, mas a planilha disponível contém 12 unidades e não identifica as quatro prioridades. Para recalcular o total de 229 no novo escopo, é necessário indicar quais duas unidades serão retiradas e quais quatro são prioritárias.'
+    note: 'Fonte: resposta oficial do COPAC de 08/09/2026. O total de 360 representa o efetivo mínimo bruto para funcionamento das 12 bases (12 × 30), não um déficit líquido, pois o documento não informa efetivo já disponível para aproveitamento. O COPAC também informa não dispor do cronograma das obras, datas de inauguração ou disponibilização do mobiliário; essas informações devem ser obtidas junto ao PReVio.'
   }
 };
 
@@ -593,6 +616,24 @@ function renderRestructuringTopFive(data) {
     </section>`;
 }
 
+function renderCopacResources(data) {
+  const resources = data.resources.map(([label, total, reference]) => `
+    <div class="copac-resource-card">
+      <span>${label}</span>
+      <strong>${total}</strong>
+      <small>${reference}</small>
+    </div>`).join('');
+  return `
+    <section class="detail-section copac-resource-section">
+      <div class="detail-section-heading">
+        <div><h3>Logística mínima consolidada</h3><p>Projeção dos recursos informados pelo COPAC para o funcionamento das 12 bases.</p></div>
+        <span>12 bases cidadãs</span>
+      </div>
+      <div class="copac-resource-grid">${resources}</div>
+      <p class="copac-fleet-note"><strong>Emprego das viaturas por base:</strong> 01 para GAVV/GSE/GPF, 01 para GSE e 01 para reforço operacional/DRSO/reserva.</p>
+    </section>`;
+}
+
 function renderMetricDetail(key) {
   const data = metricDetails[key];
   if (!data) return;
@@ -622,6 +663,7 @@ function renderMetricDetail(key) {
   const pogUnitExplorer = key === 'pog' ? renderPogUnitExplorer(data) : '';
   const restructuringUnitExplorer = key === 'restructuring' ? renderRestructuringUnitExplorer(data) : '';
   const restructuringTopFive = key === 'restructuring' ? renderRestructuringTopFive(data) : '';
+  const copacResources = key === 'copac' ? renderCopacResources(data) : '';
   const discriminatedTable = key === 'raio' ? '' : `
     <section class="detail-section">
       <div class="detail-section-heading"><div><h3>${data.sectionTitle}</h3><p>${data.sectionSubtitle}</p></div><span>Dados discriminados</span></div>
@@ -640,6 +682,7 @@ function renderMetricDetail(key) {
     ${restructuringUnitExplorer}
     ${restructuringTopFive}
     ${breakdownSection}
+    ${copacResources}
     ${discriminatedTable}
     <p class="detail-methodology">${data.note}</p>`;
   if (key === 'pog') renderPogUnitDetail('12º BPM');

@@ -293,10 +293,10 @@ const metricDetails = {
   restructuring: {
     accent: '#557c45',
     eyebrow: 'Memória de cálculo · reestruturação',
-    title: 'Reestruturação dos batalhões do interior',
-    total: '9',
-    unit: 'batalhões',
-    description: 'Recorte dos batalhões do interior apresentados na aba Resumo Executivo, com comparação entre efetivo atual e média do comando.',
+    title: '520,5 policiais necessários para a reestruturação',
+    total: '520,5',
+    unit: 'policiais',
+    description: 'Efetivo necessário acumulado para que os oito batalhões do interior abaixo da média alcancem a referência dos respectivos comandos.',
     stats: [
       ['Abaixo da média', '8 BPM', '88,9% dos batalhões analisados'],
       ['Acima da média', '1 BPM', '29º BPM — Baturité · Redenção · 12,3 acima da média'],

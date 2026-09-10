@@ -306,8 +306,8 @@ const metricDetails = {
   },
   restructuring: {
     accent: '#557c45',
-    eyebrow: 'Memória de cálculo · reestruturação',
-    title: '521 policiais necessários para a reestruturação',
+    eyebrow: 'Memória de cálculo · interior e litoral',
+    title: '521 policiais necessários para a reestruturação do interior e do litoral',
     total: '521',
     unit: 'policiais',
     description: 'Efetivo inteiro necessário para que os oito batalhões do interior abaixo da média alcancem a referência dos respectivos comandos. O resultado matemático de 520,5 foi arredondado para cima.',
@@ -363,7 +363,7 @@ const metricDetails = {
     stats: [
       ['Saldo conjunto', '+90', '1.549 registros no destino menos 1.459 na origem'],
       ['Déficit localizado', '111', 'Soma das perdas dos 12 BPMs com saldo negativo'],
-      ['Reestruturação interior', '521', 'Efetivo necessário nos oito batalhões abaixo da média']
+      ['Reestruturação interior e litoral', '521', 'Efetivo necessário nos oito batalhões abaixo da média']
     ],
     breakdownTitle: 'Situação dos 34 batalhões nas movimentações',
     breakdownSubtitle: 'Distribuição dos BPMs conforme o saldo entre registros de destino e origem.',
@@ -376,7 +376,7 @@ const metricDetails = {
     sectionSubtitle: 'Os 34 BPMs estão ordenados da maior perda para o maior ganho no período analisado.',
     tableColumns: ['Posição', 'Batalhão / cidades', 'Origem', 'Destino', 'Situação', 'Saldo'],
     tableRows: [],
-    note: 'A tabela apresenta movimentações, e não o efetivo atual completo dos 34 BPMs. O PDF consolidado permite calcular origem, destino e saldo por batalhão, mas não contém o efetivo existente em cada unidade. A informação de efetivo atual está disponível apenas no recorte dos nove batalhões do interior da aba “Resumo Executivo”, que totaliza 1.965 policiais e sustenta o indicador de 521 policiais necessários para reestruturação.'
+    note: 'A tabela apresenta movimentações, e não o efetivo atual completo dos 34 BPMs. O PDF consolidado permite calcular origem, destino e saldo por batalhão, mas não contém o efetivo existente em cada unidade. A informação de efetivo atual está disponível apenas no recorte dos nove batalhões do interior e do litoral da aba “Resumo Executivo”, que totaliza 1.965 policiais e sustenta o indicador de 521 policiais necessários para reestruturação.'
   },
   copac: {
     accent: '#2f855a',

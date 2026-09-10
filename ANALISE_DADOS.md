@@ -20,7 +20,7 @@ Fontes analisadas:
 | RAIO — Necessidade de efetivo para compor as 20 bases satélites em 3 níveis de implementação | 912 policiais | 20 oficiais e 892 praças |
 | POG + Companhia Pronta-Resposta (COTAM) + BPTUR | 271 policiais | 111 de déficit nos 34 BPMs territoriais, 110 para a COTAM e 50 para a 6ª Cia/BPTUR |
 | COPAC/PReVio — Efetivo mínimo das bases cidadãs | 360 policiais | 12 bases × 30 policiais; projeção bruta, sem dedução de efetivo disponível |
-| Reestruturação dos batalhões do interior | 521 policiais necessários | Base matemática de 520,5, arredondada para cima; 9 batalhões analisados, sendo 8 abaixo da média e 1 acima; RAIO excluído |
+| Reestruturação dos batalhões do interior e do litoral | 521 policiais necessários | Base matemática de 520,5, arredondada para cima; 9 batalhões analisados, sendo 8 abaixo da média e 1 acima; RAIO excluído |
 | Análise geral efetivo dos batalhões | 34 batalhões analisados | 20 com ganho, 12 com perda e 2 em equilíbrio; saldo conjunto de +90 nas movimentações |
 | Aposentadorias | 207 militares | Referência estratégica adotada: quantitativo das promoções requeridas |
 
@@ -35,7 +35,7 @@ Fontes analisadas:
 - Os 34 BPMs registram 1.459 origens e 1.549 destinos, produzindo saldo conjunto de +90. Esse saldo positivo não elimina os déficits localizados.
 - O 12º BPM — Caucaia (Centro · Cumbuco) tem o maior saldo negativo (-37), seguido pelo 8º BPM — Aldeota · Vicente Pinzón (-23) e pelo 22º BPM — Papicu · Dionísio Torres (-10). Os dois primeiros concentram 54,1% do déficit por batalhão.
 - CRPMs, unidades especializadas e demais OPMs foram retirados do indicador. Os registros dos comandos regionais não foram redistribuídos porque a fonte não identifica o batalhão de vínculo.
-- Na reestruturação do interior, nove batalhões permanecem após excluir quatro unidades do RAIO. Oito estão abaixo da média do respectivo comando; o saldo matemático acumulado é 520,5, apresentado operacionalmente como 521 policiais necessários após arredondamento para cima. O 33º BPM — Campos Sales · Assaré apresenta a maior diferença, com 115,5.
+- Na reestruturação do interior e do litoral, nove batalhões permanecem após excluir quatro unidades do RAIO. Oito estão abaixo da média do respectivo comando; o saldo matemático acumulado é 520,5, apresentado operacionalmente como 521 policiais necessários após arredondamento para cima. O 33º BPM — Campos Sales · Assaré apresenta a maior diferença, com 115,5.
 - O COPAC informa 12 bases cidadãs e padrão mínimo de 30 policiais por unidade, totalizando 360 policiais. A frota mínima consolidada é de 36 viaturas.
 - A composição consolidada prevê 96 policiais na guarda, 48 na reserva de armamento, 36 no GAVV, 36 no GSC, 36 no GPF, 36 no administrativo, 24 no GSE A, 24 no GSE B e 24 na mediação de conflitos.
 - Das 207 promoções requeridas, 153 correspondem ao acesso de SUBTEN PM a 2ºTEN QOAPM, representando 73,9% do total.

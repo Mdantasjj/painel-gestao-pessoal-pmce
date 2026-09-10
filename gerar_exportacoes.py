@@ -211,7 +211,7 @@ def generate_editable_powerpoint() -> None:
     top_x = [0.35, 4.79, 9.23]
     bottom_x = [2.57, 7.01]
     add_card(slide, top_x[0], "Saídas de efetivo (exoneração — aposentadoria)", "547", "saídas", "252 dem. · 88 exon. · 207 aposent.", GREEN_600, "E6F4ED", card_width, label_size=6.2, label_height=0.22, foot_size=4.7, y=1.52, height=0.82)
-    add_card(slide, top_x[1], "Déficit de efetivo — POG", "111", "policiais", "Policiamento Ostensivo Geral · 34 BPMs", "216F4C", "E4F2E9", card_width, label_size=6.2, label_height=0.22, foot_size=4.5, y=1.52, height=0.82)
+    add_card(slide, top_x[1], "Déficit de efetivo — POG", "111", "policiais", "Policiamento Ostensivo Geral (atendimento de ocorrências e maior visibilidade à sociedade)", "216F4C", "E4F2E9", card_width, label_size=6.2, label_height=0.22, foot_size=4.5, y=1.52, height=0.82)
     add_card(slide, top_x[2], "Reestruturação dos batalhões do interior", "9", "batalhões", "8 abaixo da média · 1 acima", OLIVE, "EDF3E4", card_width, label_size=6.2, label_height=0.22, foot_size=4.7, y=1.52, height=0.82)
     add_card(slide, bottom_x[0], "RAIO — Necessidade para as 20 bases satélites em 3 níveis de implementação", "912", "policiais", "20 bases · 31 municípios satélite", BLUE, "E7F1F6", card_width, label_size=5.6, label_height=0.26, foot_size=4.7, y=2.44, height=0.82)
     add_card(slide, bottom_x[1], "COPAC — Efetivo mínimo para 12 bases cidadãs do PReVio", "360", "policiais", "12 bases · 30 policiais por base", TEAL, "E5F3EA", card_width, label_size=5.8, label_height=0.26, foot_size=4.7, y=2.44, height=0.82)

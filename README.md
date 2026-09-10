@@ -26,6 +26,8 @@ No detalhamento do RAIO, três botões permitem escolher os níveis de implanta�
 
 A assinatura institucional oficial fornecida está preservada em `assets/timbrado.png` e é exibida integralmente no cabeçalho lateral, sem cortes ou alteração de cores.
 
+O símbolo fornecido para a reestruturação dos batalhões está preservado em `assets/icone-reestruturacao-batalhoes.jpeg` e é apresentado em formato reduzido no respectivo card.
+
 ## Próxima etapa
 
 O primeiro dos cinco cards apresenta o cálculo estratégico de **547 saídas de efetivo**: 252 demissões, 88 exonerações e 207 aposentadorias. Conforme orientação do projeto, o quantitativo de promoções requeridas foi adotado como referência das aposentadorias. Os demais cards mantêm as necessidades de efetivo do RAIO, do POG — Policiamento Ordinário, com déficit de 111 policiais nos 34 BPMs territoriais —, do COPAC/PReVio, agora com efetivo mínimo projetado de 360 policiais para 12 bases, e da reestruturação dos batalhões do interior. As aposentadorias continuam detalhadas no mostrador inferior, sem card individual.

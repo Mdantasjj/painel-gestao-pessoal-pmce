@@ -356,7 +356,7 @@ const metricDetails = {
   battalions: {
     accent: '#145c40',
     eyebrow: 'Análise consolidada · batalhões',
-    title: 'Análise geral efetivo dos batalhões',
+    title: 'BATALHÕES - Análise situacional de Efetivo',
     total: '34',
     unit: 'batalhões analisados',
     description: 'Visão geral dos 34 BPMs territoriais no estudo de movimentações, complementada pelo recorte de efetivo atual e saldo dos nove batalhões do interior.',

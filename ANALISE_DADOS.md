@@ -21,7 +21,7 @@ Fontes analisadas:
 | POG + Companhia Pronta-Resposta (COTAM) + BPTUR | 271 policiais | 111 de déficit nos 34 BPMs territoriais, 110 para a COTAM e 50 para a 6ª Cia/BPTUR |
 | COPAC/PReVio — Efetivo mínimo das bases cidadãs | 360 policiais | 12 bases × 30 policiais; projeção bruta, sem dedução de efetivo disponível |
 | Reestruturação dos batalhões do interior e do litoral | 521 policiais necessários | Base matemática de 520,5, arredondada para cima; 9 batalhões analisados, sendo 8 abaixo da média e 1 acima; RAIO excluído |
-| Análise geral efetivo dos batalhões | 34 batalhões analisados | 20 com ganho, 12 com perda e 2 em equilíbrio; saldo conjunto de +90 nas movimentações |
+| BATALHÕES - Análise situacional de Efetivo | 34 batalhões analisados | 20 com ganho, 12 com perda e 2 em equilíbrio; saldo conjunto de +90 nas movimentações |
 | Aposentadorias | 207 militares | Referência estratégica adotada: quantitativo das promoções requeridas |
 
 ## Principais achados

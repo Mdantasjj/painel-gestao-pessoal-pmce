@@ -332,12 +332,12 @@ def generate_editable_powerpoint() -> None:
 
     add_panel(origin_slide, 0.25, 2.39, 6.28, 4.72, "03A", "Batalhões com mais saídas", "BPMs presentes entre as principais origens · Top 7")
     opm_rows = [
-        ("12º BPM · Caucaia", 17), ("17º BPM · Conjunto Ceará", 14), ("18º BPM · Antônio Bezerra e Parquelândia", 14),
-        ("6º BPM · Parangaba", 14), ("19º BPM · Tancredo Neves e Aerolândia", 12), ("20º BPM · Pirambu", 11),
-        ("24º BPM · Maranguape", 10),
+        ("12º BPM · Caucaia (Centro · Cumbuco)", 17), ("17º BPM · Conjunto Ceará · Bom Jardim", 14), ("18º BPM · Antônio Bezerra · Parquelândia", 14),
+        ("6º BPM · Parangaba · Bairro de Fátima", 14), ("19º BPM · Cambeba · Aerolândia", 12), ("20º BPM · Pirambu · Barra do Ceará", 11),
+        ("24º BPM · Maranguape · Pacatuba", 10),
     ]
     add_ranked_bars(origin_slide, 0.48, 3.10, 5.80, opm_rows, 326, GREEN_600, row_step=0.41, label_width=1.70)
-    add_text(origin_slide, "O 12º BPM lidera o recorte por batalhão, com 17 registros (5,2% do total individualizado).", 0.48, 6.55, 5.75, 0.14, 5.2, MUTED)
+    add_text(origin_slide, "O 12º BPM · Caucaia (Centro · Cumbuco) lidera o recorte, com 17 registros (5,2% do total individualizado).", 0.48, 6.55, 5.75, 0.14, 5.2, MUTED)
 
     add_panel(origin_slide, 6.68, 2.39, 6.40, 4.72, "03B", "Municípios com mais saídas", "Município informado no registro · Top 8")
     city_rows = [

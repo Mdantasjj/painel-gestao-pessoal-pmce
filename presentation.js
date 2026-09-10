@@ -278,17 +278,17 @@ const metricDetails = {
       ['9º BPM', 42, 71, 29]
     ],
     territories: {
-      '1º BPM': ['Russas'], '2º BPM': ['Crato'], '3º BPM': ['Sobral'], '4º BPM': ['Canindé'],
-      '5º BPM': ['Centro', 'Carlito Pamplona'], '6º BPM': ['Parangaba'], '7º BPM': ['Santa Quitéria'], '8º BPM': ['Aldeota', 'Meireles'],
-      '9º BPM': ['Quixeramobim'], '10º BPM': ['Acopiara'], '11º BPM': ['Itapipoca'], '12º BPM': ['Caucaia'],
-      '13º BPM': ['Tauá'], '14º BPM': ['Maracanaú'], '15º BPM': ['Cascavel'], '16º BPM': ['Messejana'],
-      '17º BPM': ['Conjunto Ceará'], '18º BPM': ['Antônio Bezerra', 'Parquelândia'], '19º BPM': ['Tancredo Neves', 'Aerolândia'], '20º BPM': ['Pirambu'],
-      '21º BPM': ['Conjunto Esperança'], '22º BPM': ['Papicu', 'Praia do Futuro'], '23º BPM': ['Trairi'], '24º BPM': ['Maranguape'],
-      '25º BPM': ['Chorozinho'], '26º BPM': ['Caucaia'], '27º BPM': ['Tianguá'], '28º BPM': ['Camocim'],
-      '29º BPM': ['Ocara'], '30º BPM': ['Aracati'], '31º BPM': ['Jaguaribe'], '32º BPM': ['Brejo Santo'],
-      '33º BPM': ['Campos Sales'], '34º BPM': ['Icó']
+      '1º BPM': ['Russas', 'Limoeiro'], '2º BPM': ['Juazeiro do Norte', 'Missão Velha'], '3º BPM': ['Sobral', 'Coreaú'], '4º BPM': ['Canindé', 'Boa Viagem'],
+      '5º BPM': ['Centro', 'Carlito Pamplona'], '6º BPM': ['Parangaba', 'Bairro de Fátima'], '7º BPM': ['Crateús', 'Santa Quitéria'], '8º BPM': ['Aldeota', 'Vicente Pinzón'],
+      '9º BPM': ['Quixadá', 'Senador Pompeu'], '10º BPM': ['Iguatu', 'Acopiara'], '11º BPM': ['Itapipoca', 'Acaraú'], '12º BPM': ['Caucaia (Centro · Cumbuco)'],
+      '13º BPM': ['Tauá', 'Mombaça'], '14º BPM': ['Maracanaú (Jereissati · Acaracuzinho)'], '15º BPM': ['Eusébio', 'Aquiraz'], '16º BPM': ['Messejana', 'Jangurussu'],
+      '17º BPM': ['Conjunto Ceará', 'Bom Jardim'], '18º BPM': ['Antônio Bezerra', 'Parquelândia'], '19º BPM': ['Cambeba', 'Aerolândia'], '20º BPM': ['Pirambu', 'Barra do Ceará'],
+      '21º BPM': ['Conjunto Esperança', 'Maraponga'], '22º BPM': ['Papicu', 'Dionísio Torres'], '23º BPM': ['Paracuru', 'São Gonçalo do Amarante'], '24º BPM': ['Maranguape', 'Pacatuba'],
+      '25º BPM': ['Horizonte', 'Chorozinho'], '26º BPM': ['Caucaia (Jurema · Nova Metrópole)'], '27º BPM': ['Tianguá', 'Viçosa do Ceará'], '28º BPM': ['Camocim', 'Granja'],
+      '29º BPM': ['Baturité', 'Redenção'], '30º BPM': ['Aracati', 'Beberibe'], '31º BPM': ['Jaguaribe', 'Alto Santo'], '32º BPM': ['Penaforte', 'Brejo Santo'],
+      '33º BPM': ['Campos Sales', 'Assaré'], '34º BPM': ['Icó', 'Várzea Alegre']
     },
-    note: 'O recorte apresenta exclusivamente os 34 BPMs numerados, totalizando 1.459 registros na origem, 1.549 no destino e saldo conjunto de +90. O déficit de 111 corresponde à soma das perdas dos 12 BPMs com saldo negativo. Comandos regionais e demais unidades foram retirados; a fonte consolidada não permite redistribuir seus registros entre batalhões. A cidade exibida em cada BPM vem da aba BASE de “DISTRI VTR (1).xlsx”.'
+    note: 'O recorte apresenta exclusivamente os 34 BPMs numerados, totalizando 1.459 registros na origem, 1.549 no destino e saldo conjunto de +90. O déficit de 111 corresponde à soma das perdas dos 12 BPMs com saldo negativo. Comandos regionais e demais unidades foram retirados; a fonte consolidada não permite redistribuir seus registros entre batalhões. As referências territoriais exibidas ao lado de cada BPM foram atualizadas conforme a relação consolidada fornecida para o projeto.'
   },
   restructuring: {
     accent: '#557c45',
@@ -299,7 +299,7 @@ const metricDetails = {
     description: 'Recorte dos batalhões do interior apresentados na aba Resumo Executivo, com comparação entre efetivo atual e média do comando.',
     stats: [
       ['Abaixo da média', '8 BPM', '88,9% dos batalhões analisados'],
-      ['Acima da média', '1 BPM', '29º BPM · 12,3 acima da média'],
+      ['Acima da média', '1 BPM', '29º BPM — Baturité · Redenção · 12,3 acima da média'],
       ['Defasagem acumulada', '520,5', 'Soma das diferenças positivas para a média']
     ],
     breakdownTitle: 'Concentração da defasagem por batalhão',

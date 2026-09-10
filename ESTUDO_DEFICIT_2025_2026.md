@@ -29,22 +29,22 @@ O saldo líquido dos 34 BPMs é positivo, mas existem perdas concentradas em 12 
 
 | Posição | Batalhão | Município de referência | Origem | Destino | Saldo | Participação |
 |---:|---|---|---:|---:|---:|---:|
-| 1 | 12º BPM | Caucaia | 96 | 59 | -37 | 33,3% |
-| 2 | 8º BPM | Fortaleza | 66 | 43 | -23 | 20,7% |
-| 3 | 22º BPM | Fortaleza | 51 | 41 | -10 | 9,0% |
-| 4 | 26º BPM | Caucaia | 57 | 48 | -9 | 8,1% |
-| 5 | 5º BPM | Fortaleza | 54 | 45 | -9 | 8,1% |
-| 6 | 23º BPM | Trairi | 42 | 34 | -8 | 7,2% |
-| 7 | 17º BPM | Conjunto Ceará | 53 | 49 | -4 | 3,6% |
-| 8 | 24º BPM | Maranguape | 33 | 29 | -4 | 3,6% |
-| 9 | 27º BPM | Viçosa do Ceará | 13 | 10 | -3 | 2,7% |
-| 10 | 11º BPM | Itapipoca | 56 | 54 | -2 | 1,8% |
-| 11 | 15º BPM | Cascavel | 38 | 37 | -1 | 0,9% |
-| 12 | 25º BPM | Chorozinho | 46 | 45 | -1 | 0,9% |
+| 1 | 12º BPM | Caucaia (Centro · Cumbuco) | 96 | 59 | -37 | 33,3% |
+| 2 | 8º BPM | Aldeota · Vicente Pinzón | 66 | 43 | -23 | 20,7% |
+| 3 | 22º BPM | Papicu · Dionísio Torres | 51 | 41 | -10 | 9,0% |
+| 4 | 26º BPM | Caucaia (Jurema · Nova Metrópole) | 57 | 48 | -9 | 8,1% |
+| 5 | 5º BPM | Centro · Carlito Pamplona | 54 | 45 | -9 | 8,1% |
+| 6 | 23º BPM | Paracuru · São Gonçalo do Amarante | 42 | 34 | -8 | 7,2% |
+| 7 | 17º BPM | Conjunto Ceará · Bom Jardim | 53 | 49 | -4 | 3,6% |
+| 8 | 24º BPM | Maranguape · Pacatuba | 33 | 29 | -4 | 3,6% |
+| 9 | 27º BPM | Tianguá · Viçosa do Ceará | 13 | 10 | -3 | 2,7% |
+| 10 | 11º BPM | Itapipoca · Acaraú | 56 | 54 | -2 | 1,8% |
+| 11 | 15º BPM | Eusébio · Aquiraz | 38 | 37 | -1 | 0,9% |
+| 12 | 25º BPM | Horizonte · Chorozinho | 46 | 45 | -1 | 0,9% |
 
 ## Interpretação
 
-- O 12º BPM apresenta a maior perda líquida: 37 policiais, equivalentes a 33,3% do déficit por batalhão.
-- O 12º e o 8º BPM, juntos, concentram 54,1% das perdas acumuladas dos BPMs.
+- O 12º BPM — Caucaia (Centro · Cumbuco) apresenta a maior perda líquida: 37 policiais, equivalentes a 33,3% do déficit por batalhão.
+- O 12º BPM — Caucaia (Centro · Cumbuco) e o 8º BPM — Aldeota · Vicente Pinzón, juntos, concentram 54,1% das perdas acumuladas dos BPMs.
 - O indicador mede o saldo das movimentações no período. Para medir déficit estrutural, ainda é necessário comparar efetivo atual e efetivo previsto em cada batalhão.
 - Os registros lançados diretamente em CRPMs foram excluídos, pois a fonte não informa o batalhão de vínculo e não permite uma redistribuição segura.

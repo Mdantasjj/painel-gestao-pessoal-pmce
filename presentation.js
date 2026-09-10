@@ -94,7 +94,7 @@ function renderHorizontalBars(target, rows, total, color, showTerritory = false)
     const share = ((value / total) * 100).toLocaleString('pt-BR', { maximumFractionDigits: 1 });
     const territory = showTerritory ? getPogTerritory(label) : null;
     const unitLabel = territory
-      ? `<span class="horizontal-unit-label"><strong>${label}</strong><small>${territory.cities.join(' · ')}</small></span>`
+      ? `<span class="horizontal-unit-label"><strong>${formatPogUnitName(label)}</strong></span>`
       : `<strong>${label}</strong>`;
     return `<div class="horizontal-bar-row">
       <span class="horizontal-rank">${String(index + 1).padStart(2, '0')}</span>
@@ -469,10 +469,13 @@ function getPogTerritory(unitName) {
   return { cities };
 }
 
-function renderPogUnitLabel(unitName) {
+function formatPogUnitName(unitName) {
   const territory = getPogTerritory(unitName);
-  if (!territory) return unitName;
-  return `<span class="pog-opm-label"><strong>${unitName}</strong><small>${territory.cities.join(' · ')}</small></span>`;
+  return territory ? `${unitName} — ${territory.cities.join(' · ')}` : unitName;
+}
+
+function renderPogUnitLabel(unitName) {
+  return `<span class="pog-opm-label"><strong>${formatPogUnitName(unitName)}</strong></span>`;
 }
 
 function renderDetailTable(data, detailKey = '') {
@@ -599,11 +602,7 @@ function renderCopacPhaseDetail(phaseId) {
 function renderPogUnitExplorer(data) {
   const options = [...data.units]
     .sort((a, b) => a[0].localeCompare(b[0], 'pt-BR', { numeric: true }))
-    .map(([name]) => {
-      const territory = getPogTerritory(name);
-      const reference = territory ? ` — ${territory.cities.join(' · ')}` : '';
-      return `<option value="${name}"${name === '12º BPM' ? ' selected' : ''}>${name}${reference}</option>`;
-    })
+    .map(([name]) => `<option value="${name}"${name === '12º BPM' ? ' selected' : ''}>${formatPogUnitName(name)}</option>`)
     .join('');
   return `
     <section class="detail-section pog-unit-section">
@@ -630,13 +629,9 @@ function renderPogUnitDetail(unitName) {
   const signedBalance = balance > 0 ? `+${balance}` : String(balance);
   const share = netLoss ? `${(netLoss / 111 * 100).toFixed(1).replace('.', ',')}% do déficit acumulado` : 'Não compõe o déficit acumulado';
   const sourceNote = 'O PDF fornece totais consolidados por BPM. Ele não identifica o militar nem o pareamento individual entre unidade de origem e unidade de destino. Comandos regionais e demais unidades não integram este recorte por batalhão.';
-  const territory = getPogTerritory(name);
-  const territoryLine = territory
-    ? `<small class="pog-unit-territory">${territory.cities.join(' · ')}</small>`
-    : '';
   result.innerHTML = `
     <div class="pog-unit-result-heading">
-      <div><span>Batalhão selecionado</span><strong>${name}</strong>${territoryLine}</div>
+      <div><span>Batalhão selecionado</span><strong>${formatPogUnitName(name)}</strong></div>
       <b class="${statusClass}">${status}</b>
     </div>
     <div class="pog-unit-values">
@@ -649,11 +644,7 @@ function renderPogUnitDetail(unitName) {
 }
 
 function renderRestructuringUnitExplorer(data) {
-  const options = data.units.map(([name]) => {
-    const territory = getPogTerritory(name);
-    const reference = territory ? ` — ${territory.cities.join(' · ')}` : '';
-    return `<option value="${name}"${name === '33º BPM' ? ' selected' : ''}>${name}${reference}</option>`;
-  }).join('');
+  const options = data.units.map(([name]) => `<option value="${name}"${name === '33º BPM' ? ' selected' : ''}>${formatPogUnitName(name)}</option>`).join('');
   return `
     <section class="detail-section restructuring-unit-section">
       <div class="detail-section-heading">
@@ -679,16 +670,12 @@ function renderRestructuringUnitDetail(unitName) {
   const statusClass = belowAverage ? 'is-loss' : 'is-gain';
   const formatNumber = (value) => value.toLocaleString('pt-BR', { minimumFractionDigits: 0, maximumFractionDigits: 2 });
   const share = belowAverage ? difference / 520.5 * 100 : 0;
-  const territory = getPogTerritory(name);
-  const territoryLine = territory
-    ? `<small class="pog-unit-territory">${territory.cities.join(' · ')}</small>`
-    : '';
   const interpretation = belowAverage
     ? `Necessidade de ${formatNumber(difference)} policiais para alcançar a média de referência. O batalhão representa ${formatNumber(share)}% da defasagem acumulada de 520,5.`
     : `O efetivo atual está ${formatNumber(Math.abs(difference))} policiais acima da média de referência e não compõe a defasagem acumulada.`;
   result.innerHTML = `
     <div class="pog-unit-result-heading">
-      <div><span>Batalhão selecionado</span><strong>${name}</strong>${territoryLine}</div>
+      <div><span>Batalhão selecionado</span><strong>${formatPogUnitName(name)}</strong></div>
       <b class="${statusClass}">${status}</b>
     </div>
     <div class="pog-unit-values">
@@ -707,8 +694,6 @@ function renderRestructuringTopFive(data) {
     .slice(0, 5);
   const maximum = rankedUnits[0][3];
   const rows = rankedUnits.map(([name, , , difference], index) => {
-    const territory = getPogTerritory(name);
-    const city = territory ? territory.cities.join(' · ') : 'Cidade não identificada';
     const width = difference / maximum * 100;
     const share = difference / 520.5 * 100;
     const formattedDifference = difference.toLocaleString('pt-BR', { maximumFractionDigits: 2 });
@@ -716,7 +701,7 @@ function renderRestructuringTopFive(data) {
     return `
       <div class="restructuring-rank-row">
         <span class="restructuring-rank-position">${String(index + 1).padStart(2, '0')}</span>
-        <span class="restructuring-rank-unit"><strong>${name}</strong><small>${city}</small></span>
+        <span class="restructuring-rank-unit"><strong>${formatPogUnitName(name)}</strong></span>
         <div class="restructuring-rank-track"><i style="width:${width}%"></i></div>
         <span class="restructuring-rank-value"><strong>${formattedDifference}</strong><small>${formattedShare}% do total</small></span>
       </div>`;
@@ -758,9 +743,9 @@ function renderMetricDetail(key) {
   metricDetailTitle.textContent = data.title;
   const stats = data.stats.map(([label, value, note]) => `<div class="detail-stat"><span>${label}</span><strong>${value}</strong><small>${note}</small></div>`).join('');
   const breakdown = data.breakdown.map(([label, share, value, rowColor]) => {
-    const territory = ['pog', 'restructuring'].includes(key) ? getPogTerritory(label) : null;
-    const breakdownLabel = territory
-      ? `<span class="detail-breakdown-label"><strong>${label}</strong><small>${territory.cities.join(' · ')}</small></span>`
+    const hasTerritory = ['pog', 'restructuring'].includes(key) && getPogTerritory(label);
+    const breakdownLabel = hasTerritory
+      ? `<span class="detail-breakdown-label"><strong>${formatPogUnitName(label)}</strong></span>`
       : `<span>${label}</span>`;
     return `
     <div class="detail-breakdown-row">

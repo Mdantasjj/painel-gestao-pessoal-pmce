@@ -281,9 +281,9 @@ const metricDetails = {
       '1º BPM': ['Russas'], '2º BPM': ['Crato'], '3º BPM': ['Sobral'], '4º BPM': ['Canindé'],
       '5º BPM': ['Centro', 'Carlito Pamplona'], '6º BPM': ['Parangaba'], '7º BPM': ['Santa Quitéria'], '8º BPM': ['Aldeota', 'Meireles'],
       '9º BPM': ['Quixeramobim'], '10º BPM': ['Acopiara'], '11º BPM': ['Itapipoca'], '12º BPM': ['Caucaia'],
-      '13º BPM': ['Tauá'], '14º BPM': ['Maracanaú'], '15º BPM': ['Cascavel'], '16º BPM': ['Fortaleza'],
+      '13º BPM': ['Tauá'], '14º BPM': ['Maracanaú'], '15º BPM': ['Cascavel'], '16º BPM': ['Messejana'],
       '17º BPM': ['Conjunto Ceará'], '18º BPM': ['Antônio Bezerra', 'Parquelândia'], '19º BPM': ['Tancredo Neves', 'Aerolândia'], '20º BPM': ['Pirambu'],
-      '21º BPM': ['Fortaleza'], '22º BPM': ['Papicu', 'Praia do Futuro'], '23º BPM': ['Trairi'], '24º BPM': ['Maranguape'],
+      '21º BPM': ['Conjunto Esperança'], '22º BPM': ['Papicu', 'Praia do Futuro'], '23º BPM': ['Trairi'], '24º BPM': ['Maranguape'],
       '25º BPM': ['Chorozinho'], '26º BPM': ['Caucaia'], '27º BPM': ['Tianguá'], '28º BPM': ['Camocim'],
       '29º BPM': ['Ocara'], '30º BPM': ['Aracati'], '31º BPM': ['Jaguaribe'], '32º BPM': ['Brejo Santo'],
       '33º BPM': ['Campos Sales'], '34º BPM': ['Icó']

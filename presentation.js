@@ -293,14 +293,14 @@ const metricDetails = {
   restructuring: {
     accent: '#557c45',
     eyebrow: 'Memória de cálculo · reestruturação',
-    title: '520,5 policiais necessários para a reestruturação',
-    total: '520,5',
+    title: '521 policiais necessários para a reestruturação',
+    total: '521',
     unit: 'policiais',
-    description: 'Efetivo necessário acumulado para que os oito batalhões do interior abaixo da média alcancem a referência dos respectivos comandos.',
+    description: 'Efetivo inteiro necessário para que os oito batalhões do interior abaixo da média alcancem a referência dos respectivos comandos. O resultado matemático de 520,5 foi arredondado para cima.',
     stats: [
       ['Abaixo da média', '8 BPM', '88,9% dos batalhões analisados'],
       ['Acima da média', '1 BPM', '29º BPM — Baturité · Redenção · 12,3 acima da média'],
-      ['Defasagem acumulada', '520,5', 'Soma das diferenças positivas para a média']
+      ['Base matemática', '520,5', 'Resultado das médias · arredondado para 521 policiais']
     ],
     breakdownTitle: 'Concentração da defasagem por batalhão',
     breakdownSubtitle: 'Participação de cada BPM nos 520,5 policiais de defasagem acumulada.',
@@ -337,7 +337,7 @@ const metricDetails = {
       ['8', '32º BPM', '229', '253,5', 'Abaixo da média', '24,5'],
       ['9', '29º BPM', '281', '268,67', 'Acima da média', '-12,33']
     ],
-    note: 'Fonte: aba “Resumo Executivo” de “Resumo Organograma - Defasagem efetivo Unidades criadas.xlsx”. Foram excluídas as quatro unidades vinculadas ao CPRAIO: 6º, 7º, 8º e 9º BPRAIO. A defasagem corresponde à média do comando menos o efetivo atual; por decorrer de médias, o resultado pode conter frações. Os nove batalhões somam 1.965 policiais no efetivo atual.'
+    note: 'Fonte: aba “Resumo Executivo” de “Resumo Organograma - Defasagem efetivo Unidades criadas.xlsx”. Foram excluídas as quatro unidades vinculadas ao CPRAIO: 6º, 7º, 8º e 9º BPRAIO. A defasagem corresponde à média do comando menos o efetivo atual. A soma matemática é 520,5; como efetivo representa pessoas inteiras, o card adota 521 policiais, com arredondamento para cima. Os nove batalhões somam 1.965 policiais no efetivo atual.'
   },
   readyresponse: {
     accent: '#145c40',
@@ -349,7 +349,7 @@ const metricDetails = {
     stats: [
       ['Oficiais', '12', '10 na COTAM · 02 na 6ª Cia/BPTUR'],
       ['Praças', '148', '100 na COTAM · 48 na 6ª Cia/BPTUR'],
-      ['Referência estratégica', '30,7%', '160 frente à defasagem acumulada de 520,5 dos batalhões do interior']
+      ['Referência estratégica', '30,7%', '160 frente ao efetivo necessário de 521 nos batalhões do interior']
     ],
     breakdownTitle: 'Distribuição do efetivo por implementação',
     breakdownSubtitle: 'Participação de cada estrutura na necessidade total de 160 policiais.',
@@ -365,7 +365,7 @@ const metricDetails = {
       ['6ª Cia/BPTUR', 'Cariri · Pelotão destacado em Guaramiranga', '02', '48', '50'],
       ['Total', 'Duas estruturas operacionais', '12', '148', '160']
     ],
-    note: 'Os quantitativos de 10 oficiais e 100 praças para a COTAM e de 02 oficiais e 48 praças para a 6ª Cia/BPTUR foram informados para esta projeção. A comparação com a defasagem acumulada de 520,5 policiais dos nove batalhões do interior é apenas uma referência de escala para o planejamento; os 160 policiais constituem necessidade adicional e não foram descontados nem redistribuídos dos batalhões analisados.'
+    note: 'Os quantitativos de 10 oficiais e 100 praças para a COTAM e de 02 oficiais e 48 praças para a 6ª Cia/BPTUR foram informados para esta projeção. A comparação com os 521 policiais necessários nos nove batalhões do interior é apenas uma referência de escala para o planejamento; os 160 policiais constituem necessidade adicional e não foram descontados nem redistribuídos dos batalhões analisados.'
   },
   copac: {
     accent: '#2f855a',

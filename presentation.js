@@ -346,6 +346,31 @@ const metricDetails = {
     ],
     note: 'Fonte: aba “Resumo Executivo” de “Resumo Organograma - Defasagem efetivo Unidades criadas.xlsx”. Foram excluídas as quatro unidades vinculadas ao CPRAIO: 6º, 7º, 8º e 9º BPRAIO. A defasagem corresponde à média do comando menos o efetivo atual. A soma matemática é 520,5; como efetivo representa pessoas inteiras, o card adota 521 policiais, com arredondamento para cima. Os nove batalhões somam 1.965 policiais no efetivo atual.'
   },
+  battalions: {
+    accent: '#145c40',
+    eyebrow: 'Análise consolidada · batalhões',
+    title: 'Análise geral efetivo dos batalhões',
+    total: '34',
+    unit: 'batalhões analisados',
+    description: 'Visão geral dos 34 BPMs territoriais no estudo de movimentações, complementada pelo recorte de efetivo atual e defasagem dos nove batalhões do interior.',
+    stats: [
+      ['Saldo conjunto', '+90', '1.549 registros no destino menos 1.459 na origem'],
+      ['Déficit localizado', '111', 'Soma das perdas dos 12 BPMs com saldo negativo'],
+      ['Reestruturação interior', '521', 'Efetivo necessário nos oito batalhões abaixo da média']
+    ],
+    breakdownTitle: 'Situação dos 34 batalhões nas movimentações',
+    breakdownSubtitle: 'Distribuição dos BPMs conforme o saldo entre registros de destino e origem.',
+    breakdown: [
+      ['Ganho líquido', 58.82, '20 · 58,8%', '#145c40'],
+      ['Perda líquida', 35.29, '12 · 35,3%', '#3d9065'],
+      ['Em equilíbrio', 5.88, '2 · 5,9%', '#83b99a']
+    ],
+    sectionTitle: 'Visão geral por batalhão',
+    sectionSubtitle: 'Os 34 BPMs estão ordenados da maior perda para o maior ganho no período analisado.',
+    tableColumns: ['Posição', 'Batalhão / cidades', 'Origem', 'Destino', 'Situação', 'Saldo'],
+    tableRows: [],
+    note: 'A tabela apresenta movimentações, e não o efetivo atual completo dos 34 BPMs. O PDF consolidado permite calcular origem, destino e saldo por batalhão, mas não contém o efetivo existente em cada unidade. A informação de efetivo atual está disponível apenas no recorte dos nove batalhões do interior da aba “Resumo Executivo”, que totaliza 1.965 policiais e sustenta o indicador de 521 policiais necessários para reestruturação.'
+  },
   copac: {
     accent: '#2f855a',
     eyebrow: 'Memória de cálculo · COPAC/PReVio',
@@ -461,6 +486,17 @@ const metricDetails = {
   }
 };
 
+metricDetails.battalions.tableRows = [...metricDetails.pog.units]
+  .sort((a, b) => a[3] - b[3] || a[0].localeCompare(b[0], 'pt-BR', { numeric: true }))
+  .map(([name, origin, destination, balance], index) => [
+    String(index + 1),
+    name,
+    String(origin),
+    String(destination),
+    balance < 0 ? 'Perda líquida' : balance > 0 ? 'Ganho líquido' : 'Equilíbrio',
+    balance > 0 ? `+${balance}` : String(balance)
+  ]);
+
 const metricModal = document.querySelector('#metricDetailModal');
 const metricDialog = metricModal.querySelector('.metric-dialog');
 const metricDetailTitle = document.querySelector('#metricDetailTitle');
@@ -488,7 +524,7 @@ function renderPogUnitLabel(unitName) {
 function renderDetailTable(data, detailKey = '') {
   const head = data.tableColumns.map((column) => `<th scope="col">${column}</th>`).join('');
   const rows = data.tableRows.map((row) => `<tr>${row.map((cell, index) => {
-    const content = ['pog', 'restructuring'].includes(detailKey) && index === 1 ? renderPogUnitLabel(cell) : cell;
+    const content = ['pog', 'restructuring', 'battalions'].includes(detailKey) && index === 1 ? renderPogUnitLabel(cell) : cell;
     return `<td>${content}</td>`;
   }).join('')}</tr>`).join('');
   return `<div class="detail-table-wrap"><table class="detail-table"><thead><tr>${head}</tr></thead><tbody>${rows}</tbody></table></div>`;

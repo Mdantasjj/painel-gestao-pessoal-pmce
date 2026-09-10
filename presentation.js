@@ -239,7 +239,7 @@ const metricDetails = {
     title: '111 policiais em déficit nos batalhões',
     total: '111',
     unit: 'policiais',
-    description: 'Soma dos valores absolutos dos saldos negativos encontrados nos 34 BPMs territoriais incluídos no estudo de movimentações.',
+    description: 'POG significa Policiamento Ostensivo Geral, voltado ao atendimento de ocorrências e à maior visibilidade à sociedade. O indicador soma os valores absolutos dos saldos negativos encontrados nos 34 BPMs territoriais incluídos no estudo de movimentações.',
     stats: [
       ['Batalhões analisados', '34 BPM', 'Recorte territorial com município identificado'],
       ['Saldo negativo', '12 BPM', 'Batalhões que compõem o déficit de 111'],

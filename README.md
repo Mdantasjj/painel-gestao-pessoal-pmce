@@ -14,6 +14,8 @@ Nas tabelas de detalhamento, as colunas de identificação e os valores estraté
 
 O detalhamento do POG possui uma consulta para os 34 BPMs territoriais. Ao selecionar um batalhão, são apresentados a cidade de referência, os totais de saídas e entradas, o saldo e a perda líquida. CRPMs e demais OPMs não integram esse recorte, pois a fonte consolidada não permite redistribuir seus registros entre batalhões.
 
+No painel, **POG** significa **Policiamento Ostensivo Geral**, atividade direcionada ao atendimento de ocorrências e à maior visibilidade da Polícia Militar perante a sociedade.
+
 Os 34 BPMs recebem uma referência territorial discreta baseada na aba `BASE` de `DISTRI VTR (1).xlsx`. Como a planilha não identifica formalmente a sede, cada batalhão mostra o município ou território de referência. Por orientação do projeto, foram ajustados: 5º BPM — Centro e Carlito Pamplona; 8º BPM — Aldeota e Meireles; 22º BPM — Papicu e Praia do Futuro; 27º BPM — Tianguá; 28º BPM — Camocim; 30º BPM — Aracati; 32º BPM — Brejo Santo; e 33º BPM — Campos Sales. A referência territorial acompanha todas as ocorrências visuais dos BPMs: gráfico de origens, composição do indicador, seletor, tabela e detalhamento individual.
 
 O detalhamento apresenta somente informações agregadas, sem nomes ou matrículas. No COPAC/PReVio, a projeção atualizada considera 12 bases cidadãs, 30 policiais e três viaturas por unidade, totalizando 360 policiais e 36 viaturas. A subpágina também discrimina a composição funcional, os recursos mínimos de armamento, proteção e comunicação e a relação das localidades. O documento não informa efetivo já disponível, cronograma de obras, inauguração ou mobiliário; por isso, 360 representa necessidade bruta de funcionamento, e não déficit líquido.
@@ -30,7 +32,7 @@ O símbolo fornecido para a reestruturação dos batalhões está preservado em 
 
 ## Próxima etapa
 
-O primeiro dos cinco cards apresenta o cálculo estratégico de **547 saídas de efetivo**: 252 demissões, 88 exonerações e 207 aposentadorias. Conforme orientação do projeto, o quantitativo de promoções requeridas foi adotado como referência das aposentadorias. Os demais cards mantêm as necessidades de efetivo do RAIO, do POG — Policiamento Ordinário, com déficit de 111 policiais nos 34 BPMs territoriais —, do COPAC/PReVio, agora com efetivo mínimo projetado de 360 policiais para 12 bases, e da reestruturação dos batalhões do interior. As aposentadorias continuam detalhadas no mostrador inferior, sem card individual.
+O primeiro dos cinco cards apresenta o cálculo estratégico de **547 saídas de efetivo**: 252 demissões, 88 exonerações e 207 aposentadorias. Conforme orientação do projeto, o quantitativo de promoções requeridas foi adotado como referência das aposentadorias. Os demais cards mantêm as necessidades de efetivo do RAIO, do POG — Policiamento Ostensivo Geral, com déficit de 111 policiais nos 34 BPMs territoriais —, do COPAC/PReVio, agora com efetivo mínimo projetado de 360 policiais para 12 bases, e da reestruturação dos batalhões do interior. As aposentadorias continuam detalhadas no mostrador inferior, sem card individual.
 
 O visualizador inferior apresenta, sem nomes ou matrículas, as OPMs e os municípios de origem de 326 registros únicos de demissão e exoneração. A fonte individualizada não foi incluída no repositório público por conter dados pessoais; somente os agregados estatísticos foram publicados.
 

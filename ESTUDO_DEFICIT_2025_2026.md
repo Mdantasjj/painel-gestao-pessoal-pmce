@@ -2,6 +2,7 @@
 
 ## Escopo
 
+- POG significa **Policiamento Ostensivo Geral**, atividade direcionada ao atendimento de ocorrências e à maior visibilidade da Polícia Militar perante a sociedade.
 - Fonte: `data/MOVIMENTAÇÕES DO BCG 025-2025 AO BCG 153-2026.pdf`.
 - Período documental: BCG 025/2025 ao BCG 153/2026.
 - Fórmula do saldo: `DESTINO - ORIGEM`.

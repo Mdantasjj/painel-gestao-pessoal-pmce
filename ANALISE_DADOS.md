@@ -18,13 +18,14 @@ Fontes analisadas:
 |---|---:|---|
 | Saídas de efetivo | 547 saídas | 252 demissões, 88 exonerações e 207 aposentadorias |
 | RAIO — Necessidade de efetivo para compor as 20 bases satélites em 3 níveis de implementação | 912 policiais | 20 oficiais e 892 praças |
-| Déficit de efetivo do POG — Policiamento Ordinário | 111 policiais | Recorte dos 34 BPMs territoriais; soma dos saldos negativos de 12 batalhões |
+| Déficit de efetivo do POG — Policiamento Ostensivo Geral | 111 policiais | Recorte dos 34 BPMs territoriais; soma dos saldos negativos de 12 batalhões |
 | COPAC/PReVio — Efetivo mínimo das bases cidadãs | 360 policiais | 12 bases × 30 policiais; projeção bruta, sem dedução de efetivo disponível |
 | Reestruturação dos batalhões do interior | 9 batalhões | 8 abaixo da média, 1 acima e 520,5 de defasagem acumulada; RAIO excluído |
 | Aposentadorias | 207 militares | Referência estratégica adotada: quantitativo das promoções requeridas |
 
 ## Principais achados
 
+- POG significa Policiamento Ostensivo Geral, atividade voltada ao atendimento de ocorrências e à maior visibilidade da Polícia Militar perante a sociedade.
 - As 547 saídas estratégicas são compostas por 252 demissões (46,1%), 88 exonerações (16,1%) e 207 aposentadorias (37,8%). Demissões e exonerações, juntas, correspondem a 62,2% do total.
 - Entre as 340 demissões e exonerações, maio concentrou 165 registros, ou 48,5% do total de janeiro a agosto. Maio e junho, juntos, representam 72,6% desse recorte.
 - Na relação individualizada, 326 registros únicos possuem origem identificável, distribuídos por 65 OPMs e 53 municípios. No recorte visual por batalhão, o 12º BPM lidera com 17 registros; Fortaleza concentra 153 registros no recorte municipal.

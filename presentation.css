@@ -122,6 +122,8 @@ svg { display: block; }
 .metric-icon--picture img { display: block; width: 28px; height: 28px; object-fit: contain; }
 .metric-icon--restructuring { overflow: hidden; border: 1px solid #dce8d5; background: #fff; }
 .metric-icon--restructuring img { display: block; width: 36px; height: 36px; border-radius: 8px; object-fit: contain; }
+.metric-icon--copac { overflow: hidden; border: 1px solid #cde3d5; background: #fff; }
+.metric-icon--copac img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center; }
 .metric-main { display: flex; align-items: baseline; gap: 10px; margin-top: 18px; }
 .metric-main strong { font-size: clamp(38px, 2.75vw, 54px); letter-spacing: -.05em; line-height: 1; }
 .metric-main small { color: #76837c; font-size: 11px; }

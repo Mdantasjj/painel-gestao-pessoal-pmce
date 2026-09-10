@@ -367,6 +367,7 @@ const metricDetails = {
     ],
     breakdownTitle: 'Situação dos 34 batalhões nas movimentações',
     breakdownSubtitle: 'Distribuição dos BPMs conforme o saldo entre registros de destino e origem.',
+    hideBreakdown: true,
     breakdown: [
       ['Ganho líquido', 58.82, '20 · 58,8%', '#145c40'],
       ['Perda líquida', 35.29, '12 · 35,3%', '#3d9065'],

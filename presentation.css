@@ -27,7 +27,8 @@ svg { display: block; }
   display: grid;
   width: 100%;
   min-height: 100vh;
-  grid-template-rows: auto auto auto minmax(350px, 1fr) auto auto;
+  grid-template-rows: auto auto auto;
+  align-content: start;
   gap: clamp(11px, 1.4vh, 18px);
   padding: clamp(15px, 2vh, 24px) clamp(18px, 2vw, 36px) 14px;
   background:
@@ -378,9 +379,6 @@ body.modal-open { overflow: hidden; }
 #metricDetailContent[data-detail="restructuring"] .detail-table th:first-child,
 #metricDetailContent[data-detail="restructuring"] .detail-table td:first-child { width: 58px; padding-right: 6px; padding-left: 6px; text-align: center; white-space: nowrap; }
 
-.presentation-footer { display: flex; min-height: 27px; align-items: center; justify-content: space-between; gap: 15px; color: #6f7c75; font-size: 9.5px; font-weight: 650; letter-spacing: .045em; }
-.presentation-footer > div { display: flex; align-items: center; gap: 7px; font-weight: 500; letter-spacing: 0; }
-.presentation-footer i { width: 6px; height: 6px; border-radius: 50%; background: var(--green-600); }
 .toast { position: fixed; z-index: 20; right: 28px; bottom: 28px; padding: 12px 16px; border: 1px solid #cde4d8; border-radius: 9px; color: var(--green-800); background: #f8fcfa; box-shadow: 0 12px 30px rgba(9,50,34,.15); font-size: 11px; opacity: 0; transform: translateY(10px); transition: .2s; pointer-events: none; }.toast.is-visible { opacity: 1; transform: translateY(0); }
 
 @media (min-width: 1300px) and (min-height: 760px) {
@@ -436,7 +434,6 @@ body.modal-open { overflow: hidden; }
   .panel, .trend-panel, .territory-panel, .situation-panel { min-height: 360px; }
   .donut-wrap { min-height: 290px; flex-direction: column; gap: 0; }
   .legend { max-width: none; margin-top: 20px; }
-  .presentation-footer { align-items: flex-start; flex-direction: column; }
 }
 
 @media (max-width: 470px) {

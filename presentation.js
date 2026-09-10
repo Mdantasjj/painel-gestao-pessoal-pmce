@@ -859,7 +859,4 @@ document.addEventListener('fullscreenchange', () => {
 });
 
 updateDateTime();
-renderDismissalsChart();
-renderPromotions();
-renderOrigins();
 setInterval(updateDateTime, 30000);

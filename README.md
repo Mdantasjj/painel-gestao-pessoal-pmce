@@ -8,7 +8,7 @@ Abra o arquivo `index.html` no navegador e use o botão de tela cheia no cabeça
 
 ## Detalhamento interativo
 
-Os cinco cards são clicáveis e também podem ser acionados pelas teclas `Enter` ou `Espaço`. Cada card abre uma memória de cálculo com composição do total, percentuais, tabelas discriminadas e ressalvas metodológicas. A janela pode ser fechada pelo botão, pela tecla `Esc` ou por um clique fora dela.
+Os seis cards são clicáveis e também podem ser acionados pelas teclas `Enter` ou `Espaço`. Cada card abre uma memória de cálculo com composição do total, percentuais, tabelas discriminadas e ressalvas metodológicas. A janela pode ser fechada pelo botão, pela tecla `Esc` ou por um clique fora dela.
 
 Nas tabelas de detalhamento, as colunas de identificação e os valores estratégicos recebem tipografia ampliada e destaque em verde: cidade-polo e total no RAIO, mês e total mensal nas saídas, OPM e saldo no POG, unidade/base e necessidade no COPAC, e batalhão e defasagem na reestruturação do interior.
 
@@ -38,9 +38,11 @@ A imagem fornecida para as saídas de efetivo está preservada em `assets/icone-
 
 ## Próxima etapa
 
-O primeiro dos cinco cards apresenta o cálculo estratégico de **547 saídas de efetivo**: 252 demissões, 88 exonerações e 207 aposentadorias. Conforme orientação do projeto, o quantitativo de promoções requeridas foi adotado como referência das aposentadorias. Os demais cards mantêm as necessidades de efetivo do RAIO, do POG — Policiamento Ostensivo Geral, com déficit de 111 policiais nos 34 BPMs territoriais —, do COPAC/PReVio, agora com efetivo mínimo projetado de 360 policiais para 12 bases, e da reestruturação dos batalhões do interior. As aposentadorias permanecem discriminadas no detalhamento do card de saídas de efetivo.
+O primeiro dos seis cards apresenta o cálculo estratégico de **547 saídas de efetivo**: 252 demissões, 88 exonerações e 207 aposentadorias. Conforme orientação do projeto, o quantitativo de promoções requeridas foi adotado como referência das aposentadorias. Os demais cards mantêm as necessidades de efetivo do RAIO, do POG — Policiamento Ostensivo Geral, com déficit de 111 policiais nos 34 BPMs territoriais —, do COPAC/PReVio, agora com efetivo mínimo projetado de 360 policiais para 12 bases, da reestruturação dos batalhões do interior e da implementação conjunta da Companhia Pronta-Resposta (COTAM) com a 6ª Cia/BPTUR no Cariri e em Guaramiranga.
 
-A página principal foi simplificada para exibir somente o cabeçalho institucional, a faixa de referência e os cinco cards estratégicos. Os gráficos e visualizadores inferiores foram retirados; as análises discriminadas permanecem disponíveis nas subpáginas abertas pelos cards.
+O novo card consolida **160 policiais**: 110 para a COTAM (10 oficiais e 100 praças) e 50 para a 6ª Cia/BPTUR (02 oficiais e 48 praças). A relação de 30,7% frente à defasagem acumulada de 520,5 dos batalhões do interior é apresentada apenas como referência de escala; não representa retirada nem redistribuição desse efetivo.
+
+A página principal foi simplificada para exibir somente o cabeçalho institucional, a faixa de referência e os seis cards estratégicos. Os gráficos e visualizadores inferiores foram retirados; as análises discriminadas permanecem disponíveis nas subpáginas abertas pelos cards.
 
 As fontes estão preservadas na pasta `data`. Os valores das quatro primeiras bases da planilha foram conferidos com suas fórmulas; o estudo de déficit foi recalculado a partir de `MOVIMENTAÇÕES DO BCG 025-2025 AO BCG 153-2026.pdf`, considerando somente os 34 BPMs numerados.
 

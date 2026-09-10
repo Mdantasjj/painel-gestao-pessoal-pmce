@@ -339,6 +339,34 @@ const metricDetails = {
     ],
     note: 'Fonte: aba “Resumo Executivo” de “Resumo Organograma - Defasagem efetivo Unidades criadas.xlsx”. Foram excluídas as quatro unidades vinculadas ao CPRAIO: 6º, 7º, 8º e 9º BPRAIO. A defasagem corresponde à média do comando menos o efetivo atual; por decorrer de médias, o resultado pode conter frações. Os nove batalhões somam 1.965 policiais no efetivo atual.'
   },
+  readyresponse: {
+    accent: '#145c40',
+    eyebrow: 'Memória de cálculo · COTAM/BPTUR',
+    title: '160 policiais para implementação operacional',
+    total: '160',
+    unit: 'policiais',
+    description: 'Necessidade adicional consolidada para implantação da Companhia Pronta-Resposta (COTAM) e da 6ª Cia/BPTUR no Cariri, com pelotão destacado em Guaramiranga.',
+    stats: [
+      ['Oficiais', '12', '10 na COTAM · 02 na 6ª Cia/BPTUR'],
+      ['Praças', '148', '100 na COTAM · 48 na 6ª Cia/BPTUR'],
+      ['Referência estratégica', '30,7%', '160 frente à defasagem acumulada de 520,5 dos batalhões do interior']
+    ],
+    breakdownTitle: 'Distribuição do efetivo por implementação',
+    breakdownSubtitle: 'Participação de cada estrutura na necessidade total de 160 policiais.',
+    breakdown: [
+      ['Companhia Pronta-Resposta (COTAM)', 68.75, '110 · 68,8%', '#145c40'],
+      ['6ª Cia/BPTUR · Cariri e Guaramiranga', 31.25, '50 · 31,3%', '#4c9b70']
+    ],
+    sectionTitle: 'Necessidade discriminada por estrutura',
+    sectionSubtitle: 'Distribuição entre oficiais e praças informada para cada implementação.',
+    tableColumns: ['Implementação', 'Área de atuação', 'Oficiais', 'Praças', 'Necessidade total'],
+    tableRows: [
+      ['Companhia Pronta-Resposta (COTAM)', 'Pronta resposta', '10', '100', '110'],
+      ['6ª Cia/BPTUR', 'Cariri · Pelotão destacado em Guaramiranga', '02', '48', '50'],
+      ['Total', 'Duas estruturas operacionais', '12', '148', '160']
+    ],
+    note: 'Os quantitativos de 10 oficiais e 100 praças para a COTAM e de 02 oficiais e 48 praças para a 6ª Cia/BPTUR foram informados para esta projeção. A comparação com a defasagem acumulada de 520,5 policiais dos nove batalhões do interior é apenas uma referência de escala para o planejamento; os 160 policiais constituem necessidade adicional e não foram descontados nem redistribuídos dos batalhões analisados.'
+  },
   copac: {
     accent: '#2f855a',
     eyebrow: 'Memória de cálculo · COPAC/PReVio',

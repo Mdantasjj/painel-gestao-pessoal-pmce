@@ -347,9 +347,9 @@ const metricDetails = {
     unit: 'policiais',
     description: 'Projeção bruta do efetivo mínimo para o funcionamento de 12 bases cidadãs do PReVio, considerando 30 policiais por unidade.',
     stats: [
+      ['Fases propostas', '03', 'Quatro bases previstas em cada etapa'],
       ['Bases projetadas', '12', 'Municípios e bases identificados pelo COPAC'],
-      ['Efetivo por base', '30 PM', 'Composição funcional mínima informada'],
-      ['Frota mínima', '36 VTR', 'Três viaturas previstas para cada base']
+      ['Efetivo e frota', '360 PM · 36 VTR', '30 policiais e três viaturas por base']
     ],
     breakdownTitle: 'Composição funcional do efetivo',
     breakdownSubtitle: 'Quantitativo consolidado para as 12 bases e participação no total de 360 policiais.',
@@ -391,7 +391,66 @@ const metricDetails = {
       ['11', 'Crato', 'Crato', '03', '02 fixos · 05 HT', '30'],
       ['12', 'Iguatu', 'Iguatu', '03', '02 fixos · 05 HT', '30']
     ],
-    note: 'Fonte: resposta oficial do COPAC de 08/09/2026. O total de 360 representa o efetivo mínimo bruto para funcionamento das 12 bases (12 × 30), não um déficit líquido, pois o documento não informa efetivo já disponível para aproveitamento. O COPAC também informa não dispor do cronograma das obras, datas de inauguração ou disponibilização do mobiliário; essas informações devem ser obtidas junto ao PReVio.'
+    phases: [
+      {
+        id: 'fase-1',
+        name: 'Fase 1',
+        model: 'Implantação inicial · Região Metropolitana',
+        bases: 4,
+        total: 120,
+        vehicles: 12,
+        vests: 128,
+        pistols: 128,
+        sparks: 16,
+        fixedRadios: 8,
+        handheldRadios: 20,
+        rows: [
+          ['1', 'Fortaleza — Jóquei', 'Fortaleza', '03', '02 fixos · 05 HT', '30'],
+          ['2', 'Caucaia 1', 'Caucaia', '03', '02 fixos · 05 HT', '30'],
+          ['4', 'Maracanaú 1', 'Maracanaú', '03', '02 fixos · 05 HT', '30'],
+          ['6', 'Maranguape', 'Maranguape', '03', '02 fixos · 05 HT', '30']
+        ]
+      },
+      {
+        id: 'fase-2',
+        name: 'Fase 2',
+        model: 'Expansão complementar · RMF e Norte',
+        bases: 4,
+        total: 120,
+        vehicles: 12,
+        vests: 128,
+        pistols: 128,
+        sparks: 16,
+        fixedRadios: 8,
+        handheldRadios: 20,
+        rows: [
+          ['3', 'Caucaia 2', 'Caucaia', '03', '02 fixos · 05 HT', '30'],
+          ['5', 'Maracanaú 2', 'Maracanaú', '03', '02 fixos · 05 HT', '30'],
+          ['7', 'Itapipoca', 'Itapipoca', '03', '02 fixos · 05 HT', '30'],
+          ['8', 'Sobral', 'Sobral', '03', '02 fixos · 05 HT', '30']
+        ]
+      },
+      {
+        id: 'fase-3',
+        name: 'Fase 3',
+        model: 'Consolidação territorial · Centro-Sul',
+        bases: 4,
+        total: 120,
+        vehicles: 12,
+        vests: 128,
+        pistols: 128,
+        sparks: 16,
+        fixedRadios: 8,
+        handheldRadios: 20,
+        rows: [
+          ['9', 'Quixadá', 'Quixadá', '03', '02 fixos · 05 HT', '30'],
+          ['10', 'Juazeiro do Norte', 'Juazeiro do Norte', '03', '02 fixos · 05 HT', '30'],
+          ['11', 'Crato', 'Crato', '03', '02 fixos · 05 HT', '30'],
+          ['12', 'Iguatu', 'Iguatu', '03', '02 fixos · 05 HT', '30']
+        ]
+      }
+    ],
+    note: 'Fonte: resposta oficial do COPAC de 08/09/2026. O total de 360 representa o efetivo mínimo bruto para funcionamento das 12 bases (12 × 30), não um déficit líquido, pois o documento não informa efetivo já disponível para aproveitamento. A divisão em três fases é uma proposta estratégica de planejamento baseada na distribuição territorial das bases; não constitui cronograma oficial do COPAC/PReVio. O COPAC informa não dispor do cronograma das obras, datas de inauguração ou disponibilização do mobiliário; essas informações devem ser obtidas junto ao PReVio.'
   }
 };
 
@@ -477,6 +536,62 @@ function renderRaioLevelDetail(levelId) {
     </div>
     <div class="raio-level-summary">${summary}</div>
     <div class="raio-cities-heading"><strong>Cidades e efetivo por base</strong><span>${level.bases} cidades-polo · ${level.cities} municípios satélites</span></div>
+    ${table}`;
+  detail.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+function renderCopacPhaseSelector(data) {
+  const buttons = data.phases.map((phase) => `
+    <button class="raio-level-button" type="button" data-copac-phase="${phase.id}" aria-pressed="false" aria-controls="copacPhaseDetail">
+      <span>${phase.name}</span>
+      <strong>${phase.model}</strong>
+      <b>${phase.total} <small>policiais</small></b>
+      <em>${phase.bases} bases · ${phase.vehicles} viaturas</em>
+    </button>`).join('');
+  return `
+    <section class="detail-section raio-level-section copac-phase-section">
+      <div class="detail-section-heading">
+        <div><h3>Escolha a fase para aprofundar</h3><p>Os três botões apresentam os totais comparativos da proposta de implantação.</p></div>
+        <span>Seleção por fase</span>
+      </div>
+      <div class="raio-level-selector">${buttons}</div>
+      <div class="raio-level-detail copac-phase-detail" id="copacPhaseDetail" aria-live="polite">
+        <div class="raio-level-empty"><strong>Selecione uma das fases acima</strong><span>Serão exibidas as bases, localizações e necessidades de efetivo, frota, proteção e comunicação da etapa escolhida.</span></div>
+      </div>
+    </section>`;
+}
+
+function renderCopacPhaseDetail(phaseId) {
+  const data = metricDetails.copac;
+  const phase = data.phases.find((item) => item.id === phaseId);
+  const detail = document.querySelector('#copacPhaseDetail');
+  if (!phase || !detail) return;
+  metricDetailContent.querySelectorAll('[data-copac-phase]').forEach((button) => {
+    const isActive = button.dataset.copacPhase === phaseId;
+    button.classList.toggle('is-active', isActive);
+    button.setAttribute('aria-pressed', String(isActive));
+  });
+  const summary = [
+    ['Bases', phase.bases],
+    ['Efetivo', phase.total],
+    ['Viaturas', phase.vehicles],
+    ['Coletes', phase.vests],
+    ['Pistolas', phase.pistols],
+    ['SPARK', phase.sparks],
+    ['Rádios fixos', phase.fixedRadios],
+    ['Rádios HT', phase.handheldRadios]
+  ].map(([label, value]) => `<div><span>${label}</span><strong>${value}</strong></div>`).join('');
+  const table = renderDetailTable({
+    tableColumns: data.tableColumns,
+    tableRows: phase.rows
+  }, 'copac');
+  detail.innerHTML = `
+    <div class="raio-level-heading copac-phase-heading">
+      <div><span>${phase.name}</span><h4>${phase.model}</h4></div>
+      <strong>${phase.total} policiais</strong>
+    </div>
+    <div class="raio-level-summary">${summary}</div>
+    <div class="raio-cities-heading"><strong>Bases e necessidades da fase</strong><span>${phase.bases} bases · ${phase.vehicles} viaturas · 30 policiais por base</span></div>
     ${table}`;
   detail.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }
@@ -660,11 +775,12 @@ function renderMetricDetail(key) {
       <div class="detail-breakdown">${breakdown}</div>
     </section>`;
   const levelSelector = key === 'raio' ? renderRaioLevelSelector(data) : '';
+  const copacPhaseSelector = key === 'copac' ? renderCopacPhaseSelector(data) : '';
   const pogUnitExplorer = key === 'pog' ? renderPogUnitExplorer(data) : '';
   const restructuringUnitExplorer = key === 'restructuring' ? renderRestructuringUnitExplorer(data) : '';
   const restructuringTopFive = key === 'restructuring' ? renderRestructuringTopFive(data) : '';
   const copacResources = key === 'copac' ? renderCopacResources(data) : '';
-  const discriminatedTable = key === 'raio' ? '' : `
+  const discriminatedTable = ['raio', 'copac'].includes(key) ? '' : `
     <section class="detail-section">
       <div class="detail-section-heading"><div><h3>${data.sectionTitle}</h3><p>${data.sectionSubtitle}</p></div><span>Dados discriminados</span></div>
       ${renderDetailTable(data, key)}
@@ -678,6 +794,7 @@ function renderMetricDetail(key) {
       <div class="detail-stat-grid">${stats}</div>
     </div>
     ${levelSelector}
+    ${copacPhaseSelector}
     ${pogUnitExplorer}
     ${restructuringUnitExplorer}
     ${restructuringTopFive}
@@ -722,8 +839,10 @@ metricCards.forEach((card) => {
 metricDetailClose.addEventListener('click', closeMetricDetail);
 metricModal.querySelector('[data-modal-close]').addEventListener('click', closeMetricDetail);
 metricDetailContent.addEventListener('click', (event) => {
-  const button = event.target.closest('[data-raio-level]');
-  if (button) renderRaioLevelDetail(button.dataset.raioLevel);
+  const raioButton = event.target.closest('[data-raio-level]');
+  if (raioButton) renderRaioLevelDetail(raioButton.dataset.raioLevel);
+  const copacButton = event.target.closest('[data-copac-phase]');
+  if (copacButton) renderCopacPhaseDetail(copacButton.dataset.copacPhase);
 });
 metricDetailContent.addEventListener('change', (event) => {
   if (event.target.matches('#pogUnitSelect')) renderPogUnitDetail(event.target.value);

@@ -214,7 +214,7 @@ def generate_editable_powerpoint() -> None:
     add_card(slide, top_x[1], "Déficit de efetivo — POG — Policiamento Ostensivo Geral (atendimento de ocorrências e maior visibilidade à sociedade)", "111", "policiais", "34 BPMs territoriais", "216F4C", "E4F2E9", card_width, label_size=5.0, label_height=0.34, foot_size=4.5, y=1.52, height=0.82)
     add_card(slide, top_x[2], "Reestruturação dos batalhões do interior", "9", "batalhões", "8 abaixo da média · 1 acima", OLIVE, "EDF3E4", card_width, label_size=6.2, label_height=0.22, foot_size=4.7, y=1.52, height=0.82)
     add_card(slide, bottom_x[0], "RAIO — Necessidade para as 20 bases satélites em 3 níveis de implementação", "912", "policiais", "20 bases · 31 municípios satélite", BLUE, "E7F1F6", card_width, label_size=5.6, label_height=0.26, foot_size=4.7, y=2.44, height=0.82)
-    add_card(slide, bottom_x[1], "COPAC — Efetivo mínimo para 12 bases cidadãs do PReVio", "360", "policiais", "12 bases · 30 policiais por base", TEAL, "E5F3EA", card_width, label_size=5.8, label_height=0.26, foot_size=4.7, y=2.44, height=0.82)
+    add_card(slide, bottom_x[1], "COPAC — Efetivo mínimo para 12 bases cidadãs do PReVio", "360", "policiais", "3 fases · 4 bases e 120 policiais por fase", TEAL, "E5F3EA", card_width, label_size=5.8, label_height=0.26, foot_size=4.7, y=2.44, height=0.82)
 
     # Painel esquerdo: gráfico editável
     add_panel(slide, 0.25, 3.36, 8.25, 3.85, "01", "Demissões e exonerações por mês", "340 das 547 saídas · janeiro a agosto de 2026")

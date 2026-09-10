@@ -35,7 +35,7 @@ O saldo líquido dos 34 BPMs é positivo, mas existem perdas concentradas em 12 
 | 4 | 26º BPM | Caucaia | 57 | 48 | -9 | 8,1% |
 | 5 | 5º BPM | Fortaleza | 54 | 45 | -9 | 8,1% |
 | 6 | 23º BPM | Trairi | 42 | 34 | -8 | 7,2% |
-| 7 | 17º BPM | Fortaleza | 53 | 49 | -4 | 3,6% |
+| 7 | 17º BPM | Conjunto Ceará | 53 | 49 | -4 | 3,6% |
 | 8 | 24º BPM | Maranguape | 33 | 29 | -4 | 3,6% |
 | 9 | 27º BPM | Viçosa do Ceará | 13 | 10 | -3 | 2,7% |
 | 10 | 11º BPM | Itapipoca | 56 | 54 | -2 | 1,8% |

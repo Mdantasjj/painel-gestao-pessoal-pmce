@@ -331,7 +331,7 @@ def generate_editable_powerpoint() -> None:
 
     add_panel(origin_slide, 0.25, 2.39, 6.28, 4.72, "03A", "Batalhões com mais saídas", "BPMs presentes entre as principais origens · Top 7")
     opm_rows = [
-        ("12º BPM · Caucaia", 17), ("17º BPM · Fortaleza", 14), ("18º BPM · Fortaleza", 14),
+        ("12º BPM · Caucaia", 17), ("17º BPM · Conjunto Ceará", 14), ("18º BPM · Fortaleza", 14),
         ("6º BPM · Fortaleza", 14), ("19º BPM · Fortaleza", 12), ("20º BPM · Fortaleza", 11),
         ("24º BPM · Maranguape", 10),
     ]

@@ -279,12 +279,12 @@ const metricDetails = {
     ],
     territories: {
       '1º BPM': ['Russas'], '2º BPM': ['Crato'], '3º BPM': ['Sobral'], '4º BPM': ['Canindé'],
-      '5º BPM': ['Fortaleza'], '6º BPM': ['Fortaleza'], '7º BPM': ['Santa Quitéria'], '8º BPM': ['Fortaleza'],
+      '5º BPM': ['Centro', 'Carlito Pamplona'], '6º BPM': ['Fortaleza'], '7º BPM': ['Santa Quitéria'], '8º BPM': ['Aldeota', 'Meireles'],
       '9º BPM': ['Quixeramobim'], '10º BPM': ['Acopiara'], '11º BPM': ['Itapipoca'], '12º BPM': ['Caucaia'],
       '13º BPM': ['Tauá'], '14º BPM': ['Maracanaú'], '15º BPM': ['Cascavel'], '16º BPM': ['Fortaleza'],
       '17º BPM': ['Fortaleza'], '18º BPM': ['Fortaleza'], '19º BPM': ['Fortaleza'], '20º BPM': ['Fortaleza'],
-      '21º BPM': ['Fortaleza'], '22º BPM': ['Fortaleza'], '23º BPM': ['Trairi'], '24º BPM': ['Maranguape'],
-      '25º BPM': ['Chorozinho'], '26º BPM': ['Caucaia'], '27º BPM': ['Viçosa do Ceará'], '28º BPM': ['Camocim'],
+      '21º BPM': ['Fortaleza'], '22º BPM': ['Papicu', 'Praia do Futuro'], '23º BPM': ['Trairi'], '24º BPM': ['Maranguape'],
+      '25º BPM': ['Chorozinho'], '26º BPM': ['Caucaia'], '27º BPM': ['Tianguá'], '28º BPM': ['Camocim'],
       '29º BPM': ['Ocara'], '30º BPM': ['Aracati'], '31º BPM': ['Jaguaribe'], '32º BPM': ['Brejo Santo'],
       '33º BPM': ['Campos Sales'], '34º BPM': ['Icó']
     },

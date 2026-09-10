@@ -700,6 +700,86 @@ function renderPogImplementations(data) {
     </section>`;
 }
 
+function renderBattalionRankings() {
+  const units = metricDetails.pog.units;
+  const rankingGroups = [
+    {
+      title: 'Top 5 maiores perdas líquidas',
+      subtitle: '88 dos 111 policiais do déficit localizado',
+      total: 111,
+      rows: [...units].filter(([, , , balance]) => balance < 0).sort((a, b) => a[3] - b[3]).slice(0, 5)
+    },
+    {
+      title: 'Top 5 maiores ganhos líquidos',
+      subtitle: '111 dos 201 policiais recebidos acima das saídas',
+      total: 201,
+      rows: [...units].filter(([, , , balance]) => balance > 0).sort((a, b) => b[3] - a[3]).slice(0, 5)
+    }
+  ];
+  const groups = rankingGroups.map((group) => {
+    const rows = group.rows.map(([name, , , balance], index) => {
+      const value = Math.abs(balance);
+      const share = (value / group.total * 100).toLocaleString('pt-BR', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+      return `
+        <div class="battalion-rank-row">
+          <span>${String(index + 1).padStart(2, '0')}</span>
+          <strong>${formatPogUnitName(name)}</strong>
+          <b>${balance > 0 ? '+' : '−'}${value}<small>${share}%</small></b>
+        </div>`;
+    }).join('');
+    return `
+      <div class="battalion-rank-card">
+        <div><strong>${group.title}</strong><span>${group.subtitle}</span></div>
+        <div class="battalion-rank-list">${rows}</div>
+      </div>`;
+  }).join('');
+  return `
+    <section class="detail-section battalion-ranking-section">
+      <div class="detail-section-heading">
+        <div><h3>Concentração das movimentações por batalhão</h3><p>Unidades com os maiores saldos negativos e positivos no período analisado.</p></div>
+        <span>Ranking comparativo</span>
+      </div>
+      <div class="battalion-rank-grid">${groups}</div>
+    </section>`;
+}
+
+function renderBattalionStructuralStudy() {
+  const units = metricDetails.restructuring.units;
+  const currentTotal = units.reduce((sum, [, current]) => sum + current, 0);
+  const referenceTotal = units.reduce((sum, [, , reference]) => sum + reference, 0);
+  const coverage = currentTotal / referenceTotal * 100;
+  const formatNumber = (value, digits = 2) => value.toLocaleString('pt-BR', { minimumFractionDigits: 0, maximumFractionDigits: digits });
+  const summary = [
+    ['Batalhões no recorte', '9', 'Unidades do interior com efetivo atual disponível'],
+    ['Efetivo atual', formatNumber(currentTotal, 0), 'Soma do efetivo das nove unidades'],
+    ['Referência agregada', formatNumber(referenceTotal), 'Soma das médias dos respectivos comandos'],
+    ['Cobertura da referência', `${formatNumber(coverage, 1)}%`, 'Relação entre o efetivo atual e a referência agregada']
+  ].map(([label, value, note]) => `<div><span>${label}</span><strong>${value}</strong><small>${note}</small></div>`).join('');
+  const rows = [...units]
+    .sort((a, b) => b[3] - a[3])
+    .map(([name, current, reference, difference], index) => [
+      String(index + 1),
+      name,
+      formatNumber(current, 0),
+      formatNumber(reference),
+      `${formatNumber(current / reference * 100, 1)}%`,
+      formatNumber(difference)
+    ]);
+  return `
+    <section class="detail-section battalion-structural-section">
+      <div class="detail-section-heading">
+        <div><h3>Recorte estrutural dos batalhões do interior</h3><p>Efetivo atual comparado à média de referência nas nove unidades com dados disponíveis.</p></div>
+        <span>1.965 policiais atuais</span>
+      </div>
+      <div class="battalion-structural-summary">${summary}</div>
+      ${renderDetailTable({
+        tableColumns: ['Posição', 'Batalhão / cidades', 'Efetivo atual', 'Média de referência', 'Cobertura', 'Defasagem calculada'],
+        tableRows: rows
+      }, 'battalions')}
+      <p class="battalion-rounding-note"><strong>Leitura do planejamento:</strong> a soma das defasagens positivas é 520,5. O painel apresenta 521 policiais necessários após arredondamento do total para cima.</p>
+    </section>`;
+}
+
 function renderRestructuringUnitExplorer(data) {
   const options = data.units.map(([name]) => `<option value="${name}"${name === '33º BPM' ? ' selected' : ''}>${formatPogUnitName(name)}</option>`).join('');
   return `
@@ -820,6 +900,8 @@ function renderMetricDetail(key) {
   const copacPhaseSelector = key === 'copac' ? renderCopacPhaseSelector(data) : '';
   const pogUnitExplorer = key === 'pog' ? renderPogUnitExplorer(data) : '';
   const pogImplementations = key === 'pog' ? renderPogImplementations(data) : '';
+  const battalionRankings = key === 'battalions' ? renderBattalionRankings() : '';
+  const battalionStructuralStudy = key === 'battalions' ? renderBattalionStructuralStudy() : '';
   const restructuringUnitExplorer = key === 'restructuring' ? renderRestructuringUnitExplorer(data) : '';
   const restructuringTopFive = key === 'restructuring' ? renderRestructuringTopFive(data) : '';
   const copacResources = key === 'copac' ? renderCopacResources(data) : '';
@@ -842,6 +924,8 @@ function renderMetricDetail(key) {
     ${restructuringUnitExplorer}
     ${restructuringTopFive}
     ${breakdownSection}
+    ${battalionRankings}
+    ${battalionStructuralStudy}
     ${copacResources}
     ${discriminatedTable}
     ${pogImplementations}

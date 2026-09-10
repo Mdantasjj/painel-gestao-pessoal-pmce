@@ -388,6 +388,25 @@ body.modal-open { overflow: hidden; }
 #metricDetailContent[data-detail="battalions"] .detail-table td:first-child { width: 58px; padding-right: 6px; padding-left: 6px; text-align: center; white-space: nowrap; }
 #metricDetailContent[data-detail="battalions"] .detail-table th:nth-child(n+3),
 #metricDetailContent[data-detail="battalions"] .detail-table td:nth-child(n+3) { text-align: center; }
+.battalion-ranking-section, .battalion-structural-section { border-color: #bfd9ca; background: linear-gradient(180deg, #f7fcf9, #fff); }
+.battalion-rank-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.battalion-rank-card { overflow: hidden; border: 1px solid #d5e6dc; border-radius: 11px; background: #fff; }
+.battalion-rank-card > div:first-child { display: flex; min-height: 58px; padding: 11px 13px; justify-content: center; flex-direction: column; color: #fff; background: linear-gradient(110deg, #145c40, #2f855a); }
+.battalion-rank-card > div:first-child strong { font-size: 12px; }
+.battalion-rank-card > div:first-child span { margin-top: 4px; color: #d3ede0; font-size: 8.5px; }
+.battalion-rank-list { padding: 6px 10px 9px; }
+.battalion-rank-row { display: grid; min-height: 45px; grid-template-columns: 28px minmax(0, 1fr) 62px; align-items: center; gap: 9px; border-bottom: 1px solid #e7efea; }
+.battalion-rank-row:last-child { border-bottom: 0; }
+.battalion-rank-row > span { display: grid; width: 25px; height: 25px; place-items: center; border-radius: 7px; color: #fff; background: #317d59; font-size: 8.5px; font-weight: 850; }
+.battalion-rank-row > strong { color: #28533f; font-size: 10px; line-height: 1.3; }
+.battalion-rank-row > b { display: flex; align-items: flex-end; flex-direction: column; color: #104e34; font-size: 15px; line-height: 1; }
+.battalion-rank-row > b small { margin-top: 4px; color: #718078; font-size: 8px; font-weight: 650; }
+.battalion-structural-summary { display: grid; margin-bottom: 12px; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 9px; }
+.battalion-structural-summary > div { display: flex; min-height: 86px; padding: 11px 10px; align-items: center; justify-content: center; flex-direction: column; border: 1px solid #d9e8e0; border-radius: 9px; text-align: center; background: #fff; }
+.battalion-structural-summary span { color: #65766d; font-size: 8px; font-weight: 800; letter-spacing: .035em; text-transform: uppercase; }
+.battalion-structural-summary strong { margin-top: 5px; color: #145c40; font-size: 22px; line-height: 1; }
+.battalion-structural-summary small { margin-top: 5px; color: #7a8780; font-size: 8px; line-height: 1.3; }
+.battalion-rounding-note { margin: 10px 0 0; padding: 10px 12px; border-left: 4px solid #2f855a; border-radius: 7px; color: #365b48; background: #edf7f1; font-size: 9.5px; line-height: 1.45; }
 
 .toast { position: fixed; z-index: 20; right: 28px; bottom: 28px; padding: 12px 16px; border: 1px solid #cde4d8; border-radius: 9px; color: var(--green-800); background: #f8fcfa; box-shadow: 0 12px 30px rgba(9,50,34,.15); font-size: 11px; opacity: 0; transform: translateY(10px); transition: .2s; pointer-events: none; }.toast.is-visible { opacity: 1; transform: translateY(0); }
 
@@ -435,6 +454,8 @@ body.modal-open { overflow: hidden; }
   .raio-level-selector { grid-template-columns: 1fr; }
   .raio-level-summary { grid-template-columns: repeat(4, minmax(68px, 1fr)); }
   .pog-unit-values { grid-template-columns: 1fr 1fr; }
+  .battalion-rank-grid { grid-template-columns: 1fr; }
+  .battalion-structural-summary { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .copac-resource-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .origins-panel { min-height: 0; }
   .situation-panel { grid-column: auto; }
@@ -454,6 +475,7 @@ body.modal-open { overflow: hidden; }
   .raio-level-heading, .raio-cities-heading { align-items: flex-start; flex-direction: column; }
   .pog-unit-control { grid-template-columns: 1fr; gap: 7px; }
   .pog-unit-values { grid-template-columns: 1fr; }
+  .battalion-structural-summary { grid-template-columns: 1fr; }
   .pog-unit-result-heading { align-items: flex-start; flex-direction: column; }
   .restructuring-rank-row { grid-template-columns: 34px minmax(105px, 1fr) 82px; gap: 8px; }
   .restructuring-rank-track { grid-column: 2 / -1; }

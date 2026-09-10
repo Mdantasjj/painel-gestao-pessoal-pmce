@@ -14,7 +14,7 @@ Nas tabelas de detalhamento, as colunas de identificação e os valores estraté
 
 O detalhamento do POG possui uma consulta para os 34 BPMs territoriais. Ao selecionar um batalhão, são apresentados a cidade de referência, os totais de saídas e entradas, o saldo e a perda líquida. CRPMs e demais OPMs não integram esse recorte, pois a fonte consolidada não permite redistribuir seus registros entre batalhões.
 
-O card principal utiliza o título **Déficit de efetivo — POG — Policiamento Ostensivo Geral** e apresenta abaixo a finalidade **Atendimento de ocorrências e maior visibilidade à sociedade**. Essa explicação foi retirada do texto introdutório da subpágina para evitar repetição.
+O card principal utiliza o título completo **Déficit de efetivo — POG — Policiamento Ostensivo Geral (atendimento de ocorrências e maior visibilidade à sociedade)**. A linha inferior informa os 34 BPMs territoriais, e a explicação foi retirada do texto introdutório da subpágina para evitar repetição.
 
 Os 34 BPMs recebem uma referência territorial discreta baseada na aba `BASE` de `DISTRI VTR (1).xlsx`. Como a planilha não identifica formalmente a sede, cada batalhão mostra o município ou território de referência. Por orientação do projeto, foram ajustados: 5º BPM — Centro e Carlito Pamplona; 8º BPM — Aldeota e Meireles; 17º BPM — Conjunto Ceará; 22º BPM — Papicu e Praia do Futuro; 27º BPM — Tianguá; 28º BPM — Camocim; 30º BPM — Aracati; 32º BPM — Brejo Santo; e 33º BPM — Campos Sales. A referência territorial acompanha todas as ocorrências visuais dos BPMs: gráfico de origens, composição do indicador, seletor, tabela e detalhamento individual.
 

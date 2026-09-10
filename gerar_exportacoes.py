@@ -204,18 +204,17 @@ def generate_editable_powerpoint() -> None:
     add_text(slide, "ARQUIVO CONSOLIDADO", 10.75, 1.10, 1.15, 0.09, 4.4, MUTED)
     add_text(slide, "09/09/2026", 10.75, 1.22, 0.75, 0.12, 6.3, INK, True)
     add_shape(slide, MSO_SHAPE.ROUNDED_RECTANGLE, 11.92, 1.13, 0.95, 0.20, GREEN_050, GREEN_050)
-    add_text(slide, "●  6 bases consolidadas", 11.96, 1.13, 0.86, 0.20, 4.7, GREEN_800, True, PP_ALIGN.CENTER)
+    add_text(slide, "●  5 indicadores", 11.96, 1.13, 0.86, 0.20, 4.7, GREEN_800, True, PP_ALIGN.CENTER)
 
     # Cards editáveis
     card_width = 3.75
     top_x = [0.35, 4.79, 9.23]
-    bottom_x = [0.35, 4.79, 9.23]
+    bottom_x = [2.57, 7.01]
     add_card(slide, top_x[0], "Saídas de efetivo (exoneração — aposentadoria)", "547", "saídas", "252 dem. · 88 exon. · 207 aposent.", GREEN_600, "E6F4ED", card_width, label_size=6.2, label_height=0.22, foot_size=4.7, y=1.52, height=0.82)
-    add_card(slide, top_x[1], "Déficit de efetivo — POG — Policiamento Ostensivo Geral (atendimento de ocorrências e maior visibilidade à sociedade)", "111", "policiais", "34 BPMs territoriais", "216F4C", "E4F2E9", card_width, label_size=5.0, label_height=0.34, foot_size=4.5, y=1.52, height=0.82)
+    add_card(slide, top_x[1], "POG + Companhia Pronta-Resposta (COTAM) + BPTUR (Cariri e Guaramiranga)", "271", "policiais", "POG 111 · COTAM 110 · BPTUR 50", "216F4C", "E4F2E9", card_width, label_size=5.0, label_height=0.34, foot_size=4.4, y=1.52, height=0.82)
     add_card(slide, top_x[2], "Reestruturação dos batalhões do interior", "521", "efetivo necessário", "9 batalhões · 8 abaixo da média", OLIVE, "EDF3E4", card_width, label_size=6.2, label_height=0.22, foot_size=4.7, y=1.52, height=0.82)
     add_card(slide, bottom_x[0], "RAIO — Necessidade para as 20 bases satélites em 3 níveis de implementação", "912", "policiais", "20 bases · 31 municípios satélite", BLUE, "E7F1F6", card_width, label_size=5.6, label_height=0.26, foot_size=4.7, y=2.44, height=0.82)
     add_card(slide, bottom_x[1], "COPAC — Efetivo mínimo para 12 bases cidadãs do PReVio", "360", "policiais", "3 fases · 4 bases e 120 policiais por fase", TEAL, "E5F3EA", card_width, label_size=5.8, label_height=0.26, foot_size=4.7, y=2.44, height=0.82)
-    add_card(slide, bottom_x[2], "Companhia Pronta-Resposta (COTAM) + BPTUR (Cariri e Guaramiranga)", "160", "policiais", "COTAM 110 · 6ª Cia/BPTUR 50", "145C40", "E1F1E8", card_width, label_size=5.1, label_height=0.30, foot_size=4.7, y=2.44, height=0.82)
 
     # Painel esquerdo: gráfico editável
     add_panel(slide, 0.25, 3.36, 8.25, 3.85, "01", "Demissões e exonerações por mês", "340 das 547 saídas · janeiro a agosto de 2026")

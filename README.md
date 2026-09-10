@@ -8,7 +8,7 @@ Abra o arquivo `index.html` no navegador e use o botão de tela cheia no cabeça
 
 ## Detalhamento interativo
 
-Os seis cards são clicáveis e também podem ser acionados pelas teclas `Enter` ou `Espaço`. Cada card abre uma memória de cálculo com composição do total, percentuais, tabelas discriminadas e ressalvas metodológicas. A janela pode ser fechada pelo botão, pela tecla `Esc` ou por um clique fora dela.
+Os cinco cards são clicáveis e também podem ser acionados pelas teclas `Enter` ou `Espaço`. Cada card abre uma memória de cálculo com composição do total, percentuais, tabelas discriminadas e ressalvas metodológicas. A janela pode ser fechada pelo botão, pela tecla `Esc` ou por um clique fora dela.
 
 Nas tabelas de detalhamento, as colunas de identificação e os valores estratégicos recebem tipografia ampliada e destaque em verde: cidade-polo e total no RAIO, mês e total mensal nas saídas, OPM e saldo no POG, unidade/base e necessidade no COPAC, e batalhão e defasagem na reestruturação do interior.
 
@@ -16,7 +16,7 @@ O detalhamento do POG possui uma consulta para os 34 BPMs territoriais. Ao selec
 
 O detalhamento do COPAC/PReVio apresenta uma proposta estratégica de implantação em três fases, seguindo o padrão de seleção utilizado no RAIO. Cada fase reúne quatro bases, 120 policiais e 12 viaturas, com botões comparativos e uma tabela própria de bases, localizações e recursos. Como a resposta oficial do COPAC não informa cronograma ou prioridade, o faseamento territorial exibido é uma proposta de planejamento e não um cronograma oficial.
 
-O card principal utiliza o título completo **Déficit de efetivo — POG — Policiamento Ostensivo Geral (atendimento de ocorrências e maior visibilidade à sociedade)**. A linha inferior informa os 34 BPMs territoriais, e a explicação foi retirada do texto introdutório da subpágina para evitar repetição.
+O card consolidado reúne **Déficit de efetivo — POG — Policiamento Ostensivo Geral (atendimento de ocorrências e maior visibilidade à sociedade)** e **Companhia Pronta-Resposta (COTAM) + BPTUR (Cariri e Guaramiranga)**. O total de 271 policiais é composto por 111 do déficit do POG, 110 para a COTAM e 50 para a 6ª Cia/BPTUR.
 
 Os 34 BPMs possuem referências territoriais consolidadas, exibidas na mesma linha e ao lado do nome da unidade. A relação atual contempla dois municípios, bairros ou áreas de referência para cada BPM — incluindo os agrupamentos internos de Caucaia e Maracanaú — e substitui as associações parciais utilizadas anteriormente. Esse padrão acompanha todas as ocorrências visuais dos BPMs nas composições, seletores, tabelas, rankings e detalhamentos individuais.
 
@@ -38,11 +38,11 @@ A imagem fornecida para as saídas de efetivo está preservada em `assets/icone-
 
 ## Próxima etapa
 
-O primeiro dos seis cards apresenta o cálculo estratégico de **547 saídas de efetivo**: 252 demissões, 88 exonerações e 207 aposentadorias. Conforme orientação do projeto, o quantitativo de promoções requeridas foi adotado como referência das aposentadorias. Os demais cards mantêm as necessidades de efetivo do RAIO, do POG — Policiamento Ostensivo Geral, com déficit de 111 policiais nos 34 BPMs territoriais —, do COPAC/PReVio, agora com efetivo mínimo projetado de 360 policiais para 12 bases, da reestruturação dos batalhões do interior e da implementação conjunta da Companhia Pronta-Resposta (COTAM) com a 6ª Cia/BPTUR no Cariri e em Guaramiranga.
+O primeiro dos cinco cards apresenta o cálculo estratégico de **547 saídas de efetivo**: 252 demissões, 88 exonerações e 207 aposentadorias. Conforme orientação do projeto, o quantitativo de promoções requeridas foi adotado como referência das aposentadorias. Os demais cards mantêm as necessidades de efetivo do RAIO, do COPAC/PReVio, da reestruturação dos batalhões do interior e o indicador consolidado do POG com a implementação da Companhia Pronta-Resposta (COTAM) e da 6ª Cia/BPTUR no Cariri e em Guaramiranga.
 
-O novo card consolida **160 policiais**: 110 para a COTAM (10 oficiais e 100 praças) e 50 para a 6ª Cia/BPTUR (02 oficiais e 48 praças). A relação de 30,7% frente aos 521 policiais necessários nos batalhões do interior é apresentada apenas como referência de escala; não representa retirada nem redistribuição desse efetivo.
+No card combinado, os **160 policiais para implementação** permanecem discriminados: 110 para a COTAM (10 oficiais e 100 praças) e 50 para a 6ª Cia/BPTUR (02 oficiais e 48 praças). Esse quantitativo é adicional e não foi descontado nem redistribuído dos batalhões analisados no POG.
 
-A página principal foi simplificada para exibir somente o cabeçalho institucional, a faixa de referência e os seis cards estratégicos. Os gráficos e visualizadores inferiores foram retirados; as análises discriminadas permanecem disponíveis nas subpáginas abertas pelos cards.
+A página principal foi simplificada para exibir somente o cabeçalho institucional, a faixa de referência e os cinco cards estratégicos. Os gráficos e visualizadores inferiores foram retirados; as análises discriminadas permanecem disponíveis nas subpáginas abertas pelos cards.
 
 As fontes estão preservadas na pasta `data`. Os valores das quatro primeiras bases da planilha foram conferidos com suas fórmulas; o estudo de déficit foi recalculado a partir de `MOVIMENTAÇÕES DO BCG 025-2025 AO BCG 153-2026.pdf`, considerando somente os 34 BPMs numerados.
 

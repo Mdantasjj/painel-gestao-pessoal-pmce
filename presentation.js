@@ -235,23 +235,22 @@ const metricDetails = {
   },
   pog: {
     accent: '#216f4c',
-    eyebrow: 'Memória de cálculo · POG',
-    title: '111 policiais em déficit nos batalhões',
-    total: '111',
+    eyebrow: 'Memória de cálculo · POG + COTAM/BPTUR',
+    title: '271 policiais entre déficit e implementação operacional',
+    total: '271',
     unit: 'policiais',
-    description: 'O indicador soma os valores absolutos dos saldos negativos encontrados nos 34 BPMs territoriais incluídos no estudo de movimentações.',
+    description: 'Indicador consolidado que reúne o déficit de 111 policiais nos BPMs do POG e a necessidade adicional de 160 policiais para implementação da COTAM e da 6ª Cia/BPTUR.',
     stats: [
-      ['Batalhões analisados', '34 BPM', 'Recorte territorial com município identificado'],
-      ['Saldo negativo', '12 BPM', 'Batalhões que compõem o déficit de 111'],
-      ['Ganho líquido', '20 BPM', 'Dois outros BPMs ficaram em equilíbrio']
+      ['Déficit do POG', '111', '12 dos 34 BPMs territoriais apresentam saldo negativo'],
+      ['COTAM', '110', '10 oficiais · 100 praças'],
+      ['6ª Cia/BPTUR', '50', '02 oficiais · 48 praças · Cariri e Guaramiranga']
     ],
+    breakdownTitle: 'Composição do indicador consolidado',
+    breakdownSubtitle: 'Participação do déficit do POG e das duas implementações no total de 271 policiais.',
     breakdown: [
-      ['12º BPM', 33.3, '37 · 33,3%', '#145c40'],
-      ['8º BPM', 20.7, '23 · 20,7%', '#23794f'],
-      ['22º BPM', 9.0, '10 · 9,0%', '#3d9065'],
-      ['26º BPM', 8.1, '9 · 8,1%', '#65a982'],
-      ['5º BPM', 8.1, '9 · 8,1%', '#83b99a'],
-      ['Demais 7 BPM', 20.7, '23 · 20,7%', '#a8cfb7']
+      ['Déficit dos BPMs do POG', 40.96, '111 · 41,0%', '#145c40'],
+      ['Companhia Pronta-Resposta (COTAM)', 40.59, '110 · 40,6%', '#23794f'],
+      ['6ª Cia/BPTUR · Cariri e Guaramiranga', 18.45, '50 · 18,5%', '#4c9b70']
     ],
     sectionTitle: 'Batalhões com maior saldo negativo',
     sectionSubtitle: 'Ranking das dez maiores perdas dentro do déficit acumulado de 111 policiais nos BPMs.',
@@ -262,6 +261,14 @@ const metricDetails = {
       ['5', '5º BPM', '54', '45', '8,1%', '-9'], ['6', '23º BPM', '42', '34', '7,2%', '-8'],
       ['7', '17º BPM', '53', '49', '3,6%', '-4'], ['8', '24º BPM', '33', '29', '3,6%', '-4'],
       ['9', '27º BPM', '13', '10', '2,7%', '-3'], ['10', '11º BPM', '56', '54', '1,8%', '-2']
+    ],
+    implementationSectionTitle: 'Efetivo para implementação da COTAM e da 6ª Cia/BPTUR',
+    implementationSectionSubtitle: 'Distribuição adicional entre oficiais e praças nas duas estruturas operacionais.',
+    implementationTableColumns: ['Posição', 'Implementação', 'Área de atuação', 'Oficiais', 'Praças', 'Necessidade'],
+    implementationTableRows: [
+      ['1', 'Companhia Pronta-Resposta (COTAM)', 'Pronta resposta', '10', '100', '110'],
+      ['2', '6ª Cia/BPTUR', 'Cariri · Pelotão destacado em Guaramiranga', '02', '48', '50'],
+      ['—', 'Total da implementação', 'Duas estruturas operacionais', '12', '148', '160']
     ],
     units: [
       ['10º BPM', 9, 27, 18], ['11º BPM', 56, 54, -2], ['12º BPM', 96, 59, -37],
@@ -288,7 +295,7 @@ const metricDetails = {
       '29º BPM': ['Baturité', 'Redenção'], '30º BPM': ['Aracati', 'Beberibe'], '31º BPM': ['Jaguaribe', 'Alto Santo'], '32º BPM': ['Penaforte', 'Brejo Santo'],
       '33º BPM': ['Campos Sales', 'Assaré'], '34º BPM': ['Icó', 'Várzea Alegre']
     },
-    note: 'O recorte apresenta exclusivamente os 34 BPMs numerados, totalizando 1.459 registros na origem, 1.549 no destino e saldo conjunto de +90. O déficit de 111 corresponde à soma das perdas dos 12 BPMs com saldo negativo. Comandos regionais e demais unidades foram retirados; a fonte consolidada não permite redistribuir seus registros entre batalhões. As referências territoriais exibidas ao lado de cada BPM foram atualizadas conforme a relação consolidada fornecida para o projeto.'
+    note: 'O total de 271 reúne duas naturezas distintas: 111 policiais de déficit acumulado nos 12 BPMs do POG com saldo negativo e 160 policiais de necessidade adicional para implementação operacional. No POG, o recorte apresenta exclusivamente os 34 BPMs numerados, com 1.459 registros na origem, 1.549 no destino e saldo conjunto de +90. Comandos regionais e demais unidades foram retirados, pois a fonte não permite redistribuir seus registros entre batalhões. Para a implementação, foram informados 10 oficiais e 100 praças para a COTAM e 02 oficiais e 48 praças para a 6ª Cia/BPTUR. Os 160 policiais não foram descontados nem redistribuídos dos batalhões analisados.'
   },
   restructuring: {
     accent: '#557c45',
@@ -338,34 +345,6 @@ const metricDetails = {
       ['9', '29º BPM', '281', '268,67', 'Acima da média', '-12,33']
     ],
     note: 'Fonte: aba “Resumo Executivo” de “Resumo Organograma - Defasagem efetivo Unidades criadas.xlsx”. Foram excluídas as quatro unidades vinculadas ao CPRAIO: 6º, 7º, 8º e 9º BPRAIO. A defasagem corresponde à média do comando menos o efetivo atual. A soma matemática é 520,5; como efetivo representa pessoas inteiras, o card adota 521 policiais, com arredondamento para cima. Os nove batalhões somam 1.965 policiais no efetivo atual.'
-  },
-  readyresponse: {
-    accent: '#145c40',
-    eyebrow: 'Memória de cálculo · COTAM/BPTUR',
-    title: '160 policiais para implementação operacional',
-    total: '160',
-    unit: 'policiais',
-    description: 'Necessidade adicional consolidada para implantação da Companhia Pronta-Resposta (COTAM) e da 6ª Cia/BPTUR no Cariri, com pelotão destacado em Guaramiranga.',
-    stats: [
-      ['Oficiais', '12', '10 na COTAM · 02 na 6ª Cia/BPTUR'],
-      ['Praças', '148', '100 na COTAM · 48 na 6ª Cia/BPTUR'],
-      ['Referência estratégica', '30,7%', '160 frente ao efetivo necessário de 521 nos batalhões do interior']
-    ],
-    breakdownTitle: 'Distribuição do efetivo por implementação',
-    breakdownSubtitle: 'Participação de cada estrutura na necessidade total de 160 policiais.',
-    breakdown: [
-      ['Companhia Pronta-Resposta (COTAM)', 68.75, '110 · 68,8%', '#145c40'],
-      ['6ª Cia/BPTUR · Cariri e Guaramiranga', 31.25, '50 · 31,3%', '#4c9b70']
-    ],
-    sectionTitle: 'Necessidade discriminada por estrutura',
-    sectionSubtitle: 'Distribuição entre oficiais e praças informada para cada implementação.',
-    tableColumns: ['Implementação', 'Área de atuação', 'Oficiais', 'Praças', 'Necessidade total'],
-    tableRows: [
-      ['Companhia Pronta-Resposta (COTAM)', 'Pronta resposta', '10', '100', '110'],
-      ['6ª Cia/BPTUR', 'Cariri · Pelotão destacado em Guaramiranga', '02', '48', '50'],
-      ['Total', 'Duas estruturas operacionais', '12', '148', '160']
-    ],
-    note: 'Os quantitativos de 10 oficiais e 100 praças para a COTAM e de 02 oficiais e 48 praças para a 6ª Cia/BPTUR foram informados para esta projeção. A comparação com os 521 policiais necessários nos nove batalhões do interior é apenas uma referência de escala para o planejamento; os 160 policiais constituem necessidade adicional e não foram descontados nem redistribuídos dos batalhões analisados.'
   },
   copac: {
     accent: '#2f855a',
@@ -671,6 +650,20 @@ function renderPogUnitDetail(unitName) {
     <p class="pog-unit-source-note">${sourceNote}</p>`;
 }
 
+function renderPogImplementations(data) {
+  return `
+    <section class="detail-section pog-implementation-section">
+      <div class="detail-section-heading">
+        <div><h3>${data.implementationSectionTitle}</h3><p>${data.implementationSectionSubtitle}</p></div>
+        <span>160 policiais adicionais</span>
+      </div>
+      ${renderDetailTable({
+        tableColumns: data.implementationTableColumns,
+        tableRows: data.implementationTableRows
+      }, 'pog')}
+    </section>`;
+}
+
 function renderRestructuringUnitExplorer(data) {
   const options = data.units.map(([name]) => `<option value="${name}"${name === '33º BPM' ? ' selected' : ''}>${formatPogUnitName(name)}</option>`).join('');
   return `
@@ -790,6 +783,7 @@ function renderMetricDetail(key) {
   const levelSelector = key === 'raio' ? renderRaioLevelSelector(data) : '';
   const copacPhaseSelector = key === 'copac' ? renderCopacPhaseSelector(data) : '';
   const pogUnitExplorer = key === 'pog' ? renderPogUnitExplorer(data) : '';
+  const pogImplementations = key === 'pog' ? renderPogImplementations(data) : '';
   const restructuringUnitExplorer = key === 'restructuring' ? renderRestructuringUnitExplorer(data) : '';
   const restructuringTopFive = key === 'restructuring' ? renderRestructuringTopFive(data) : '';
   const copacResources = key === 'copac' ? renderCopacResources(data) : '';
@@ -814,6 +808,7 @@ function renderMetricDetail(key) {
     ${breakdownSection}
     ${copacResources}
     ${discriminatedTable}
+    ${pogImplementations}
     <p class="detail-methodology">${data.note}</p>`;
   if (key === 'pog') renderPogUnitDetail('12º BPM');
   if (key === 'restructuring') renderRestructuringUnitDetail('33º BPM');

@@ -18,7 +18,7 @@ Fontes analisadas:
 |---|---:|---|
 | Saídas de efetivo | 547 saídas | 252 demissões, 88 exonerações e 207 aposentadorias |
 | RAIO — Necessidade de efetivo para compor as 20 bases satélites em 3 níveis de implementação | 912 policiais | 20 oficiais e 892 praças |
-| Déficit de efetivo do POG — Policiamento Ostensivo Geral | 111 policiais | Recorte dos 34 BPMs territoriais; soma dos saldos negativos de 12 batalhões |
+| POG + Companhia Pronta-Resposta (COTAM) + BPTUR | 271 policiais | 111 de déficit nos 34 BPMs territoriais, 110 para a COTAM e 50 para a 6ª Cia/BPTUR |
 | COPAC/PReVio — Efetivo mínimo das bases cidadãs | 360 policiais | 12 bases × 30 policiais; projeção bruta, sem dedução de efetivo disponível |
 | Reestruturação dos batalhões do interior | 521 policiais necessários | Base matemática de 520,5, arredondada para cima; 9 batalhões analisados, sendo 8 abaixo da média e 1 acima; RAIO excluído |
 | Aposentadorias | 207 militares | Referência estratégica adotada: quantitativo das promoções requeridas |

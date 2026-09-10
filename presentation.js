@@ -316,8 +316,8 @@ const metricDetails = {
       ['Acima da média', '1 BPM', '29º BPM — Baturité · Redenção · 12,3 acima da média'],
       ['Base matemática', '520,5', 'Resultado das médias · arredondado para 521 policiais']
     ],
-    breakdownTitle: 'Concentração da defasagem por batalhão',
-    breakdownSubtitle: 'Participação de cada BPM nos 520,5 policiais de defasagem acumulada.',
+    breakdownTitle: 'Concentração do saldo por batalhão',
+    breakdownSubtitle: 'Participação de cada BPM no saldo acumulado de 520,5 policiais.',
     hideBreakdown: true,
     breakdown: [
       ['33º BPM', 22.2, '115,5 · 22,2%', '#145c40'],
@@ -337,9 +337,9 @@ const metricDetails = {
       ['32º BPM', 229, 253.5, 24.5],
       ['29º BPM', 281, 268.6666666667, -12.3333333333]
     ],
-    sectionTitle: 'Batalhões ordenados pela maior defasagem',
+    sectionTitle: 'Batalhões ordenados pelo maior saldo',
     sectionSubtitle: 'Efetivo atual comparado à média do respectivo comando.',
-    tableColumns: ['Posição', 'Batalhão / cidade', 'Efetivo atual', 'Média do comando', 'Situação', 'Defasagem'],
+    tableColumns: ['Posição', 'Batalhão / cidade', 'Efetivo atual', 'Média do comando', 'Situação', 'Saldo'],
     tableRows: [
       ['1', '33º BPM', '138', '253,5', 'Abaixo da média', '115,5'],
       ['2', '28º BPM', '202', '297,25', 'Abaixo da média', '95,25'],
@@ -351,7 +351,7 @@ const metricDetails = {
       ['8', '32º BPM', '229', '253,5', 'Abaixo da média', '24,5'],
       ['9', '29º BPM', '281', '268,67', 'Acima da média', '-12,33']
     ],
-    note: 'Fonte: aba “Resumo Executivo” de “Resumo Organograma - Defasagem efetivo Unidades criadas.xlsx”. Foram excluídas as quatro unidades vinculadas ao CPRAIO: 6º, 7º, 8º e 9º BPRAIO. A defasagem corresponde à média do comando menos o efetivo atual. A soma matemática é 520,5; como efetivo representa pessoas inteiras, o card adota 521 policiais, com arredondamento para cima. Os nove batalhões somam 1.965 policiais no efetivo atual.'
+    note: 'Fonte: aba “Resumo Executivo” da planilha de reestruturação do efetivo das unidades criadas. Foram excluídas as quatro unidades vinculadas ao CPRAIO: 6º, 7º, 8º e 9º BPRAIO. O saldo corresponde à média do comando menos o efetivo atual. A soma matemática é 520,5; como efetivo representa pessoas inteiras, o card adota 521 policiais, com arredondamento para cima. Os nove batalhões somam 1.965 policiais no efetivo atual.'
   },
   battalions: {
     accent: '#145c40',
@@ -359,7 +359,7 @@ const metricDetails = {
     title: 'Análise geral efetivo dos batalhões',
     total: '34',
     unit: 'batalhões analisados',
-    description: 'Visão geral dos 34 BPMs territoriais no estudo de movimentações, complementada pelo recorte de efetivo atual e defasagem dos nove batalhões do interior.',
+    description: 'Visão geral dos 34 BPMs territoriais no estudo de movimentações, complementada pelo recorte de efetivo atual e saldo dos nove batalhões do interior.',
     stats: [
       ['Saldo conjunto', '+90', '1.549 registros no destino menos 1.459 na origem'],
       ['Déficit localizado', '111', 'Soma das perdas dos 12 BPMs com saldo negativo'],
@@ -833,10 +833,10 @@ function renderBattalionStructuralStudy() {
       </div>
       <div class="battalion-structural-summary">${summary}</div>
       ${renderDetailTable({
-        tableColumns: ['Posição', 'Batalhão / cidades', 'Efetivo atual', 'Média de referência', 'Cobertura', 'Defasagem calculada'],
+        tableColumns: ['Posição', 'Batalhão / cidades', 'Efetivo atual', 'Média de referência', 'Cobertura', 'Saldo calculado'],
         tableRows: rows
       }, 'battalions')}
-      <p class="battalion-rounding-note"><strong>Leitura do planejamento:</strong> a soma das defasagens positivas é 520,5. O painel apresenta 521 policiais necessários após arredondamento do total para cima.</p>
+      <p class="battalion-rounding-note"><strong>Leitura do planejamento:</strong> a soma dos saldos positivos é 520,5. O painel apresenta 521 policiais necessários após arredondamento do total para cima.</p>
     </section>`;
 }
 
@@ -845,7 +845,7 @@ function renderRestructuringUnitExplorer(data) {
   return `
     <section class="detail-section restructuring-unit-section">
       <div class="detail-section-heading">
-        <div><h3>Consultar detalhamento por batalhão</h3><p>Selecione um dos nove BPMs para comparar efetivo atual, média, defasagem e cobertura.</p></div>
+        <div><h3>Consultar detalhamento por batalhão</h3><p>Selecione um dos nove BPMs para comparar efetivo atual, média, saldo e cobertura.</p></div>
         <span>Consulta individual</span>
       </div>
       <label class="pog-unit-control" for="restructuringUnitSelect">
@@ -868,8 +868,8 @@ function renderRestructuringUnitDetail(unitName) {
   const formatNumber = (value) => value.toLocaleString('pt-BR', { minimumFractionDigits: 0, maximumFractionDigits: 2 });
   const share = belowAverage ? difference / 520.5 * 100 : 0;
   const interpretation = belowAverage
-    ? `Necessidade de ${formatNumber(difference)} policiais para alcançar a média de referência. O batalhão representa ${formatNumber(share)}% da defasagem acumulada de 520,5.`
-    : `O efetivo atual está ${formatNumber(Math.abs(difference))} policiais acima da média de referência e não compõe a defasagem acumulada.`;
+    ? `Necessidade de ${formatNumber(difference)} policiais para alcançar a média de referência. O batalhão representa ${formatNumber(share)}% do saldo acumulado de 520,5.`
+    : `O efetivo atual está ${formatNumber(Math.abs(difference))} policiais acima da média de referência e não compõe o saldo acumulado.`;
   result.innerHTML = `
     <div class="pog-unit-result-heading">
       <div><span>Batalhão selecionado</span><strong>${formatPogUnitName(name)}</strong></div>
@@ -878,7 +878,7 @@ function renderRestructuringUnitDetail(unitName) {
     <div class="pog-unit-values">
       <div><span>Efetivo atual</span><strong>${formatNumber(current)}</strong><small>Policiais registrados na unidade</small></div>
       <div><span>Média de referência</span><strong>${formatNumber(reference)}</strong><small>Média informada na aba Resumo Executivo</small></div>
-      <div class="${belowAverage ? 'is-loss' : ''}"><span>Defasagem</span><strong>${formatNumber(difference)}</strong><small>Média menos efetivo atual</small></div>
+      <div class="${belowAverage ? 'is-loss' : ''}"><span>Saldo</span><strong>${formatNumber(difference)}</strong><small>Média menos efetivo atual</small></div>
       <div><span>Cobertura da média</span><strong>${formatNumber(coverage)}%</strong><small>Efetivo atual em relação à referência</small></div>
     </div>
     <p class="pog-unit-source-note">${interpretation}</p>`;
@@ -906,8 +906,8 @@ function renderRestructuringTopFive(data) {
   return `
     <section class="detail-section restructuring-ranking-section">
       <div class="detail-section-heading">
-        <div><h3>Top 5 maiores níveis de defasagem</h3><p>Batalhões que concentram as maiores diferenças entre o efetivo atual e a média de referência.</p></div>
-        <span>79,7% da defasagem</span>
+        <div><h3>Top 5 maiores saldos</h3><p>Batalhões que concentram as maiores diferenças entre o efetivo atual e a média de referência.</p></div>
+        <span>79,7% do saldo</span>
       </div>
       <div class="restructuring-ranking">${rows}</div>
     </section>`;

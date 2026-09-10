@@ -35,7 +35,7 @@ Fontes analisadas:
 - Os 34 BPMs registram 1.459 origens e 1.549 destinos, produzindo saldo conjunto de +90. Esse saldo positivo não elimina os déficits localizados.
 - O 12º BPM — Caucaia (Centro · Cumbuco) tem o maior saldo negativo (-37), seguido pelo 8º BPM — Aldeota · Vicente Pinzón (-23) e pelo 22º BPM — Papicu · Dionísio Torres (-10). Os dois primeiros concentram 54,1% do déficit por batalhão.
 - CRPMs, unidades especializadas e demais OPMs foram retirados do indicador. Os registros dos comandos regionais não foram redistribuídos porque a fonte não identifica o batalhão de vínculo.
-- Na reestruturação do interior, nove batalhões permanecem após excluir quatro unidades do RAIO. Oito estão abaixo da média do respectivo comando; a defasagem matemática acumulada é 520,5, apresentada operacionalmente como 521 policiais necessários após arredondamento para cima. O 33º BPM — Campos Sales · Assaré apresenta a maior diferença, com 115,5.
+- Na reestruturação do interior, nove batalhões permanecem após excluir quatro unidades do RAIO. Oito estão abaixo da média do respectivo comando; o saldo matemático acumulado é 520,5, apresentado operacionalmente como 521 policiais necessários após arredondamento para cima. O 33º BPM — Campos Sales · Assaré apresenta a maior diferença, com 115,5.
 - O COPAC informa 12 bases cidadãs e padrão mínimo de 30 policiais por unidade, totalizando 360 policiais. A frota mínima consolidada é de 36 viaturas.
 - A composição consolidada prevê 96 policiais na guarda, 48 na reserva de armamento, 36 no GAVV, 36 no GSC, 36 no GPF, 36 no administrativo, 24 no GSE A, 24 no GSE B e 24 na mediação de conflitos.
 - Das 207 promoções requeridas, 153 correspondem ao acesso de SUBTEN PM a 2ºTEN QOAPM, representando 73,9% do total.
@@ -51,4 +51,4 @@ Fontes analisadas:
 - O valor de 207 foi classificado como aposentadorias por orientação do projeto, utilizando a aba de promoções requeridas como referência estratégica. A fonte original registra promoções requeridas, não atos individuais de aposentadoria.
 - O visualizador de origem usa 326 registros únicos da relação cumulativa entre 01/01 e 10/08/2026. O total executivo de 340 permanece baseado na consolidação mensal; os dois recortes não devem ser tratados como uma conciliação individual exata.
 - A base atual não informa a OPM de origem das 207 aposentadorias; por isso, o ranking territorial cobre apenas demissões e exonerações.
-- A defasagem da reestruturação compara o efetivo atual à média do comando e pode conter frações. Ela não deve ser interpretada como quantitativo inteiro já autorizado para movimentação.
+- O saldo da reestruturação compara o efetivo atual à média do comando e pode conter frações. Ele não deve ser interpretado como quantitativo inteiro já autorizado para movimentação.

@@ -241,16 +241,23 @@ const metricDetails = {
     unit: 'policiais',
     description: 'Indicador consolidado que reúne o déficit de 111 policiais nos BPMs do POG e a necessidade adicional de 160 policiais para implementação da COTAM e da 6ª Cia/BPTUR.',
     stats: [
-      ['Déficit do POG', '111', '12 dos 34 BPMs territoriais apresentam saldo negativo'],
-      ['COTAM', '110', '10 oficiais · 100 praças'],
-      ['6ª Cia/BPTUR', '50', '02 oficiais · 48 praças · Cariri e Guaramiranga']
+      ['Bloco POG', '111', 'Déficit localizado nos BPMs territoriais'],
+      ['Bloco COTAM/BPTUR', '160', 'Necessidade adicional para implementação'],
+      ['Total consolidado', '271', '111 de déficit · 160 de implementação']
     ],
-    breakdownTitle: 'Composição do indicador consolidado',
-    breakdownSubtitle: 'Participação do déficit do POG e das duas implementações no total de 271 policiais.',
-    breakdown: [
-      ['Déficit dos BPMs do POG', 40.96, '111 · 41,0%', '#145c40'],
-      ['Companhia Pronta-Resposta (COTAM)', 40.59, '110 · 40,6%', '#23794f'],
-      ['6ª Cia/BPTUR · Cariri e Guaramiranga', 18.45, '50 · 18,5%', '#4c9b70']
+    hideBreakdown: true,
+    breakdown: [],
+    pogBreakdown: [
+      ['12º BPM', 33.3, '37 · 33,3%', '#145c40'],
+      ['8º BPM', 20.7, '23 · 20,7%', '#23794f'],
+      ['22º BPM', 9.0, '10 · 9,0%', '#368a60'],
+      ['26º BPM', 8.1, '9 · 8,1%', '#4c9b70'],
+      ['5º BPM', 8.1, '9 · 8,1%', '#65aa82'],
+      ['Demais 7 BPMs', 20.7, '23 · 20,7%', '#84b99a']
+    ],
+    implementationBreakdown: [
+      ['Companhia Pronta-Resposta (COTAM)', 68.75, '110 · 68,8%', '#145c40'],
+      ['6ª Cia/BPTUR · Cariri e Guaramiranga', 31.25, '50 · 31,3%', '#4c9b70']
     ],
     sectionTitle: 'Batalhões com maior saldo negativo',
     sectionSubtitle: 'Ranking das dez maiores perdas dentro do déficit acumulado de 111 policiais nos BPMs.',
@@ -686,17 +693,70 @@ function renderPogUnitDetail(unitName) {
     <p class="pog-unit-source-note">${sourceNote}</p>`;
 }
 
+function renderPogBreakdown(rows) {
+  return rows.map(([label, share, value, rowColor]) => {
+    const formattedLabel = label.includes('BPM') ? formatPogUnitName(label) : label;
+    return `
+      <div class="detail-breakdown-row">
+        <span class="detail-breakdown-label"><strong>${formattedLabel}</strong></span>
+        <div class="detail-breakdown-track"><i style="width:${share}%;--row-color:${rowColor}"></i></div>
+        <strong>${value}</strong>
+      </div>`;
+  }).join('');
+}
+
+function renderPogDeficitOverview(data) {
+  return `
+    <section class="detail-section pog-separated-section pog-deficit-overview-section">
+      <div class="pog-separated-heading">
+        <span>Bloco 01 · Déficit de efetivo</span>
+        <h3>POG — Policiamento Ostensivo Geral</h3>
+        <p>Atendimento de ocorrências e maior visibilidade à sociedade</p>
+      </div>
+      <div class="pog-separated-content">
+        <div class="pog-separated-kpis">
+          <div><span>Déficit localizado</span><strong>111</strong><small>policiais</small></div>
+          <div><span>BPMs analisados</span><strong>34</strong><small>batalhões territoriais</small></div>
+          <div><span>Saldo negativo</span><strong>12</strong><small>BPMs com perda líquida</small></div>
+          <div><span>Demais situações</span><strong>22</strong><small>20 com ganho · 2 em equilíbrio</small></div>
+        </div>
+        <div class="pog-separated-breakdown">
+          <div class="detail-section-heading">
+            <div><h3>Concentração do déficit do POG</h3><p>Participação dos batalhões no déficit localizado de 111 policiais.</p></div>
+            <span>Somente POG</span>
+          </div>
+          <div class="detail-breakdown">${renderPogBreakdown(data.pogBreakdown)}</div>
+        </div>
+      </div>
+    </section>`;
+}
+
 function renderPogImplementations(data) {
   return `
-    <section class="detail-section pog-implementation-section">
-      <div class="detail-section-heading">
-        <div><h3>${data.implementationSectionTitle}</h3><p>${data.implementationSectionSubtitle}</p></div>
-        <span>160 policiais adicionais</span>
+    <section class="detail-section pog-separated-section pog-implementation-section">
+      <div class="pog-separated-heading">
+        <span>Bloco 02 · Necessidade de implementação</span>
+        <h3>Companhia Pronta-Resposta (COTAM) + BPTUR</h3>
+        <p>Cariri e Guaramiranga · efetivo adicional para duas estruturas operacionais</p>
       </div>
-      ${renderDetailTable({
-        tableColumns: data.implementationTableColumns,
-        tableRows: data.implementationTableRows
-      }, 'pog')}
+      <div class="pog-separated-content">
+        <div class="pog-separated-kpis">
+          <div><span>Necessidade total</span><strong>160</strong><small>policiais adicionais</small></div>
+          <div><span>Oficiais</span><strong>12</strong><small>10 COTAM · 02 BPTUR</small></div>
+          <div><span>Praças</span><strong>148</strong><small>100 COTAM · 48 BPTUR</small></div>
+        </div>
+        <div class="pog-separated-breakdown">
+          <div class="detail-section-heading">
+            <div><h3>${data.implementationSectionTitle}</h3><p>${data.implementationSectionSubtitle}</p></div>
+            <span>Somente COTAM/BPTUR</span>
+          </div>
+          <div class="detail-breakdown">${renderPogBreakdown(data.implementationBreakdown)}</div>
+        </div>
+        ${renderDetailTable({
+          tableColumns: data.implementationTableColumns,
+          tableRows: data.implementationTableRows
+        }, 'pog')}
+      </div>
     </section>`;
 }
 
@@ -898,6 +958,7 @@ function renderMetricDetail(key) {
     </section>`;
   const levelSelector = key === 'raio' ? renderRaioLevelSelector(data) : '';
   const copacPhaseSelector = key === 'copac' ? renderCopacPhaseSelector(data) : '';
+  const pogDeficitOverview = key === 'pog' ? renderPogDeficitOverview(data) : '';
   const pogUnitExplorer = key === 'pog' ? renderPogUnitExplorer(data) : '';
   const pogImplementations = key === 'pog' ? renderPogImplementations(data) : '';
   const battalionRankings = key === 'battalions' ? renderBattalionRankings() : '';
@@ -920,6 +981,7 @@ function renderMetricDetail(key) {
     </div>
     ${levelSelector}
     ${copacPhaseSelector}
+    ${pogDeficitOverview}
     ${pogUnitExplorer}
     ${restructuringUnitExplorer}
     ${restructuringTopFive}

@@ -243,7 +243,7 @@ const metricDetails = {
     stats: [
       ['Déficit de efetivo do POG para as unidades especializadas', '111', 'Déficit localizado nos BPMs territoriais'],
       ['COTAM - Necessidade de efetivo pronta resposta', '110', '10 oficiais · 100 praças'],
-      ['6ª Cia/BPTUR', '50', '02 oficiais · 48 praças'],
+      ['BPTUR (Cariri e Guaramiranga)', '50', '02 oficiais · 48 praças'],
       ['Total consolidado', '271', '111 POG · 110 COTAM · 50 BPTUR']
     ],
     hideBreakdown: true,

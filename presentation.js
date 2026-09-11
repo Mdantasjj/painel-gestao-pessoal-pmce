@@ -385,7 +385,7 @@ const metricDetails = {
     ],
     sectionTitle: 'Visão geral por batalhão',
     sectionSubtitle: 'Os 34 BPMs estão ordenados da maior perda para o maior ganho no período analisado.',
-    tableColumns: ['Posição', 'Batalhão / cidades', 'Origem', 'Destino', 'Situação', 'Saldo'],
+    tableColumns: ['Posição', 'Batalhão / cidades', 'Situação média'],
     tableRows: [],
     note: 'A tabela apresenta movimentações, e não o efetivo atual completo dos 34 BPMs. O PDF consolidado permite calcular origem, destino e saldo por batalhão, mas não contém o efetivo existente em cada unidade. A informação de efetivo atual está disponível apenas no recorte dos nove batalhões do interior e do litoral da aba “Resumo Executivo”, que totaliza 1.965 policiais e sustenta o indicador de 521 policiais necessários para reestruturação.'
   },
@@ -506,12 +506,9 @@ const metricDetails = {
 
 metricDetails.battalions.tableRows = [...metricDetails.pog.units]
   .sort((a, b) => a[3] - b[3] || a[0].localeCompare(b[0], 'pt-BR', { numeric: true }))
-  .map(([name, origin, destination, balance], index) => [
+  .map(([name, , , balance], index) => [
     String(index + 1),
     name,
-    String(origin),
-    String(destination),
-    balance < 0 ? 'Perda líquida' : balance > 0 ? 'Ganho líquido' : 'Equilíbrio',
     balance > 0 ? `+${balance}` : String(balance)
   ]);
 

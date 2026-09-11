@@ -40,7 +40,7 @@ A imagem fornecida para as saídas de efetivo está preservada em `assets/icone-
 
 ## Próxima etapa
 
-O primeiro dos seis cards apresenta o cálculo estratégico de **547 saídas de efetivo**: 252 demissões, 88 exonerações e 207 aposentadorias. Conforme orientação do projeto, o quantitativo de promoções requeridas foi adotado como referência das aposentadorias. Os demais cards mantêm as necessidades de efetivo do RAIO, do COPAC/PReVio, da reestruturação dos batalhões do interior e do litoral, o indicador consolidado do POG com a implementação da Companhia Pronta-Resposta (COTAM) e da 6ª Cia/BPTUR, e a análise situacional de efetivo dos batalhões.
+O primeiro dos seis cards apresenta o cálculo estratégico de **547 saídas de efetivo**: 252 demissões, 88 exonerações e 207 aposentadorias. Na composição do indicador, demissões e exonerações são identificadas como relacionadas a outros concursos. Conforme orientação do projeto, o quantitativo de promoções requeridas foi adotado como referência das aposentadorias. Os demais cards mantêm as necessidades de efetivo do RAIO, do COPAC/PReVio, da reestruturação dos batalhões do interior e do litoral, o indicador consolidado do POG com a implementação da Companhia Pronta-Resposta (COTAM) e da 6ª Cia/BPTUR, e a análise situacional de efetivo dos batalhões.
 
 No card combinado, os **160 policiais para implementação** permanecem discriminados: 110 para a COTAM (10 oficiais e 100 praças) e 50 para a 6ª Cia/BPTUR (02 oficiais e 48 praças). Esse quantitativo é adicional e não foi descontado nem redistribuído dos batalhões analisados no POG.
 

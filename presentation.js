@@ -124,7 +124,7 @@ const metricDetails = {
       ['Aposentadorias', '207', '37,8% · referência: promoções requeridas']
     ],
     breakdown: [
-      ['Demissões', 46.1, '252 · 46,1%', '#1b8258'],
+      ['Demissões — outros concursos', 46.1, '252 · 46,1%', '#1b8258'],
       ['Exonerações — outros concursos', 16.1, '88 · 16,1%', '#c1a253'],
       ['Aposentadorias', 37.8, '207 · 37,8%', '#698342']
     ],

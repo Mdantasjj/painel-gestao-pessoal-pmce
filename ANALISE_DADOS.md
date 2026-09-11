@@ -20,7 +20,7 @@ Fontes analisadas:
 | RAIO — Necessidade de efetivo para compor as 20 bases satélites em 3 níveis de implementação | 912 policiais | 20 oficiais e 892 praças |
 | POG + Companhia Pronta-Resposta (COTAM) + BPTUR | 271 policiais | 111 de déficit nos 34 BPMs territoriais, 110 para a COTAM e 50 para a 6ª Cia/BPTUR |
 | COPAC/PReVio — Efetivo mínimo das bases cidadãs | 360 policiais | 12 bases × 30 policiais; projeção bruta, sem dedução de efetivo disponível |
-| Reestruturação dos batalhões do interior e do litoral | 521 policiais necessários | Base matemática de 520,5, arredondada para cima; 9 batalhões analisados, sendo 8 abaixo da média e 1 acima; RAIO excluído |
+| Reestruturação dos batalhões do interior e do litoral | 525 policiais necessários | Necessidades dos 8 batalhões arredondadas individualmente para cima; 9 batalhões analisados, sendo 8 abaixo da média e 1 acima; RAIO excluído |
 | BATALHÕES - Análise situacional de Efetivo | 34 batalhões analisados | 20 com ganho, 12 com perda e 2 em equilíbrio; saldo conjunto de +90 nas movimentações |
 | Aposentadorias | 207 militares | Referência estratégica adotada: quantitativo das promoções requeridas |
 
@@ -35,7 +35,7 @@ Fontes analisadas:
 - Os 34 BPMs registram 1.459 origens e 1.549 destinos, produzindo saldo conjunto de +90. Esse saldo positivo não elimina os déficits localizados.
 - O 12º BPM — Caucaia (Centro · Cumbuco) tem o maior saldo negativo (-37), seguido pelo 8º BPM — Aldeota · Vicente Pinzón (-23) e pelo 22º BPM — Papicu · Dionísio Torres (-10). Os dois primeiros concentram 54,1% do déficit por batalhão.
 - CRPMs, unidades especializadas e demais OPMs foram retirados do indicador. Os registros dos comandos regionais não foram redistribuídos porque a fonte não identifica o batalhão de vínculo.
-- Na reestruturação do interior e do litoral, nove batalhões permanecem após excluir quatro unidades do RAIO. Oito estão abaixo da média do respectivo comando; o saldo matemático acumulado é 520,5, apresentado operacionalmente como 521 policiais necessários após arredondamento para cima. O 33º BPM — Campos Sales · Assaré apresenta a maior diferença, com 115,5.
+- Na reestruturação do interior e do litoral, nove batalhões permanecem após excluir quatro unidades do RAIO. Oito estão abaixo da média do respectivo comando. A base analítica produz diferenças fracionárias por utilizar médias; para o planejamento operacional, cada necessidade positiva foi arredondada individualmente para cima, resultando em 116, 96, 90, 64, 52, 41, 41 e 25 policiais, total de 525. O 33º BPM — Campos Sales · Assaré apresenta a maior necessidade inteira, com 116.
 - Na tabela situacional dos 34 batalhões, o vínculo regional BPM–CRPM utiliza a aba `BASE` de `DISTRI VTR (1).xlsx`. O efetivo total do batalhão é preenchido para o 26º ao 34º BPM, enquanto o efetivo total regional está disponível para o 2º, 3º, 4º, 7º e 8º CRPM na aba `Parâmetros` da planilha estrutural. As demais células são apresentadas como “Não informado”.
 - O COPAC informa 12 bases cidadãs e padrão mínimo de 30 policiais por unidade, totalizando 360 policiais. A frota mínima consolidada é de 36 viaturas.
 - A composição consolidada prevê 96 policiais na guarda, 48 na reserva de armamento, 36 no GAVV, 36 no GSC, 36 no GPF, 36 no administrativo, 24 no GSE A, 24 no GSE B e 24 na mediação de conflitos.
@@ -52,4 +52,4 @@ Fontes analisadas:
 - O valor de 207 foi classificado como aposentadorias por orientação do projeto, utilizando a aba de promoções requeridas como referência estratégica. A fonte original registra promoções requeridas, não atos individuais de aposentadoria.
 - O visualizador de origem usa 326 registros únicos da relação cumulativa entre 01/01 e 10/08/2026. O total executivo de 340 permanece baseado na consolidação mensal; os dois recortes não devem ser tratados como uma conciliação individual exata.
 - A base atual não informa a OPM de origem das 207 aposentadorias; por isso, o ranking territorial cobre apenas demissões e exonerações.
-- O saldo da reestruturação compara o efetivo atual à média do comando e pode conter frações. Ele não deve ser interpretado como quantitativo inteiro já autorizado para movimentação.
+- As médias dos comandos podem produzir diferenças analíticas fracionárias. No painel, cada necessidade positiva da reestruturação é arredondada para cima e exibida como efetivo inteiro; o resultado não deve ser interpretado como quantitativo já autorizado para movimentação.

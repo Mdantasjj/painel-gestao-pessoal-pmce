@@ -317,24 +317,24 @@ const metricDetails = {
   restructuring: {
     accent: '#557c45',
     eyebrow: 'Memória de cálculo · interior e litoral',
-    title: '521 policiais necessários para a reestruturação do interior e do litoral',
-    total: '521',
+    title: '525 policiais necessários para a reestruturação do interior e do litoral',
+    total: '525',
     unit: 'policiais',
-    description: 'Efetivo inteiro necessário para que os oito batalhões do interior abaixo da média alcancem a referência dos respectivos comandos. O resultado matemático de 520,5 foi arredondado para cima.',
+    description: 'Efetivo inteiro necessário para que os oito batalhões abaixo da média alcancem ou superem a referência dos respectivos comandos. Cada necessidade foi arredondada individualmente para cima.',
     stats: [
       ['Abaixo da média', '8 BPM', '88,9% dos batalhões analisados'],
-      ['Acima da média', '1 BPM', '29º BPM — Baturité · Redenção · 12,3 acima da média'],
-      ['Base matemática', '520,5', 'Resultado das médias · arredondado para 521 policiais']
+      ['Acima da média', '1 BPM', '29º BPM — Baturité · Redenção · 12 policiais acima da média'],
+      ['Base operacional', '525', 'Soma das oito necessidades inteiras validadas']
     ],
     breakdownTitle: 'Concentração do saldo por batalhão',
-    breakdownSubtitle: 'Participação de cada BPM no saldo acumulado de 520,5 policiais.',
+    breakdownSubtitle: 'Participação de cada BPM no total operacional de 525 policiais.',
     hideBreakdown: true,
     breakdown: [
-      ['33º BPM', 22.2, '115,5 · 22,2%', '#145c40'],
-      ['28º BPM', 18.3, '95,25 · 18,3%', '#23794f'],
-      ['31º BPM', 17.1, '89,25 · 17,1%', '#3d9065'],
-      ['27º BPM', 12.2, '63,25 · 12,2%', '#65a982'],
-      ['Demais 4 BPM', 30.2, '157,25 · 30,2%', '#83b99a']
+      ['33º BPM', 22.1, '116 · 22,1%', '#145c40'],
+      ['28º BPM', 18.3, '96 · 18,3%', '#23794f'],
+      ['31º BPM', 17.1, '90 · 17,1%', '#3d9065'],
+      ['27º BPM', 12.2, '64 · 12,2%', '#65a982'],
+      ['Demais 4 BPM', 30.3, '159 · 30,3%', '#83b99a']
     ],
     units: [
       ['33º BPM', 138, 253.5, 115.5],
@@ -351,17 +351,17 @@ const metricDetails = {
     sectionSubtitle: 'Efetivo atual comparado à média do respectivo comando.',
     tableColumns: ['Posição', 'Batalhão / cidade', 'Efetivo atual', 'Média do comando', 'Situação', 'Saldo'],
     tableRows: [
-      ['1', '33º BPM', '138', '253,5', 'Abaixo da média', '115,5'],
-      ['2', '28º BPM', '202', '297,25', 'Abaixo da média', '95,25'],
-      ['3', '31º BPM', '168', '257,25', 'Abaixo da média', '89,25'],
-      ['4', '27º BPM', '234', '297,25', 'Abaixo da média', '63,25'],
-      ['5', '34º BPM', '202', '253,5', 'Abaixo da média', '51,5'],
+      ['1', '33º BPM', '138', '253,5', 'Abaixo da média', '116'],
+      ['2', '28º BPM', '202', '297,25', 'Abaixo da média', '96'],
+      ['3', '31º BPM', '168', '257,25', 'Abaixo da média', '90'],
+      ['4', '27º BPM', '234', '297,25', 'Abaixo da média', '64'],
+      ['5', '34º BPM', '202', '253,5', 'Abaixo da média', '52'],
       ['6', '26º BPM', '294', '335', 'Abaixo da média', '41'],
-      ['7', '30º BPM', '217', '257,25', 'Abaixo da média', '40,25'],
-      ['8', '32º BPM', '229', '253,5', 'Abaixo da média', '24,5'],
-      ['9', '29º BPM', '281', '268,67', 'Acima da média', '-12,33']
+      ['7', '30º BPM', '217', '257,25', 'Abaixo da média', '41'],
+      ['8', '32º BPM', '229', '253,5', 'Abaixo da média', '25'],
+      ['9', '29º BPM', '281', '268,67', 'Acima da média', '-12']
     ],
-    note: 'Fonte: aba “Resumo Executivo” da planilha de reestruturação do efetivo das unidades criadas. Foram excluídas as quatro unidades vinculadas ao CPRAIO: 6º, 7º, 8º e 9º BPRAIO. O saldo corresponde à média do comando menos o efetivo atual. A soma matemática é 520,5; como efetivo representa pessoas inteiras, o card adota 521 policiais, com arredondamento para cima. Os nove batalhões somam 1.965 policiais no efetivo atual.'
+    note: 'Fonte: aba “Resumo Executivo” da planilha de reestruturação do efetivo das unidades criadas. Foram excluídas as quatro unidades vinculadas ao CPRAIO: 6º, 7º, 8º e 9º BPRAIO. Para transformar as diferenças produzidas pelas médias em efetivo operacional, cada necessidade positiva foi arredondada individualmente para cima. Os oito valores inteiros totalizam 525 policiais. Os nove batalhões somam 1.965 policiais no efetivo atual.'
   },
   battalions: {
     accent: '#145c40',
@@ -373,7 +373,7 @@ const metricDetails = {
     stats: [
       ['Saldo conjunto', '+90', '1.549 registros no destino menos 1.459 na origem'],
       ['Déficit localizado', '111', 'Soma das perdas dos 12 BPMs com saldo negativo'],
-      ['Reestruturação interior e litoral', '521', 'Efetivo necessário nos oito batalhões abaixo da média']
+      ['Reestruturação interior e litoral', '525', 'Efetivo necessário nos oito batalhões abaixo da média']
     ],
     breakdownTitle: 'Situação dos 34 batalhões nas movimentações',
     breakdownSubtitle: 'Distribuição dos BPMs conforme o saldo entre registros de destino e origem.',
@@ -872,13 +872,14 @@ function renderRestructuringUnitDetail(unitName) {
   const [name, current, reference, difference] = unit;
   const coverage = current / reference * 100;
   const belowAverage = difference > 0;
+  const operationalDifference = belowAverage ? Math.ceil(difference) : Math.round(difference);
   const status = belowAverage ? 'Abaixo da média' : 'Acima da média';
   const statusClass = belowAverage ? 'is-loss' : 'is-gain';
   const formatNumber = (value) => value.toLocaleString('pt-BR', { minimumFractionDigits: 0, maximumFractionDigits: 2 });
-  const share = belowAverage ? difference / 520.5 * 100 : 0;
+  const share = belowAverage ? operationalDifference / 525 * 100 : 0;
   const interpretation = belowAverage
-    ? `Necessidade de ${formatNumber(difference)} policiais para alcançar a média de referência. O batalhão representa ${formatNumber(share)}% do saldo acumulado de 520,5.`
-    : `O efetivo atual está ${formatNumber(Math.abs(difference))} policiais acima da média de referência e não compõe o saldo acumulado.`;
+    ? `Necessidade operacional de ${formatNumber(operationalDifference)} policiais para alcançar ou superar a média de referência. O batalhão representa ${formatNumber(share)}% do total inteiro de 525.`
+    : `O efetivo atual está aproximadamente ${formatNumber(Math.abs(operationalDifference))} policiais acima da média de referência e não compõe a necessidade operacional.`;
   result.innerHTML = `
     <div class="pog-unit-result-heading">
       <div><span>Batalhão selecionado</span><strong>${formatPogUnitName(name)}</strong></div>
@@ -887,7 +888,7 @@ function renderRestructuringUnitDetail(unitName) {
     <div class="pog-unit-values">
       <div><span>Efetivo atual</span><strong>${formatNumber(current)}</strong><small>Policiais registrados na unidade</small></div>
       <div><span>Média de referência</span><strong>${formatNumber(reference)}</strong><small>Média informada na aba Resumo Executivo</small></div>
-      <div class="${belowAverage ? 'is-loss' : ''}"><span>Saldo</span><strong>${formatNumber(difference)}</strong><small>Média menos efetivo atual</small></div>
+      <div class="${belowAverage ? 'is-loss' : ''}"><span>Saldo operacional</span><strong>${formatNumber(operationalDifference)}</strong><small>Necessidade convertida em efetivo inteiro</small></div>
       <div><span>Cobertura da média</span><strong>${formatNumber(coverage)}%</strong><small>Efetivo atual em relação à referência</small></div>
     </div>
     <p class="pog-unit-source-note">${interpretation}</p>`;
@@ -898,11 +899,12 @@ function renderRestructuringTopFive(data) {
     .filter(([, , , difference]) => difference > 0)
     .sort((a, b) => b[3] - a[3])
     .slice(0, 5);
-  const maximum = rankedUnits[0][3];
+  const maximum = Math.ceil(rankedUnits[0][3]);
   const rows = rankedUnits.map(([name, , , difference], index) => {
-    const width = difference / maximum * 100;
-    const share = difference / 520.5 * 100;
-    const formattedDifference = difference.toLocaleString('pt-BR', { maximumFractionDigits: 2 });
+    const operationalDifference = Math.ceil(difference);
+    const width = operationalDifference / maximum * 100;
+    const share = operationalDifference / 525 * 100;
+    const formattedDifference = operationalDifference.toLocaleString('pt-BR');
     const formattedShare = share.toLocaleString('pt-BR', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
     return `
       <div class="restructuring-rank-row">
@@ -916,7 +918,7 @@ function renderRestructuringTopFive(data) {
     <section class="detail-section restructuring-ranking-section">
       <div class="detail-section-heading">
         <div><h3>Top 5 maiores saldos</h3><p>Batalhões que concentram as maiores diferenças entre o efetivo atual e a média de referência.</p></div>
-        <span>79,7% do saldo</span>
+        <span>79,6% do saldo</span>
       </div>
       <div class="restructuring-ranking">${rows}</div>
     </section>`;

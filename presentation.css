@@ -238,6 +238,7 @@ body.modal-open { overflow: hidden; }
 .detail-total-card small { color: #6f7c75; font-size: 11.5px; }
 .detail-total-card p { margin: 12px 0 0; color: #59675f; font-size: 11.5px; line-height: 1.5; }
 .detail-stat-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+#metricDetailContent[data-detail="pog"] .detail-stat-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 .detail-stat { display: flex; min-height: 94px; padding: 14px 15px; align-items: center; justify-content: center; flex-direction: column; border: 1px solid #dfe7e3; border-radius: 11px; text-align: center; background: #fff; }
 .detail-stat span { display: block; color: #74817a; font-size: 9.5px; font-weight: 720; text-transform: uppercase; letter-spacing: .045em; }
 .detail-stat strong { display: block; margin-top: 5px; color: #26372f; font-size: 23px; }
@@ -510,6 +511,7 @@ body.modal-open { overflow: hidden; }
   .panel-chip { display: none; }
   .horizontal-bar-row { grid-template-columns: 20px 120px minmax(55px, 1fr) 60px; gap: 6px; }
   .detail-stat-grid { grid-template-columns: 1fr; }
+  #metricDetailContent[data-detail="pog"] .detail-stat-grid { grid-template-columns: 1fr; }
   .raio-level-summary { grid-template-columns: repeat(2, minmax(68px, 1fr)); }
   .raio-level-heading, .raio-cities-heading { align-items: flex-start; flex-direction: column; }
   .pog-unit-control { grid-template-columns: 1fr; gap: 7px; }

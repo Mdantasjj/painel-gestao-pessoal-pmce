@@ -384,9 +384,18 @@ const metricDetails = {
       ['Em equilíbrio', 5.88, '2 · 5,9%', '#83b99a']
     ],
     sectionTitle: 'Visão geral por batalhão',
-    sectionSubtitle: 'Os 34 BPMs estão ordenados da maior perda para o maior ganho; os totais de efetivo são exibidos conforme a disponibilidade da fonte.',
+    sectionSubtitle: 'Os 34 BPMs podem ser classificados por unidade, efetivo próprio, efetivo regional ou situação média.',
     tableColumns: ['Posição', 'Batalhão / cidades', 'Efetivo total do batalhão', 'Efetivo total do CRPM da região', 'Situação média'],
     tableRows: [],
+    battalionTotals: {
+      '1º BPM': 277, '2º BPM': 536, '3º BPM': 405, '4º BPM': 213, '5º BPM': 366,
+      '6º BPM': 312, '7º BPM': 299, '8º BPM': 317, '9º BPM': 310, '10º BPM': 183,
+      '11º BPM': 398, '12º BPM': 334, '13º BPM': 151, '14º BPM': 375, '15º BPM': 273,
+      '16º BPM': 402, '17º BPM': 378, '18º BPM': 364, '19º BPM': 425, '20º BPM': 383,
+      '21º BPM': 334, '22º BPM': 248, '23º BPM': 332, '24º BPM': 302, '25º BPM': 208,
+      '26º BPM': 275, '27º BPM': 212, '28º BPM': 180, '29º BPM': 260, '30º BPM': 201,
+      '31º BPM': 163, '32º BPM': 224, '33º BPM': 126, '34º BPM': 190
+    },
     crpmByUnit: {
       '1º BPM': '8º CRPM', '2º BPM': '4º CRPM', '3º BPM': '3º CRPM', '4º BPM': '7º CRPM',
       '5º BPM': '1º CRPM', '6º BPM': '1º CRPM', '7º BPM': '3º CRPM', '8º BPM': '5º CRPM',
@@ -399,13 +408,16 @@ const metricDetails = {
       '33º BPM': '4º CRPM', '34º BPM': '4º CRPM'
     },
     crpmTotals: {
-      '2º CRPM': 1005,
-      '3º CRPM': 1189,
-      '4º CRPM': 1521,
-      '7º CRPM': 806,
-      '8º CRPM': 1029
+      '1º CRPM': 2137,
+      '2º CRPM': 941,
+      '3º CRPM': 1096,
+      '4º CRPM': 1410,
+      '5º CRPM': 1392,
+      '6º CRPM': 1158,
+      '7º CRPM': 871,
+      '8º CRPM': 951
     },
-    note: 'O PDF consolidado permite calcular a situação média das movimentações, mas não contém o efetivo existente em cada unidade. O efetivo total do batalhão está disponível somente para o recorte dos nove batalhões do interior e do litoral — 26º ao 34º BPM — na aba “Resumo Executivo”. A aba “Parâmetros” informa o efetivo total do 2º, 3º, 4º, 7º e 8º CRPM. Onde a fonte não apresenta o quantitativo, a tabela registra “Não informado”, sem estimativas.'
+    note: 'A base consolidada de efetivo informa os 34 BPMs e os oito CRPMs. A soma dos batalhões vinculados a cada região foi confrontada com o total informado para o respectivo CRPM, sem divergências. O total geral validado é de 9.956 policiais. A situação média permanece baseada no saldo das movimentações do período e não representa o efetivo existente.'
   },
   copac: {
     accent: '#2f855a',
@@ -532,11 +544,10 @@ let battalionSortState = { field: 'situation', direction: 'asc' };
 
 function getBattalionTableRecords() {
   return metricDetails.pog.units.map(([name, , , balance]) => {
-    const structuralRecord = metricDetails.restructuring.units.find(([unitName]) => unitName === name);
     const crpm = metricDetails.battalions.crpmByUnit[name];
     return {
       name,
-      battalionStrength: structuralRecord ? structuralRecord[1] : null,
+      battalionStrength: metricDetails.battalions.battalionTotals[name] ?? null,
       crpm,
       crpmStrength: metricDetails.battalions.crpmTotals[crpm] ?? null,
       situation: balance
@@ -1056,7 +1067,7 @@ function renderMetricDetail(key) {
       <div class="detail-section-heading"><div><h3>${data.sectionTitle}</h3><p>${data.sectionSubtitle}</p></div><span>Dados discriminados</span></div>
       ${battalionSortControls}
       ${key === 'battalions' ? `<div id="battalionTableResult">${detailTable}</div>` : detailTable}
-      ${key === 'battalions' ? '<p class="battalion-table-source-note"><strong>Cobertura dos dados:</strong> efetivo total disponível para 9 BPMs (26º ao 34º) e para 5 CRPMs (2º, 3º, 4º, 7º e 8º). As demais células permanecem como “Não informado”.</p>' : ''}
+      ${key === 'battalions' ? '<p class="battalion-table-source-note"><strong>Base completa e validada:</strong> 34 BPMs e 8 CRPMs, totalizando 9.956 policiais. A soma dos batalhões confere com o total de cada região.</p>' : ''}
     </section>`;
   metricDetailContent.innerHTML = `
     <div class="detail-hero-grid">

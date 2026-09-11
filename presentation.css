@@ -426,6 +426,20 @@ body.modal-open { overflow: hidden; }
 #metricDetailContent[data-detail="battalions"] .detail-table td:first-child { width: 58px; padding-right: 6px; padding-left: 6px; text-align: center; white-space: nowrap; }
 #metricDetailContent[data-detail="battalions"] .detail-table th:nth-child(n+3),
 #metricDetailContent[data-detail="battalions"] .detail-table td:nth-child(n+3) { text-align: center; }
+.battalion-sort-toolbar { margin-bottom: 13px; padding: 13px; border: 1px solid #bad9c8; border-radius: 11px; background: linear-gradient(135deg, #f1f9f4, #fff); }
+.battalion-sort-heading { display: flex; align-items: center; justify-content: space-between; gap: 14px; }
+.battalion-sort-heading > div > span { display: block; color: #297553; font-size: 8px; font-weight: 850; letter-spacing: .075em; text-transform: uppercase; }
+.battalion-sort-heading > div > strong { display: block; margin-top: 4px; color: #183d2c; font-size: 12px; }
+.battalion-sort-options { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 7px; margin-top: 11px; }
+.battalion-sort-button { display: flex; min-height: 40px; padding: 7px 9px; align-items: center; gap: 7px; border: 1px solid #c8ded2; border-radius: 8px; color: #365b48; text-align: left; background: #fff; font-size: 8.8px; font-weight: 760; line-height: 1.25; cursor: pointer; transition: .18s ease; }
+.battalion-sort-button > span { display: grid; width: 23px; height: 23px; flex: 0 0 auto; place-items: center; border-radius: 6px; color: #246c4d; background: #e2f2e9; font-size: 7.5px; font-weight: 850; }
+.battalion-sort-button:hover { border-color: #55a17a; background: #f4faf6; transform: translateY(-1px); }
+.battalion-sort-button.is-active { border-color: #176a47; color: #fff; background: linear-gradient(110deg, #145c40, #2f855a); box-shadow: 0 6px 14px rgba(20, 92, 64, .16); }
+.battalion-sort-button.is-active > span { color: #145c40; background: #d9efe3; }
+.battalion-sort-button:focus-visible, .battalion-sort-direction:focus-visible { outline: 3px solid rgba(47, 133, 90, .24); outline-offset: 2px; }
+.battalion-sort-direction { display: flex; min-width: 124px; min-height: 38px; padding: 6px 10px; align-items: center; justify-content: center; gap: 7px; border: 1px solid #77ad8e; border-radius: 19px; color: #145c40; background: #fff; font-size: 8.5px; font-weight: 800; cursor: pointer; }
+.battalion-sort-direction b { display: grid; width: 23px; height: 23px; place-items: center; border-radius: 50%; color: #fff; background: #23794f; font-size: 13px; }
+.battalion-sort-status { margin: 9px 0 0; color: #647a6e; font-size: 8.5px; font-weight: 680; text-align: right; }
 #metricDetailContent[data-detail="battalions"] .detail-table { min-width: 760px; }
 #metricDetailContent[data-detail="battalions"] .detail-table th:nth-child(3),
 #metricDetailContent[data-detail="battalions"] .detail-table th:nth-child(4) { min-width: 145px; }
@@ -497,6 +511,7 @@ body.modal-open { overflow: hidden; }
   .pog-unit-values { grid-template-columns: 1fr 1fr; }
   .pog-separated-kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .pog-implementation-grid { grid-template-columns: 1fr; }
+  .battalion-sort-options { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .battalion-rank-grid { grid-template-columns: 1fr; }
   .copac-resource-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .origins-panel { min-height: 0; }
@@ -521,6 +536,10 @@ body.modal-open { overflow: hidden; }
   .pog-separated-kpis { grid-template-columns: 1fr; }
   .pog-implementation-total { align-items: flex-start; flex-direction: column; }
   .pog-implementation-total p { text-align: left; }
+  .battalion-sort-heading { align-items: flex-start; flex-direction: column; }
+  .battalion-sort-direction { width: 100%; }
+  .battalion-sort-options { grid-template-columns: 1fr; }
+  .battalion-sort-status { text-align: left; }
   .pog-unit-result-heading { align-items: flex-start; flex-direction: column; }
   .restructuring-rank-row { grid-template-columns: 34px minmax(105px, 1fr) 82px; gap: 8px; }
   .restructuring-rank-track { grid-column: 2 / -1; }

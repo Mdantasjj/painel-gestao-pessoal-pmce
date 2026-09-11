@@ -522,26 +522,60 @@ const metricDetails = {
   }
 };
 
-metricDetails.battalions.tableRows = [...metricDetails.pog.units]
-  .sort((a, b) => a[3] - b[3] || a[0].localeCompare(b[0], 'pt-BR', { numeric: true }))
-  .map(([name, , , balance], index) => [
-    String(index + 1),
-    name,
-    (() => {
-      const record = metricDetails.restructuring.units.find(([unitName]) => unitName === name);
-      return record
-        ? `<span class="battalion-strength-value"><strong>${record[1].toLocaleString('pt-BR')}</strong><small>policiais</small></span>`
-        : '<span class="battalion-strength-value is-unavailable"><strong>Não informado</strong><small>sem dado na fonte</small></span>';
-    })(),
-    (() => {
-      const crpm = metricDetails.battalions.crpmByUnit[name];
-      const total = metricDetails.battalions.crpmTotals[crpm];
-      return total
-        ? `<span class="battalion-strength-value"><strong>${total.toLocaleString('pt-BR')}</strong><small>${crpm}</small></span>`
-        : `<span class="battalion-strength-value is-unavailable"><strong>Não informado</strong><small>${crpm}</small></span>`;
-    })(),
-    balance > 0 ? `+${balance}` : String(balance)
-  ]);
+const battalionSortLabels = {
+  unit: 'Batalhão',
+  battalionStrength: 'Efetivo do batalhão',
+  crpmStrength: 'Efetivo do CRPM',
+  situation: 'Situação média'
+};
+let battalionSortState = { field: 'situation', direction: 'asc' };
+
+function getBattalionTableRecords() {
+  return metricDetails.pog.units.map(([name, , , balance]) => {
+    const structuralRecord = metricDetails.restructuring.units.find(([unitName]) => unitName === name);
+    const crpm = metricDetails.battalions.crpmByUnit[name];
+    return {
+      name,
+      battalionStrength: structuralRecord ? structuralRecord[1] : null,
+      crpm,
+      crpmStrength: metricDetails.battalions.crpmTotals[crpm] ?? null,
+      situation: balance
+    };
+  });
+}
+
+function compareBattalionRecords(a, b, field, direction) {
+  const aValue = field === 'unit' ? a.name : a[field];
+  const bValue = field === 'unit' ? b.name : b[field];
+  if (aValue == null && bValue == null) return a.name.localeCompare(b.name, 'pt-BR', { numeric: true });
+  if (aValue == null) return 1;
+  if (bValue == null) return -1;
+  const comparison = field === 'unit'
+    ? aValue.localeCompare(bValue, 'pt-BR', { numeric: true })
+    : aValue - bValue;
+  if (comparison === 0) return a.name.localeCompare(b.name, 'pt-BR', { numeric: true });
+  return direction === 'asc' ? comparison : -comparison;
+}
+
+function renderBattalionStrengthValue(total, note) {
+  return total == null
+    ? `<span class="battalion-strength-value is-unavailable"><strong>Não informado</strong><small>${note}</small></span>`
+    : `<span class="battalion-strength-value"><strong>${total.toLocaleString('pt-BR')}</strong><small>${note}</small></span>`;
+}
+
+function buildBattalionTableRows(field = 'situation', direction = 'asc') {
+  return getBattalionTableRecords()
+    .sort((a, b) => compareBattalionRecords(a, b, field, direction))
+    .map((record, index) => [
+      String(index + 1),
+      record.name,
+      renderBattalionStrengthValue(record.battalionStrength, record.battalionStrength == null ? 'sem dado na fonte' : 'policiais'),
+      renderBattalionStrengthValue(record.crpmStrength, record.crpm),
+      record.situation > 0 ? `+${record.situation}` : String(record.situation)
+    ]);
+}
+
+metricDetails.battalions.tableRows = buildBattalionTableRows();
 
 const metricModal = document.querySelector('#metricDetailModal');
 const metricDialog = metricModal.querySelector('.metric-dialog');
@@ -574,6 +608,45 @@ function renderDetailTable(data, detailKey = '') {
     return `<td>${content}</td>`;
   }).join('')}</tr>`).join('');
   return `<div class="detail-table-wrap"><table class="detail-table"><thead><tr>${head}</tr></thead><tbody>${rows}</tbody></table></div>`;
+}
+
+function renderBattalionSortControls() {
+  const buttons = Object.entries(battalionSortLabels).map(([field, label], index) => `
+    <button class="battalion-sort-button${field === battalionSortState.field ? ' is-active' : ''}" type="button" data-battalion-sort="${field}" aria-pressed="${field === battalionSortState.field}">
+      <span>${String(index + 1).padStart(2, '0')}</span>${label}
+    </button>`).join('');
+  return `
+    <div class="battalion-sort-toolbar" aria-label="Controles de classificação da tabela">
+      <div class="battalion-sort-heading">
+        <div><span>Classificação personalizada</span><strong>Como deseja organizar a tabela?</strong></div>
+        <button class="battalion-sort-direction" type="button" data-battalion-direction="${battalionSortState.direction}" aria-label="Inverter ordem da classificação">
+          <b>${battalionSortState.direction === 'asc' ? '↑' : '↓'}</b>
+          <span>${battalionSortState.direction === 'asc' ? 'Menor → maior' : 'Maior → menor'}</span>
+        </button>
+      </div>
+      <div class="battalion-sort-options" role="group" aria-label="Escolher coluna para classificação">${buttons}</div>
+      <p class="battalion-sort-status" id="battalionSortStatus" aria-live="polite">Ordem atual: ${battalionSortLabels[battalionSortState.field]} · ${battalionSortState.direction === 'asc' ? 'menor para maior' : 'maior para menor'}</p>
+    </div>`;
+}
+
+function updateBattalionTable() {
+  const tableResult = document.querySelector('#battalionTableResult');
+  if (!tableResult) return;
+  metricDetails.battalions.tableRows = buildBattalionTableRows(battalionSortState.field, battalionSortState.direction);
+  tableResult.innerHTML = renderDetailTable(metricDetails.battalions, 'battalions');
+  metricDetailContent.querySelectorAll('[data-battalion-sort]').forEach((button) => {
+    const isActive = button.dataset.battalionSort === battalionSortState.field;
+    button.classList.toggle('is-active', isActive);
+    button.setAttribute('aria-pressed', String(isActive));
+  });
+  const directionButton = metricDetailContent.querySelector('[data-battalion-direction]');
+  if (directionButton) {
+    directionButton.dataset.battalionDirection = battalionSortState.direction;
+    directionButton.querySelector('b').textContent = battalionSortState.direction === 'asc' ? '↑' : '↓';
+    directionButton.querySelector('span').textContent = battalionSortState.direction === 'asc' ? 'Menor → maior' : 'Maior → menor';
+  }
+  const status = document.querySelector('#battalionSortStatus');
+  if (status) status.textContent = `Ordem atual: ${battalionSortLabels[battalionSortState.field]} · ${battalionSortState.direction === 'asc' ? 'menor para maior' : 'maior para menor'}`;
 }
 
 function renderRaioLevelSelector(data) {
@@ -976,10 +1049,13 @@ function renderMetricDetail(key) {
   const restructuringUnitExplorer = key === 'restructuring' ? renderRestructuringUnitExplorer(data) : '';
   const restructuringTopFive = key === 'restructuring' ? renderRestructuringTopFive(data) : '';
   const copacResources = key === 'copac' ? renderCopacResources(data) : '';
+  const battalionSortControls = key === 'battalions' ? renderBattalionSortControls() : '';
+  const detailTable = renderDetailTable(data, key);
   const discriminatedTable = ['raio', 'copac'].includes(key) ? '' : `
     <section class="detail-section">
       <div class="detail-section-heading"><div><h3>${data.sectionTitle}</h3><p>${data.sectionSubtitle}</p></div><span>Dados discriminados</span></div>
-      ${renderDetailTable(data, key)}
+      ${battalionSortControls}
+      ${key === 'battalions' ? `<div id="battalionTableResult">${detailTable}</div>` : detailTable}
       ${key === 'battalions' ? '<p class="battalion-table-source-note"><strong>Cobertura dos dados:</strong> efetivo total disponível para 9 BPMs (26º ao 34º) e para 5 CRPMs (2º, 3º, 4º, 7º e 8º). As demais células permanecem como “Não informado”.</p>' : ''}
     </section>`;
   metricDetailContent.innerHTML = `
@@ -1043,6 +1119,20 @@ metricDetailContent.addEventListener('click', (event) => {
   if (raioButton) renderRaioLevelDetail(raioButton.dataset.raioLevel);
   const copacButton = event.target.closest('[data-copac-phase]');
   if (copacButton) renderCopacPhaseDetail(copacButton.dataset.copacPhase);
+  const battalionSortButton = event.target.closest('[data-battalion-sort]');
+  if (battalionSortButton) {
+    const field = battalionSortButton.dataset.battalionSort;
+    if (field !== battalionSortState.field) {
+      battalionSortState.field = field;
+      battalionSortState.direction = ['battalionStrength', 'crpmStrength'].includes(field) ? 'desc' : 'asc';
+    }
+    updateBattalionTable();
+  }
+  const battalionDirectionButton = event.target.closest('[data-battalion-direction]');
+  if (battalionDirectionButton) {
+    battalionSortState.direction = battalionSortState.direction === 'asc' ? 'desc' : 'asc';
+    updateBattalionTable();
+  }
 });
 metricDetailContent.addEventListener('change', (event) => {
   if (event.target.matches('#pogUnitSelect')) renderPogUnitDetail(event.target.value);

@@ -330,14 +330,35 @@ body.modal-open { overflow: hidden; }
 .pog-implementation-section .pog-separated-heading { background: linear-gradient(115deg, #145c40, #2a8058 65%, #4a9b70); }
 .pog-separated-content { padding: 16px 18px 18px; background: linear-gradient(180deg, #f5fbf7, #fff 34%); }
 .pog-separated-kpis { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 9px; }
-.pog-implementation-section .pog-separated-kpis { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 .pog-separated-kpis > div { display: flex; min-height: 88px; padding: 11px 9px; align-items: center; justify-content: center; flex-direction: column; border: 1px solid #d4e7dc; border-radius: 9px; text-align: center; background: #fff; }
 .pog-separated-kpis span { color: #567064; font-size: 8px; font-weight: 820; letter-spacing: .045em; text-transform: uppercase; }
 .pog-separated-kpis strong { margin-top: 5px; color: #105239; font-size: 25px; line-height: 1; }
 .pog-separated-kpis small { margin-top: 5px; color: #718078; font-size: 8.5px; line-height: 1.3; }
 .pog-separated-breakdown { margin-top: 15px; padding: 14px; border: 1px solid #dcebe3; border-radius: 10px; background: #fff; }
 .pog-separated-breakdown .detail-section-heading { margin-bottom: 12px; }
-.pog-implementation-section .detail-table-wrap { margin-top: 15px; }
+.pog-implementation-total { display: flex; min-height: 82px; padding: 13px 16px; align-items: center; justify-content: space-between; gap: 18px; border: 1px solid #b9d9c8; border-radius: 10px; background: linear-gradient(100deg, #e9f6ee, #f8fcfa); }
+.pog-implementation-total span { display: block; color: #4d6a5b; font-size: 8.5px; font-weight: 820; letter-spacing: .05em; text-transform: uppercase; }
+.pog-implementation-total strong { display: block; margin-top: 4px; color: #0d5137; font-size: 27px; line-height: 1; }
+.pog-implementation-total strong small { color: #567064; font-size: 9px; font-weight: 700; }
+.pog-implementation-total p { margin: 0; color: #315c47; font-size: 10px; font-weight: 700; text-align: right; }
+.pog-implementation-total p b { color: #0d5137; font-size: 16px; }
+.pog-implementation-total p i { padding: 0 5px; color: #4c9b70; font-style: normal; }
+.pog-implementation-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 13px; margin-top: 14px; }
+.pog-implementation-card { overflow: hidden; border: 1px solid #bad8c8; border-radius: 11px; background: #fff; box-shadow: 0 7px 18px rgba(18, 85, 57, .06); }
+.pog-implementation-card header { min-height: 91px; padding: 13px 14px; background: linear-gradient(115deg, #145c40, #348760); }
+.pog-implementation-card header > span { color: #bfe8d1; font-size: 8px; font-weight: 850; letter-spacing: .075em; text-transform: uppercase; }
+.pog-implementation-card h4 { margin: 5px 0 0; color: #fff; font-size: 14px; line-height: 1.25; }
+.pog-implementation-card header p { margin: 5px 0 0; color: #d9f0e3; font-size: 9px; line-height: 1.35; }
+.pog-implementation-values { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1px; border-bottom: 1px solid #dde9e2; background: #dde9e2; }
+.pog-implementation-values > div { display: flex; min-height: 82px; padding: 10px 6px; align-items: center; justify-content: center; flex-direction: column; text-align: center; background: #fff; }
+.pog-implementation-values span { min-height: 20px; color: #64766c; font-size: 7.5px; font-weight: 800; line-height: 1.25; text-transform: uppercase; }
+.pog-implementation-values strong { margin-top: 4px; color: #11563a; font-size: 22px; line-height: 1; }
+.pog-implementation-values small { margin-top: 4px; color: #79867f; font-size: 7.5px; }
+.pog-implementation-territory { min-height: 66px; padding: 11px 13px; background: #f1f8f4; }
+.pog-implementation-territory span { display: block; color: #678073; font-size: 7.5px; font-weight: 820; letter-spacing: .045em; text-transform: uppercase; }
+.pog-implementation-territory strong { display: block; margin-top: 4px; color: #145c40; font-size: 11px; }
+.pog-implementation-territory small { display: block; margin-top: 4px; color: #5f7569; font-size: 8.5px; }
+.pog-implementation-note { margin: 12px 0 0; padding: 10px 12px; border-left: 4px solid #2f855a; border-radius: 7px; color: #365b48; background: #edf7f1; font-size: 9.5px; line-height: 1.45; }
 .restructuring-ranking-section { border-color: #c6ddcf; background: linear-gradient(180deg, #f8fcf9, #fff); }
 .restructuring-ranking { display: grid; gap: 8px; }
 .restructuring-rank-row { display: grid; grid-template-columns: 38px minmax(130px, .85fr) minmax(210px, 2.5fr) 110px; align-items: center; gap: 12px; min-height: 48px; padding: 7px 10px; border: 1px solid #e1ebe5; border-radius: 9px; background: #fff; }
@@ -471,7 +492,7 @@ body.modal-open { overflow: hidden; }
   .raio-level-summary { grid-template-columns: repeat(4, minmax(68px, 1fr)); }
   .pog-unit-values { grid-template-columns: 1fr 1fr; }
   .pog-separated-kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .pog-implementation-section .pog-separated-kpis { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .pog-implementation-grid { grid-template-columns: 1fr; }
   .battalion-rank-grid { grid-template-columns: 1fr; }
   .battalion-structural-summary { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .copac-resource-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -493,7 +514,9 @@ body.modal-open { overflow: hidden; }
   .raio-level-heading, .raio-cities-heading { align-items: flex-start; flex-direction: column; }
   .pog-unit-control { grid-template-columns: 1fr; gap: 7px; }
   .pog-unit-values { grid-template-columns: 1fr; }
-  .pog-separated-kpis, .pog-implementation-section .pog-separated-kpis { grid-template-columns: 1fr; }
+  .pog-separated-kpis { grid-template-columns: 1fr; }
+  .pog-implementation-total { align-items: flex-start; flex-direction: column; }
+  .pog-implementation-total p { text-align: left; }
   .battalion-structural-summary { grid-template-columns: 1fr; }
   .pog-unit-result-heading { align-items: flex-start; flex-direction: column; }
   .restructuring-rank-row { grid-template-columns: 34px minmax(105px, 1fr) 82px; gap: 8px; }

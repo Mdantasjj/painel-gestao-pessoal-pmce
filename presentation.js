@@ -255,10 +255,6 @@ const metricDetails = {
       ['5º BPM', 8.1, '9 · 8,1%', '#65aa82'],
       ['Demais 7 BPMs', 20.7, '23 · 20,7%', '#84b99a']
     ],
-    implementationBreakdown: [
-      ['Companhia Pronta-Resposta (COTAM)', 68.75, '110 · 68,8%', '#145c40'],
-      ['6ª Cia/BPTUR · Cariri e Guaramiranga', 31.25, '50 · 31,3%', '#4c9b70']
-    ],
     sectionTitle: 'Batalhões com maior saldo negativo',
     sectionSubtitle: 'Ranking das dez maiores perdas dentro do déficit acumulado de 111 policiais nos BPMs.',
     tableColumns: ['Posição', 'Batalhão', 'Origem', 'Destino', 'Participação', 'Saldo'],
@@ -269,13 +265,26 @@ const metricDetails = {
       ['7', '17º BPM', '53', '49', '3,6%', '-4'], ['8', '24º BPM', '33', '29', '3,6%', '-4'],
       ['9', '27º BPM', '13', '10', '2,7%', '-3'], ['10', '11º BPM', '56', '54', '1,8%', '-2']
     ],
-    implementationSectionTitle: 'Efetivo para implementação da COTAM e da 6ª Cia/BPTUR',
-    implementationSectionSubtitle: 'Distribuição adicional entre oficiais e praças nas duas estruturas operacionais.',
-    implementationTableColumns: ['Posição', 'Implementação', 'Área de atuação', 'Oficiais', 'Praças', 'Necessidade'],
-    implementationTableRows: [
-      ['1', 'Companhia Pronta-Resposta (COTAM)', 'Pronta resposta', '10', '100', '110'],
-      ['2', '6ª Cia/BPTUR', 'Cariri · Pelotão destacado em Guaramiranga', '02', '48', '50'],
-      ['—', 'Total da implementação', 'Duas estruturas operacionais', '12', '148', '160']
+    implementationUnits: [
+      {
+        tag: 'Implementação 01',
+        title: 'Companhia Pronta-Resposta (COTAM)',
+        subtitle: 'Estrutura operacional de pronta resposta',
+        total: '110',
+        officers: '10',
+        enlisted: '100',
+        territory: 'Pronta resposta'
+      },
+      {
+        tag: 'Implementação 02',
+        title: '6ª Cia/BPTUR',
+        subtitle: 'Atuação turística no Cariri e em Guaramiranga',
+        total: '50',
+        officers: '02',
+        enlisted: '48',
+        territory: 'Cariri',
+        note: 'Pelotão destacado em Guaramiranga'
+      }
     ],
     units: [
       ['10º BPM', 9, 27, 18], ['11º BPM', 56, 54, -2], ['12º BPM', 96, 59, -37],
@@ -733,6 +742,23 @@ function renderPogDeficitOverview(data) {
 }
 
 function renderPogImplementations(data) {
+  const implementationCards = data.implementationUnits.map((unit) => `
+    <article class="pog-implementation-card">
+      <header>
+        <span>${unit.tag}</span>
+        <h4>${unit.title}</h4>
+        <p>${unit.subtitle}</p>
+      </header>
+      <div class="pog-implementation-values">
+        <div><span>Efetivo necessário</span><strong>${unit.total}</strong><small>policiais</small></div>
+        <div><span>Oficiais</span><strong>${unit.officers}</strong><small>policiais</small></div>
+        <div><span>Praças</span><strong>${unit.enlisted}</strong><small>policiais</small></div>
+      </div>
+      <div class="pog-implementation-territory">
+        <span>Área de atuação</span><strong>${unit.territory}</strong>
+        ${unit.note ? `<small>${unit.note}</small>` : ''}
+      </div>
+    </article>`).join('');
   return `
     <section class="detail-section pog-separated-section pog-implementation-section">
       <div class="pog-separated-heading">
@@ -741,22 +767,12 @@ function renderPogImplementations(data) {
         <p>Cariri e Guaramiranga · efetivo adicional para duas estruturas operacionais</p>
       </div>
       <div class="pog-separated-content">
-        <div class="pog-separated-kpis">
-          <div><span>Necessidade total</span><strong>160</strong><small>policiais adicionais</small></div>
-          <div><span>Oficiais</span><strong>12</strong><small>10 COTAM · 02 BPTUR</small></div>
-          <div><span>Praças</span><strong>148</strong><small>100 COTAM · 48 BPTUR</small></div>
+        <div class="pog-implementation-total">
+          <div><span>Total consolidado das implementações</span><strong>160 <small>policiais adicionais</small></strong></div>
+          <p><b>110</b> para a COTAM <i>+</i> <b>50</b> para a 6ª Cia/BPTUR</p>
         </div>
-        <div class="pog-separated-breakdown">
-          <div class="detail-section-heading">
-            <div><h3>${data.implementationSectionTitle}</h3><p>${data.implementationSectionSubtitle}</p></div>
-            <span>Somente COTAM/BPTUR</span>
-          </div>
-          <div class="detail-breakdown">${renderPogBreakdown(data.implementationBreakdown)}</div>
-        </div>
-        ${renderDetailTable({
-          tableColumns: data.implementationTableColumns,
-          tableRows: data.implementationTableRows
-        }, 'pog')}
+        <div class="pog-implementation-grid">${implementationCards}</div>
+        <p class="pog-implementation-note">Os quantitativos da COTAM e da 6ª Cia/BPTUR são apresentados separadamente. O total de 160 representa apenas a soma das duas necessidades de implementação.</p>
       </div>
     </section>`;
 }

@@ -384,10 +384,28 @@ const metricDetails = {
       ['Em equilíbrio', 5.88, '2 · 5,9%', '#83b99a']
     ],
     sectionTitle: 'Visão geral por batalhão',
-    sectionSubtitle: 'Os 34 BPMs estão ordenados da maior perda para o maior ganho no período analisado.',
-    tableColumns: ['Posição', 'Batalhão / cidades', 'Situação média'],
+    sectionSubtitle: 'Os 34 BPMs estão ordenados da maior perda para o maior ganho; os totais de efetivo são exibidos conforme a disponibilidade da fonte.',
+    tableColumns: ['Posição', 'Batalhão / cidades', 'Efetivo total do batalhão', 'Efetivo total do CRPM da região', 'Situação média'],
     tableRows: [],
-    note: 'A tabela apresenta movimentações, e não o efetivo atual completo dos 34 BPMs. O PDF consolidado permite calcular origem, destino e saldo por batalhão, mas não contém o efetivo existente em cada unidade. A informação de efetivo atual está disponível apenas no recorte dos nove batalhões do interior e do litoral da aba “Resumo Executivo”, que totaliza 1.965 policiais e sustenta o indicador de 521 policiais necessários para reestruturação.'
+    crpmByUnit: {
+      '1º BPM': '8º CRPM', '2º BPM': '4º CRPM', '3º BPM': '3º CRPM', '4º BPM': '7º CRPM',
+      '5º BPM': '1º CRPM', '6º BPM': '1º CRPM', '7º BPM': '3º CRPM', '8º BPM': '5º CRPM',
+      '9º BPM': '8º CRPM', '10º BPM': '4º CRPM', '11º BPM': '7º CRPM', '12º BPM': '2º CRPM',
+      '13º BPM': '4º CRPM', '14º BPM': '6º CRPM', '15º BPM': '6º CRPM', '16º BPM': '5º CRPM',
+      '17º BPM': '1º CRPM', '18º BPM': '1º CRPM', '19º BPM': '5º CRPM', '20º BPM': '1º CRPM',
+      '21º BPM': '1º CRPM', '22º BPM': '5º CRPM', '23º BPM': '2º CRPM', '24º BPM': '6º CRPM',
+      '25º BPM': '6º CRPM', '26º BPM': '2º CRPM', '27º BPM': '3º CRPM', '28º BPM': '3º CRPM',
+      '29º BPM': '7º CRPM', '30º BPM': '8º CRPM', '31º BPM': '8º CRPM', '32º BPM': '4º CRPM',
+      '33º BPM': '4º CRPM', '34º BPM': '4º CRPM'
+    },
+    crpmTotals: {
+      '2º CRPM': 1005,
+      '3º CRPM': 1189,
+      '4º CRPM': 1521,
+      '7º CRPM': 806,
+      '8º CRPM': 1029
+    },
+    note: 'O PDF consolidado permite calcular a situação média das movimentações, mas não contém o efetivo existente em cada unidade. O efetivo total do batalhão está disponível somente para o recorte dos nove batalhões do interior e do litoral — 26º ao 34º BPM — na aba “Resumo Executivo”. A aba “Parâmetros” informa o efetivo total do 2º, 3º, 4º, 7º e 8º CRPM. Onde a fonte não apresenta o quantitativo, a tabela registra “Não informado”, sem estimativas.'
   },
   copac: {
     accent: '#2f855a',
@@ -509,6 +527,19 @@ metricDetails.battalions.tableRows = [...metricDetails.pog.units]
   .map(([name, , , balance], index) => [
     String(index + 1),
     name,
+    (() => {
+      const record = metricDetails.restructuring.units.find(([unitName]) => unitName === name);
+      return record
+        ? `<span class="battalion-strength-value"><strong>${record[1].toLocaleString('pt-BR')}</strong><small>policiais</small></span>`
+        : '<span class="battalion-strength-value is-unavailable"><strong>Não informado</strong><small>sem dado na fonte</small></span>';
+    })(),
+    (() => {
+      const crpm = metricDetails.battalions.crpmByUnit[name];
+      const total = metricDetails.battalions.crpmTotals[crpm];
+      return total
+        ? `<span class="battalion-strength-value"><strong>${total.toLocaleString('pt-BR')}</strong><small>${crpm}</small></span>`
+        : `<span class="battalion-strength-value is-unavailable"><strong>Não informado</strong><small>${crpm}</small></span>`;
+    })(),
     balance > 0 ? `+${balance}` : String(balance)
   ]);
 
@@ -985,6 +1016,7 @@ function renderMetricDetail(key) {
     <section class="detail-section">
       <div class="detail-section-heading"><div><h3>${data.sectionTitle}</h3><p>${data.sectionSubtitle}</p></div><span>Dados discriminados</span></div>
       ${renderDetailTable(data, key)}
+      ${key === 'battalions' ? '<p class="battalion-table-source-note"><strong>Cobertura dos dados:</strong> efetivo total disponível para 9 BPMs (26º ao 34º) e para 5 CRPMs (2º, 3º, 4º, 7º e 8º). As demais células permanecem como “Não informado”.</p>' : ''}
     </section>`;
   metricDetailContent.innerHTML = `
     <div class="detail-hero-grid">

@@ -426,6 +426,15 @@ body.modal-open { overflow: hidden; }
 #metricDetailContent[data-detail="battalions"] .detail-table td:first-child { width: 58px; padding-right: 6px; padding-left: 6px; text-align: center; white-space: nowrap; }
 #metricDetailContent[data-detail="battalions"] .detail-table th:nth-child(n+3),
 #metricDetailContent[data-detail="battalions"] .detail-table td:nth-child(n+3) { text-align: center; }
+#metricDetailContent[data-detail="battalions"] .detail-table { min-width: 760px; }
+#metricDetailContent[data-detail="battalions"] .detail-table th:nth-child(3),
+#metricDetailContent[data-detail="battalions"] .detail-table th:nth-child(4) { min-width: 145px; }
+.battalion-strength-value { display: flex; min-height: 34px; align-items: center; justify-content: center; flex-direction: column; }
+.battalion-strength-value strong { color: #145c40; font-size: 13px; line-height: 1.1; }
+.battalion-strength-value small { margin-top: 3px; color: #6f8177; font-size: 8px; font-weight: 680; }
+.battalion-strength-value.is-unavailable strong { color: #708078; font-size: 9px; font-weight: 750; }
+.battalion-strength-value.is-unavailable small { color: #8a9790; }
+.battalion-table-source-note { margin: 10px 0 0; padding: 10px 12px; border-left: 4px solid #2f855a; border-radius: 7px; color: #365b48; background: #edf7f1; font-size: 9.5px; line-height: 1.45; }
 .battalion-ranking-section, .battalion-structural-section { border-color: #bfd9ca; background: linear-gradient(180deg, #f7fcf9, #fff); }
 .battalion-rank-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 .battalion-rank-card { overflow: hidden; border: 1px solid #d5e6dc; border-radius: 11px; background: #fff; }

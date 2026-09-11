@@ -241,7 +241,7 @@ const metricDetails = {
     unit: 'policiais',
     description: 'Indicador consolidado que reúne o déficit de 111 policiais nos BPMs do POG e a necessidade adicional de 160 policiais para implementação da COTAM e da 6ª Cia/BPTUR.',
     stats: [
-      ['Bloco POG', '111', 'Déficit localizado nos BPMs territoriais'],
+      ['Déficit de efetivo do POG para as unidades especializadas', '111', 'Déficit localizado nos BPMs territoriais'],
       ['Bloco COTAM/BPTUR', '160', 'Necessidade adicional para implementação'],
       ['Total consolidado', '271', '111 de déficit · 160 de implementação']
     ],

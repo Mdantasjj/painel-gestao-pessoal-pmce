@@ -133,8 +133,6 @@ const metricDetails = {
     tableColumns: ['Etapa de validação', 'Exonerações', 'Demissões', 'Total'],
     tableRows: [
       ['Registros gerais consolidados', '88', '252', '340'],
-      ['Duplicidades removidas', '5', '7', '12'],
-      ['Sem detalhamento nominal extraível', '0', '2', '2'],
       ['Base nominal validada', '83', '243', '326'],
       ['Comandos, especializadas e demais OPMs', '21', '73', '94'],
       ['Recorte final dos 34 BPMs', '62', '170', '232']

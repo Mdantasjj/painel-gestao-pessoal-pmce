@@ -388,7 +388,7 @@ const metricDetails = {
     ],
     sectionTitle: 'Visão geral por batalhão',
     sectionSubtitle: 'A situação média considera o saldo das movimentações menos as exonerações e demissões de cada BPM. O déficit apurado corresponde somente aos resultados negativos.',
-    tableColumns: ['Posição', 'Batalhão / cidades', 'Efetivo total do batalhão', 'Efetivo total do CRPM da região', 'Exonerações', 'Demissões', 'Movimentações', 'Situação média', 'Déficit apurado'],
+    tableColumns: ['Posição', 'Batalhão / cidades', 'Efetivo do batalhão', 'Efetivo total do CRPM da região', 'Exonerações', 'Demissões', 'Movimentações', 'Situação média', 'Déficit apurado'],
     tableRows: [],
     battalionTotals: {
       '1º BPM': 277, '2º BPM': 536, '3º BPM': 405, '4º BPM': 213, '5º BPM': 366,

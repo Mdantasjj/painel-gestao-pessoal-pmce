@@ -576,7 +576,7 @@ function getBattalionTableRecords() {
       battalionStrength: metricDetails.battalions.battalionTotals[name] ?? null,
       crpm,
       crpmStrength: metricDetails.battalions.crpmTotals[crpm] ?? null,
-      crpmAverage: metricDetails.battalions.crpmTotals[crpm] / battalionsPerCrpm[crpm],
+      crpmAverage: Math.round(metricDetails.battalions.crpmTotals[crpm] / battalionsPerCrpm[crpm]),
       healthLeave: null,
       movementBalance: balance,
       situation,
@@ -607,7 +607,7 @@ function renderBattalionStrengthValue(total, note) {
 }
 
 function renderBattalionAverageValue(total, note) {
-  const formatted = total.toLocaleString('pt-BR', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+  const formatted = total.toLocaleString('pt-BR');
   return `<span class="battalion-strength-value"><strong>${formatted}</strong><small>${note}</small></span>`;
 }
 
@@ -641,7 +641,7 @@ function buildBattalionTableRows(field = 'situation', direction = 'asc') {
     '—',
     'TOTAL DOS 34 BPMs',
     renderBattalionStrengthValue(9956, 'policiais'),
-    renderBattalionAverageValue(9956 / 34, 'média geral por BPM'),
+    renderBattalionAverageValue(Math.round(9956 / 34), 'média geral por BPM'),
     renderBattalionStrengthValue(9956, '8 CRPMs únicos'),
     renderBattalionStrengthValue(null, 'aguardando base'),
     renderBattalionExitValue(62, 'saídas'),

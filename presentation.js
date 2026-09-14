@@ -387,8 +387,8 @@ const metricDetails = {
       ['Em equilíbrio', 2.94, '1 · 2,9%', '#83b99a']
     ],
     sectionTitle: 'Visão geral por batalhão',
-    sectionSubtitle: 'A situação média considera o saldo das movimentações menos as exonerações e demissões de cada BPM. O déficit apurado corresponde somente aos resultados negativos.',
-    tableColumns: ['Posição', 'Batalhão / cidades', 'Efetivo do batalhão', 'Efetivo médio do CRPM', 'Efetivo total do CRPM', 'Exonerações', 'Demissões', 'Movimentações', 'Situação média', 'Déficit apurado'],
+    sectionSubtitle: 'O déficit de movimentação considera o saldo das movimentações menos as exonerações e demissões de cada BPM. A reestruturação necessidade corresponde somente aos resultados negativos.',
+    tableColumns: ['Posição', 'Batalhão / cidades', 'Efetivo do batalhão', 'Efetivo médio do CRPM', 'Efetivo total do CRPM', 'Efetivo de licença saúde', 'Exonerações', 'Demissões', 'Movimentações', 'Déficit de movimentação', 'Reestruturação necessidade'],
     tableRows: [],
     battalionTotals: {
       '1º BPM': 277, '2º BPM': 536, '3º BPM': 405, '4º BPM': 213, '5º BPM': 366,
@@ -553,11 +553,12 @@ const battalionSortLabels = {
   battalionStrength: 'Efetivo do batalhão',
   crpmAverage: 'Efetivo médio do CRPM',
   crpmStrength: 'Efetivo do CRPM',
-  situation: 'Situação média',
+  healthLeave: 'Efetivo de licença saúde',
+  situation: 'Déficit de movimentação',
   exonerations: 'Exonerações',
   dismissals: 'Demissões',
   movementBalance: 'Movimentações',
-  calculatedDeficit: 'Déficit apurado'
+  calculatedDeficit: 'Reestruturação necessidade'
 };
 let battalionSortState = { field: 'calculatedDeficit', direction: 'desc' };
 
@@ -577,6 +578,7 @@ function getBattalionTableRecords() {
       crpm,
       crpmStrength: metricDetails.battalions.crpmTotals[crpm] ?? null,
       crpmAverage: metricDetails.battalions.crpmTotals[crpm] / battalionsPerCrpm[crpm],
+      healthLeave: null,
       movementBalance: balance,
       situation,
       exonerations,
@@ -630,10 +632,11 @@ function buildBattalionTableRows(field = 'situation', direction = 'asc') {
       renderBattalionStrengthValue(record.battalionStrength, record.battalionStrength == null ? 'sem dado na fonte' : 'policiais'),
       renderBattalionAverageValue(record.crpmAverage, `${record.crpm} · ${battalionsPerCrpm[record.crpm]} BPMs`),
       renderBattalionStrengthValue(record.crpmStrength, record.crpm),
+      renderBattalionStrengthValue(record.healthLeave, 'aguardando base'),
       renderBattalionExitValue(record.exonerations, 'saídas'),
       renderBattalionExitValue(record.dismissals, 'saídas'),
       renderBattalionSignedValue(record.movementBalance, 'saldo'),
-      renderBattalionSignedValue(record.situation, 'saldo consolidado'),
+      renderBattalionSignedValue(record.situation, 'déficit de movimentação'),
       renderBattalionExitValue(record.calculatedDeficit, 'resultado negativo')
     ]);
   rows.push([
@@ -642,10 +645,11 @@ function buildBattalionTableRows(field = 'situation', direction = 'asc') {
     renderBattalionStrengthValue(9956, 'policiais'),
     renderBattalionAverageValue(9956 / 34, 'média geral por BPM'),
     renderBattalionStrengthValue(9956, '8 CRPMs únicos'),
+    renderBattalionStrengthValue(null, 'aguardando base'),
     renderBattalionExitValue(62, 'saídas'),
     renderBattalionExitValue(170, 'saídas'),
     renderBattalionSignedValue(90, 'saldo'),
-    renderBattalionSignedValue(-142, 'saldo consolidado'),
+    renderBattalionSignedValue(-142, 'déficit de movimentação'),
     renderBattalionExitValue(254, '22 BPMs negativos')
   ]);
   return rows;
@@ -1133,7 +1137,7 @@ function renderMetricDetail(key) {
       <div class="detail-section-heading"><div><h3>${data.sectionTitle}</h3><p>${data.sectionSubtitle}</p></div><span>Dados discriminados</span></div>
       ${battalionSortControls}
       ${key === 'battalions' ? `<div id="battalionTableResult">${detailTable}</div>` : detailTable}
-      ${key === 'battalions' ? '<p class="battalion-table-source-note"><strong>Leitura do déficit:</strong> situação média = saldo das movimentações − exonerações − demissões. A soma dos resultados negativos de 22 BPMs é 254 policiais. As aposentadorias foram retiradas deste cálculo por enquanto.</p>' : ''}
+      ${key === 'battalions' ? '<p class="battalion-table-source-note"><strong>Leitura do déficit:</strong> déficit de movimentação = saldo das movimentações − exonerações − demissões. A reestruturação necessidade soma somente os resultados negativos: 254 policiais em 22 BPMs. As aposentadorias foram retiradas deste cálculo por enquanto.</p>' : ''}
     </section>`;
   metricDetailContent.innerHTML = `
     <div class="detail-hero-grid">
@@ -1201,7 +1205,7 @@ metricDetailContent.addEventListener('click', (event) => {
     const field = battalionSortButton.dataset.battalionSort;
     if (field !== battalionSortState.field) {
       battalionSortState.field = field;
-      battalionSortState.direction = ['battalionStrength', 'crpmAverage', 'crpmStrength', 'exonerations', 'dismissals', 'calculatedDeficit'].includes(field) ? 'desc' : 'asc';
+      battalionSortState.direction = ['battalionStrength', 'crpmAverage', 'crpmStrength', 'healthLeave', 'exonerations', 'dismissals', 'calculatedDeficit'].includes(field) ? 'desc' : 'asc';
     }
     updateBattalionTable();
   }

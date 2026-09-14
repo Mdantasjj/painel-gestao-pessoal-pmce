@@ -369,11 +369,12 @@ const metricDetails = {
     title: 'BATALHÕES - Análise situacional de Efetivo',
     total: '34',
     unit: 'batalhões analisados',
-    description: 'Visão geral dos 34 BPMs territoriais no estudo de movimentações, complementada pelo recorte de efetivo atual e saldo dos nove batalhões do interior.',
+    description: 'Visão integrada do efetivo existente e das perdas territorialmente identificadas nos 34 BPMs, reunindo movimentações, exonerações e demissões.',
     stats: [
-      ['Saldo conjunto', '+90', '1.549 registros no destino menos 1.459 na origem'],
-      ['Déficit localizado', '111', 'Soma das perdas dos 12 BPMs com saldo negativo'],
-      ['Reestruturação interior e litoral', '525', 'Efetivo necessário nos oito batalhões abaixo da média']
+      ['Déficit territorial apurado', '343', '111 nas movimentações · 232 desligamentos administrativos'],
+      ['Exonerações e demissões', '62 + 170', '232 registros vinculados aos 34 BPMs'],
+      ['Aposentadorias', '207', 'Sem batalhão de origem · fora do cálculo territorial'],
+      ['Saldo conjunto das movimentações', '+90', '1.549 registros no destino menos 1.459 na origem']
     ],
     breakdownTitle: 'Situação dos 34 batalhões nas movimentações',
     breakdownSubtitle: 'Distribuição dos BPMs conforme o saldo entre registros de destino e origem.',
@@ -384,8 +385,8 @@ const metricDetails = {
       ['Em equilíbrio', 5.88, '2 · 5,9%', '#83b99a']
     ],
     sectionTitle: 'Visão geral por batalhão',
-    sectionSubtitle: 'Os 34 BPMs podem ser classificados por unidade, efetivo próprio, efetivo regional ou situação média.',
-    tableColumns: ['Posição', 'Batalhão / cidades', 'Efetivo total do batalhão', 'Efetivo total do CRPM da região', 'Situação média'],
+    sectionSubtitle: 'O déficit apurado soma a perda líquida nas movimentações às exonerações e demissões identificadas em cada BPM. Aposentadorias aguardam distribuição por unidade.',
+    tableColumns: ['Posição', 'Batalhão / cidades', 'Efetivo total do batalhão', 'Efetivo total do CRPM da região', 'Situação média', 'Exonerações', 'Demissões', 'Movimentações', 'Aposentadorias', 'Déficit apurado'],
     tableRows: [],
     battalionTotals: {
       '1º BPM': 277, '2º BPM': 536, '3º BPM': 405, '4º BPM': 213, '5º BPM': 366,
@@ -417,7 +418,18 @@ const metricDetails = {
       '7º CRPM': 871,
       '8º CRPM': 951
     },
-    note: 'A base consolidada de efetivo informa os 34 BPMs e os oito CRPMs. A soma dos batalhões vinculados a cada região foi confrontada com o total informado para o respectivo CRPM, sem divergências. O total geral validado é de 9.956 policiais. A situação média permanece baseada no saldo das movimentações do período e não representa o efetivo existente.'
+    administrativeExits: {
+      '1º BPM': [0, 6], '2º BPM': [4, 3], '3º BPM': [2, 3], '4º BPM': [3, 5],
+      '5º BPM': [1, 3], '6º BPM': [1, 13], '7º BPM': [0, 3], '8º BPM': [3, 6],
+      '9º BPM': [0, 7], '10º BPM': [0, 4], '11º BPM': [0, 4], '12º BPM': [9, 8],
+      '13º BPM': [1, 3], '14º BPM': [1, 9], '15º BPM': [3, 2], '16º BPM': [2, 5],
+      '17º BPM': [2, 12], '18º BPM': [3, 11], '19º BPM': [4, 8], '20º BPM': [3, 8],
+      '21º BPM': [1, 5], '22º BPM': [1, 4], '23º BPM': [1, 6], '24º BPM': [1, 9],
+      '25º BPM': [5, 3], '26º BPM': [1, 6], '27º BPM': [0, 2], '28º BPM': [0, 4],
+      '29º BPM': [1, 1], '30º BPM': [1, 1], '31º BPM': [2, 0], '32º BPM': [0, 1],
+      '33º BPM': [1, 4], '34º BPM': [5, 1]
+    },
+    note: 'A base consolidada de efetivo informa os 34 BPMs e os oito CRPMs, totalizando 9.956 policiais, sem divergências nas somas regionais. O déficit territorial apurado de 343 policiais reúne 111 perdas líquidas nas movimentações e 232 desligamentos administrativos nominalmente vinculados aos BPMs — 62 exonerações e 170 demissões. As 207 aposentadorias permanecem visíveis como referência estratégica, mas não entram no cálculo por batalhão porque a fonte não informa a unidade de origem. Outros 94 desligamentos administrativos da base nominal pertencem a comandos, unidades especializadas e demais OPMs e, por isso, não foram redistribuídos entre os BPMs.'
   },
   copac: {
     accent: '#2f855a',
@@ -538,19 +550,30 @@ const battalionSortLabels = {
   unit: 'Batalhão',
   battalionStrength: 'Efetivo do batalhão',
   crpmStrength: 'Efetivo do CRPM',
-  situation: 'Situação média'
+  situation: 'Situação média',
+  exonerations: 'Exonerações',
+  dismissals: 'Demissões',
+  movementLoss: 'Movimentações',
+  calculatedDeficit: 'Déficit apurado'
 };
-let battalionSortState = { field: 'situation', direction: 'asc' };
+let battalionSortState = { field: 'calculatedDeficit', direction: 'desc' };
 
 function getBattalionTableRecords() {
   return metricDetails.pog.units.map(([name, , , balance]) => {
     const crpm = metricDetails.battalions.crpmByUnit[name];
+    const [exonerations = 0, dismissals = 0] = metricDetails.battalions.administrativeExits[name] || [];
+    const movementLoss = Math.max(0, -balance);
     return {
       name,
       battalionStrength: metricDetails.battalions.battalionTotals[name] ?? null,
       crpm,
       crpmStrength: metricDetails.battalions.crpmTotals[crpm] ?? null,
-      situation: balance
+      situation: balance,
+      exonerations,
+      dismissals,
+      movementLoss,
+      retirements: null,
+      calculatedDeficit: exonerations + dismissals + movementLoss
     };
   });
 }
@@ -574,19 +597,43 @@ function renderBattalionStrengthValue(total, note) {
     : `<span class="battalion-strength-value"><strong>${total.toLocaleString('pt-BR')}</strong><small>${note}</small></span>`;
 }
 
+function renderBattalionExitValue(total, note, unavailable = false) {
+  return unavailable
+    ? `<span class="battalion-exit-value is-unavailable"><strong>—</strong><small>${note}</small></span>`
+    : `<span class="battalion-exit-value"><strong>${total.toLocaleString('pt-BR')}</strong><small>${note}</small></span>`;
+}
+
 function buildBattalionTableRows(field = 'situation', direction = 'asc') {
-  return getBattalionTableRecords()
+  const rows = getBattalionTableRecords()
     .sort((a, b) => compareBattalionRecords(a, b, field, direction))
     .map((record, index) => [
       String(index + 1),
       record.name,
       renderBattalionStrengthValue(record.battalionStrength, record.battalionStrength == null ? 'sem dado na fonte' : 'policiais'),
       renderBattalionStrengthValue(record.crpmStrength, record.crpm),
-      record.situation > 0 ? `+${record.situation}` : String(record.situation)
+      record.situation > 0 ? `+${record.situation}` : String(record.situation),
+      renderBattalionExitValue(record.exonerations, 'saídas'),
+      renderBattalionExitValue(record.dismissals, 'saídas'),
+      renderBattalionExitValue(record.movementLoss, 'perda líquida'),
+      renderBattalionExitValue(0, 'sem OPM de origem', true),
+      renderBattalionExitValue(record.calculatedDeficit, 'territorial')
     ]);
+  rows.push([
+    '—',
+    'TOTAL DOS 34 BPMs',
+    renderBattalionStrengthValue(9956, 'policiais'),
+    renderBattalionStrengthValue(9956, '8 CRPMs únicos'),
+    '+90',
+    renderBattalionExitValue(62, 'saídas'),
+    renderBattalionExitValue(170, 'saídas'),
+    renderBattalionExitValue(111, 'perda líquida'),
+    renderBattalionExitValue(207, 'sem distribuição'),
+    renderBattalionExitValue(343, 'não inclui aposentadorias')
+  ]);
+  return rows;
 }
 
-metricDetails.battalions.tableRows = buildBattalionTableRows();
+metricDetails.battalions.tableRows = buildBattalionTableRows(battalionSortState.field, battalionSortState.direction);
 
 const metricModal = document.querySelector('#metricDetailModal');
 const metricDialog = metricModal.querySelector('.metric-dialog');
@@ -1030,6 +1077,7 @@ function renderMetricDetail(key) {
   const data = metricDetails[key];
   if (!data) return;
   metricModal.style.setProperty('--detail-accent', data.accent);
+  metricDialog.dataset.detail = key;
   metricDetailContent.dataset.detail = key;
   metricDetailEyebrow.textContent = data.eyebrow;
   metricDetailTitle.textContent = data.title;
@@ -1067,7 +1115,7 @@ function renderMetricDetail(key) {
       <div class="detail-section-heading"><div><h3>${data.sectionTitle}</h3><p>${data.sectionSubtitle}</p></div><span>Dados discriminados</span></div>
       ${battalionSortControls}
       ${key === 'battalions' ? `<div id="battalionTableResult">${detailTable}</div>` : detailTable}
-      ${key === 'battalions' ? '<p class="battalion-table-source-note"><strong>Base completa e validada:</strong> 34 BPMs e 8 CRPMs, totalizando 9.956 policiais. A soma dos batalhões confere com o total de cada região.</p>' : ''}
+      ${key === 'battalions' ? '<p class="battalion-table-source-note"><strong>Leitura do déficit:</strong> 343 perdas territorialmente apuradas = 111 perdas líquidas nas movimentações + 62 exonerações + 170 demissões. As 207 aposentadorias não foram rateadas entre os batalhões porque a fonte não identifica a unidade de origem; por isso, permanecem fora do déficit territorial.</p>' : ''}
     </section>`;
   metricDetailContent.innerHTML = `
     <div class="detail-hero-grid">
@@ -1135,7 +1183,7 @@ metricDetailContent.addEventListener('click', (event) => {
     const field = battalionSortButton.dataset.battalionSort;
     if (field !== battalionSortState.field) {
       battalionSortState.field = field;
-      battalionSortState.direction = ['battalionStrength', 'crpmStrength'].includes(field) ? 'desc' : 'asc';
+      battalionSortState.direction = ['battalionStrength', 'crpmStrength', 'exonerations', 'dismissals', 'movementLoss', 'calculatedDeficit'].includes(field) ? 'desc' : 'asc';
     }
     updateBattalionTable();
   }

@@ -220,6 +220,7 @@ body.modal-open { overflow: hidden; }
 .metric-modal.is-open { opacity: 1; visibility: visible; }
 .metric-modal-backdrop { position: absolute; inset: 0; background: rgba(5, 25, 18, .72); backdrop-filter: blur(5px); }
 .metric-dialog { position: relative; display: flex; width: min(1120px, 96vw); max-height: min(900px, 92vh); overflow: hidden; flex-direction: column; border: 1px solid rgba(255,255,255,.5); border-radius: 18px; background: #f6f9f7; box-shadow: 0 28px 80px rgba(3, 24, 16, .34); transform: translateY(18px) scale(.985); transition: transform .22s; }
+.metric-dialog[data-detail="battalions"] { width: min(1500px, 98vw); }
 .metric-modal.is-open .metric-dialog { transform: translateY(0) scale(1); }
 .metric-dialog-header { display: flex; min-height: 94px; align-items: center; justify-content: space-between; gap: 22px; padding: 19px 24px; color: #fff; background: linear-gradient(115deg, var(--green-900), #14563e); }
 .metric-dialog-header > div { min-width: 0; }
@@ -440,14 +441,22 @@ body.modal-open { overflow: hidden; }
 .battalion-sort-direction { display: flex; min-width: 124px; min-height: 38px; padding: 6px 10px; align-items: center; justify-content: center; gap: 7px; border: 1px solid #77ad8e; border-radius: 19px; color: #145c40; background: #fff; font-size: 8.5px; font-weight: 800; cursor: pointer; }
 .battalion-sort-direction b { display: grid; width: 23px; height: 23px; place-items: center; border-radius: 50%; color: #fff; background: #23794f; font-size: 13px; }
 .battalion-sort-status { margin: 9px 0 0; color: #647a6e; font-size: 8.5px; font-weight: 680; text-align: right; }
-#metricDetailContent[data-detail="battalions"] .detail-table { min-width: 760px; }
+#metricDetailContent[data-detail="battalions"] .detail-table { min-width: 1390px; }
 #metricDetailContent[data-detail="battalions"] .detail-table th:nth-child(3),
 #metricDetailContent[data-detail="battalions"] .detail-table th:nth-child(4) { min-width: 145px; }
+#metricDetailContent[data-detail="battalions"] .detail-table th:nth-child(n+5) { min-width: 92px; }
+#metricDetailContent[data-detail="battalions"] .detail-table tbody tr:last-child td { border-top: 2px solid #23794f; background: #e4f2e9; font-weight: 850; }
+#metricDetailContent[data-detail="battalions"] .detail-table tbody tr:last-child td:nth-child(2) { color: #0d5136; }
 .battalion-strength-value { display: flex; min-height: 34px; align-items: center; justify-content: center; flex-direction: column; }
 .battalion-strength-value strong { color: #145c40; font-size: 13px; line-height: 1.1; }
 .battalion-strength-value small { margin-top: 3px; color: #6f8177; font-size: 8px; font-weight: 680; }
 .battalion-strength-value.is-unavailable strong { color: #708078; font-size: 9px; font-weight: 750; }
 .battalion-strength-value.is-unavailable small { color: #8a9790; }
+.battalion-exit-value { display: flex; min-height: 34px; align-items: center; justify-content: center; flex-direction: column; }
+.battalion-exit-value strong { color: #145c40; font-size: 13px; line-height: 1.1; }
+.battalion-exit-value small { margin-top: 3px; color: #6f8177; font-size: 7.5px; font-weight: 680; white-space: nowrap; }
+.battalion-exit-value.is-unavailable strong { color: #718279; }
+.battalion-exit-value.is-unavailable small { color: #89968f; }
 .battalion-table-source-note { margin: 10px 0 0; padding: 10px 12px; border-left: 4px solid #2f855a; border-radius: 7px; color: #365b48; background: #edf7f1; font-size: 9.5px; line-height: 1.45; }
 .battalion-ranking-section { border-color: #bfd9ca; background: linear-gradient(180deg, #f7fcf9, #fff); }
 .battalion-rank-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }

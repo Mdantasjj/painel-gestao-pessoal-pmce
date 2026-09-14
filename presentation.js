@@ -353,7 +353,7 @@ const metricDetails = {
     ],
     sectionTitle: 'Batalhões ordenados pelo maior saldo',
     sectionSubtitle: 'Efetivo atual comparado à média do respectivo comando.',
-    tableColumns: ['Posição', 'Batalhão / cidade', 'Efetivo atual', 'Média do comando', 'Situação', 'Saldo'],
+    tableColumns: ['Posição', 'Batalhão / cidade', 'Efetivo atual', 'Média do comando', 'Situação', 'Saldo negativo'],
     tableRows: [
       ['1', '33º BPM', '138', '253,5', 'Abaixo da média', '116'],
       ['2', '28º BPM', '202', '297,25', 'Abaixo da média', '96'],

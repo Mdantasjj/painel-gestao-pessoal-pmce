@@ -44,7 +44,7 @@ function renderDismissalsChart() {
   document.querySelector('#mainChart').innerHTML = `
     <div class="chart-key">${key}</div>
     <div class="bar-stage" style="--count:8">${groups}</div>
-    <div class="chart-source-note">Esta série detalha 340 das 547 saídas. Maio concentrou 165 demissões/exonerações, ou 48,5% desse recorte.</div>`;
+    <div class="chart-source-note">A série contextualiza os 340 registros gerais. Após validação nominal e recorte territorial, 232 saídas pertencem aos 34 BPMs.</div>`;
 }
 
 function renderPromotions() {
@@ -106,36 +106,40 @@ function renderHorizontalBars(target, rows, total, color, showTerritory = false)
 }
 
 function renderOrigins() {
-  renderHorizontalBars('#opmOriginChart', originByOpm, 326, '#1b8258', true);
+  renderHorizontalBars('#opmOriginChart', originByOpm, 232, '#1b8258', true);
   renderHorizontalBars('#cityOriginChart', originByCity, 326, '#3b7e9d');
 }
 
 const metricDetails = {
   exits: {
     accent: '#23845b',
-    eyebrow: 'Memória de cálculo · saídas de efetivo',
-    title: '547 saídas de efetivo',
-    total: '547',
-    unit: 'saídas',
-    description: 'Indicador estratégico que reúne demissões, exonerações e aposentadorias para dimensionar a redução potencial do efetivo.',
+    eyebrow: 'Memória de cálculo · saídas dos batalhões',
+    title: '232 saídas de efetivo nos 34 batalhões',
+    total: '232',
+    unit: 'saídas validadas',
+    description: 'Recorte nominal deduplicado das exonerações e demissões vinculadas diretamente aos 34 BPMs territoriais, utilizando a mesma abrangência da análise situacional.',
     stats: [
-      ['Demissões', '252', '46,1% do total estratégico'],
-      ['Exonerações', '88', '16,1% do total estratégico'],
-      ['Aposentadorias', '207', '37,8% · referência: promoções requeridas']
+      ['Demissões nos BPMs', '170', '73,3% das 232 saídas territoriais'],
+      ['Exonerações nos BPMs', '62', '26,7% das 232 saídas territoriais'],
+      ['Demais OPMs', '94', 'Registros válidos fora dos 34 BPMs'],
+      ['Registros retirados', '14', '12 duplicidades · 2 sem detalhamento extraível']
     ],
     breakdown: [
-      ['Demissões — outros concursos', 46.1, '252 · 46,1%', '#1b8258'],
-      ['Exonerações — outros concursos', 16.1, '88 · 16,1%', '#c1a253'],
-      ['Aposentadorias', 37.8, '207 · 37,8%', '#698342']
+      ['Demissões — outros concursos', 73.3, '170 · 73,3%', '#1b8258'],
+      ['Exonerações — outros concursos', 26.7, '62 · 26,7%', '#698342']
     ],
-    sectionTitle: 'Distribuição mensal disponível',
-    sectionSubtitle: 'O recorte mensal cobre as 340 demissões e exonerações registradas de janeiro a agosto de 2026.',
-    tableColumns: ['Mês', 'Demissões', 'Exonerações', 'Total mensal'],
+    sectionTitle: 'Reconciliação da base de saídas',
+    sectionSubtitle: 'A tabela demonstra a passagem dos 340 registros gerais para as 232 saídas únicas vinculadas aos 34 batalhões.',
+    tableColumns: ['Etapa de validação', 'Exonerações', 'Demissões', 'Total'],
     tableRows: [
-      ['Janeiro', '8', '10', '18'], ['Fevereiro', '2', '7', '9'], ['Março', '0', '7', '7'], ['Abril', '7', '24', '31'],
-      ['Maio', '143', '22', '165'], ['Junho', '76', '6', '82'], ['Julho', '14', '12', '26'], ['Agosto', '2', '0', '2']
+      ['Registros gerais consolidados', '88', '252', '340'],
+      ['Duplicidades removidas', '5', '7', '12'],
+      ['Sem detalhamento nominal extraível', '0', '2', '2'],
+      ['Base nominal validada', '83', '243', '326'],
+      ['Comandos, especializadas e demais OPMs', '21', '73', '94'],
+      ['Recorte final dos 34 BPMs', '62', '170', '232']
     ],
-    note: 'Os 207 registros foram classificados como aposentadorias por orientação do projeto, usando a aba de promoções requeridas como referência. Eles não possuem distribuição mensal ou OPM de origem na base atual.'
+    note: 'Validação da relação cumulativa de janeiro a agosto de 2026: 340 registros gerais = 326 registros nominais únicos + 12 duplicidades + 2 demissões sem detalhamento nominal extraível. Dos 326 registros válidos, 232 pertencem diretamente aos 34 BPMs e 94 a comandos, unidades especializadas e demais OPMs. As aposentadorias foram retiradas deste indicador por enquanto. Assim, o total de 232 utilizado neste card coincide exatamente com 62 exonerações + 170 demissões incorporadas à análise situacional dos batalhões.'
   },
   raio: {
     accent: '#3b7e9d',

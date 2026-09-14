@@ -704,7 +704,7 @@ function renderBattalionSortControls() {
   return `
     <div class="battalion-sort-toolbar" aria-label="Controles de classificação da tabela">
       <div class="battalion-sort-heading">
-        <div><span>Classificação personalizada</span><strong>Como deseja organizar a tabela?</strong></div>
+        <div><span>Controle de classificação</span><strong>Escolha uma coluna para organizar a tabela</strong></div>
         <button class="battalion-sort-direction" type="button" data-battalion-direction="${battalionSortState.direction}" aria-label="Inverter ordem da classificação">
           <b>${battalionSortState.direction === 'asc' ? '↑' : '↓'}</b>
           <span>${battalionSortState.direction === 'asc' ? 'Menor → maior' : 'Maior → menor'}</span>

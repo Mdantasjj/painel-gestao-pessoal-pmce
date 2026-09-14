@@ -427,10 +427,12 @@ body.modal-open { overflow: hidden; }
 #metricDetailContent[data-detail="battalions"] .detail-table td:first-child { width: 58px; padding-right: 6px; padding-left: 6px; text-align: center; white-space: nowrap; }
 #metricDetailContent[data-detail="battalions"] .detail-table th:nth-child(n+3),
 #metricDetailContent[data-detail="battalions"] .detail-table td:nth-child(n+3) { text-align: center; }
-.battalion-sort-toolbar { margin-bottom: 13px; padding: 13px; border: 1px solid #bad9c8; border-radius: 11px; background: linear-gradient(135deg, #f1f9f4, #fff); }
+.battalion-sort-toolbar { margin-bottom: 13px; padding: 13px; border: 2px solid #78b596; border-radius: 12px; background: linear-gradient(135deg, #e8f5ed, #fff); box-shadow: 0 8px 20px rgba(20, 92, 64, .1); }
 .battalion-sort-heading { display: flex; align-items: center; justify-content: space-between; gap: 14px; }
-.battalion-sort-heading > div > span { display: block; color: #297553; font-size: 8px; font-weight: 850; letter-spacing: .075em; text-transform: uppercase; }
-.battalion-sort-heading > div > strong { display: block; margin-top: 4px; color: #183d2c; font-size: 12px; }
+.battalion-sort-heading > div { position: relative; min-height: 58px; padding: 11px 16px 11px 58px; flex: 1; border-radius: 9px; background: linear-gradient(110deg, #145c40, #2f855a); box-shadow: 0 7px 16px rgba(20, 92, 64, .18); }
+.battalion-sort-heading > div::before { position: absolute; top: 50%; left: 14px; display: grid; width: 32px; height: 32px; place-items: center; border: 1px solid rgba(255,255,255,.38); border-radius: 8px; color: #145c40; background: #dff2e7; font-size: 18px; font-weight: 900; content: '↕'; transform: translateY(-50%); }
+.battalion-sort-heading > div > span { display: block; color: #bfe5cf; font-size: 9px; font-weight: 850; letter-spacing: .095em; text-transform: uppercase; }
+.battalion-sort-heading > div > strong { display: block; margin-top: 5px; color: #fff; font-size: 15px; font-weight: 850; letter-spacing: .015em; line-height: 1.2; }
 .battalion-sort-options { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 7px; margin-top: 11px; }
 .battalion-sort-button { display: flex; min-height: 40px; padding: 7px 9px; align-items: center; gap: 7px; border: 1px solid #c8ded2; border-radius: 8px; color: #365b48; text-align: left; background: #fff; font-size: 8.8px; font-weight: 760; line-height: 1.25; cursor: pointer; transition: .18s ease; }
 .battalion-sort-button > span { display: grid; width: 23px; height: 23px; flex: 0 0 auto; place-items: center; border-radius: 6px; color: #246c4d; background: #e2f2e9; font-size: 7.5px; font-weight: 850; }
@@ -548,6 +550,7 @@ body.modal-open { overflow: hidden; }
   .pog-implementation-total { align-items: flex-start; flex-direction: column; }
   .pog-implementation-total p { text-align: left; }
   .battalion-sort-heading { align-items: flex-start; flex-direction: column; }
+  .battalion-sort-heading > div { width: 100%; }
   .battalion-sort-direction { width: 100%; }
   .battalion-sort-options { grid-template-columns: 1fr; }
   .battalion-sort-status { text-align: left; }

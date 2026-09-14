@@ -432,13 +432,13 @@ const metricDetails = {
       '33º BPM': [1, 4], '34º BPM': [5, 1]
     },
     healthLeaveTotals: {
-      '1º BPM': 10, '2º BPM': 22, '3º BPM': 16, '4º BPM': 8, '5º BPM': 49,
-      '6º BPM': 44, '7º BPM': 9, '8º BPM': 24, '9º BPM': 11, '10º BPM': 6,
-      '11º BPM': 13, '12º BPM': 18, '13º BPM': 3, '14º BPM': 24, '15º BPM': 17,
-      '16º BPM': 29, '17º BPM': 41, '18º BPM': 24, '19º BPM': 32, '20º BPM': 40,
-      '21º BPM': 48, '22º BPM': 33, '23º BPM': 17, '24º BPM': 21, '25º BPM': 17,
-      '26º BPM': 11, '27º BPM': 7, '28º BPM': 5, '29º BPM': 11, '30º BPM': 12,
-      '31º BPM': 8, '32º BPM': 10, '33º BPM': 2, '34º BPM': 3
+      '1º BPM': 14, '2º BPM': 29, '3º BPM': 19, '4º BPM': 8, '5º BPM': 53,
+      '6º BPM': 46, '7º BPM': 11, '8º BPM': 29, '9º BPM': 15, '10º BPM': 6,
+      '11º BPM': 13, '12º BPM': 25, '13º BPM': 5, '14º BPM': 26, '15º BPM': 19,
+      '16º BPM': 30, '17º BPM': 43, '18º BPM': 29, '19º BPM': 34, '20º BPM': 45,
+      '21º BPM': 48, '22º BPM': 37, '23º BPM': 20, '24º BPM': 24, '25º BPM': 18,
+      '26º BPM': 12, '27º BPM': 7, '28º BPM': 7, '29º BPM': 14, '30º BPM': 14,
+      '31º BPM': 9, '32º BPM': 12, '33º BPM': 2, '34º BPM': 3
     },
     note: 'A base consolidada de efetivo informa os 34 BPMs e os oito CRPMs, totalizando 9.956 policiais, sem divergências nas somas regionais. Para cada batalhão, a situação média é calculada por saldo das movimentações − exonerações − demissões. O conjunto passa de +90 nas movimentações para −142 após descontar os 232 desligamentos administrativos vinculados aos BPMs. A soma somente dos resultados negativos produz déficit territorial apurado de 254 policiais. As aposentadorias foram retiradas desta análise por batalhão. Outros 94 desligamentos administrativos pertencem a comandos, unidades especializadas e demais OPMs e não foram redistribuídos.'
   },
@@ -640,7 +640,7 @@ function buildBattalionTableRows(field = 'situation', direction = 'asc') {
       renderBattalionStrengthValue(record.battalionStrength, record.battalionStrength == null ? 'sem dado na fonte' : 'policiais'),
       renderBattalionAverageValue(record.crpmAverage, `${record.crpm} · ${battalionsPerCrpm[record.crpm]} BPMs`),
       renderBattalionStrengthValue(record.crpmStrength, record.crpm),
-      renderBattalionStrengthValue(record.healthLeave, 'LTS própria/dependente'),
+      renderBattalionStrengthValue(record.healthLeave, 'LTS + agregados > 1 ano'),
       renderBattalionExitValue(record.exonerations, 'saídas'),
       renderBattalionExitValue(record.dismissals, 'saídas'),
       renderBattalionSignedValue(record.movementBalance, 'saldo'),
@@ -652,7 +652,7 @@ function buildBattalionTableRows(field = 'situation', direction = 'asc') {
     renderBattalionStrengthValue(9956, 'policiais'),
     renderBattalionAverageValue(Math.round(9956 / 34), 'média geral por BPM'),
     renderBattalionStrengthValue(9956, '8 CRPMs únicos'),
-    renderBattalionStrengthValue(645, '34 BPMs'),
+    renderBattalionStrengthValue(726, '34 BPMs'),
     renderBattalionExitValue(62, 'saídas'),
     renderBattalionExitValue(170, 'saídas'),
     renderBattalionSignedValue(90, 'saldo'),
@@ -1143,7 +1143,7 @@ function renderMetricDetail(key) {
       <div class="detail-section-heading"><div><h3>${data.sectionTitle}</h3><p>${data.sectionSubtitle}</p></div><span>Dados discriminados</span></div>
       ${battalionSortControls}
       ${key === 'battalions' ? `<div id="battalionTableResult">${detailTable}</div>` : detailTable}
-      ${key === 'battalions' ? '<p class="battalion-table-source-note"><strong>Leitura da necessidade:</strong> o cálculo considera saldo das movimentações − exonerações − demissões. A coluna Reestruturação necessidade apresenta somente os resultados negativos: 254 policiais em 22 BPMs. As aposentadorias foram retiradas deste cálculo por enquanto. <strong>Licença saúde:</strong> 645 militares em LTS própria ou de dependente, agregados pelos 34 BPMs; esse quantitativo ainda não altera o cálculo.</p>' : ''}
+      ${key === 'battalions' ? '<p class="battalion-table-source-note"><strong>Leitura da necessidade:</strong> o cálculo considera saldo das movimentações − exonerações − demissões. A coluna Reestruturação necessidade apresenta somente os resultados negativos: 254 policiais em 22 BPMs. As aposentadorias foram retiradas deste cálculo por enquanto. <strong>Licença saúde:</strong> 726 militares vinculados aos 34 BPMs — 645 em LTS própria/dependente e 81 agregados por mais de um ano em LTS; esse quantitativo ainda não altera o cálculo.</p>' : ''}
     </section>`;
   metricDetailContent.innerHTML = `
     <div class="detail-hero-grid">

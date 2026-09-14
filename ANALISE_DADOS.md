@@ -44,7 +44,7 @@ Fontes analisadas:
 - A composição consolidada prevê 96 policiais na guarda, 48 na reserva de armamento, 36 no GAVV, 36 no GSC, 36 no GPF, 36 no administrativo, 24 no GSE A, 24 no GSE B e 24 na mediação de conflitos.
 - Das 207 promoções requeridas, 153 correspondem ao acesso de SUBTEN PM a 2ºTEN QOAPM, representando 73,9% do total.
 
-- A coluna `Efetivo de licença saúde` foi posicionada após o efetivo total do CRPM. Como as fontes disponíveis não discriminam esse afastamento por batalhão, os valores permanecem como não informados e não integram o cálculo do déficit de movimentação. As colunas antes chamadas `Situação média` e `Déficit apurado` são exibidas como `Déficit de movimentação` e `Reestruturação necessidade`, sem alteração da fórmula vigente.
+- A coluna `Efetivo de licença saúde` foi posicionada após o efetivo total do CRPM. Como as fontes disponíveis não discriminam esse afastamento por batalhão, os valores permanecem como não informados e não integram os cálculos. A coluna `Déficit de movimentação` foi retirada da tabela; `Reestruturação necessidade` apresenta somente os resultados negativos obtidos após movimentações, exonerações e demissões.
 
 ## Ressalvas metodológicas
 

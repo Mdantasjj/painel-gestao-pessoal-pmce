@@ -28,7 +28,7 @@ O card **Reestruturação dos batalhões do interior e do litoral** apresenta **
 
 No detalhamento do RAIO, três botões permitem escolher os níveis de implantação. Antes da escolha, cada botão informa o total de bases, municípios satélites e policiais do respectivo nível. Após a seleção, o painel discrimina as cidades-polo, os municípios satélites e a composição do efetivo por base.
 
-A tabela **Visão geral por batalhão** também possui a coluna **Efetivo de licença saúde**, posicionada após o efetivo total do CRPM. As fontes disponíveis ainda não discriminam esses afastamentos por BPM; por isso, a coluna permanece como não informada e não altera o déficit de movimentação. As colunas anteriormente denominadas **Situação média** e **Déficit apurado** passam a ser apresentadas como **Déficit de movimentação** e **Reestruturação necessidade**, respectivamente.
+A tabela **Visão geral por batalhão** também possui a coluna **Efetivo de licença saúde**, posicionada após o efetivo total do CRPM. As fontes disponíveis ainda não discriminam esses afastamentos por BPM; por isso, a coluna permanece como não informada e não altera os cálculos. A antiga coluna **Déficit de movimentação** foi retirada da exibição; **Reestruturação necessidade** apresenta somente os resultados negativos do cálculo interno.
 
 ## Identidade visual
 

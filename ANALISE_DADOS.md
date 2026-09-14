@@ -21,7 +21,7 @@ Fontes analisadas:
 | POG + Companhia Pronta-Resposta (COTAM) + BPTUR | 271 policiais | 111 de déficit nos 34 BPMs territoriais, 110 para a COTAM e 50 para a 6ª Cia/BPTUR |
 | COPAC/PReVio — Efetivo mínimo das bases cidadãs | 360 policiais | 12 bases × 30 policiais; projeção bruta, sem dedução de efetivo disponível |
 | Reestruturação dos batalhões do interior e do litoral | 525 policiais necessários | Necessidades dos 8 batalhões arredondadas individualmente para cima; 9 batalhões analisados, sendo 8 abaixo da média e 1 acima; RAIO excluído |
-| BATALHÕES - Análise situacional de Efetivo | 34 batalhões analisados | 20 com ganho, 12 com perda e 2 em equilíbrio; saldo conjunto de +90 nas movimentações |
+| BATALHÕES - Análise situacional de Efetivo | 34 batalhões analisados | 22 em déficit, 11 com saldo positivo e 1 em equilíbrio; situação consolidada de −142 após incorporar exonerações e demissões |
 | Aposentadorias | 207 militares | Referência estratégica adotada: quantitativo das promoções requeridas |
 
 ## Principais achados
@@ -37,8 +37,8 @@ Fontes analisadas:
 - CRPMs, unidades especializadas e demais OPMs foram retirados do indicador. Os registros dos comandos regionais não foram redistribuídos porque a fonte não identifica o batalhão de vínculo.
 - Na reestruturação do interior e do litoral, nove batalhões permanecem após excluir quatro unidades do RAIO. Oito estão abaixo da média do respectivo comando. A base analítica produz diferenças fracionárias por utilizar médias; para o planejamento operacional, cada necessidade positiva foi arredondada individualmente para cima, resultando em 116, 96, 90, 64, 52, 41, 41 e 25 policiais, total de 525. O 33º BPM — Campos Sales · Assaré apresenta a maior necessidade inteira, com 116.
 - Na tabela situacional dos 34 batalhões, o vínculo regional BPM–CRPM utiliza a aba `BASE` de `DISTRI VTR (1).xlsx`. A base consolidada posteriormente fornecida cobre os 34 BPMs e os oito CRPMs. A soma dos batalhões vinculados a cada comando confere com o respectivo total regional: 1º CRPM 2.137; 2º CRPM 941; 3º CRPM 1.096; 4º CRPM 1.410; 5º CRPM 1.392; 6º CRPM 1.158; 7º CRPM 871; e 8º CRPM 951. O total geral é 9.956 policiais.
-- O déficit territorial integrado dos 34 BPMs é de 343 policiais: 111 perdas líquidas nas movimentações, 62 exonerações e 170 demissões nominalmente vinculadas aos batalhões. Os desligamentos foram agregados por BPM após a deduplicação da relação nominal; outros 94 registros pertencem a comandos, unidades especializadas e demais OPMs e não foram redistribuídos.
-- As 207 aposentadorias não possuem batalhão de origem na base atual. O total permanece visível na tabela, mas fora do cálculo territorial, evitando um rateio sem respaldo documental.
+- Na análise integrada por batalhão, a situação média é calculada por `saldo das movimentações − exonerações − demissões`. O saldo conjunto de +90 passa a −142 depois de descontar 62 exonerações e 170 demissões territorialmente vinculadas. A soma dos resultados negativos de 22 BPMs é 254 policiais; 11 BPMs mantêm saldo positivo e um fica em equilíbrio.
+- As 207 aposentadorias foram retiradas da tabela e do cálculo por batalhão enquanto a fonte não informar a unidade de origem. Outros 94 desligamentos administrativos pertencem a comandos, unidades especializadas e demais OPMs e não foram redistribuídos.
 - O COPAC informa 12 bases cidadãs e padrão mínimo de 30 policiais por unidade, totalizando 360 policiais. A frota mínima consolidada é de 36 viaturas.
 - A composição consolidada prevê 96 policiais na guarda, 48 na reserva de armamento, 36 no GAVV, 36 no GSC, 36 no GPF, 36 no administrativo, 24 no GSE A, 24 no GSE B e 24 na mediação de conflitos.
 - Das 207 promoções requeridas, 153 correspondem ao acesso de SUBTEN PM a 2ºTEN QOAPM, representando 73,9% do total.

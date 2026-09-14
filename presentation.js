@@ -371,22 +371,22 @@ const metricDetails = {
     unit: 'batalhões analisados',
     description: 'Visão integrada do efetivo existente e das perdas territorialmente identificadas nos 34 BPMs, reunindo movimentações, exonerações e demissões.',
     stats: [
-      ['Déficit territorial apurado', '343', '111 nas movimentações · 232 desligamentos administrativos'],
+      ['Déficit territorial apurado', '254', 'Soma dos resultados negativos da situação consolidada'],
       ['Exonerações e demissões', '62 + 170', '232 registros vinculados aos 34 BPMs'],
-      ['Aposentadorias', '207', 'Sem batalhão de origem · fora do cálculo territorial'],
-      ['Saldo conjunto das movimentações', '+90', '1.549 registros no destino menos 1.459 na origem']
+      ['Situação consolidada', '−142', '+90 nas movimentações menos 232 desligamentos'],
+      ['Situação dos batalhões', '22 · 11 · 1', '22 em déficit · 11 com saldo positivo · 1 em equilíbrio']
     ],
-    breakdownTitle: 'Situação dos 34 batalhões nas movimentações',
-    breakdownSubtitle: 'Distribuição dos BPMs conforme o saldo entre registros de destino e origem.',
+    breakdownTitle: 'Situação integrada dos 34 batalhões',
+    breakdownSubtitle: 'Distribuição dos BPMs após incorporar exonerações e demissões ao saldo das movimentações.',
     hideBreakdown: true,
     breakdown: [
-      ['Ganho líquido', 58.82, '20 · 58,8%', '#145c40'],
-      ['Perda líquida', 35.29, '12 · 35,3%', '#3d9065'],
-      ['Em equilíbrio', 5.88, '2 · 5,9%', '#83b99a']
+      ['Déficit', 64.71, '22 · 64,7%', '#145c40'],
+      ['Saldo positivo', 32.35, '11 · 32,4%', '#3d9065'],
+      ['Em equilíbrio', 2.94, '1 · 2,9%', '#83b99a']
     ],
     sectionTitle: 'Visão geral por batalhão',
-    sectionSubtitle: 'O déficit apurado soma a perda líquida nas movimentações às exonerações e demissões identificadas em cada BPM. Aposentadorias aguardam distribuição por unidade.',
-    tableColumns: ['Posição', 'Batalhão / cidades', 'Efetivo total do batalhão', 'Efetivo total do CRPM da região', 'Situação média', 'Exonerações', 'Demissões', 'Movimentações', 'Aposentadorias', 'Déficit apurado'],
+    sectionSubtitle: 'A situação média considera o saldo das movimentações menos as exonerações e demissões de cada BPM. O déficit apurado corresponde somente aos resultados negativos.',
+    tableColumns: ['Posição', 'Batalhão / cidades', 'Efetivo total do batalhão', 'Efetivo total do CRPM da região', 'Exonerações', 'Demissões', 'Movimentações', 'Situação média', 'Déficit apurado'],
     tableRows: [],
     battalionTotals: {
       '1º BPM': 277, '2º BPM': 536, '3º BPM': 405, '4º BPM': 213, '5º BPM': 366,
@@ -429,7 +429,7 @@ const metricDetails = {
       '29º BPM': [1, 1], '30º BPM': [1, 1], '31º BPM': [2, 0], '32º BPM': [0, 1],
       '33º BPM': [1, 4], '34º BPM': [5, 1]
     },
-    note: 'A base consolidada de efetivo informa os 34 BPMs e os oito CRPMs, totalizando 9.956 policiais, sem divergências nas somas regionais. O déficit territorial apurado de 343 policiais reúne 111 perdas líquidas nas movimentações e 232 desligamentos administrativos nominalmente vinculados aos BPMs — 62 exonerações e 170 demissões. As 207 aposentadorias permanecem visíveis como referência estratégica, mas não entram no cálculo por batalhão porque a fonte não informa a unidade de origem. Outros 94 desligamentos administrativos da base nominal pertencem a comandos, unidades especializadas e demais OPMs e, por isso, não foram redistribuídos entre os BPMs.'
+    note: 'A base consolidada de efetivo informa os 34 BPMs e os oito CRPMs, totalizando 9.956 policiais, sem divergências nas somas regionais. Para cada batalhão, a situação média é calculada por saldo das movimentações − exonerações − demissões. O conjunto passa de +90 nas movimentações para −142 após descontar os 232 desligamentos administrativos vinculados aos BPMs. A soma somente dos resultados negativos produz déficit territorial apurado de 254 policiais. As aposentadorias foram retiradas desta análise por batalhão. Outros 94 desligamentos administrativos pertencem a comandos, unidades especializadas e demais OPMs e não foram redistribuídos.'
   },
   copac: {
     accent: '#2f855a',
@@ -553,7 +553,7 @@ const battalionSortLabels = {
   situation: 'Situação média',
   exonerations: 'Exonerações',
   dismissals: 'Demissões',
-  movementLoss: 'Movimentações',
+  movementBalance: 'Movimentações',
   calculatedDeficit: 'Déficit apurado'
 };
 let battalionSortState = { field: 'calculatedDeficit', direction: 'desc' };
@@ -562,18 +562,17 @@ function getBattalionTableRecords() {
   return metricDetails.pog.units.map(([name, , , balance]) => {
     const crpm = metricDetails.battalions.crpmByUnit[name];
     const [exonerations = 0, dismissals = 0] = metricDetails.battalions.administrativeExits[name] || [];
-    const movementLoss = Math.max(0, -balance);
+    const situation = balance - exonerations - dismissals;
     return {
       name,
       battalionStrength: metricDetails.battalions.battalionTotals[name] ?? null,
       crpm,
       crpmStrength: metricDetails.battalions.crpmTotals[crpm] ?? null,
-      situation: balance,
+      movementBalance: balance,
+      situation,
       exonerations,
       dismissals,
-      movementLoss,
-      retirements: null,
-      calculatedDeficit: exonerations + dismissals + movementLoss
+      calculatedDeficit: Math.max(0, -situation)
     };
   });
 }
@@ -603,6 +602,11 @@ function renderBattalionExitValue(total, note, unavailable = false) {
     : `<span class="battalion-exit-value"><strong>${total.toLocaleString('pt-BR')}</strong><small>${note}</small></span>`;
 }
 
+function renderBattalionSignedValue(total, note) {
+  const value = total > 0 ? `+${total.toLocaleString('pt-BR')}` : total.toLocaleString('pt-BR');
+  return `<span class="battalion-exit-value"><strong>${value}</strong><small>${note}</small></span>`;
+}
+
 function buildBattalionTableRows(field = 'situation', direction = 'asc') {
   const rows = getBattalionTableRecords()
     .sort((a, b) => compareBattalionRecords(a, b, field, direction))
@@ -611,24 +615,22 @@ function buildBattalionTableRows(field = 'situation', direction = 'asc') {
       record.name,
       renderBattalionStrengthValue(record.battalionStrength, record.battalionStrength == null ? 'sem dado na fonte' : 'policiais'),
       renderBattalionStrengthValue(record.crpmStrength, record.crpm),
-      record.situation > 0 ? `+${record.situation}` : String(record.situation),
       renderBattalionExitValue(record.exonerations, 'saídas'),
       renderBattalionExitValue(record.dismissals, 'saídas'),
-      renderBattalionExitValue(record.movementLoss, 'perda líquida'),
-      renderBattalionExitValue(0, 'sem OPM de origem', true),
-      renderBattalionExitValue(record.calculatedDeficit, 'territorial')
+      renderBattalionSignedValue(record.movementBalance, 'saldo'),
+      renderBattalionSignedValue(record.situation, 'saldo consolidado'),
+      renderBattalionExitValue(record.calculatedDeficit, 'resultado negativo')
     ]);
   rows.push([
     '—',
     'TOTAL DOS 34 BPMs',
     renderBattalionStrengthValue(9956, 'policiais'),
     renderBattalionStrengthValue(9956, '8 CRPMs únicos'),
-    '+90',
     renderBattalionExitValue(62, 'saídas'),
     renderBattalionExitValue(170, 'saídas'),
-    renderBattalionExitValue(111, 'perda líquida'),
-    renderBattalionExitValue(207, 'sem distribuição'),
-    renderBattalionExitValue(343, 'não inclui aposentadorias')
+    renderBattalionSignedValue(90, 'saldo'),
+    renderBattalionSignedValue(-142, 'saldo consolidado'),
+    renderBattalionExitValue(254, '22 BPMs negativos')
   ]);
   return rows;
 }
@@ -1115,7 +1117,7 @@ function renderMetricDetail(key) {
       <div class="detail-section-heading"><div><h3>${data.sectionTitle}</h3><p>${data.sectionSubtitle}</p></div><span>Dados discriminados</span></div>
       ${battalionSortControls}
       ${key === 'battalions' ? `<div id="battalionTableResult">${detailTable}</div>` : detailTable}
-      ${key === 'battalions' ? '<p class="battalion-table-source-note"><strong>Leitura do déficit:</strong> 343 perdas territorialmente apuradas = 111 perdas líquidas nas movimentações + 62 exonerações + 170 demissões. As 207 aposentadorias não foram rateadas entre os batalhões porque a fonte não identifica a unidade de origem; por isso, permanecem fora do déficit territorial.</p>' : ''}
+      ${key === 'battalions' ? '<p class="battalion-table-source-note"><strong>Leitura do déficit:</strong> situação média = saldo das movimentações − exonerações − demissões. A soma dos resultados negativos de 22 BPMs é 254 policiais. As aposentadorias foram retiradas deste cálculo por enquanto.</p>' : ''}
     </section>`;
   metricDetailContent.innerHTML = `
     <div class="detail-hero-grid">
@@ -1183,7 +1185,7 @@ metricDetailContent.addEventListener('click', (event) => {
     const field = battalionSortButton.dataset.battalionSort;
     if (field !== battalionSortState.field) {
       battalionSortState.field = field;
-      battalionSortState.direction = ['battalionStrength', 'crpmStrength', 'exonerations', 'dismissals', 'movementLoss', 'calculatedDeficit'].includes(field) ? 'desc' : 'asc';
+      battalionSortState.direction = ['battalionStrength', 'crpmStrength', 'exonerations', 'dismissals', 'calculatedDeficit'].includes(field) ? 'desc' : 'asc';
     }
     updateBattalionTable();
   }

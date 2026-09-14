@@ -441,9 +441,10 @@ body.modal-open { overflow: hidden; }
 .battalion-sort-direction { display: flex; min-width: 124px; min-height: 38px; padding: 6px 10px; align-items: center; justify-content: center; gap: 7px; border: 1px solid #77ad8e; border-radius: 19px; color: #145c40; background: #fff; font-size: 8.5px; font-weight: 800; cursor: pointer; }
 .battalion-sort-direction b { display: grid; width: 23px; height: 23px; place-items: center; border-radius: 50%; color: #fff; background: #23794f; font-size: 13px; }
 .battalion-sort-status { margin: 9px 0 0; color: #647a6e; font-size: 8.5px; font-weight: 680; text-align: right; }
-#metricDetailContent[data-detail="battalions"] .detail-table { min-width: 1390px; }
+#metricDetailContent[data-detail="battalions"] .detail-table { min-width: 1490px; }
 #metricDetailContent[data-detail="battalions"] .detail-table th:nth-child(3),
-#metricDetailContent[data-detail="battalions"] .detail-table th:nth-child(4) { min-width: 145px; }
+#metricDetailContent[data-detail="battalions"] .detail-table th:nth-child(4),
+#metricDetailContent[data-detail="battalions"] .detail-table th:nth-child(5) { min-width: 145px; }
 #metricDetailContent[data-detail="battalions"] .detail-table th:nth-child(n+5) { min-width: 92px; }
 #metricDetailContent[data-detail="battalions"] .detail-table tbody tr:last-child td { border-top: 2px solid #23794f; background: #e4f2e9; font-weight: 850; }
 #metricDetailContent[data-detail="battalions"] .detail-table tbody tr:last-child td:nth-child(2) { color: #0d5136; }

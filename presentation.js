@@ -388,7 +388,7 @@ const metricDetails = {
     ],
     sectionTitle: 'Visão geral por batalhão',
     sectionSubtitle: 'A situação média considera o saldo das movimentações menos as exonerações e demissões de cada BPM. O déficit apurado corresponde somente aos resultados negativos.',
-    tableColumns: ['Posição', 'Batalhão / cidades', 'Efetivo do batalhão', 'Efetivo total do CRPM', 'Exonerações', 'Demissões', 'Movimentações', 'Situação média', 'Déficit apurado'],
+    tableColumns: ['Posição', 'Batalhão / cidades', 'Efetivo do batalhão', 'Efetivo médio do CRPM', 'Efetivo total do CRPM', 'Exonerações', 'Demissões', 'Movimentações', 'Situação média', 'Déficit apurado'],
     tableRows: [],
     battalionTotals: {
       '1º BPM': 277, '2º BPM': 536, '3º BPM': 405, '4º BPM': 213, '5º BPM': 366,
@@ -551,6 +551,7 @@ const metricDetails = {
 const battalionSortLabels = {
   unit: 'Batalhão',
   battalionStrength: 'Efetivo do batalhão',
+  crpmAverage: 'Efetivo médio do CRPM',
   crpmStrength: 'Efetivo do CRPM',
   situation: 'Situação média',
   exonerations: 'Exonerações',
@@ -559,6 +560,11 @@ const battalionSortLabels = {
   calculatedDeficit: 'Déficit apurado'
 };
 let battalionSortState = { field: 'calculatedDeficit', direction: 'desc' };
+
+const battalionsPerCrpm = Object.values(metricDetails.battalions.crpmByUnit).reduce((counts, crpm) => {
+  counts[crpm] = (counts[crpm] || 0) + 1;
+  return counts;
+}, {});
 
 function getBattalionTableRecords() {
   return metricDetails.pog.units.map(([name, , , balance]) => {
@@ -570,6 +576,7 @@ function getBattalionTableRecords() {
       battalionStrength: metricDetails.battalions.battalionTotals[name] ?? null,
       crpm,
       crpmStrength: metricDetails.battalions.crpmTotals[crpm] ?? null,
+      crpmAverage: metricDetails.battalions.crpmTotals[crpm] / battalionsPerCrpm[crpm],
       movementBalance: balance,
       situation,
       exonerations,
@@ -598,6 +605,11 @@ function renderBattalionStrengthValue(total, note) {
     : `<span class="battalion-strength-value"><strong>${total.toLocaleString('pt-BR')}</strong><small>${note}</small></span>`;
 }
 
+function renderBattalionAverageValue(total, note) {
+  const formatted = total.toLocaleString('pt-BR', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+  return `<span class="battalion-strength-value"><strong>${formatted}</strong><small>${note}</small></span>`;
+}
+
 function renderBattalionExitValue(total, note, unavailable = false) {
   return unavailable
     ? `<span class="battalion-exit-value is-unavailable"><strong>—</strong><small>${note}</small></span>`
@@ -616,6 +628,7 @@ function buildBattalionTableRows(field = 'situation', direction = 'asc') {
       String(index + 1),
       record.name,
       renderBattalionStrengthValue(record.battalionStrength, record.battalionStrength == null ? 'sem dado na fonte' : 'policiais'),
+      renderBattalionAverageValue(record.crpmAverage, `${record.crpm} · ${battalionsPerCrpm[record.crpm]} BPMs`),
       renderBattalionStrengthValue(record.crpmStrength, record.crpm),
       renderBattalionExitValue(record.exonerations, 'saídas'),
       renderBattalionExitValue(record.dismissals, 'saídas'),
@@ -627,6 +640,7 @@ function buildBattalionTableRows(field = 'situation', direction = 'asc') {
     '—',
     'TOTAL DOS 34 BPMs',
     renderBattalionStrengthValue(9956, 'policiais'),
+    renderBattalionAverageValue(9956 / 34, 'média geral por BPM'),
     renderBattalionStrengthValue(9956, '8 CRPMs únicos'),
     renderBattalionExitValue(62, 'saídas'),
     renderBattalionExitValue(170, 'saídas'),
@@ -1187,7 +1201,7 @@ metricDetailContent.addEventListener('click', (event) => {
     const field = battalionSortButton.dataset.battalionSort;
     if (field !== battalionSortState.field) {
       battalionSortState.field = field;
-      battalionSortState.direction = ['battalionStrength', 'crpmStrength', 'exonerations', 'dismissals', 'calculatedDeficit'].includes(field) ? 'desc' : 'asc';
+      battalionSortState.direction = ['battalionStrength', 'crpmAverage', 'crpmStrength', 'exonerations', 'dismissals', 'calculatedDeficit'].includes(field) ? 'desc' : 'asc';
     }
     updateBattalionTable();
   }

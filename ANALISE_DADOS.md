@@ -16,7 +16,7 @@ Fontes analisadas:
 
 | Aba | Total utilizado no card | Composição principal |
 |---|---:|---|
-| Saídas de efetivo dos batalhões | 232 saídas validadas | 170 demissões e 62 exonerações vinculadas diretamente aos 34 BPMs |
+| Saídas gerais de efetivo | 328 saídas sem duplicidades | 245 demissões e 83 exonerações; 232 registros vinculados diretamente aos 34 BPMs |
 | RAIO — Necessidade de efetivo para compor as 20 bases satélites em 3 níveis de implementação | 912 policiais | 20 oficiais e 892 praças |
 | POG + Companhia Pronta-Resposta (COTAM) + BPTUR | 271 policiais | 111 de déficit nos 34 BPMs territoriais, 110 para a COTAM e 50 para a 6ª Cia/BPTUR |
 | COPAC/PReVio — Efetivo mínimo das bases cidadãs | 360 policiais | 12 bases × 30 policiais; projeção bruta, sem dedução de efetivo disponível |
@@ -27,8 +27,8 @@ Fontes analisadas:
 ## Principais achados
 
 - POG significa Policiamento Ostensivo Geral, atividade voltada ao atendimento de ocorrências e à maior visibilidade da Polícia Militar perante a sociedade.
-- A fonte consolidada registra 340 demissões e exonerações. A validação nominal identificou 12 duplicidades e dois registros sem detalhamento extraível, resultando em 326 registros únicos analisáveis. Desses, 232 estão vinculados diretamente aos 34 BPMs — 170 demissões e 62 exonerações — e 94 pertencem a comandos, unidades especializadas e demais OPMs.
-- O card de saídas e a análise situacional utilizam o mesmo recorte territorial de 232 registros. As aposentadorias permanecem fora desse cálculo por enquanto.
+- A fonte consolidada registra 340 demissões e exonerações. Retirando somente as 12 duplicidades, a contabilidade geral fica em 328 saídas — 245 demissões e 83 exonerações.
+- A análise situacional utiliza o recorte territorial de 232 registros vinculados aos 34 BPMs. Os 96 registros restantes são mantidos na contabilidade geral, mas não redistribuídos entre os batalhões: 94 pertencem a outras OPMs e dois não possuem vínculo nominal extraível. As aposentadorias permanecem fora desse cálculo por enquanto.
 - Na relação individualizada, 326 registros únicos possuem origem identificável, distribuídos por 65 OPMs e 53 municípios. No recorte visual por batalhão, o 12º BPM — Caucaia (Centro · Cumbuco) lidera com 17 registros; Fortaleza concentra 153 registros no recorte municipal.
 - As 20 bases satélite projetam 912 policiais: 783 no emprego operacional, 60 na guarda, 49 em funções administrativas e 20 oficiais. O componente operacional corresponde a 85,9% do total.
 - No recorte territorial, 34 BPMs foram analisados: 12 apresentaram saldo negativo, 20 ganho líquido e dois equilíbrio. A soma das perdas é 111 policiais.
@@ -52,6 +52,6 @@ Fontes analisadas:
 - O COPAC informa não dispor do cronograma das obras, inauguração e disponibilização do mobiliário; essas informações deverão ser obtidas junto ao PReVio.
 - Os quantitativos das bases satélite e do COPAC não devem ser somados sem confirmação de que os escopos de efetivo são independentes.
 - O valor de 207 foi classificado como aposentadorias por orientação do projeto, utilizando a aba de promoções requeridas como referência estratégica. A fonte original registra promoções requeridas, não atos individuais de aposentadoria.
-- A reconciliação da relação cumulativa entre 01/01 e 10/08/2026 demonstra integralmente os 340 registros: 326 registros nominais únicos, 12 duplicidades e duas demissões sem detalhamento nominal extraível. Dentro da base validada, 232 registros pertencem aos 34 BPMs e 94 a outras OPMs.
+- A reconciliação da relação cumulativa entre 01/01 e 10/08/2026 demonstra integralmente os 340 lançamentos: 328 registros na contabilidade geral após retirar 12 duplicidades. Dentro desse total, 232 pertencem aos 34 BPMs e 96 ficam fora do recorte territorial.
 - A base atual não informa a OPM de origem das 207 aposentadorias; por isso, o ranking territorial cobre apenas demissões e exonerações.
 - As médias dos comandos podem produzir diferenças analíticas fracionárias. No painel, cada necessidade positiva da reestruturação é arredondada para cima e exibida como efetivo inteiro; o resultado não deve ser interpretado como quantitativo já autorizado para movimentação.

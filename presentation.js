@@ -44,7 +44,7 @@ function renderDismissalsChart() {
   document.querySelector('#mainChart').innerHTML = `
     <div class="chart-key">${key}</div>
     <div class="bar-stage" style="--count:8">${groups}</div>
-    <div class="chart-source-note">A série contextualiza os 340 registros gerais. Após validação nominal e recorte territorial, 232 saídas pertencem aos 34 BPMs.</div>`;
+    <div class="chart-source-note">A série contextualiza os 340 registros lançados. Após retirar 12 duplicidades, a contabilidade geral é de 328 saídas.</div>`;
 }
 
 function renderPromotions() {
@@ -113,31 +113,31 @@ function renderOrigins() {
 const metricDetails = {
   exits: {
     accent: '#23845b',
-    eyebrow: 'Memória de cálculo · saídas dos batalhões',
-    title: '232 saídas de efetivo nos 34 batalhões',
-    total: '232',
-    unit: 'saídas validadas',
-    description: 'Recorte nominal deduplicado das exonerações e demissões vinculadas diretamente aos 34 BPMs territoriais, utilizando a mesma abrangência da análise situacional.',
+    eyebrow: 'Memória de cálculo · saídas gerais',
+    title: '328 saídas gerais de efetivo',
+    total: '328',
+    unit: 'saídas sem duplicidades',
+    description: 'Contabilidade geral das exonerações e demissões da PMCE após retirar exclusivamente os 12 registros duplicados da base consolidada.',
     stats: [
-      ['Demissões nos BPMs', '170', '73,3% das 232 saídas territoriais'],
-      ['Exonerações nos BPMs', '62', '26,7% das 232 saídas territoriais'],
-      ['Demais OPMs', '94', 'Registros válidos fora dos 34 BPMs'],
-      ['Registros retirados', '14', '12 duplicidades · 2 sem detalhamento extraível']
+      ['Demissões gerais', '245', '74,7% das 328 saídas'],
+      ['Exonerações gerais', '83', '25,3% das 328 saídas'],
+      ['Recorte dos 34 BPMs', '232', '62 exonerações · 170 demissões'],
+      ['Fora dos 34 BPMs', '96', '94 de outras OPMs · 2 sem vínculo extraível']
     ],
     breakdown: [
-      ['Demissões — outros concursos', 73.3, '170 · 73,3%', '#1b8258'],
-      ['Exonerações — outros concursos', 26.7, '62 · 26,7%', '#698342']
+      ['Demissões — outros concursos', 74.7, '245 · 74,7%', '#1b8258'],
+      ['Exonerações — outros concursos', 25.3, '83 · 25,3%', '#698342']
     ],
     sectionTitle: 'Reconciliação da base de saídas',
-    sectionSubtitle: 'A tabela demonstra a passagem dos 340 registros gerais para as 232 saídas únicas vinculadas aos 34 batalhões.',
+    sectionSubtitle: 'A tabela demonstra a contabilidade geral sem duplicidades e separa o recorte utilizado na análise dos 34 batalhões.',
     tableColumns: ['Etapa de validação', 'Exonerações', 'Demissões', 'Total'],
     tableRows: [
       ['Registros gerais consolidados', '88', '252', '340'],
-      ['Base nominal validada', '83', '243', '326'],
-      ['Comandos, especializadas e demais OPMs', '21', '73', '94'],
+      ['Contabilidade geral sem duplicidades', '83', '245', '328'],
+      ['Fora dos 34 BPMs', '21', '75', '96'],
       ['Recorte final dos 34 BPMs', '62', '170', '232']
     ],
-    note: 'Validação da relação cumulativa de janeiro a agosto de 2026: 340 registros gerais = 326 registros nominais únicos + 12 duplicidades + 2 demissões sem detalhamento nominal extraível. Dos 326 registros válidos, 232 pertencem diretamente aos 34 BPMs e 94 a comandos, unidades especializadas e demais OPMs. As aposentadorias foram retiradas deste indicador por enquanto. Assim, o total de 232 utilizado neste card coincide exatamente com 62 exonerações + 170 demissões incorporadas à análise situacional dos batalhões.'
+    note: 'Validação da relação cumulativa de janeiro a agosto de 2026: 340 registros gerais − 12 duplicidades = 328 saídas. A contabilidade geral é formada por 83 exonerações e 245 demissões. Deste total, 232 registros estão vinculados aos 34 BPMs e alimentam a análise situacional; os outros 96 permanecem fora do cálculo territorial — 94 pertencem a comandos, unidades especializadas e demais OPMs e dois não possuem vínculo nominal extraível. As aposentadorias continuam fora deste indicador por enquanto.'
   },
   raio: {
     accent: '#3b7e9d',

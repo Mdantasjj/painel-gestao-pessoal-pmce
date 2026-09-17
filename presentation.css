@@ -114,7 +114,7 @@ svg { display: block; }
 .metric-card--interactive:hover::after, .metric-card--interactive:focus-visible::after { opacity: 1; transform: scaleX(1); }
 .metric-card--interactive:focus-visible { outline: 3px solid color-mix(in srgb, var(--accent), transparent 68%); outline-offset: 3px; }
 .metric-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 15px; color: #fff; font-family: inherit; font-size: clamp(13px, .86vw, 15px); font-weight: 720; letter-spacing: normal; }
-.metric-top > span { max-width: calc(100% - 58px); padding: 7px 11px; border-radius: 8px; line-height: 1.25; background: linear-gradient(110deg, var(--accent), color-mix(in srgb, var(--accent), #0a3928 28%)); box-shadow: 0 5px 12px color-mix(in srgb, var(--accent), transparent 75%); }
+.metric-top > span { max-width: calc(100% - 58px); padding: 7px 11px; border-radius: 8px; line-height: 1.25; text-transform: uppercase; background: linear-gradient(110deg, var(--accent), color-mix(in srgb, var(--accent), #0a3928 28%)); box-shadow: 0 5px 12px color-mix(in srgb, var(--accent), transparent 75%); }
 .metric-icon { display: grid; width: 44px; height: 44px; flex: 0 0 auto; place-items: center; border: 1px solid color-mix(in srgb, var(--accent), #fff 64%); border-radius: 12px; color: var(--accent); background: rgba(255,255,255,.82); box-shadow: 0 5px 12px rgba(17, 70, 46, .12); }
 .metric-icon svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.7; }
 .metric-icon--emblem { width: 44px; height: 44px; overflow: hidden; border: 1px solid #fff; border-radius: 50%; background: #fff; box-shadow: 0 3px 9px rgba(17, 61, 83, .16); }

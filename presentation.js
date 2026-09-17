@@ -388,7 +388,7 @@ const metricDetails = {
     ],
     sectionTitle: 'Visão geral por batalhão',
     sectionSubtitle: 'A reestruturação necessidade corresponde aos resultados negativos após considerar movimentações, exonerações e demissões de cada BPM.',
-    tableColumns: ['Posição', 'Batalhão / cidades', 'Efetivo do batalhão', 'Efetivo médio do CRPM', 'Efetivo total do CRPM', 'Efetivo de licença saúde', 'Exonerações', 'Demissões', 'Movimentações', 'Reestruturação necessidade'],
+    tableColumns: ['Posição', 'Batalhão / cidades', 'Efetivo do batalhão', 'Exonerações', 'Demissões', 'Movimentações', 'Reestruturação necessidade'],
     tableRows: [],
     battalionTotals: {
       '1º BPM': 277, '2º BPM': 536, '3º BPM': 405, '4º BPM': 213, '5º BPM': 366,
@@ -560,9 +560,6 @@ const metricDetails = {
 const battalionSortLabels = {
   unit: 'Batalhão',
   battalionStrength: 'Efetivo do batalhão',
-  crpmAverage: 'Efetivo médio do CRPM',
-  crpmStrength: 'Efetivo do CRPM',
-  healthLeave: 'Efetivo de licença saúde',
   exonerations: 'Exonerações',
   dismissals: 'Demissões',
   movementBalance: 'Movimentações',
@@ -638,9 +635,6 @@ function buildBattalionTableRows(field = 'situation', direction = 'asc') {
       String(index + 1),
       record.name,
       renderBattalionStrengthValue(record.battalionStrength, record.battalionStrength == null ? 'sem dado na fonte' : 'policiais'),
-      renderBattalionAverageValue(record.crpmAverage, `${record.crpm} · ${battalionsPerCrpm[record.crpm]} BPMs`),
-      renderBattalionStrengthValue(record.crpmStrength, record.crpm),
-      renderBattalionStrengthValue(record.healthLeave, 'LTS + agregados > 1 ano'),
       renderBattalionExitValue(record.exonerations, 'saídas'),
       renderBattalionExitValue(record.dismissals, 'saídas'),
       renderBattalionSignedValue(record.movementBalance, 'saldo'),
@@ -650,9 +644,6 @@ function buildBattalionTableRows(field = 'situation', direction = 'asc') {
     '—',
     'TOTAL DOS 34 BPMs',
     renderBattalionStrengthValue(9956, 'policiais'),
-    renderBattalionAverageValue(Math.round(9956 / 34), 'média geral por BPM'),
-    renderBattalionStrengthValue(9956, '8 CRPMs únicos'),
-    renderBattalionStrengthValue(726, '34 BPMs'),
     renderBattalionExitValue(62, 'saídas'),
     renderBattalionExitValue(170, 'saídas'),
     renderBattalionSignedValue(90, 'saldo'),
@@ -1242,7 +1233,7 @@ function renderMetricDetail(key) {
       <div class="detail-section-heading"><div><h3>${data.sectionTitle}</h3><p>${data.sectionSubtitle}</p></div><span>Dados discriminados</span></div>
       ${battalionSortControls}
       ${key === 'battalions' ? `<div id="battalionTableResult">${detailTable}</div>` : detailTable}
-      ${key === 'battalions' ? '<p class="battalion-table-source-note"><strong>Leitura da necessidade:</strong> o cálculo considera saldo das movimentações − exonerações − demissões. A coluna Reestruturação necessidade apresenta somente os resultados negativos: 254 policiais em 22 BPMs. As aposentadorias foram retiradas deste cálculo por enquanto. <strong>Licença saúde:</strong> 726 militares vinculados aos 34 BPMs — 645 em LTS própria/dependente e 81 agregados por mais de um ano em LTS; esse quantitativo ainda não altera o cálculo.</p>' : ''}
+      ${key === 'battalions' ? '<p class="battalion-table-source-note"><strong>Leitura da necessidade:</strong> o cálculo considera saldo das movimentações − exonerações − demissões. A coluna Reestruturação necessidade apresenta somente os resultados negativos: 254 policiais em 22 BPMs. As aposentadorias foram retiradas deste cálculo por enquanto. Os dados regionais e as 726 licenças saúde permanecem disponíveis no quadro Situação atual da unidade, sem alterar esse cálculo.</p>' : ''}
     </section>`;
   metricDetailContent.innerHTML = `
     <div class="detail-hero-grid">
@@ -1311,7 +1302,7 @@ metricDetailContent.addEventListener('click', (event) => {
     const field = battalionSortButton.dataset.battalionSort;
     if (field !== battalionSortState.field) {
       battalionSortState.field = field;
-      battalionSortState.direction = ['battalionStrength', 'crpmAverage', 'crpmStrength', 'healthLeave', 'exonerations', 'dismissals', 'calculatedDeficit'].includes(field) ? 'desc' : 'asc';
+      battalionSortState.direction = ['battalionStrength', 'exonerations', 'dismissals', 'calculatedDeficit'].includes(field) ? 'desc' : 'asc';
     }
     updateBattalionTable();
   }

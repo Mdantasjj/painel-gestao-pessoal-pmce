@@ -44,7 +44,7 @@ function renderDismissalsChart() {
   document.querySelector('#mainChart').innerHTML = `
     <div class="chart-key">${key}</div>
     <div class="bar-stage" style="--count:8">${groups}</div>
-    <div class="chart-source-note">A série contextualiza os 340 registros lançados. Após retirar 12 duplicidades, a contabilidade geral é de 328 saídas.</div>`;
+    <div class="chart-source-note">A série contextualiza as 328 saídas confirmadas. As 207 requeridas são apresentadas separadamente, totalizando 535 registros no indicador.</div>`;
 }
 
 function renderPromotions() {
@@ -113,31 +113,32 @@ function renderOrigins() {
 const metricDetails = {
   exits: {
     accent: '#23845b',
-    eyebrow: 'Memória de cálculo · saídas gerais',
-    title: '328 saídas gerais de efetivo',
-    total: '328',
-    unit: 'saídas sem duplicidades',
-    description: 'Contabilidade geral das exonerações e demissões da PMCE após retirar exclusivamente os 12 registros duplicados da base consolidada.',
+    eyebrow: 'Memória de cálculo · perda de efetivo',
+    title: '535 registros consolidados de perda de efetivo',
+    total: '535',
+    unit: 'registros consolidados',
+    description: 'Indicador formado por 328 saídas confirmadas sem duplicidades e 207 requeridas, mantidas separadas por ainda não possuírem unidade de origem territorial identificada.',
     stats: [
-      ['Demissões gerais', '245', '74,7% das 328 saídas'],
-      ['Exonerações gerais', '83', '25,3% das 328 saídas'],
-      ['Recorte dos 34 BPMs', '232', '62 exonerações · 170 demissões'],
-      ['Fora dos 34 BPMs', '96', '94 de outras OPMs · 2 sem vínculo extraível']
+      ['Demissões gerais', '245', '45,8% dos 535 registros'],
+      ['Exonerações gerais', '83', '15,5% dos 535 registros'],
+      ['Requeridas', '207', '38,7% · sem OPM de origem'],
+      ['Saídas nos 34 BPMs', '232', '62 exonerações · 170 demissões']
     ],
     breakdown: [
-      ['Demissões — outros concursos', 74.7, '245 · 74,7%', '#1b8258'],
-      ['Exonerações — outros concursos', 25.3, '83 · 25,3%', '#698342']
+      ['Demissões — outros concursos', 45.8, '245 · 45,8%', '#145c40'],
+      ['Exonerações — outros concursos', 15.5, '83 · 15,5%', '#3d9065'],
+      ['Requeridas', 38.7, '207 · 38,7%', '#698342']
     ],
     sectionTitle: 'Reconciliação da base de saídas',
-    sectionSubtitle: 'A tabela demonstra a contabilidade geral sem duplicidades e separa o recorte utilizado na análise dos 34 batalhões.',
-    tableColumns: ['Etapa de validação', 'Exonerações', 'Demissões', 'Total'],
+    sectionSubtitle: 'A tabela demonstra as saídas sem duplicidades, acrescenta as requeridas e separa o recorte utilizado na análise dos 34 batalhões.',
+    tableColumns: ['Etapa de validação', 'Exonerações', 'Demissões', 'Requeridas', 'Total'],
     tableRows: [
-      ['Registros gerais consolidados', '88', '252', '340'],
-      ['Contabilidade geral sem duplicidades', '83', '245', '328'],
-      ['Fora dos 34 BPMs', '21', '75', '96'],
-      ['Recorte final dos 34 BPMs', '62', '170', '232']
+      ['Registros gerais consolidados', '88', '252', '207', '547'],
+      ['Contabilidade após retirar duplicidades', '83', '245', '207', '535'],
+      ['Fora dos 34 BPMs', '21', '75', '—', '96'],
+      ['Recorte final dos 34 BPMs', '62', '170', '—', '232']
     ],
-    note: 'Validação da relação cumulativa de janeiro a agosto de 2026: 340 registros gerais − 12 duplicidades = 328 saídas. A contabilidade geral é formada por 83 exonerações e 245 demissões. Deste total, 232 registros estão vinculados aos 34 BPMs e alimentam a análise situacional; os outros 96 permanecem fora do cálculo territorial — 94 pertencem a comandos, unidades especializadas e demais OPMs e dois não possuem vínculo nominal extraível. As aposentadorias continuam fora deste indicador por enquanto.'
+    note: 'Validação da relação cumulativa de janeiro a agosto de 2026: 340 registros de exonerações e demissões − 12 duplicidades = 328 saídas confirmadas. A este resultado são acrescentadas 207 requeridas, totalizando 535 registros no indicador. As requeridas permanecem separadas do recorte territorial porque a fonte não informa a OPM de origem. Entre as 328 saídas confirmadas, 232 estão vinculadas aos 34 BPMs; as outras 96 ficam fora do cálculo por batalhão — 94 pertencem a outras OPMs e duas não possuem vínculo nominal extraível.'
   },
   raio: {
     accent: '#3b7e9d',
@@ -440,7 +441,7 @@ const metricDetails = {
       '26º BPM': 12, '27º BPM': 7, '28º BPM': 7, '29º BPM': 14, '30º BPM': 14,
       '31º BPM': 9, '32º BPM': 12, '33º BPM': 2, '34º BPM': 3
     },
-    note: 'A base consolidada de efetivo informa os 34 BPMs e os oito CRPMs, totalizando 9.956 policiais, sem divergências nas somas regionais. Para cada batalhão, a situação média é calculada por saldo das movimentações − exonerações − demissões. O conjunto passa de +90 nas movimentações para −142 após descontar os 232 desligamentos administrativos vinculados aos BPMs. A soma somente dos resultados negativos produz déficit territorial apurado de 254 policiais. As aposentadorias foram retiradas desta análise por batalhão. Outros 94 desligamentos administrativos pertencem a comandos, unidades especializadas e demais OPMs e não foram redistribuídos.'
+    note: 'A base consolidada de efetivo informa os 34 BPMs e os oito CRPMs, totalizando 9.956 policiais, sem divergências nas somas regionais. Para cada batalhão, a situação média é calculada por saldo das movimentações − exonerações − demissões. O conjunto passa de +90 nas movimentações para −142 após descontar os 232 desligamentos administrativos vinculados aos BPMs. A soma somente dos resultados negativos produz déficit territorial apurado de 254 policiais. As 207 requeridas permanecem fora desta análise por batalhão porque a fonte não informa a unidade de origem. Outros 94 desligamentos administrativos pertencem a comandos, unidades especializadas e demais OPMs e não foram redistribuídos.'
   },
   copac: {
     accent: '#2f855a',
@@ -1411,7 +1412,7 @@ function renderMetricDetail(key) {
       <div class="detail-section-heading"><div><h3>${data.sectionTitle}</h3><p>${data.sectionSubtitle}</p></div><span>Dados discriminados</span></div>
       ${battalionSortControls}
       ${key === 'battalions' ? `<div id="battalionTableResult">${detailTable}</div>` : detailTable}
-      ${key === 'battalions' ? '<p class="battalion-table-source-note"><strong>Leitura da necessidade:</strong> o cálculo considera saldo das movimentações − exonerações − demissões. A coluna Reestruturação necessidade apresenta somente os resultados negativos: 254 policiais em 22 BPMs. As aposentadorias foram retiradas deste cálculo por enquanto. Os dados regionais e as 726 licenças saúde permanecem disponíveis no quadro Situação atual da unidade, sem alterar esse cálculo.</p>' : ''}
+      ${key === 'battalions' ? '<p class="battalion-table-source-note"><strong>Leitura da necessidade:</strong> o cálculo considera saldo das movimentações − exonerações − demissões. A coluna Reestruturação necessidade apresenta somente os resultados negativos: 254 policiais em 22 BPMs. As 207 requeridas não entram neste cálculo porque a fonte não informa a unidade de origem. Os dados regionais e as 726 licenças saúde permanecem disponíveis no quadro Situação atual da unidade, sem alterar esse cálculo.</p>' : ''}
     </section>`;
   metricDetailContent.innerHTML = `
     <div class="detail-hero-grid">

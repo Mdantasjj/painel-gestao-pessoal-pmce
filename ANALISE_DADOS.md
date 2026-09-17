@@ -16,19 +16,18 @@ Fontes analisadas:
 
 | Aba | Total utilizado no card | Composição principal |
 |---|---:|---|
-| Saídas gerais de efetivo | 328 saídas sem duplicidades | 245 demissões e 83 exonerações; 232 registros vinculados diretamente aos 34 BPMs |
+| Perda de efetivo | 535 registros consolidados | 245 demissões, 83 exonerações e 207 requeridas; 232 saídas vinculadas diretamente aos 34 BPMs |
 | RAIO — Necessidade de efetivo para compor as 20 bases satélites em 3 níveis de implementação | 912 policiais | 20 oficiais e 892 praças |
 | Projeto de Efetivo 2027–2030 — Eixo POG + COTAM + BPTUR | 271 policiais | 111 de déficit nos 34 BPMs territoriais, 110 para a COTAM e 50 para a 6ª Cia/BPTUR |
 | COPAC/PReVio — Efetivo mínimo das bases cidadãs | 360 policiais | 12 bases × 30 policiais; projeção bruta, sem dedução de efetivo disponível |
 | Reestruturação dos batalhões do interior e do litoral | 525 policiais necessários | Necessidades dos 8 batalhões arredondadas individualmente para cima; 9 batalhões analisados, sendo 8 abaixo da média e 1 acima; RAIO excluído |
 | BATALHÕES - Análise situacional de Efetivo | 34 batalhões analisados | 22 em déficit, 11 com saldo positivo e 1 em equilíbrio; situação consolidada de −142 após incorporar exonerações e demissões |
-| Aposentadorias | 207 militares | Referência estratégica adotada: quantitativo das promoções requeridas |
 
 ## Principais achados
 
 - POG significa Policiamento Ostensivo Geral, atividade voltada ao atendimento de ocorrências e à maior visibilidade da Polícia Militar perante a sociedade.
-- A fonte consolidada registra 340 demissões e exonerações. Retirando somente as 12 duplicidades, a contabilidade geral fica em 328 saídas — 245 demissões e 83 exonerações.
-- A análise situacional utiliza o recorte territorial de 232 registros vinculados aos 34 BPMs. Os 96 registros restantes são mantidos na contabilidade geral, mas não redistribuídos entre os batalhões: 94 pertencem a outras OPMs e dois não possuem vínculo nominal extraível. As aposentadorias permanecem fora desse cálculo por enquanto.
+- A fonte consolidada registra 340 demissões e exonerações. Retirando somente as 12 duplicidades, a contabilidade geral fica em 328 saídas confirmadas — 245 demissões e 83 exonerações. O card acrescenta 207 requeridas, alcançando 535 registros consolidados.
+- A análise situacional utiliza o recorte territorial de 232 saídas vinculadas aos 34 BPMs. Os 96 registros restantes são mantidos na contabilidade geral, mas não redistribuídos entre os batalhões: 94 pertencem a outras OPMs e dois não possuem vínculo nominal extraível. As 207 requeridas também permanecem fora desse cálculo porque a fonte não informa a unidade de origem.
 - Na relação individualizada, 326 registros únicos possuem origem identificável, distribuídos por 65 OPMs e 53 municípios. No recorte visual por batalhão, o 12º BPM — Caucaia (Centro · Cumbuco) lidera com 17 registros; Fortaleza concentra 153 registros no recorte municipal.
 - As 20 bases satélite projetam 912 policiais: 783 no emprego operacional, 60 na guarda, 49 em funções administrativas e 20 oficiais. O componente operacional corresponde a 85,9% do total.
 - No recorte territorial, 34 BPMs foram analisados: 12 apresentaram saldo negativo, 20 ganho líquido e dois equilíbrio. A soma das perdas é 111 policiais.
@@ -41,7 +40,7 @@ Fontes analisadas:
 - Na análise integrada por batalhão, a situação média é calculada por `saldo das movimentações − exonerações − demissões`. O saldo conjunto de +90 passa a −142 depois de descontar 62 exonerações e 170 demissões territorialmente vinculadas. A soma dos resultados negativos de 22 BPMs é 254 policiais; 11 BPMs mantêm saldo positivo e um fica em equilíbrio.
 - O quadro transversal `Situação atual da unidade`, disponível nas quatro subpáginas principais, permite relacionar cada estudo à realidade consolidada dos 34 BPMs sem fundir universos metodológicos distintos. O cenário estrutural reproduz `saldo das movimentações − exonerações − demissões`; o cenário operacional indicativo desconta também LTS própria/dependente e agregados por mais de um ano em LTS. Como as fontes têm períodos de referência diferentes, o cenário operacional deve ser utilizado como sinal de pressão temporária, e não como efetivo oficial ou substituto dos cálculos originais de RAIO, POG, COPAC/PReVio, COTAM, BPTUR e reestruturação.
 - O card `PROJETO DE EFETIVO 2027–2030` funciona como contêiner de três eixos independentes: POG/COTAM/BPTUR, RAIO e COPAC/PReVio. Os valores de 271, 912 e 360 permanecem separados e não são somados no cabeçalho, pois as fontes não confirmam que os escopos de efetivo sejam integralmente independentes.
-- As 207 aposentadorias foram retiradas da tabela e do cálculo por batalhão enquanto a fonte não informar a unidade de origem. Outros 94 desligamentos administrativos pertencem a comandos, unidades especializadas e demais OPMs e não foram redistribuídos.
+- As 207 requeridas integram o total do card **PERDA DE EFETIVO**, mas permanecem fora da tabela e do cálculo por batalhão enquanto a fonte não informar a unidade de origem. Outros 94 desligamentos administrativos pertencem a comandos, unidades especializadas e demais OPMs e não foram redistribuídos.
 - O COPAC informa 12 bases cidadãs e padrão mínimo de 30 policiais por unidade, totalizando 360 policiais. A frota mínima consolidada é de 36 viaturas.
 - A composição consolidada prevê 96 policiais na guarda, 48 na reserva de armamento, 36 no GAVV, 36 no GSC, 36 no GPF, 36 no administrativo, 24 no GSE A, 24 no GSE B e 24 na mediação de conflitos.
 - Das 207 promoções requeridas, 153 correspondem ao acesso de SUBTEN PM a 2ºTEN QOAPM, representando 73,9% do total.
@@ -56,7 +55,7 @@ Fontes analisadas:
 - A projeção de 360 policiais do COPAC representa o efetivo mínimo bruto das 12 bases. O documento não informa efetivo já disponível que possa ser aproveitado e, portanto, não permite calcular o déficit líquido.
 - O COPAC informa não dispor do cronograma das obras, inauguração e disponibilização do mobiliário; essas informações deverão ser obtidas junto ao PReVio.
 - Os quantitativos das bases satélite e do COPAC não devem ser somados sem confirmação de que os escopos de efetivo são independentes.
-- O valor de 207 foi classificado como aposentadorias por orientação do projeto, utilizando a aba de promoções requeridas como referência estratégica. A fonte original registra promoções requeridas, não atos individuais de aposentadoria.
+- O valor de 207 passa a ser apresentado com o rótulo **Requeridas**, preservando a denominação vinculada à fonte de promoções requeridas e sem tratá-lo como saída individual consumada.
 - A reconciliação da relação cumulativa entre 01/01 e 10/08/2026 demonstra integralmente os 340 lançamentos: 328 registros na contabilidade geral após retirar 12 duplicidades. Dentro desse total, 232 pertencem aos 34 BPMs e 96 ficam fora do recorte territorial.
-- A base atual não informa a OPM de origem das 207 aposentadorias; por isso, o ranking territorial cobre apenas demissões e exonerações.
+- A base atual não informa a OPM de origem das 207 requeridas; por isso, o ranking territorial cobre apenas demissões e exonerações.
 - As médias dos comandos podem produzir diferenças analíticas fracionárias. No painel, cada necessidade positiva da reestruturação é arredondada para cima e exibida como efetivo inteiro; o resultado não deve ser interpretado como quantitativo já autorizado para movimentação.

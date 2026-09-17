@@ -46,7 +46,7 @@ A imagem fornecida para as saídas de efetivo está preservada em `assets/icone-
 
 ## Próxima etapa
 
-O primeiro dos quatro cards apresenta a contabilidade geral de **328 saídas de efetivo sem duplicidades**: 245 demissões e 83 exonerações. A base consolidada possui 340 lançamentos, dos quais 12 foram identificados como duplicados. Na subpágina, a reconciliação separa 232 registros vinculados aos 34 BPMs — utilizados na análise situacional — e 96 registros fora desse recorte, sendo 94 de outras OPMs e dois sem vínculo nominal extraível. As aposentadorias foram retiradas deste indicador por enquanto. Os demais cards apresentam o **PROJETO DE EFETIVO 2027–2030**, a reestruturação dos batalhões do interior e do litoral e a análise situacional de efetivo dos batalhões.
+O card **PERDA DE EFETIVO** apresenta a contabilidade geral de **328 saídas sem duplicidades**: 245 demissões e 83 exonerações. A base consolidada possui 340 lançamentos, dos quais 12 foram identificados como duplicados. Na subpágina, a reconciliação separa 232 registros vinculados aos 34 BPMs — utilizados na análise situacional — e 96 registros fora desse recorte, sendo 94 de outras OPMs e dois sem vínculo nominal extraível. As aposentadorias foram retiradas deste indicador por enquanto. Os demais cards apresentam o **PROJETO DE EFETIVO 2027–2030**, a reestruturação dos batalhões do interior e do litoral e a análise situacional de efetivo dos batalhões.
 
 No eixo POG/COTAM/BPTUR, os **160 policiais para implementação** permanecem discriminados: 110 para a COTAM (10 oficiais e 100 praças) e 50 para a 6ª Cia/BPTUR (02 oficiais e 48 praças). Esse quantitativo é adicional e não foi descontado nem redistribuído dos batalhões analisados no POG.
 

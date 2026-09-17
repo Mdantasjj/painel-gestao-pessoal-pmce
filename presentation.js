@@ -557,6 +557,56 @@ const metricDetails = {
   }
 };
 
+const workforceProjectOverview = {
+  accent: '#216f4c',
+  eyebrow: 'Planejamento estratégico · 2027–2030',
+  title: 'PROJETO DE EFETIVO 2027–2030',
+  total: '03',
+  unit: 'eixos estratégicos',
+  description: 'Organização integrada das necessidades de efetivo do POG/COTAM/BPTUR, das bases satélites do RAIO e das bases cidadãs do COPAC/PReVio, preservando cada memória de cálculo.',
+  stats: [
+    ['POG + COTAM + BPTUR', '271', '111 de déficit · 160 de implementação'],
+    ['RAIO', '912', '20 bases · três níveis de implementação'],
+    ['COPAC/PReVio', '360', '12 bases · três fases propostas']
+  ]
+};
+
+const workforceProjectStudies = [
+  {
+    key: 'pog',
+    eyebrow: 'Eixo 01 · policiamento e pronta resposta',
+    title: 'POG + COTAM + BPTUR',
+    description: 'Déficit localizado do POG e necessidades adicionais para implantação da COTAM e da 6ª Cia/BPTUR.',
+    value: '271',
+    unit: 'policiais',
+    meta: '111 POG · 110 COTAM · 50 BPTUR',
+    image: 'assets/icone-deficit-efetivo.png',
+    imageAlt: 'Ícone do eixo POG, COTAM e BPTUR'
+  },
+  {
+    key: 'raio',
+    eyebrow: 'Eixo 02 · expansão territorial',
+    title: 'RAIO — 20 bases satélites',
+    description: 'Necessidade projetada em três níveis de implementação e 31 municípios satélite.',
+    value: '912',
+    unit: 'policiais',
+    meta: '20 bases · três níveis',
+    image: 'assets/emblema-raio.jpeg',
+    imageAlt: 'Emblema do RAIO PMCE'
+  },
+  {
+    key: 'copac',
+    eyebrow: 'Eixo 03 · bases cidadãs',
+    title: 'COPAC/PReVio — 12 bases cidadãs',
+    description: 'Efetivo mínimo bruto organizado em três fases estratégicas de implantação.',
+    value: '360',
+    unit: 'policiais',
+    meta: '12 bases · três fases',
+    image: 'assets/icone-copac-previo.jpeg',
+    imageAlt: 'Policiais do COPAC em base cidadã do PReVio'
+  }
+];
+
 const battalionSortLabels = {
   unit: 'Batalhão',
   battalionStrength: 'Efetivo do batalhão',
@@ -729,7 +779,7 @@ function updateBattalionTable() {
 const integratedSituationContexts = {
   exits: 'Relaciona as saídas administrativas ao efetivo, às movimentações e às indisponibilidades temporárias do BPM selecionado.',
   raio: 'Leitura territorial complementar ao planejamento do RAIO. Os quantitativos do projeto permanecem separados do efetivo dos batalhões.',
-  pog: 'Integra o saldo do POG às saídas permanentes, às licenças saúde e ao efetivo consolidado do batalhão.',
+  pog: 'Contextualiza os três eixos do Projeto de Efetivo com a situação consolidada de cada BPM, sem fundir as respectivas metodologias.',
   restructuring: 'Compara o estudo original de reestruturação com a base consolidada dos 34 BPMs, preservando as metodologias e datas de referência.',
   battalions: 'Síntese transversal dos indicadores consolidados para contextualizar a situação atual de cada batalhão.',
   copac: 'Leitura territorial complementar ao PReVio. A necessidade das bases cidadãs permanece separada do efetivo dos batalhões.'
@@ -1190,7 +1240,135 @@ function renderCopacResources(data) {
     </section>`;
 }
 
+function renderProjectStudySelector() {
+  const cards = workforceProjectStudies.map((study, index) => `
+    <button class="project-study-card${index === 0 ? ' is-active' : ''}" type="button" role="tab" id="projectStudyTab-${study.key}" data-project-study="${study.key}" aria-controls="projectStudyPanel-${study.key}" aria-selected="${index === 0}" tabindex="${index === 0 ? '0' : '-1'}">
+      <span class="project-study-card-icon"><img src="${study.image}" alt="${study.imageAlt}"></span>
+      <span class="project-study-card-copy"><small>${study.eyebrow}</small><strong>${study.title}</strong><em>${study.meta}</em></span>
+      <span class="project-study-card-total"><b>${study.value}</b><small>${study.unit}</small></span>
+      <span class="project-study-card-action">Abrir estudo <b>→</b></span>
+    </button>`).join('');
+  return `
+    <section class="detail-section project-study-selector-section">
+      <div class="detail-section-heading">
+        <div><h3>Escolha um eixo para aprofundar</h3><p>Os três subcards mantêm separados os universos, as premissas e os cálculos de cada estudo.</p></div>
+        <span>03 estudos preservados</span>
+      </div>
+      <div class="project-study-selector" role="tablist" aria-label="Eixos do Projeto de Efetivo 2027 a 2030">${cards}</div>
+    </section>`;
+}
+
+function renderProjectStudySummary(studyKey) {
+  const study = workforceProjectStudies.find((item) => item.key === studyKey);
+  const data = metricDetails[studyKey];
+  const stats = data.stats.map(([label, value, note]) => `
+    <div class="project-study-stat"><span>${label}</span><strong>${value}</strong><small>${note}</small></div>`).join('');
+  return `
+    <section class="project-study-summary">
+      <div class="project-study-summary-heading">
+        <span>${study.eyebrow}</span>
+        <h3>${study.title}</h3>
+        <p>${study.description}</p>
+      </div>
+      <div class="project-study-summary-total"><strong>${study.value}</strong><span>${study.unit}</span></div>
+      <div class="project-study-stat-grid">${stats}</div>
+    </section>`;
+}
+
+function renderProjectBreakdown(data, detailKey) {
+  if (data.hideBreakdown) return '';
+  const rows = data.breakdown.map(([label, share, value, rowColor]) => {
+    const hasTerritory = ['pog', 'restructuring'].includes(detailKey) && getPogTerritory(label);
+    const breakdownLabel = hasTerritory
+      ? `<span class="detail-breakdown-label"><strong>${formatPogUnitName(label)}</strong></span>`
+      : `<span>${label}</span>`;
+    return `
+      <div class="detail-breakdown-row">
+        ${breakdownLabel}
+        <div class="detail-breakdown-track"><i style="width:${share}%;--row-color:${rowColor}"></i></div>
+        <strong>${value}</strong>
+      </div>`;
+  }).join('');
+  return `
+    <section class="detail-section">
+      <div class="detail-section-heading"><div><h3>${data.breakdownTitle || 'Composição do indicador'}</h3><p>${data.breakdownSubtitle || 'Participação de cada componente no total ou no recorte analisado.'}</p></div><span>Leitura percentual</span></div>
+      <div class="detail-breakdown">${rows}</div>
+    </section>`;
+}
+
+function renderProjectPogTable(data) {
+  return `
+    <section class="detail-section">
+      <div class="detail-section-heading"><div><h3>${data.sectionTitle}</h3><p>${data.sectionSubtitle}</p></div><span>Dados discriminados</span></div>
+      ${renderDetailTable(data, 'pog')}
+    </section>`;
+}
+
+function renderWorkforceProjectDetail() {
+  const overview = workforceProjectOverview;
+  const pog = metricDetails.pog;
+  const raio = metricDetails.raio;
+  const copac = metricDetails.copac;
+  const stats = overview.stats.map(([label, value, note]) => `<div class="detail-stat"><span>${label}</span><strong>${value}</strong><small>${note}</small></div>`).join('');
+  metricModal.style.setProperty('--detail-accent', overview.accent);
+  metricDialog.dataset.detail = 'pog';
+  metricDetailContent.dataset.detail = 'pog';
+  metricDetailEyebrow.textContent = overview.eyebrow;
+  metricDetailTitle.textContent = overview.title;
+  metricDetailContent.innerHTML = `
+    <div class="detail-hero-grid project-detail-hero">
+      <div class="detail-total-card" style="--detail-accent:${overview.accent}">
+        <span>Estrutura do projeto</span><div><strong>${overview.total}</strong><small>${overview.unit}</small></div>
+        <p id="metricDetailDescription">${overview.description}</p>
+      </div>
+      <div class="detail-stat-grid">${stats}</div>
+    </div>
+    ${renderIntegratedSituationPanel('pog')}
+    ${renderProjectStudySelector()}
+    <div class="project-study-panel" id="projectStudyPanel-pog" data-project-study-panel="pog" role="tabpanel" aria-labelledby="projectStudyTab-pog">
+      ${renderProjectStudySummary('pog')}
+      ${renderPogDeficitOverview(pog)}
+      ${renderPogUnitExplorer(pog)}
+      ${renderProjectPogTable(pog)}
+      ${renderPogImplementations(pog)}
+      <p class="detail-methodology">${pog.note}</p>
+    </div>
+    <div class="project-study-panel" id="projectStudyPanel-raio" data-project-study-panel="raio" role="tabpanel" aria-labelledby="projectStudyTab-raio" hidden>
+      ${renderProjectStudySummary('raio')}
+      ${renderRaioLevelSelector(raio)}
+      ${renderProjectBreakdown(raio, 'raio')}
+      <p class="detail-methodology">${raio.note}</p>
+    </div>
+    <div class="project-study-panel" id="projectStudyPanel-copac" data-project-study-panel="copac" role="tabpanel" aria-labelledby="projectStudyTab-copac" hidden>
+      ${renderProjectStudySummary('copac')}
+      ${renderCopacPhaseSelector(copac)}
+      ${renderProjectBreakdown(copac, 'copac')}
+      ${renderCopacResources(copac)}
+      <p class="detail-methodology">${copac.note}</p>
+    </div>`;
+  renderPogUnitDetail('12º BPM');
+}
+
+function selectProjectStudy(studyKey) {
+  const selectedPanel = metricDetailContent.querySelector(`[data-project-study-panel="${studyKey}"]`);
+  if (!selectedPanel) return;
+  metricDetailContent.querySelectorAll('[data-project-study]').forEach((button) => {
+    const isActive = button.dataset.projectStudy === studyKey;
+    button.classList.toggle('is-active', isActive);
+    button.setAttribute('aria-selected', String(isActive));
+    button.tabIndex = isActive ? 0 : -1;
+  });
+  metricDetailContent.querySelectorAll('[data-project-study-panel]').forEach((panel) => {
+    panel.hidden = panel.dataset.projectStudyPanel !== studyKey;
+  });
+  metricDetailContent.dataset.projectStudy = studyKey;
+}
+
 function renderMetricDetail(key) {
+  if (key === 'pog') {
+    renderWorkforceProjectDetail();
+    return;
+  }
   const data = metricDetails[key];
   if (!data) return;
   metricModal.style.setProperty('--detail-accent', data.accent);
@@ -1293,6 +1471,8 @@ metricCards.forEach((card) => {
 metricDetailClose.addEventListener('click', closeMetricDetail);
 metricModal.querySelector('[data-modal-close]').addEventListener('click', closeMetricDetail);
 metricDetailContent.addEventListener('click', (event) => {
+  const projectStudyButton = event.target.closest('[data-project-study]');
+  if (projectStudyButton) selectProjectStudy(projectStudyButton.dataset.projectStudy);
   const raioButton = event.target.closest('[data-raio-level]');
   if (raioButton) renderRaioLevelDetail(raioButton.dataset.raioLevel);
   const copacButton = event.target.closest('[data-copac-phase]');
@@ -1311,6 +1491,20 @@ metricDetailContent.addEventListener('click', (event) => {
     battalionSortState.direction = battalionSortState.direction === 'asc' ? 'desc' : 'asc';
     updateBattalionTable();
   }
+});
+metricDetailContent.addEventListener('keydown', (event) => {
+  const projectStudyButton = event.target.closest('[data-project-study]');
+  if (!projectStudyButton || !['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
+  const buttons = [...metricDetailContent.querySelectorAll('[data-project-study]')];
+  const currentIndex = buttons.indexOf(projectStudyButton);
+  const nextIndex = event.key === 'Home'
+    ? 0
+    : event.key === 'End'
+      ? buttons.length - 1
+      : (currentIndex + (event.key === 'ArrowRight' ? 1 : -1) + buttons.length) % buttons.length;
+  event.preventDefault();
+  buttons[nextIndex].focus();
+  selectProjectStudy(buttons[nextIndex].dataset.projectStudy);
 });
 metricDetailContent.addEventListener('change', (event) => {
   if (event.target.matches('#integratedUnitSelect')) updateIntegratedSituation(event.target.value);

@@ -46,7 +46,7 @@ A imagem fornecida para as saídas de efetivo está preservada em `assets/icone-
 
 ## Próxima etapa
 
-O card **PERDA DE EFETIVO** apresenta **535 registros consolidados**: 245 demissões, 83 exonerações e 207 requeridas. A base de exonerações e demissões possui 340 lançamentos, dos quais 12 foram identificados como duplicados, resultando em 328 saídas confirmadas. As 207 requeridas são acrescentadas como componente próprio. Na subpágina, a reconciliação separa 232 saídas vinculadas aos 34 BPMs — utilizadas na análise situacional — e 96 fora desse recorte. As requeridas não são distribuídas por batalhão porque a fonte não informa a unidade de origem.
+O card **PERDA DE EFETIVO** apresenta **535 registros consolidados**: 245 demissões, 83 exonerações e 207 requeridas. A base de exonerações e demissões possui 340 lançamentos, dos quais 12 foram identificados como duplicados, resultando em 328 saídas confirmadas. As 207 requeridas são acrescentadas como componente próprio. O visualizador **Reconciliação da base de saídas** foi retirado da subpágina; a metodologia continua registrando que 232 saídas pertencem aos 34 BPMs, 96 ficam fora desse recorte e as requeridas não são distribuídas por batalhão porque a fonte não informa a unidade de origem.
 
 No eixo POG/COTAM/BPTUR, os **160 policiais para implementação** permanecem discriminados: 110 para a COTAM (10 oficiais e 100 praças) e 50 para a 6ª Cia/BPTUR (02 oficiais e 48 praças). Esse quantitativo é adicional e não foi descontado nem redistribuído dos batalhões analisados no POG.
 

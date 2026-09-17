@@ -1407,7 +1407,7 @@ function renderMetricDetail(key) {
   const battalionSortControls = key === 'battalions' ? renderBattalionSortControls() : '';
   const integratedSituationPanel = renderIntegratedSituationPanel(key);
   const detailTable = renderDetailTable(data, key);
-  const discriminatedTable = ['raio', 'copac'].includes(key) ? '' : `
+  const discriminatedTable = ['exits', 'raio', 'copac'].includes(key) ? '' : `
     <section class="detail-section">
       <div class="detail-section-heading"><div><h3>${data.sectionTitle}</h3><p>${data.sectionSubtitle}</p></div><span>Dados discriminados</span></div>
       ${battalionSortControls}

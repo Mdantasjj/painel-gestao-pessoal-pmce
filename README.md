@@ -10,6 +10,8 @@ Abra o arquivo `index.html` no navegador e use o botão de tela cheia no cabeça
 
 Os seis cards são clicáveis e também podem ser acionados pelas teclas `Enter` ou `Espaço`. Cada card abre uma memória de cálculo com composição do total, percentuais, tabelas discriminadas e ressalvas metodológicas. A janela pode ser fechada pelo botão, pela tecla `Esc` ou por um clique fora dela.
 
+Todas as seis memórias de cálculo possuem o quadro transversal **Situação atual da unidade**. Um seletor permite consultar qualquer um dos 34 BPMs e relacionar, no mesmo ponto, efetivo do batalhão, disponibilidade estimada após licenças saúde, média do CRPM, saídas permanentes e saldo das movimentações. O quadro apresenta dois cenários: **estrutural** (`movimentações − exonerações − demissões`) e **operacional indicativo** (`cenário estrutural − licenças saúde`). As fontes possuem datas de referência distintas; portanto, o segundo cenário contextualiza a pressão temporária, não representa novo efetivo oficial e não modifica nenhum dos estudos, tabelas, fases ou cálculos originais dos cards.
+
 Nas tabelas de detalhamento, as colunas de identificação e os valores estratégicos recebem tipografia ampliada e destaque em verde: cidade-polo e total no RAIO, mês e total mensal nas saídas, OPM e saldo no POG, unidade/base e necessidade no COPAC, e batalhão e saldo na reestruturação do interior e do litoral.
 
 O detalhamento do POG possui uma consulta para os 34 BPMs territoriais. Ao selecionar um batalhão, são apresentados a cidade de referência, os totais de saídas e entradas, o saldo e a perda líquida. CRPMs e demais OPMs não integram esse recorte, pois a fonte consolidada não permite redistribuir seus registros entre batalhões.

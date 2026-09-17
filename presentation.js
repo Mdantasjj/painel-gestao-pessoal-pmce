@@ -735,6 +735,104 @@ function updateBattalionTable() {
   if (status) status.textContent = `Ordem atual: ${battalionSortLabels[battalionSortState.field]} · ${battalionSortState.direction === 'asc' ? 'menor para maior' : 'maior para menor'}`;
 }
 
+const integratedSituationContexts = {
+  exits: 'Relaciona as saídas administrativas ao efetivo, às movimentações e às indisponibilidades temporárias do BPM selecionado.',
+  raio: 'Leitura territorial complementar ao planejamento do RAIO. Os quantitativos do projeto permanecem separados do efetivo dos batalhões.',
+  pog: 'Integra o saldo do POG às saídas permanentes, às licenças saúde e ao efetivo consolidado do batalhão.',
+  restructuring: 'Compara o estudo original de reestruturação com a base consolidada dos 34 BPMs, preservando as metodologias e datas de referência.',
+  battalions: 'Síntese transversal dos indicadores consolidados para contextualizar a situação atual de cada batalhão.',
+  copac: 'Leitura territorial complementar ao PReVio. A necessidade das bases cidadãs permanece separada do efetivo dos batalhões.'
+};
+
+const integratedSituationDefaults = {
+  exits: '12º BPM',
+  raio: '12º BPM',
+  pog: '12º BPM',
+  restructuring: '33º BPM',
+  battalions: '12º BPM',
+  copac: '12º BPM'
+};
+
+function formatIntegratedSignedValue(value) {
+  if (value > 0) return `+${value.toLocaleString('pt-BR')}`;
+  if (value < 0) return `−${Math.abs(value).toLocaleString('pt-BR')}`;
+  return '0';
+}
+
+function getIntegratedSituationRecord(unitName) {
+  return getBattalionTableRecords().find((record) => record.name === unitName);
+}
+
+function renderIntegratedSituationResult(unitName) {
+  const record = getIntegratedSituationRecord(unitName);
+  if (!record) return '<p class="integrated-situation-empty">Não há dados consolidados para a unidade selecionada.</p>';
+  const permanentExits = record.exonerations + record.dismissals;
+  const availableStrength = Math.max(0, record.battalionStrength - record.healthLeave);
+  const availability = record.battalionStrength ? availableStrength / record.battalionStrength * 100 : 0;
+  const operationalBalance = record.situation - record.healthLeave;
+  const operationalNeed = Math.max(0, -operationalBalance);
+  const structuralMagnitude = record.situation < 0 ? record.calculatedDeficit : Math.max(0, record.situation);
+  const operationalMagnitude = operationalBalance < 0 ? operationalNeed : Math.max(0, operationalBalance);
+  const structuralStatus = record.situation < 0 ? 'Necessidade estrutural' : record.situation > 0 ? 'Saldo estrutural' : 'Equilíbrio estrutural';
+  const operationalStatus = operationalBalance < 0 ? 'Pressão operacional' : operationalBalance > 0 ? 'Saldo operacional' : 'Equilíbrio operacional';
+  return `
+    <div class="integrated-situation-result-heading">
+      <div><span>Unidade selecionada</span><strong>${formatPogUnitName(record.name)}</strong></div>
+      <b>${record.crpm}</b>
+    </div>
+    <div class="integrated-situation-kpis">
+      <div><span>Efetivo do batalhão</span><strong>${record.battalionStrength.toLocaleString('pt-BR')}</strong><small>efetivo consolidado</small></div>
+      <div><span>Disponível estimado</span><strong>${availableStrength.toLocaleString('pt-BR')}</strong><small>${availability.toLocaleString('pt-BR', { maximumFractionDigits: 1 })}% após licenças</small></div>
+      <div><span>Média do CRPM</span><strong>${record.crpmAverage.toLocaleString('pt-BR')}</strong><small>${record.crpm} · referência regional</small></div>
+      <div><span>Licença saúde</span><strong>${record.healthLeave.toLocaleString('pt-BR')}</strong><small>LTS + agregados &gt; 1 ano</small></div>
+      <div><span>Saídas permanentes</span><strong>${permanentExits.toLocaleString('pt-BR')}</strong><small>${record.exonerations} exon. · ${record.dismissals} dem.</small></div>
+      <div><span>Movimentações</span><strong>${formatIntegratedSignedValue(record.movementBalance)}</strong><small>saldo de entradas e saídas</small></div>
+    </div>
+    <div class="integrated-situation-scenarios">
+      <article class="${record.situation < 0 ? 'is-pressure' : 'is-balance'}">
+        <span>Cenário estrutural</span>
+        <strong>${formatIntegratedSignedValue(record.situation)}</strong>
+        <p>Movimentações − exonerações − demissões</p>
+        <small>${structuralStatus}: <b>${structuralMagnitude.toLocaleString('pt-BR')}</b></small>
+      </article>
+      <article class="${operationalBalance < 0 ? 'is-pressure' : 'is-balance'}">
+        <span>Cenário operacional indicativo</span>
+        <strong>${formatIntegratedSignedValue(operationalBalance)}</strong>
+        <p>Cenário estrutural − licenças saúde</p>
+        <small>${operationalStatus}: <b>${operationalMagnitude.toLocaleString('pt-BR')}</b></small>
+      </article>
+    </div>
+    <p class="integrated-situation-note"><strong>Leitura integrada:</strong> licenças representam indisponibilidade temporária; exonerações e demissões são perdas permanentes. Como as bases possuem datas de referência distintas, o cenário operacional é indicativo, não representa um novo efetivo oficial e não altera os cálculos originais de RAIO, POG, COPAC/PReVio, COTAM, BPTUR ou reestruturação.</p>`;
+}
+
+function renderIntegratedSituationPanel(detailKey) {
+  const selectedUnit = integratedSituationDefaults[detailKey] || '12º BPM';
+  const options = getBattalionTableRecords()
+    .sort((a, b) => a.name.localeCompare(b.name, 'pt-BR', { numeric: true }))
+    .map((record) => `<option value="${record.name}"${record.name === selectedUnit ? ' selected' : ''}>${formatPogUnitName(record.name)}</option>`)
+    .join('');
+  return `
+    <section class="detail-section integrated-situation-section" data-integrated-study="${detailKey}">
+      <div class="detail-section-heading">
+        <div><h3>Situação atual da unidade</h3><p>${integratedSituationContexts[detailKey]}</p></div>
+        <span>Leitura transversal · estudos preservados</span>
+      </div>
+      <label class="integrated-situation-control" for="integratedUnitSelect">
+        <span>Selecione o batalhão</span>
+        <select id="integratedUnitSelect">${options}</select>
+      </label>
+      <div class="integrated-situation-result" id="integratedSituationResult" aria-live="polite">${renderIntegratedSituationResult(selectedUnit)}</div>
+    </section>`;
+}
+
+function updateIntegratedSituation(unitName) {
+  const result = document.querySelector('#integratedSituationResult');
+  const select = document.querySelector('#integratedUnitSelect');
+  if (!result) return;
+  result.innerHTML = renderIntegratedSituationResult(unitName);
+  if (select && [...select.options].some((option) => option.value === unitName)) select.value = unitName;
+}
+
 function renderRaioLevelSelector(data) {
   const buttons = data.levels.map((level) => `
     <button class="raio-level-button" type="button" data-raio-level="${level.id}" aria-pressed="false" aria-controls="raioLevelDetail">
@@ -1137,6 +1235,7 @@ function renderMetricDetail(key) {
   const restructuringTopFive = key === 'restructuring' ? renderRestructuringTopFive(data) : '';
   const copacResources = key === 'copac' ? renderCopacResources(data) : '';
   const battalionSortControls = key === 'battalions' ? renderBattalionSortControls() : '';
+  const integratedSituationPanel = renderIntegratedSituationPanel(key);
   const detailTable = renderDetailTable(data, key);
   const discriminatedTable = ['raio', 'copac'].includes(key) ? '' : `
     <section class="detail-section">
@@ -1153,6 +1252,7 @@ function renderMetricDetail(key) {
       </div>
       <div class="detail-stat-grid">${stats}</div>
     </div>
+    ${integratedSituationPanel}
     ${levelSelector}
     ${copacPhaseSelector}
     ${pogDeficitOverview}
@@ -1222,8 +1322,15 @@ metricDetailContent.addEventListener('click', (event) => {
   }
 });
 metricDetailContent.addEventListener('change', (event) => {
-  if (event.target.matches('#pogUnitSelect')) renderPogUnitDetail(event.target.value);
-  if (event.target.matches('#restructuringUnitSelect')) renderRestructuringUnitDetail(event.target.value);
+  if (event.target.matches('#integratedUnitSelect')) updateIntegratedSituation(event.target.value);
+  if (event.target.matches('#pogUnitSelect')) {
+    renderPogUnitDetail(event.target.value);
+    updateIntegratedSituation(event.target.value);
+  }
+  if (event.target.matches('#restructuringUnitSelect')) {
+    renderRestructuringUnitDetail(event.target.value);
+    updateIntegratedSituation(event.target.value);
+  }
 });
 metricModal.addEventListener('keydown', (event) => {
   if (event.key === 'Escape') closeMetricDetail();

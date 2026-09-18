@@ -323,7 +323,7 @@ const metricDetails = {
     title: '525 policiais necessários para a reestruturação do interior e do litoral',
     total: '525',
     unit: 'policiais',
-    description: 'Efetivo inteiro necessário para que os oito batalhões abaixo da média alcancem ou superem a referência dos respectivos comandos. Cada necessidade foi arredondada individualmente para cima.',
+    description: 'Efetivo inteiro necessário para que os oito batalhões abaixo da média alcancem ou superem a referência inteira dos respectivos comandos. Cada meta e necessidade foi arredondada para um policial completo.',
     stats: [
       ['Abaixo da média', '8 BPM', '88,9% dos batalhões analisados'],
       ['Acima da média', '1 BPM', '29º BPM — Baturité · Redenção · 12 policiais acima da média'],
@@ -340,29 +340,29 @@ const metricDetails = {
       ['Demais 4 BPM', 30.3, '159 · 30,3%', '#83b99a']
     ],
     units: [
-      ['33º BPM', 138, 253.5, 115.5],
-      ['28º BPM', 202, 297.25, 95.25],
-      ['31º BPM', 168, 257.25, 89.25],
-      ['27º BPM', 234, 297.25, 63.25],
-      ['34º BPM', 202, 253.5, 51.5],
+      ['33º BPM', 138, 254, 116],
+      ['28º BPM', 202, 298, 96],
+      ['31º BPM', 168, 258, 90],
+      ['27º BPM', 234, 298, 64],
+      ['34º BPM', 202, 254, 52],
       ['26º BPM', 294, 335, 41],
-      ['30º BPM', 217, 257.25, 40.25],
-      ['32º BPM', 229, 253.5, 24.5],
-      ['29º BPM', 281, 268.6666666667, -12.3333333333]
+      ['30º BPM', 217, 258, 41],
+      ['32º BPM', 229, 254, 25],
+      ['29º BPM', 281, 269, -12]
     ],
     sectionTitle: 'Batalhões ordenados pelo maior saldo',
     sectionSubtitle: 'Efetivo atual comparado à média do respectivo comando.',
-    tableColumns: ['Posição', 'Batalhão / cidade', 'Efetivo atual', 'Média do comando', 'Situação', 'Saldo negativo'],
+    tableColumns: ['Posição', 'Batalhão / cidade', 'Efetivo atual', 'Referência inteira', 'Situação', 'Saldo negativo'],
     tableRows: [
-      ['1', '33º BPM', '138', '253,5', 'Abaixo da média', '116'],
-      ['2', '28º BPM', '202', '297,25', 'Abaixo da média', '96'],
-      ['3', '31º BPM', '168', '257,25', 'Abaixo da média', '90'],
-      ['4', '27º BPM', '234', '297,25', 'Abaixo da média', '64'],
-      ['5', '34º BPM', '202', '253,5', 'Abaixo da média', '52'],
+      ['1', '33º BPM', '138', '254', 'Abaixo da média', '116'],
+      ['2', '28º BPM', '202', '298', 'Abaixo da média', '96'],
+      ['3', '31º BPM', '168', '258', 'Abaixo da média', '90'],
+      ['4', '27º BPM', '234', '298', 'Abaixo da média', '64'],
+      ['5', '34º BPM', '202', '254', 'Abaixo da média', '52'],
       ['6', '26º BPM', '294', '335', 'Abaixo da média', '41'],
-      ['7', '30º BPM', '217', '257,25', 'Abaixo da média', '41'],
-      ['8', '32º BPM', '229', '253,5', 'Abaixo da média', '25'],
-      ['9', '29º BPM', '281', '268,67', 'Acima da média', '-12']
+      ['7', '30º BPM', '217', '258', 'Abaixo da média', '41'],
+      ['8', '32º BPM', '229', '254', 'Abaixo da média', '25'],
+      ['9', '29º BPM', '281', '269', 'Acima da média', '-12']
     ],
     note: 'Fonte: aba “Resumo Executivo” da planilha de reestruturação do efetivo das unidades criadas. Foram excluídas as quatro unidades vinculadas ao CPRAIO: 6º, 7º, 8º e 9º BPRAIO. Para transformar as diferenças produzidas pelas médias em efetivo operacional, cada necessidade positiva foi arredondada individualmente para cima. Os oito valores inteiros totalizam 525 policiais. Os nove batalhões somam 1.965 policiais no efetivo atual.'
   },
@@ -1186,7 +1186,7 @@ function renderRestructuringUnitDetail(unitName) {
     </div>
     <div class="pog-unit-values">
       <div><span>Efetivo atual</span><strong>${formatNumber(current)}</strong><small>Policiais registrados na unidade</small></div>
-      <div><span>Média de referência</span><strong>${formatNumber(reference)}</strong><small>Média informada na aba Resumo Executivo</small></div>
+      <div><span>Referência inteira</span><strong>${formatNumber(reference)}</strong><small>Média convertida em efetivo policial inteiro</small></div>
       <div class="${belowAverage ? 'is-loss' : ''}"><span>Saldo operacional</span><strong>${formatNumber(operationalDifference)}</strong><small>Necessidade convertida em efetivo inteiro</small></div>
       <div><span>Cobertura da média</span><strong>${formatNumber(coverage)}%</strong><small>Efetivo atual em relação à referência</small></div>
     </div>

@@ -562,8 +562,8 @@ const workforceProjectOverview = {
   accent: '#216f4c',
   eyebrow: 'Planejamento estratégico · 2027–2030',
   title: 'PROJETO DE EFETIVO 2027–2030',
-  total: '03',
-  unit: 'eixos estratégicos',
+  total: '271 · 912 · 360',
+  unit: 'policiais por eixo',
   description: 'Organização integrada das necessidades de efetivo do POG/COTAM/BPTUR, das bases satélites do RAIO e das bases cidadãs do COPAC/PReVio, preservando cada memória de cálculo.',
   stats: [
     ['POG + COTAM + BPTUR', '271', '111 de déficit · 160 de implementação'],
@@ -1253,7 +1253,7 @@ function renderProjectStudySelector() {
     <section class="detail-section project-study-selector-section">
       <div class="detail-section-heading">
         <div><h3>Escolha um eixo para aprofundar</h3><p>Os três subcards mantêm separados os universos, as premissas e os cálculos de cada estudo.</p></div>
-        <span>03 estudos preservados</span>
+        <span>Estudos separados</span>
       </div>
       <div class="project-study-selector" role="tablist" aria-label="Eixos do Projeto de Efetivo 2027 a 2030">${cards}</div>
     </section>`;

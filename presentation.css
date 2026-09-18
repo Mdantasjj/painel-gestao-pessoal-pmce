@@ -319,7 +319,7 @@ body.modal-open { overflow: hidden; }
 .detail-breakdown-track { height: 10px; overflow: hidden; border-radius: 9px; background: #eaf0ed; }
 .detail-breakdown-track i { display: block; height: 100%; border-radius: inherit; background: var(--row-color, var(--green-600)); }
 .detail-breakdown-row strong { color: #2d3d35; font-size: 10.5px; text-align: right; }
-.detail-table-wrap { overflow: auto; border: 1px solid #e2e8e5; border-radius: 10px; }
+.detail-table-wrap { max-width: 100%; overflow: auto; overscroll-behavior-inline: contain; border: 1px solid #e2e8e5; border-radius: 10px; -webkit-overflow-scrolling: touch; }
 .detail-table { width: 100%; border-collapse: collapse; font-size: 10.5px; }
 .detail-table th { position: sticky; top: 0; z-index: 1; padding: 10px 11px; color: #526059; text-align: left; text-transform: uppercase; letter-spacing: .04em; background: #edf4f0; font-size: 8.5px; }
 .detail-table td { padding: 9px 11px; border-top: 1px solid #edf1ef; color: #45534c; }
@@ -577,9 +577,22 @@ body.modal-open { overflow: hidden; }
   .legend { max-width: 300px; margin: 0; }
 }
 
+@media (max-width: 860px) and (min-width: 721px) {
+  .presentation-board { padding-right: 18px; padding-left: 18px; }
+  .institutional-header { grid-template-columns: 220px minmax(0, 1fr) 116px; gap: 14px; }
+  .official-signature { padding-right: 14px; padding-left: 14px; }
+  .header-status { gap: 10px; padding-right: 14px; }
+  .date-block strong { font-size: 18px; }
+  .context-strip { gap: 14px; padding-right: 14px; padding-left: 14px; }
+  .context-heading span { max-width: 310px; }
+  .context-item { min-width: 145px; }
+  .metric-card { padding: 22px; }
+  .metric-top > span { max-width: calc(100% - 54px); }
+}
+
 @media (max-width: 720px) {
   .presentation-board { gap: 12px; padding: 12px; }
-  .institutional-header { grid-template-columns: 1fr; gap: 0; background: var(--green-900); }
+  .institutional-header { grid-template-columns: 1fr; gap: 0; background: linear-gradient(145deg, #0b382a, #176a47); }
   .official-signature { min-height: 88px; padding: 13px 20px; }
   .official-signature img { max-width: 360px; margin: 0 auto; }
   .header-title { padding: 17px 18px 7px; }
@@ -590,13 +603,15 @@ body.modal-open { overflow: hidden; }
   .context-strip { grid-template-columns: 1fr; gap: 10px; }
   .context-filters { display: grid; grid-template-columns: 1fr 1fr; }
   .context-item { min-width: 0; }
-  .metrics { grid-template-columns: 1fr 1fr; }
+  .metrics { grid-template-columns: 1fr; }
   .metrics > .metric-card { grid-column: auto; }
+  .metric-card { min-height: 180px; }
   .visual-grid { grid-template-columns: 1fr; }
   .origin-kpis { grid-template-columns: 1fr; }
   .metric-modal { padding: 10px; }
   .metric-dialog { width: 100%; height: calc(100vh - 20px); max-height: none; border-radius: 14px; }
   .metric-dialog-header { min-height: 82px; padding: 15px 17px; }
+  .metric-dialog-header h2 { font-size: clamp(20px, 5vw, 27px); }
   .metric-dialog-body { padding: 15px; }
   .detail-stat-grid { grid-template-columns: 1fr 1fr; }
   .integrated-situation-section .detail-section-heading { align-items: flex-start; flex-direction: column; }
@@ -622,6 +637,55 @@ body.modal-open { overflow: hidden; }
   .panel, .trend-panel, .territory-panel, .situation-panel { min-height: 360px; }
   .donut-wrap { min-height: 290px; flex-direction: column; gap: 0; }
   .legend { max-width: none; margin-top: 20px; }
+}
+
+@media (max-width: 560px) {
+  .presentation-board { gap: 10px; padding: 9px; }
+  .institutional-header, .context-strip, .metric-card { border-radius: 12px; }
+  .official-signature { min-height: 78px; padding: 10px 14px; }
+  .official-signature img { max-width: 320px; max-height: 58px; }
+  .header-title { padding: 14px 14px 6px; }
+  .header-title h1 { font-size: clamp(21px, 7vw, 25px); line-height: 1.08; }
+  .header-title p { font-size: 11px; line-height: 1.35; }
+  .header-status { padding: 0 14px 13px; }
+  .context-strip { padding: 12px; }
+  .context-filters { grid-template-columns: 1fr; }
+  .context-heading { align-items: flex-start; }
+  .context-heading span { line-height: 1.35; }
+  .metric-card { min-height: 0; padding: 18px; }
+  .metric-top { gap: 10px; font-size: 13px; }
+  .metric-top > span { max-width: calc(100% - 50px); padding: 7px 9px; }
+  .metric-icon { width: 40px; height: 40px; }
+  .metric-main { margin-top: 15px; }
+  .metric-main strong { font-size: clamp(40px, 13vw, 50px); }
+  .metric-card--interactive .metric-foot { padding-right: 72px; line-height: 1.35; }
+  .metric-detail-hint { right: 17px; bottom: 15px; }
+  .metric-modal { padding: 0; }
+  .metric-dialog { width: 100%; height: 100dvh; border: 0; border-radius: 0; }
+  .metric-dialog-header { min-height: 76px; padding: 13px 14px; align-items: flex-start; }
+  .metric-dialog-header span { font-size: 8.5px; letter-spacing: .1em; }
+  .metric-dialog-header h2 { margin-top: 4px; padding-right: 4px; font-size: clamp(18px, 5.7vw, 23px); line-height: 1.16; }
+  .metric-dialog-close { width: 38px; height: 38px; border-radius: 9px; font-size: 24px; }
+  .metric-dialog-body { padding: 12px; }
+  .detail-total-card, .detail-section { padding: 14px; }
+  .detail-total-card strong { font-size: 43px; }
+  .detail-section-heading { align-items: flex-start; flex-direction: column; }
+  .detail-section-heading > span { white-space: normal; }
+  .detail-breakdown-row { grid-template-columns: minmax(94px, 1fr) minmax(90px, 1.5fr) 64px; }
+  .integrated-situation-kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .integrated-situation-scenarios { padding: 9px; }
+  .integrated-situation-scenarios article { grid-template-columns: 1fr; }
+  .integrated-situation-scenarios article > strong { grid-row: auto; grid-column: 1; margin-top: 6px; }
+  .project-study-selector-section { padding: 12px; }
+  .project-study-card { min-height: 0; padding: 12px; }
+  .project-study-summary { padding: 14px; }
+  .project-study-stat-grid { grid-template-columns: 1fr; }
+  .raio-level-summary { grid-template-columns: repeat(2, minmax(64px, 1fr)); }
+  .pog-implementation-values { grid-template-columns: 1fr; }
+  .restructuring-rank-row { grid-template-columns: 32px minmax(0, 1fr) 74px; }
+  .restructuring-rank-track { grid-column: 2 / -1; }
+  .detail-table th, .detail-table td { padding: 9px 8px; }
+  .toast { right: 12px; bottom: 12px; left: 12px; text-align: center; }
 }
 
 @media (max-width: 470px) {
@@ -652,6 +716,22 @@ body.modal-open { overflow: hidden; }
   .copac-resource-grid { grid-template-columns: 1fr; }
   .line-chart { padding-right: 14px; padding-left: 8px; }
   .chart-message { min-width: 190px; }
+}
+
+@media (max-width: 360px) {
+  .presentation-board { padding: 6px; }
+  .header-title, .header-status { padding-right: 11px; padding-left: 11px; }
+  .date-block strong { font-size: 19px; }
+  .context-heading strong { font-size: 13px; }
+  .metric-card { padding: 15px; }
+  .metric-top > span { max-width: calc(100% - 46px); }
+  .metric-icon { width: 37px; height: 37px; }
+  .metric-card--interactive .metric-foot { padding-right: 0; padding-bottom: 36px; }
+  .integrated-situation-kpis { grid-template-columns: 1fr; }
+  .detail-breakdown-row { grid-template-columns: 1fr 58px; }
+  .detail-breakdown-row > span { grid-column: 1 / -1; }
+  .project-study-card { grid-template-columns: 40px minmax(0, 1fr); }
+  .project-study-card-icon { width: 40px; height: 40px; }
 }
 
 @media (prefers-reduced-motion: reduce) { *,*::before,*::after { transition-duration: .01ms !important; } }

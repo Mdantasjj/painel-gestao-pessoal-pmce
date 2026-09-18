@@ -1187,7 +1187,7 @@ function renderRestructuringUnitDetail(unitName) {
     <div class="pog-unit-values">
       <div><span>Efetivo atual</span><strong>${formatNumber(current)}</strong><small>Policiais registrados na unidade</small></div>
       <div><span>Referência inteira</span><strong>${formatNumber(reference)}</strong><small>Média convertida em efetivo policial inteiro</small></div>
-      <div class="${belowAverage ? 'is-loss' : ''}"><span>Saldo operacional</span><strong>${formatNumber(operationalDifference)}</strong><small>Necessidade convertida em efetivo inteiro</small></div>
+      <div class="${belowAverage ? 'is-loss' : ''}"><span>Necessidade perante a reestruturação</span><strong>${formatNumber(operationalDifference)}</strong><small>Necessidade convertida em efetivo inteiro</small></div>
       <div><span>Cobertura da média</span><strong>${formatNumber(coverage)}%</strong><small>Efetivo atual em relação à referência</small></div>
     </div>
     <p class="pog-unit-source-note">${interpretation}</p>`;

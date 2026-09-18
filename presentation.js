@@ -561,15 +561,7 @@ const metricDetails = {
 const workforceProjectOverview = {
   accent: '#216f4c',
   eyebrow: 'Planejamento estratégico · 2027–2030',
-  title: 'PROJETO DE EFETIVO 2027–2030',
-  total: '1.543',
-  unit: 'policiais necessários',
-  description: 'Total consolidado das necessidades de efetivo do POG/COTAM/BPTUR, das bases satélites do RAIO e das bases cidadãs do COPAC/PReVio, preservando cada memória de cálculo.',
-  stats: [
-    ['POG + COTAM + BPTUR', '271', '111 de déficit · 160 de implementação'],
-    ['RAIO', '912', '20 bases · três níveis de implementação'],
-    ['COPAC/PReVio', '360', '12 bases · três fases propostas']
-  ]
+  title: 'PROJETO DE EFETIVO 2027–2030'
 };
 
 const workforceProjectStudies = [
@@ -1310,20 +1302,13 @@ function renderWorkforceProjectDetail() {
   const pog = metricDetails.pog;
   const raio = metricDetails.raio;
   const copac = metricDetails.copac;
-  const stats = overview.stats.map(([label, value, note]) => `<div class="detail-stat"><span>${label}</span><strong>${value}</strong><small>${note}</small></div>`).join('');
   metricModal.style.setProperty('--detail-accent', overview.accent);
   metricDialog.dataset.detail = 'pog';
   metricDetailContent.dataset.detail = 'pog';
   metricDetailEyebrow.textContent = overview.eyebrow;
   metricDetailTitle.textContent = overview.title;
   metricDetailContent.innerHTML = `
-    <div class="detail-hero-grid project-detail-hero">
-      <div class="detail-total-card" style="--detail-accent:${overview.accent}">
-        <span>Estrutura do projeto</span><div><strong>${overview.total}</strong><small>${overview.unit}</small></div>
-        <p id="metricDetailDescription">${overview.description}</p>
-      </div>
-      <div class="detail-stat-grid">${stats}</div>
-    </div>
+    <p id="metricDetailDescription" hidden>Detalhamento dos três eixos do Projeto de Efetivo 2027–2030.</p>
     ${renderIntegratedSituationPanel('pog')}
     ${renderProjectStudySelector()}
     <div class="project-study-panel" id="projectStudyPanel-pog" data-project-study-panel="pog" role="tabpanel" aria-labelledby="projectStudyTab-pog">

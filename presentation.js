@@ -562,9 +562,9 @@ const workforceProjectOverview = {
   accent: '#216f4c',
   eyebrow: 'Planejamento estratégico · 2027–2030',
   title: 'PROJETO DE EFETIVO 2027–2030',
-  total: '271 · 912 · 360',
-  unit: 'policiais por eixo',
-  description: 'Organização integrada das necessidades de efetivo do POG/COTAM/BPTUR, das bases satélites do RAIO e das bases cidadãs do COPAC/PReVio, preservando cada memória de cálculo.',
+  total: '1.543',
+  unit: 'policiais necessários',
+  description: 'Total consolidado das necessidades de efetivo do POG/COTAM/BPTUR, das bases satélites do RAIO e das bases cidadãs do COPAC/PReVio, preservando cada memória de cálculo.',
   stats: [
     ['POG + COTAM + BPTUR', '271', '111 de déficit · 160 de implementação'],
     ['RAIO', '912', '20 bases · três níveis de implementação'],

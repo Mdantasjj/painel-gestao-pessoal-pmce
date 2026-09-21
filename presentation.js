@@ -388,8 +388,8 @@ const metricDetails = {
       ['Em equilíbrio', 2.94, '1 · 2,9%', '#83b99a']
     ],
     sectionTitle: 'Visão geral por batalhão',
-    sectionSubtitle: 'A reestruturação necessidade corresponde aos resultados negativos após considerar movimentações, exonerações e demissões de cada BPM.',
-    tableColumns: ['Posição', 'Batalhão / cidades', 'Efetivo do batalhão', 'Exonerações', 'Demissões', 'Movimentações', 'Reestruturação necessidade'],
+    sectionSubtitle: 'As requeridas são apresentadas como perda potencial, mas ainda não podem ser atribuídas a cada BPM; a necessidade por unidade considera movimentações, exonerações e demissões.',
+    tableColumns: ['Posição', 'Batalhão / cidades', 'Efetivo do batalhão', 'Exonerações', 'Demissões', 'Requeridas', 'Movimentações', 'Reestruturação necessidade'],
     tableRows: [],
     battalionTotals: {
       '1º BPM': 277, '2º BPM': 536, '3º BPM': 405, '4º BPM': 213, '5º BPM': 366,
@@ -441,7 +441,7 @@ const metricDetails = {
       '26º BPM': 12, '27º BPM': 7, '28º BPM': 7, '29º BPM': 14, '30º BPM': 14,
       '31º BPM': 9, '32º BPM': 12, '33º BPM': 2, '34º BPM': 3
     },
-    note: 'A base consolidada de efetivo informa os 34 BPMs e os oito CRPMs, totalizando 9.956 policiais, sem divergências nas somas regionais. Para cada batalhão, a situação média é calculada por saldo das movimentações − exonerações − demissões. O conjunto passa de +90 nas movimentações para −142 após descontar os 232 desligamentos administrativos vinculados aos BPMs. A soma somente dos resultados negativos produz déficit territorial apurado de 254 policiais. As 207 requeridas permanecem fora desta análise por batalhão porque a fonte não informa a unidade de origem. Outros 94 desligamentos administrativos pertencem a comandos, unidades especializadas e demais OPMs e não foram redistribuídos.'
+    note: 'A base consolidada de efetivo informa os 34 BPMs e os oito CRPMs, totalizando 9.956 policiais, sem divergências nas somas regionais. Para cada batalhão, a situação média é calculada por saldo das movimentações − exonerações − demissões. O conjunto passa de +90 nas movimentações para −142 após descontar os 232 desligamentos administrativos vinculados aos BPMs. A soma somente dos resultados negativos produz déficit territorial apurado de 254 policiais. As 207 requeridas aparecem em coluna e linha próprias, mas não são atribuídas aos BPMs nem entram no cálculo enquanto a fonte não informar a OPM de origem e a baixa individual. Outros 94 desligamentos administrativos pertencem a comandos, unidades especializadas e demais OPMs e não foram redistribuídos.'
   },
   copac: {
     accent: '#2f855a',
@@ -680,15 +680,27 @@ function buildBattalionTableRows(field = 'situation', direction = 'asc') {
       renderBattalionStrengthValue(record.battalionStrength, record.battalionStrength == null ? 'sem dado na fonte' : 'policiais'),
       renderBattalionExitValue(record.exonerations, 'saídas'),
       renderBattalionExitValue(record.dismissals, 'saídas'),
+      renderBattalionExitValue(0, 'BPM não informado', true),
       renderBattalionSignedValue(record.movementBalance, 'saldo'),
       renderBattalionExitValue(record.calculatedDeficit, 'resultado negativo')
     ]);
+  rows.push([
+    '—',
+    'REQUERIDAS SEM BPM IDENTIFICADO',
+    '—',
+    '—',
+    '—',
+    renderBattalionExitValue(207, 'sem OPM de origem'),
+    '—',
+    '—'
+  ]);
   rows.push([
     '—',
     'TOTAL DOS 34 BPMs',
     renderBattalionStrengthValue(9956, 'policiais'),
     renderBattalionExitValue(62, 'saídas'),
     renderBattalionExitValue(170, 'saídas'),
+    renderBattalionExitValue(0, 'não atribuídas', true),
     renderBattalionSignedValue(90, 'saldo'),
     renderBattalionExitValue(254, '22 BPMs negativos')
   ]);
@@ -723,7 +735,7 @@ function renderPogUnitLabel(unitName) {
 
 function renderDetailTable(data, detailKey = '') {
   const head = data.tableColumns.map((column) => `<th scope="col">${column}</th>`).join('');
-  const rows = data.tableRows.map((row) => `<tr>${row.map((cell, index) => {
+  const rows = data.tableRows.map((row) => `<tr${detailKey === 'battalions' && row[1] === 'REQUERIDAS SEM BPM IDENTIFICADO' ? ' class="battalion-unallocated-row"' : ''}>${row.map((cell, index) => {
     const content = ['pog', 'restructuring', 'battalions'].includes(detailKey) && index === 1 ? renderPogUnitLabel(cell) : cell;
     return `<td>${content}</td>`;
   }).join('')}</tr>`).join('');
@@ -1397,7 +1409,7 @@ function renderMetricDetail(key) {
       <div class="detail-section-heading"><div><h3>${data.sectionTitle}</h3><p>${data.sectionSubtitle}</p></div><span>Dados discriminados</span></div>
       ${battalionSortControls}
       ${key === 'battalions' ? `<div id="battalionTableResult">${detailTable}</div>` : detailTable}
-      ${key === 'battalions' ? '<p class="battalion-table-source-note"><strong>Leitura da necessidade:</strong> o cálculo considera saldo das movimentações − exonerações − demissões. A coluna Reestruturação necessidade apresenta somente os resultados negativos: 254 policiais em 22 BPMs. As 207 requeridas não entram neste cálculo porque a fonte não informa a unidade de origem. Os dados regionais e as 726 licenças saúde permanecem disponíveis no quadro Situação atual da unidade, sem alterar esse cálculo.</p>' : ''}
+      ${key === 'battalions' ? '<p class="battalion-table-source-note"><strong>Requeridas:</strong> 207 registros estão apresentados em linha própria porque a fonte não informa a OPM de origem. “—” significa dado não atribuível ao BPM, não zero. Como são requerimentos e não baixas individualmente confirmadas, não são somados às perdas territoriais nem distribuídos artificialmente entre unidades. <strong>Leitura da necessidade:</strong> saldo das movimentações − exonerações − demissões; os resultados negativos somam 254 policiais em 22 BPMs. Os dados regionais e as 726 licenças saúde permanecem no quadro Situação atual da unidade.</p>' : ''}
     </section>`;
   metricDetailContent.innerHTML = `
     <div class="detail-hero-grid">

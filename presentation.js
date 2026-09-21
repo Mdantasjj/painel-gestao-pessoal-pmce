@@ -370,11 +370,11 @@ const metricDetails = {
     accent: '#145c40',
     eyebrow: 'Análise consolidada · batalhões',
     title: 'BATALHÕES - Análise situacional de Efetivo',
-    total: '34',
-    unit: 'batalhões analisados',
-    description: 'Visão integrada do efetivo existente e das perdas territorialmente identificadas nos 34 BPMs, reunindo movimentações, exonerações e demissões.',
+    total: '254',
+    unit: 'policiais necessários',
+    description: 'Soma das necessidades dos 22 batalhões com resultado negativo após considerar movimentações, exonerações e demissões, sem compensar a defasagem de uma unidade com o saldo positivo de outra. O estudo abrange os 34 BPMs.',
     stats: [
-      ['Déficit territorial apurado', '254', 'Soma dos resultados negativos da situação consolidada'],
+      ['Batalhões analisados', '34', '22 com necessidade · 11 com saldo positivo · 1 em equilíbrio'],
       ['Exonerações e demissões', '62 + 170', '232 registros vinculados aos 34 BPMs'],
       ['Situação consolidada', '−142', '+90 nas movimentações menos 232 desligamentos'],
       ['Situação dos batalhões', '22 · 11 · 1', '22 em déficit · 11 com saldo positivo · 1 em equilíbrio']

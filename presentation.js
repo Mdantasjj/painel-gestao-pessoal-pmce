@@ -371,7 +371,7 @@ const metricDetails = {
     eyebrow: 'Análise consolidada · batalhões',
     title: 'BATALHÕES - Análise situacional de Efetivo',
     total: '254',
-    unit: 'policiais necessários',
+    unit: 'efetivo necessário à reestruturação',
     description: 'Soma das necessidades dos 22 batalhões com resultado negativo após considerar movimentações, exonerações e demissões, sem compensar a defasagem de uma unidade com o saldo positivo de outra. O estudo abrange os 34 BPMs.',
     stats: [
       ['Batalhões analisados', '34', '22 com necessidade · 11 com saldo positivo · 1 em equilíbrio'],

@@ -322,51 +322,21 @@ const metricDetails = {
   restructuring: {
     accent: '#557c45',
     eyebrow: 'Memória de cálculo · interior e litoral',
-    title: 'Reestruturação do interior e litoral: 525 policiais adicionais para implementação',
-    total: '525',
+    title: '',
+    total: '',
     unit: 'policiais adicionais necessários',
-    description: 'Para implementar este estudo, é preciso acrescentar 525 policiais aos oito batalhões abaixo da referência de seus comandos. Os nove batalhões têm 1.965 policiais atualmente e passariam a 2.490 após esse reforço, sem retirar efetivo do 29º BPM. Este cálculo é diferente da análise situacional dos 34 BPMs.',
-    stats: [
-      ['Efetivo atual', '1.965', 'Policiais nos nove batalhões analisados'],
-      ['Efetivo adicional necessário', '525', 'Reforço distribuído entre oito batalhões'],
-      ['Efetivo após implementação', '2.490', '1.965 atuais + 525 adicionais; sem remanejamento']
-    ],
+    description: '',
+    stats: [],
     breakdownTitle: 'Distribuição do reforço por batalhão',
-    breakdownSubtitle: 'Participação de cada BPM nos 525 policiais adicionais necessários.',
+    breakdownSubtitle: '',
     hideBreakdown: true,
-    breakdown: [
-      ['33º BPM', 22.1, '116 · 22,1%', '#145c40'],
-      ['28º BPM', 18.3, '96 · 18,3%', '#23794f'],
-      ['31º BPM', 17.1, '90 · 17,1%', '#3d9065'],
-      ['27º BPM', 12.2, '64 · 12,2%', '#65a982'],
-      ['Demais 4 BPM', 30.3, '159 · 30,3%', '#83b99a']
-    ],
-    units: [
-      ['33º BPM', 138, 254, 116],
-      ['28º BPM', 202, 298, 96],
-      ['31º BPM', 168, 258, 90],
-      ['27º BPM', 234, 298, 64],
-      ['34º BPM', 202, 254, 52],
-      ['26º BPM', 294, 335, 41],
-      ['30º BPM', 217, 258, 41],
-      ['32º BPM', 229, 254, 25],
-      ['29º BPM', 281, 269, -12]
-    ],
+    breakdown: [],
+    units: [],
     sectionTitle: 'Distribuição do efetivo adicional por batalhão',
-    sectionSubtitle: 'Policiais a acrescentar para cada unidade atingir a referência inteira do comando; o 29º BPM não precisa de reforço neste recorte.',
+    sectionSubtitle: '',
     tableColumns: ['Posição', 'Batalhão / cidade', 'Efetivo atual', 'Referência inteira', 'Situação', 'Efetivo adicional necessário'],
-    tableRows: [
-      ['1', '33º BPM', '138', '254', 'Abaixo da média', '116'],
-      ['2', '28º BPM', '202', '298', 'Abaixo da média', '96'],
-      ['3', '31º BPM', '168', '258', 'Abaixo da média', '90'],
-      ['4', '27º BPM', '234', '298', 'Abaixo da média', '64'],
-      ['5', '34º BPM', '202', '254', 'Abaixo da média', '52'],
-      ['6', '26º BPM', '294', '335', 'Abaixo da média', '41'],
-      ['7', '30º BPM', '217', '258', 'Abaixo da média', '41'],
-      ['8', '32º BPM', '229', '254', 'Abaixo da média', '25'],
-      ['9', '29º BPM', '281', '269', 'Acima da média (+12)', '0']
-    ],
-    note: 'Fonte: aba “Resumo Executivo” da planilha de reestruturação do efetivo das unidades criadas. Foram excluídas as quatro unidades vinculadas ao CPRAIO: 6º, 7º, 8º e 9º BPRAIO. As oito necessidades positivas foram arredondadas individualmente para cima e somam 525 policiais adicionais. Os nove batalhões somam 1.965 policiais atualmente; a implementação integral elevaria esse conjunto a 2.490, sem remanejar os 12 policiais acima da referência no 29º BPM. A necessidade situacional de 587 nos 34 BPMs usa outra metodologia e não deve ser somada automaticamente aos 525.'
+    tableRows: [],
+    note: ''
   },
   battalions: {
     accent: '#145c40',
@@ -582,6 +552,56 @@ const metricDetails = {
     note: 'Fonte: resposta oficial do COPAC de 08/09/2026. O total de 360 representa o efetivo mínimo bruto para funcionamento das 12 bases (12 × 30), não um déficit líquido, pois o documento não informa efetivo já disponível para aproveitamento. A divisão em três fases é uma proposta estratégica de planejamento baseada na distribuição territorial das bases; não constitui cronograma oficial do COPAC/PReVio. O COPAC informa não dispor do cronograma das obras, datas de inauguração ou disponibilização do mobiliário; essas informações devem ser obtidas junto ao PReVio.'
   }
 };
+
+function recalculateRestructuringFromConsolidatedStrength() {
+  const study = metricDetails.restructuring;
+  const consolidated = metricDetails.battalions;
+  const regionCounts = Object.values(consolidated.crpmByUnit).reduce((counts, region) => {
+    counts[region] = (counts[region] || 0) + 1;
+    return counts;
+  }, {});
+  const units = [26, 27, 28, 29, 30, 31, 32, 33, 34].map((number) => {
+    const name = `${number}º BPM`;
+    const current = consolidated.battalionTotals[name];
+    const region = consolidated.crpmByUnit[name];
+    const regionalAverage = consolidated.crpmTotals[region] / regionCounts[region];
+    const reference = Math.ceil(regionalAverage);
+    const additional = Math.max(0, reference - current);
+    return [name, current, reference, additional, region, regionalAverage];
+  }).sort((a, b) => b[3] - a[3]);
+  const currentTotal = units.reduce((sum, [, current]) => sum + current, 0);
+  const additionalTotal = units.reduce((sum, [, , , additional]) => sum + additional, 0);
+  const targetTotal = currentTotal + additionalTotal;
+  const format = (number) => number.toLocaleString('pt-BR');
+
+  study.units = units;
+  study.totalNumber = additionalTotal;
+  study.regionalCounts = regionCounts;
+  study.total = format(additionalTotal);
+  study.title = `Reestruturação do interior e litoral: ${format(additionalTotal)} policiais adicionais para implementação`;
+  study.description = `Com os efetivos consolidados mais recentes, os nove batalhões do recorte estão abaixo da média atual de seus CRPMs. Para levá-los à referência inteira, são necessários ${format(additionalTotal)} policiais adicionais. O conjunto passa de ${format(currentTotal)} para ${format(targetTotal)} policiais. É uma comparação com a média atual, não uma nova média recalculada após o reforço.`;
+  study.stats = [
+    ['Efetivo atual', format(currentTotal), 'Policiais nos nove batalhões analisados'],
+    ['Efetivo adicional necessário', format(additionalTotal), 'Reforço distribuído entre os nove batalhões'],
+    ['Efetivo após implementação', format(targetTotal), `${format(currentTotal)} atuais + ${format(additionalTotal)} adicionais`]
+  ];
+  study.breakdownSubtitle = `Participação de cada BPM nos ${format(additionalTotal)} policiais adicionais necessários.`;
+  study.sectionSubtitle = 'Cada referência é a média atual do CRPM arredondada para cima; necessidade = referência inteira − efetivo atual.';
+  study.tableRows = units.map(([name, current, reference, additional], index) => [
+    String(index + 1), name, format(current), format(reference),
+    additional > 0 ? 'Abaixo da média' : 'Na média ou acima', format(additional)
+  ]);
+  study.note = `Escopo: nove BPMs numerados (26º a 34º) identificados na aba “Resumo Executivo” da planilha de reorganização; 6º a 9º BPRAIO continuam fora. Os efetivos atuais e totais regionais foram atualizados pela base consolidada posterior dos 34 BPMs e oito CRPMs, que totaliza 9.956 policiais e substitui os valores antigos da planilha de reorganização. Para cada unidade, a média atual do CRPM é calculada por efetivo regional ÷ número de BPMs do comando; a meta é arredondada para cima antes de subtrair o efetivo da unidade. Os nove acréscimos inteiros somam ${format(additionalTotal)} policiais. Esse é um cenário de nivelamento à média de referência atual, não efetivo já autorizado nem meta recalculada após a alocação. A necessidade situacional de 587 policiais nos 34 BPMs usa outra metodologia e não deve ser somada automaticamente a este total.`;
+
+  const card = document.querySelector('.metric-card[data-detail="restructuring"]');
+  if (card) {
+    card.querySelector('.metric-main strong').textContent = study.total;
+    card.querySelector('.metric-foot span').textContent = `Reforço para os ${units.length} batalhões analisados`;
+    card.setAttribute('aria-label', `Detalhar os ${study.total} policiais adicionais necessários à implementação da reestruturação dos batalhões do interior e do litoral`);
+  }
+}
+
+recalculateRestructuringFromConsolidatedStrength();
 
 const workforceProjectOverview = {
   accent: '#216f4c',
@@ -1106,17 +1126,20 @@ function renderRestructuringUnitDetail(unitName) {
   const unit = metricDetails.restructuring.units.find(([name]) => name === unitName);
   const result = document.querySelector('#restructuringUnitResult');
   if (!unit || !result) return;
-  const [name, current, reference, difference] = unit;
+  const [name, current, reference, difference, region, regionalAverage] = unit;
   const coverage = current / reference * 100;
   const belowAverage = difference > 0;
-  const operationalDifference = Math.max(0, Math.ceil(difference));
-  const status = belowAverage ? 'Abaixo da média' : 'Acima da média';
+  const operationalDifference = difference;
+  const status = belowAverage ? 'Abaixo da referência' : current === reference ? 'Na referência' : 'Acima da referência';
   const statusClass = belowAverage ? 'is-loss' : 'is-gain';
   const formatNumber = (value) => value.toLocaleString('pt-BR', { minimumFractionDigits: 0, maximumFractionDigits: 2 });
-  const share = belowAverage ? operationalDifference / 525 * 100 : 0;
+  const share = belowAverage ? operationalDifference / metricDetails.restructuring.totalNumber * 100 : 0;
+  const regionalTotal = metricDetails.battalions.crpmTotals[region];
+  const regionalCount = metricDetails.restructuring.regionalCounts[region];
+  const calculation = `${region}: ${formatNumber(regionalTotal)} policiais ÷ ${regionalCount} BPMs = média atual de ${formatNumber(regionalAverage)}; meta inteira de ${formatNumber(reference)}.`;
   const interpretation = belowAverage
-    ? `Acrescentar ${formatNumber(operationalDifference)} policiais a este BPM para implementar a referência. Com o reforço, o efetivo passa de ${formatNumber(current)} para ${formatNumber(current + operationalDifference)} policiais. Esta unidade representa ${formatNumber(share)}% dos 525 necessários.`
-    : `Este BPM já tem ${formatNumber(Math.abs(difference))} policiais acima da referência; não precisa de reforço neste recorte e seu excedente não foi descontado da necessidade dos demais.`;
+    ? `Acrescentar ${formatNumber(operationalDifference)} policiais a este BPM para atingir a referência atual. Com o reforço, seu efetivo passa de ${formatNumber(current)} para ${formatNumber(current + operationalDifference)} policiais. Esta unidade representa ${formatNumber(share)}% dos ${metricDetails.restructuring.total} necessários. ${calculation}`
+    : `Este BPM não precisa de reforço neste recorte. ${calculation}`;
   result.innerHTML = `
     <div class="pog-unit-result-heading">
       <div><span>Batalhão selecionado</span><strong>${formatPogUnitName(name)}</strong></div>
@@ -1137,10 +1160,11 @@ function renderRestructuringTopFive(data) {
     .sort((a, b) => b[3] - a[3])
     .slice(0, 5);
   const maximum = Math.ceil(rankedUnits[0][3]);
+  const topFiveShare = rankedUnits.reduce((sum, [, , , additional]) => sum + additional, 0) / data.totalNumber * 100;
   const rows = rankedUnits.map(([name, , , difference], index) => {
     const operationalDifference = Math.ceil(difference);
     const width = operationalDifference / maximum * 100;
-    const share = operationalDifference / 525 * 100;
+    const share = operationalDifference / data.totalNumber * 100;
     const formattedDifference = operationalDifference.toLocaleString('pt-BR');
     const formattedShare = share.toLocaleString('pt-BR', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
     return `
@@ -1155,7 +1179,7 @@ function renderRestructuringTopFive(data) {
     <section class="detail-section restructuring-ranking-section">
       <div class="detail-section-heading">
         <div><h3>Top 5 maiores necessidades de efetivo</h3><p>Batalhões que receberiam o maior reforço para atingir a referência de seus comandos.</p></div>
-        <span>79,6% dos 525 policiais</span>
+        <span>${topFiveShare.toLocaleString('pt-BR', { minimumFractionDigits: 1, maximumFractionDigits: 1 })}% dos ${data.total} policiais</span>
       </div>
       <div class="restructuring-ranking">${rows}</div>
     </section>`;

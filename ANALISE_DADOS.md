@@ -4,7 +4,8 @@ Fontes analisadas:
 
 - Documento oficial COPAC/PReVio de 08/09/2026 — SHA-256 `4A3AE90FC3C6EBF855941F69127F4F330BA4297E135016F59332A9D028D0BEFD`. Foram utilizados somente os dados agregados da resposta do COPAC. Como o processo está classificado com acesso restrito, o PDF integral, o identificador processual e os dados pessoais não foram publicados no repositório.
 
-- `Resumo Organograma - Defasagem efetivo Unidades criadas.xlsx` — SHA-256 `64CEF17C93D1A5042975F5D72C2CE0D814386ABB6D7FEE13F6B759F513447A45`. Foi utilizada somente a aba `Resumo Executivo`. As quatro unidades ligadas ao CPRAIO/BPRAIO foram excluídas do novo indicador.
+- `Resumo Organograma - Defasagem efetivo Unidades criadas.xlsx` — SHA-256 `64CEF17C93D1A5042975F5D72C2CE0D814386ABB6D7FEE13F6B759F513447A45`. As abas `Resumo Executivo`, `Parâmetros` e `Detalhamento` foram conferidas uma a uma. A planilha identifica o escopo histórico dos BPMs 26º a 34º; seus efetivos e totais de CRPM são anteriores à base consolidada posteriormente fornecida e não sustentam mais o número atual do card. Os quatro BPRAIO continuam excluídos.
+- Base consolidada de efetivo fornecida na conversa — 34 BPMs e oito CRPMs, com totais de 9.956 policiais em ambos os agrupamentos. É a fonte atual dos efetivos e médias usados no recálculo da reestruturação. Seus quantitativos por BPM e por CRPM conferem entre si; a tabela de conferência abaixo explicita os nove BPMs do recorte.
 
 - `DISTRI VTR (1).xlsx` — SHA-256 `5BC0B6767E532ACBFDBBE8948B15BD18047FA1005565A20BACA990ACC0B0561A`. A aba `BASE` foi utilizada inicialmente para relacionar os 34 BPMs numerados aos municípios e ao campo `area_km2`. As referências territoriais foram posteriormente consolidadas pelo projeto, com dois municípios, bairros ou áreas associados a cada BPM e exibição ao lado do nome da unidade.
 
@@ -21,7 +22,7 @@ Fontes analisadas:
 | RAIO — Necessidade de efetivo para compor as 20 bases satélites em 3 níveis de implementação | 912 policiais | 20 oficiais e 892 praças |
 | Projeto de Efetivo 2027–2030 — Eixo POG + COTAM + BPTUR | 271 policiais | 111 de déficit nos 34 BPMs territoriais, 110 para a COTAM e 50 para a 6ª Cia/BPTUR |
 | COPAC/PReVio — Efetivo mínimo das bases cidadãs | 360 policiais | 12 bases × 30 policiais; projeção bruta, sem dedução de efetivo disponível |
-| Reestruturação dos batalhões do interior e do litoral | 525 policiais adicionais para implementação | Reforço dos 8 batalhões abaixo da referência, arredondado individualmente para cima; 9 batalhões analisados, sendo 1 acima da média e sem necessidade adicional; RAIO excluído |
+| Reestruturação dos batalhões do interior e do litoral | 503 policiais adicionais para implementação | Nove BPMs abaixo da média atual de seus CRPMs; referência inteira por comando, efetivos da base consolidada mais recente; RAIO excluído |
 | BATALHÕES - Análise situacional de Efetivo | 587 policiais de necessidade situacional | 34 BPMs analisados: 29 em déficit, 3 com saldo positivo e 2 em equilíbrio; situação consolidada de −572 |
 
 ## Principais achados
@@ -35,9 +36,9 @@ Fontes analisadas:
 - Os 34 BPMs registram 1.459 origens e 1.549 destinos, produzindo saldo conjunto de +90. Esse saldo positivo não elimina os déficits localizados.
 - O 12º BPM — Caucaia (Centro · Cumbuco) tem o maior saldo negativo (-37), seguido pelo 8º BPM — Aldeota · Vicente Pinzón (-23) e pelo 22º BPM — Papicu · Dionísio Torres (-10). Os dois primeiros concentram 54,1% do déficit por batalhão.
 - CRPMs, unidades especializadas e demais OPMs foram retirados do indicador. Os registros dos comandos regionais não foram redistribuídos porque a fonte não identifica o batalhão de vínculo.
-- Na reestruturação do interior e do litoral, nove batalhões permanecem após excluir quatro unidades do RAIO. Oito estão abaixo da média do respectivo comando. A base analítica original produz diferenças fracionárias por utilizar médias; no painel, todas as metas de referência e necessidades são convertidas para efetivo inteiro, sempre garantindo que a unidade alcance ou supere a média. O reforço adicional necessário é de 116, 96, 90, 64, 52, 41, 41 e 25 policiais, total de 525. Os nove BPMs somam 1.965 policiais atualmente e passariam a 2.490 após essa implementação. O 29º BPM está 12 policiais acima da referência e precisa de zero adicional; esse excedente não reduz a necessidade dos outros BPMs. O 33º BPM — Campos Sales · Assaré apresenta a maior necessidade, com 116. Os 525 não são diretamente somáveis aos 587 da análise situacional dos 34 BPMs, pois os recortes e métodos diferem.
+- Na reestruturação do interior e do litoral, os nove BPMs 26º a 34º permanecem após excluir quatro unidades do RAIO. Todos os nove estão abaixo da média **atual** do respectivo CRPM na base consolidada posterior. A referência inteira de cada CRPM é o teto de `efetivo do CRPM ÷ número de BPMs do comando`, e a necessidade da unidade é `máximo(0, referência inteira − efetivo atual do BPM)`. As necessidades são 109, 94, 75, 62, 45, 39, 37, 31 e 11 policiais, total de **503**. Os nove BPMs somam **1.831** policiais e passariam a **2.334** após o reforço. O 33º BPM — Campos Sales · Assaré apresenta a maior necessidade, com 109. A planilha histórica somava 1.965 nos nove BPMs; esse valor foi substituído, não combinado, com a base mais recente. Os 503 não são diretamente somáveis aos 587 da análise situacional dos 34 BPMs, pois os recortes e métodos diferem.
 - Na tabela situacional dos 34 batalhões, o vínculo regional BPM–CRPM utiliza a aba `BASE` de `DISTRI VTR (1).xlsx`. A base consolidada posteriormente fornecida cobre os 34 BPMs e os oito CRPMs. A soma dos batalhões vinculados a cada comando confere com o respectivo total regional: 1º CRPM 2.137; 2º CRPM 941; 3º CRPM 1.096; 4º CRPM 1.410; 5º CRPM 1.392; 6º CRPM 1.158; 7º CRPM 871; e 8º CRPM 951. O total geral é 9.956 policiais.
-- O efetivo médio do CRPM divide o efetivo regional pela quantidade de BPMs vinculados ao comando e arredonda o resultado para o policial inteiro mais próximo: 1º CRPM 356; 2º CRPM 314; 3º CRPM 274; 4º CRPM 235; 5º CRPM 348; 6º CRPM 290; 7º CRPM 290; e 8º CRPM 238 policiais por BPM. A informação foi retirada da tabela geral e permanece documentada aqui, mas não é exibida no painel.
+- A média exata de cada CRPM é `efetivo regional ÷ quantidade de BPMs vinculados`. A antiga visualização situacional arredondava essa média ao inteiro mais próximo (por exemplo, 7º CRPM: 290); ela foi retirada do painel. A reestruturação usa outra regra explícita: o **teto** da média exata como referência mínima inteira (7º CRPM: 291), de modo que o BPM alcance ou supere a média sem fração de policial.
 - Na análise integrada por batalhão, a situação é calculada por `saldo das movimentações − exonerações − demissões − requeridas de 2025 − requeridas de 2026 vinculadas ao BPM`. O saldo conjunto de +90 passa a −572 depois de descontar 62 exonerações, 170 demissões e 430 requeridas vinculadas. A soma dos resultados negativos de 29 BPMs é 587 policiais; três BPMs têm saldo positivo e dois estão em equilíbrio.
 - O card `PROJETO DE EFETIVO 2027–2030` apresenta 1.543 como soma dos três eixos: POG/COTAM/BPTUR (271), RAIO (912) e COPAC/PReVio (360). As memórias de cálculo permanecem separadas nos subcards; o total é uma soma de necessidades apresentadas, não comprovação de escopos integralmente independentes.
 - As 767 requeridas integram o total do card **PERDA DE EFETIVO**. A coluna por BPM apresenta os 430 registros vinculados diretamente, discriminados por ano; uma linha separa os 337 de outras OPMs. A promoção não representa baixa da PMCE, e a fonte agregada não permite conferir repetição entre anos nem sobreposição nominal com exonerações ou demissões. O indicador de 587 é cenário de recomposição por OPM, não contagem de pessoas únicas desligadas da corporação. Outros 94 desligamentos administrativos pertencem a comandos, unidades especializadas e demais OPMs e não foram redistribuídos.
@@ -46,6 +47,25 @@ Fontes analisadas:
 - Das 767 promoções requeridas detalhadas nos dois anos, 611 correspondem ao acesso de SUBTEN PM a 2ºTEN QOAPM (79,7%: 458 em 2025 e 153 em 2026); as demais 156 correspondem a promoções entre postos de oficiais (20,3%: 94 em 2025 e 62 em 2026).
 
 - O indicador de licença saúde foi alimentado pela relação funcional fornecida em 14/09/2026. Dos 875 registros sem matrículas duplicadas, 645 correspondem a LTS própria ou de dependente com vínculo direto a um dos 34 BPMs. A planilha geral possui ainda 96 agregados por mais de um ano em LTS: 81 vinculados diretamente aos BPMs e 15 pertencentes a comandos ou outras unidades. Não há sobreposição de matrícula entre os 81 agregados e a primeira relação. O total territorial é de 726 militares. O indicador exclui licenças gestante, paternidade e interesse particular. Somente os quantitativos agregados são mantidos no projeto; nomes e matrículas permanecem fora do repositório. A coluna foi retirada da tabela geral, e os quantitativos de licença saúde não são exibidos no painel. `Reestruturação necessidade` apresenta somente os resultados negativos após movimentações, exonerações, demissões e requeridas de 2025–2026 diretamente vinculadas ao BPM.
+
+## Conferência da reestruturação, batalhão por batalhão
+
+O valor histórico vem da planilha de reorganização; o valor atual vem da base consolidada posterior dos 34 BPMs. A média é calculada antes da implementação, a partir do total atual do CRPM. A referência inteira é o teto da média; nenhuma fração de policial é usada no reforço.
+
+| BPM | Efetivo histórico | Efetivo atual | CRPM | Média atual do CRPM | Referência inteira | Adicional necessário |
+|---|---:|---:|---|---:|---:|---:|
+| 26º | 294 | 275 | 2º | 941 ÷ 3 = 313,67 | 314 | 39 |
+| 27º | 234 | 212 | 3º | 1.096 ÷ 4 = 274 | 274 | 62 |
+| 28º | 202 | 180 | 3º | 1.096 ÷ 4 = 274 | 274 | 94 |
+| 29º | 281 | 260 | 7º | 871 ÷ 3 = 290,33 | 291 | 31 |
+| 30º | 217 | 201 | 8º | 951 ÷ 4 = 237,75 | 238 | 37 |
+| 31º | 168 | 163 | 8º | 951 ÷ 4 = 237,75 | 238 | 75 |
+| 32º | 229 | 224 | 4º | 1.410 ÷ 6 = 235 | 235 | 11 |
+| 33º | 138 | 126 | 4º | 1.410 ÷ 6 = 235 | 235 | 109 |
+| 34º | 202 | 190 | 4º | 1.410 ÷ 6 = 235 | 235 | 45 |
+| **Total** | **1.965** | **1.831** | — | — | — | **503** |
+
+Conferência regional da base consolidada: a soma dos 34 BPMs é 9.956 policiais, igual à soma dos oito totais de CRPM. O acréscimo de 503 aos nove BPMs leva o recorte de 1.831 a 2.334 policiais. Os totais regionais e as médias são referências **anteriores** ao reforço; se a meta for alcançar uma média recalculada depois da distribuição, é necessário definir outro critério de planejamento.
 
 ## Ressalvas metodológicas
 

@@ -44,24 +44,25 @@ function renderDismissalsChart() {
   document.querySelector('#mainChart').innerHTML = `
     <div class="chart-key">${key}</div>
     <div class="bar-stage" style="--count:8">${groups}</div>
-    <div class="chart-source-note">A série contextualiza as 328 saídas confirmadas. As 207 requeridas são apresentadas separadamente, totalizando 535 registros no indicador.</div>`;
+    <div class="chart-source-note">A série contextualiza as 328 saídas administrativas confirmadas. As 215 promoções requeridas são apresentadas separadamente, totalizando 543 registros no indicador.</div>`;
 }
 
 function renderPromotions() {
+  const promotionTotal = 215;
   const segments = [
     { label: 'Acesso ao oficialato', value: 153, color: '#698342' },
-    { label: 'Entre postos de oficiais', value: 54, color: '#3b7e9d' }
+    { label: 'Entre postos de oficiais', value: 62, color: '#3b7e9d' }
   ];
   let current = 0;
   const stops = segments.map((segment) => {
     const start = current;
-    current += (segment.value / 207) * 100;
+    current += (segment.value / promotionTotal) * 100;
     return `${segment.color} ${start}% ${current}%`;
   }).join(',');
   document.querySelector('#donutChart').style.background = `conic-gradient(${stops})`;
-  document.querySelector('#donutTotal').textContent = '207';
+  document.querySelector('#donutTotal').textContent = String(promotionTotal);
   document.querySelector('#donutLegend').innerHTML = segments.map((segment) => {
-    const share = ((segment.value / 207) * 100).toLocaleString('pt-BR', { maximumFractionDigits: 1 });
+    const share = ((segment.value / promotionTotal) * 100).toLocaleString('pt-BR', { maximumFractionDigits: 1 });
     return `<li><i class="legend-swatch" style="--swatch:${segment.color}"></i><span>${segment.label}</span><strong>${segment.value} · ${share}%</strong></li>`;
   }).join('');
 }
@@ -114,31 +115,31 @@ const metricDetails = {
   exits: {
     accent: '#23845b',
     eyebrow: 'Memória de cálculo · perda de efetivo',
-    title: '535 registros consolidados de perda de efetivo',
-    total: '535',
+    title: '543 registros consolidados de perda de efetivo',
+    total: '543',
     unit: 'registros consolidados',
-    description: 'Indicador formado por 328 saídas confirmadas sem duplicidades e 207 requeridas, mantidas separadas por ainda não possuírem unidade de origem territorial identificada.',
+    description: 'Indicador formado por 328 saídas administrativas confirmadas sem duplicidades e 215 promoções requeridas em 2026. Dessas requeridas, 110 estão vinculadas aos 34 BPMs e 105 a outras OPMs; promoção não equivale a baixa da PMCE.',
     stats: [
-      ['Demissões gerais', '245', '45,8% dos 535 registros'],
-      ['Exonerações gerais', '83', '15,5% dos 535 registros'],
-      ['Requeridas', '207', '38,7% · sem OPM de origem'],
-      ['Saídas nos 34 BPMs', '232', '62 exonerações · 170 demissões']
+      ['Demissões gerais', '245', '45,1% dos 543 registros'],
+      ['Exonerações gerais', '83', '15,3% dos 543 registros'],
+      ['Requeridas', '215', '39,6% · 110 nos BPMs · 105 em outras OPMs'],
+      ['Impactos nos 34 BPMs', '342', '62 exonerações · 170 demissões · 110 requeridas']
     ],
     breakdown: [
-      ['Demissões — outros concursos', 45.8, '245 · 45,8%', '#145c40'],
-      ['Exonerações — outros concursos', 15.5, '83 · 15,5%', '#3d9065'],
-      ['Requeridas', 38.7, '207 · 38,7%', '#698342']
+      ['Demissões — outros concursos', 45.1, '245 · 45,1%', '#145c40'],
+      ['Exonerações — outros concursos', 15.3, '83 · 15,3%', '#3d9065'],
+      ['Requeridas', 39.6, '215 · 39,6%', '#698342']
     ],
     sectionTitle: 'Reconciliação da base de saídas',
     sectionSubtitle: 'A tabela demonstra as saídas sem duplicidades, acrescenta as requeridas e separa o recorte utilizado na análise dos 34 batalhões.',
     tableColumns: ['Etapa de validação', 'Exonerações', 'Demissões', 'Requeridas', 'Total'],
     tableRows: [
-      ['Registros gerais consolidados', '88', '252', '207', '547'],
-      ['Contabilidade após retirar duplicidades', '83', '245', '207', '535'],
-      ['Fora dos 34 BPMs', '21', '75', '—', '96'],
-      ['Recorte final dos 34 BPMs', '62', '170', '—', '232']
+      ['Registros gerais antes da deduplicação', '88', '252', '215', '555'],
+      ['Contabilidade após retirar duplicidades', '83', '245', '215', '543'],
+      ['Fora dos 34 BPMs', '21', '75', '105', '201'],
+      ['Recorte final dos 34 BPMs', '62', '170', '110', '342']
     ],
-    note: 'Validação da relação cumulativa de janeiro a agosto de 2026: 340 registros de exonerações e demissões − 12 duplicidades = 328 saídas confirmadas. A este resultado são acrescentadas 207 requeridas, totalizando 535 registros no indicador. As requeridas permanecem separadas do recorte territorial porque a fonte não informa a OPM de origem. Entre as 328 saídas confirmadas, 232 estão vinculadas aos 34 BPMs; as outras 96 ficam fora do cálculo por batalhão — 94 pertencem a outras OPMs e duas não possuem vínculo nominal extraível.'
+    note: 'A relação cumulativa de janeiro a agosto de 2026 contém 340 registros de exonerações e demissões; retiradas 12 duplicidades, restam 328 saídas administrativas confirmadas. A nova planilha de promoções requeridas por OPM soma 215 em 2026 (153 acessos ao oficialato e 62 promoções entre postos), oito a mais que a base anterior. São 110 registros diretamente vinculados aos 34 BPMs e 105 a outras OPMs. A soma de naturezas distintas é 543 registros, não necessariamente 543 pessoas únicas nem 543 baixas da corporação. Entre as 328 saídas administrativas, 232 pertencem aos BPMs e 96 ficam fora — 94 de outras OPMs e duas sem vínculo nominal extraível. A aba de 2025 das promoções não foi incluída no indicador de 2026.'
   },
   raio: {
     accent: '#3b7e9d',
@@ -370,25 +371,26 @@ const metricDetails = {
     accent: '#145c40',
     eyebrow: 'Análise consolidada · batalhões',
     title: 'BATALHÕES - Análise situacional de Efetivo',
-    total: '254',
+    total: '336',
     unit: 'efetivo necessário à reestruturação',
-    description: 'Soma das necessidades dos 22 batalhões com resultado negativo após considerar movimentações, exonerações e demissões, sem compensar a defasagem de uma unidade com o saldo positivo de outra. O estudo abrange os 34 BPMs.',
+    description: 'Soma das necessidades dos 25 batalhões com resultado negativo após considerar movimentações, exonerações, demissões e 110 promoções requeridas vinculadas aos BPMs. Saldos positivos de outras unidades não compensam necessidades locais.',
     stats: [
-      ['Batalhões analisados', '34', '22 com necessidade · 11 com saldo positivo · 1 em equilíbrio'],
-      ['Exonerações e demissões', '62 + 170', '232 registros vinculados aos 34 BPMs'],
-      ['Situação consolidada', '−142', '+90 nas movimentações menos 232 desligamentos'],
-      ['Situação dos batalhões', '22 · 11 · 1', '22 em déficit · 11 com saldo positivo · 1 em equilíbrio']
+      ['Batalhões analisados', '34', '25 com necessidade · 9 com saldo positivo'],
+      ['Exonerações e demissões', '62 + 170', '232 saídas administrativas nos 34 BPMs'],
+      ['Requeridas nos BPMs', '110', '105 requeridas pertencem a outras OPMs'],
+      ['Situação consolidada', '−252', '+90 nas movimentações − 232 saídas − 110 requeridas'],
+      ['Situação dos batalhões', '25 · 9 · 0', '25 em déficit · 9 com saldo positivo · nenhum em equilíbrio']
     ],
     breakdownTitle: 'Situação integrada dos 34 batalhões',
-    breakdownSubtitle: 'Distribuição dos BPMs após incorporar exonerações e demissões ao saldo das movimentações.',
+    breakdownSubtitle: 'Distribuição dos BPMs após incorporar exonerações, demissões e requeridas ao saldo das movimentações.',
     hideBreakdown: true,
     breakdown: [
-      ['Déficit', 64.71, '22 · 64,7%', '#145c40'],
-      ['Saldo positivo', 32.35, '11 · 32,4%', '#3d9065'],
-      ['Em equilíbrio', 2.94, '1 · 2,9%', '#83b99a']
+      ['Déficit', 73.53, '25 · 73,5%', '#145c40'],
+      ['Saldo positivo', 26.47, '9 · 26,5%', '#3d9065'],
+      ['Em equilíbrio', 0, '0 · 0,0%', '#83b99a']
     ],
     sectionTitle: 'Visão geral por batalhão',
-    sectionSubtitle: 'As requeridas são apresentadas como perda potencial, mas ainda não podem ser atribuídas a cada BPM; a necessidade por unidade considera movimentações, exonerações e demissões.',
+    sectionSubtitle: 'Necessidade por BPM após movimentações, exonerações, demissões e promoções requeridas vinculadas diretamente às unidades.',
     tableColumns: ['Posição', 'Batalhão / cidades', 'Efetivo do batalhão', 'Exonerações', 'Demissões', 'Requeridas', 'Movimentações', 'Reestruturação necessidade'],
     tableRows: [],
     battalionTotals: {
@@ -432,6 +434,17 @@ const metricDetails = {
       '29º BPM': [1, 1], '30º BPM': [1, 1], '31º BPM': [2, 0], '32º BPM': [0, 1],
       '33º BPM': [1, 4], '34º BPM': [5, 1]
     },
+    requiredPromotions: {
+      '1º BPM': 3, '2º BPM': 10, '3º BPM': 5, '4º BPM': 7,
+      '5º BPM': 3, '6º BPM': 2, '7º BPM': 6, '8º BPM': 4,
+      '9º BPM': 4, '10º BPM': 4, '11º BPM': 10, '12º BPM': 1,
+      '13º BPM': 1, '14º BPM': 0, '15º BPM': 4, '16º BPM': 4,
+      '17º BPM': 1, '18º BPM': 2, '19º BPM': 3, '20º BPM': 3,
+      '21º BPM': 3, '22º BPM': 3, '23º BPM': 3, '24º BPM': 7,
+      '25º BPM': 1, '26º BPM': 0, '27º BPM': 4, '28º BPM': 3,
+      '29º BPM': 2, '30º BPM': 1, '31º BPM': 0, '32º BPM': 1,
+      '33º BPM': 2, '34º BPM': 3
+    },
     healthLeaveTotals: {
       '1º BPM': 14, '2º BPM': 29, '3º BPM': 19, '4º BPM': 8, '5º BPM': 53,
       '6º BPM': 46, '7º BPM': 11, '8º BPM': 29, '9º BPM': 15, '10º BPM': 6,
@@ -441,7 +454,7 @@ const metricDetails = {
       '26º BPM': 12, '27º BPM': 7, '28º BPM': 7, '29º BPM': 14, '30º BPM': 14,
       '31º BPM': 9, '32º BPM': 12, '33º BPM': 2, '34º BPM': 3
     },
-    note: 'A base consolidada de efetivo informa os 34 BPMs e os oito CRPMs, totalizando 9.956 policiais, sem divergências nas somas regionais. Para cada batalhão, a situação média é calculada por saldo das movimentações − exonerações − demissões. O conjunto passa de +90 nas movimentações para −142 após descontar os 232 desligamentos administrativos vinculados aos BPMs. A soma somente dos resultados negativos produz déficit territorial apurado de 254 policiais. As 207 requeridas aparecem em coluna e linha próprias, mas não são atribuídas aos BPMs nem entram no cálculo enquanto a fonte não informar a OPM de origem e a baixa individual. Outros 94 desligamentos administrativos pertencem a comandos, unidades especializadas e demais OPMs e não foram redistribuídos.'
+    note: 'A base consolidada informa 9.956 policiais nos 34 BPMs e oito CRPMs. Para cada BPM, a situação é calculada por saldo das movimentações − exonerações − demissões − promoções requeridas vinculadas à unidade. A planilha de 2026 por OPM contém 215 requeridas: 110 nos 34 BPMs e 105 em outras OPMs. O saldo conjunto de +90 nas movimentações passa a −252 após 232 saídas administrativas e 110 requeridas dos BPMs. A soma apenas dos resultados negativos produz necessidade localizada de 336 policiais em 25 unidades; nove mantêm saldo positivo. Promoção não é baixa da PMCE e a planilha agregada não permite conferir sobreposição individual com outras bases; este é um cenário de recomposição por OPM, não contagem de baixas institucionais únicas. Os 105 registros de outras OPMs e os 94 desligamentos administrativos fora dos BPMs não foram redistribuídos.'
   },
   copac: {
     accent: '#2f855a',
@@ -605,6 +618,7 @@ const battalionSortLabels = {
   battalionStrength: 'Efetivo do batalhão',
   exonerations: 'Exonerações',
   dismissals: 'Demissões',
+  requiredPromotions: 'Requeridas',
   movementBalance: 'Movimentações',
   calculatedDeficit: 'Reestruturação necessidade'
 };
@@ -619,7 +633,8 @@ function getBattalionTableRecords() {
   return metricDetails.pog.units.map(([name, , , balance]) => {
     const crpm = metricDetails.battalions.crpmByUnit[name];
     const [exonerations = 0, dismissals = 0] = metricDetails.battalions.administrativeExits[name] || [];
-    const situation = balance - exonerations - dismissals;
+    const requiredPromotions = metricDetails.battalions.requiredPromotions[name] ?? 0;
+    const situation = balance - exonerations - dismissals - requiredPromotions;
     return {
       name,
       battalionStrength: metricDetails.battalions.battalionTotals[name] ?? null,
@@ -631,6 +646,7 @@ function getBattalionTableRecords() {
       situation,
       exonerations,
       dismissals,
+      requiredPromotions,
       calculatedDeficit: Math.max(0, -situation)
     };
   });
@@ -680,17 +696,17 @@ function buildBattalionTableRows(field = 'situation', direction = 'asc') {
       renderBattalionStrengthValue(record.battalionStrength, record.battalionStrength == null ? 'sem dado na fonte' : 'policiais'),
       renderBattalionExitValue(record.exonerations, 'saídas'),
       renderBattalionExitValue(record.dismissals, 'saídas'),
-      renderBattalionExitValue(0, 'BPM não informado', true),
+      renderBattalionExitValue(record.requiredPromotions, 'promoções'),
       renderBattalionSignedValue(record.movementBalance, 'saldo'),
       renderBattalionExitValue(record.calculatedDeficit, 'resultado negativo')
     ]);
   rows.push([
     '—',
-    'REQUERIDAS SEM BPM IDENTIFICADO',
+    'REQUERIDAS DE OUTRAS OPMs',
     '—',
     '—',
     '—',
-    renderBattalionExitValue(207, 'sem OPM de origem'),
+    renderBattalionExitValue(105, 'fora dos 34 BPMs'),
     '—',
     '—'
   ]);
@@ -700,9 +716,9 @@ function buildBattalionTableRows(field = 'situation', direction = 'asc') {
     renderBattalionStrengthValue(9956, 'policiais'),
     renderBattalionExitValue(62, 'saídas'),
     renderBattalionExitValue(170, 'saídas'),
-    renderBattalionExitValue(0, 'não atribuídas', true),
+    renderBattalionExitValue(110, 'promoções'),
     renderBattalionSignedValue(90, 'saldo'),
-    renderBattalionExitValue(254, '22 BPMs negativos')
+    renderBattalionExitValue(336, '25 BPMs negativos')
   ]);
   return rows;
 }
@@ -735,7 +751,7 @@ function renderPogUnitLabel(unitName) {
 
 function renderDetailTable(data, detailKey = '') {
   const head = data.tableColumns.map((column) => `<th scope="col">${column}</th>`).join('');
-  const rows = data.tableRows.map((row) => `<tr${detailKey === 'battalions' && row[1] === 'REQUERIDAS SEM BPM IDENTIFICADO' ? ' class="battalion-unallocated-row"' : ''}>${row.map((cell, index) => {
+  const rows = data.tableRows.map((row) => `<tr${detailKey === 'battalions' && row[1] === 'REQUERIDAS DE OUTRAS OPMs' ? ' class="battalion-unallocated-row"' : ''}>${row.map((cell, index) => {
     const content = ['pog', 'restructuring', 'battalions'].includes(detailKey) && index === 1 ? renderPogUnitLabel(cell) : cell;
     return `<td>${content}</td>`;
   }).join('')}</tr>`).join('');
@@ -786,7 +802,7 @@ const integratedSituationContexts = {
   raio: 'Leitura territorial complementar ao planejamento do RAIO. Os quantitativos do projeto permanecem separados do efetivo dos batalhões.',
   pog: 'Contextualiza os três eixos do Projeto de Efetivo com a situação consolidada de cada BPM, sem fundir as respectivas metodologias.',
   restructuring: 'Compara o estudo original de reestruturação com a base consolidada dos 34 BPMs, preservando as metodologias e datas de referência.',
-  battalions: 'Síntese transversal dos indicadores consolidados para contextualizar a situação atual de cada batalhão.',
+  battalions: 'Síntese por BPM com movimentações, saídas administrativas, promoções requeridas e licenças saúde.',
   copac: 'Leitura territorial complementar ao PReVio. A necessidade das bases cidadãs permanece separada do efetivo dos batalhões.'
 };
 
@@ -812,14 +828,14 @@ function getIntegratedSituationRecord(unitName) {
 function renderIntegratedSituationResult(unitName) {
   const record = getIntegratedSituationRecord(unitName);
   if (!record) return '<p class="integrated-situation-empty">Não há dados consolidados para a unidade selecionada.</p>';
-  const permanentExits = record.exonerations + record.dismissals;
+  const countedImpacts = record.exonerations + record.dismissals + record.requiredPromotions;
   const availableStrength = Math.max(0, record.battalionStrength - record.healthLeave);
   const availability = record.battalionStrength ? availableStrength / record.battalionStrength * 100 : 0;
   const operationalBalance = record.situation - record.healthLeave;
   const operationalNeed = Math.max(0, -operationalBalance);
   const structuralMagnitude = record.situation < 0 ? record.calculatedDeficit : Math.max(0, record.situation);
   const operationalMagnitude = operationalBalance < 0 ? operationalNeed : Math.max(0, operationalBalance);
-  const structuralStatus = record.situation < 0 ? 'Necessidade estrutural' : record.situation > 0 ? 'Saldo estrutural' : 'Equilíbrio estrutural';
+  const structuralStatus = record.situation < 0 ? 'Necessidade de recomposição' : record.situation > 0 ? 'Saldo após impactos' : 'Equilíbrio após impactos';
   const operationalStatus = operationalBalance < 0 ? 'Pressão operacional' : operationalBalance > 0 ? 'Saldo operacional' : 'Equilíbrio operacional';
   return `
     <div class="integrated-situation-result-heading">
@@ -831,24 +847,24 @@ function renderIntegratedSituationResult(unitName) {
       <div><span>Disponível estimado</span><strong>${availableStrength.toLocaleString('pt-BR')}</strong><small>${availability.toLocaleString('pt-BR', { maximumFractionDigits: 1 })}% após licenças</small></div>
       <div><span>Média do CRPM</span><strong>${record.crpmAverage.toLocaleString('pt-BR')}</strong><small>${record.crpm} · referência regional</small></div>
       <div><span>Licença saúde</span><strong>${record.healthLeave.toLocaleString('pt-BR')}</strong><small>LTS + agregados &gt; 1 ano</small></div>
-      <div><span>Saídas permanentes</span><strong>${permanentExits.toLocaleString('pt-BR')}</strong><small>${record.exonerations} exon. · ${record.dismissals} dem.</small></div>
+      <div><span>Impactos considerados</span><strong>${countedImpacts.toLocaleString('pt-BR')}</strong><small>${record.exonerations} exon. · ${record.dismissals} dem. · ${record.requiredPromotions} req.</small></div>
       <div><span>Movimentações</span><strong>${formatIntegratedSignedValue(record.movementBalance)}</strong><small>saldo de entradas e saídas</small></div>
     </div>
     <div class="integrated-situation-scenarios">
       <article class="${record.situation < 0 ? 'is-pressure' : 'is-balance'}">
-        <span>Cenário estrutural</span>
+        <span>Cenário de recomposição</span>
         <strong>${formatIntegratedSignedValue(record.situation)}</strong>
-        <p>Movimentações − exonerações − demissões</p>
+        <p>Movimentações − exonerações − demissões − requeridas</p>
         <small>${structuralStatus}: <b>${structuralMagnitude.toLocaleString('pt-BR')}</b></small>
       </article>
       <article class="${operationalBalance < 0 ? 'is-pressure' : 'is-balance'}">
         <span>Cenário operacional indicativo</span>
         <strong>${formatIntegratedSignedValue(operationalBalance)}</strong>
-        <p>Cenário estrutural − licenças saúde</p>
+        <p>Cenário de recomposição − licenças saúde</p>
         <small>${operationalStatus}: <b>${operationalMagnitude.toLocaleString('pt-BR')}</b></small>
       </article>
     </div>
-    <p class="integrated-situation-note"><strong>Leitura integrada:</strong> licenças representam indisponibilidade temporária; exonerações e demissões são perdas permanentes. Como as bases possuem datas de referência distintas, o cenário operacional é indicativo, não representa um novo efetivo oficial e não altera os cálculos originais de RAIO, POG, COPAC/PReVio, COTAM, BPTUR ou reestruturação.</p>`;
+    <p class="integrated-situation-note"><strong>Leitura integrada:</strong> licenças representam indisponibilidade temporária; exonerações e demissões são saídas administrativas, enquanto requeridas representam promoções com impacto estimado na recomposição da OPM, não baixas da PMCE. As bases têm datas de referência distintas e a planilha de requeridas é agregada, sem conferência individual de sobreposição. O cenário operacional é indicativo e não altera os cálculos originais de RAIO, POG, COPAC/PReVio, COTAM, BPTUR ou reestruturação do interior e litoral.</p>`;
 }
 
 function renderIntegratedSituationPanel(detailKey) {
@@ -1409,7 +1425,7 @@ function renderMetricDetail(key) {
       <div class="detail-section-heading"><div><h3>${data.sectionTitle}</h3><p>${data.sectionSubtitle}</p></div><span>Dados discriminados</span></div>
       ${battalionSortControls}
       ${key === 'battalions' ? `<div id="battalionTableResult">${detailTable}</div>` : detailTable}
-      ${key === 'battalions' ? '<p class="battalion-table-source-note"><strong>Requeridas:</strong> 207 registros estão apresentados em linha própria porque a fonte não informa a OPM de origem. “—” significa dado não atribuível ao BPM, não zero. Como são requerimentos e não baixas individualmente confirmadas, não são somados às perdas territoriais nem distribuídos artificialmente entre unidades. <strong>Leitura da necessidade:</strong> saldo das movimentações − exonerações − demissões; os resultados negativos somam 254 policiais em 22 BPMs. Os dados regionais e as 726 licenças saúde permanecem no quadro Situação atual da unidade.</p>' : ''}
+      ${key === 'battalions' ? '<p class="battalion-table-source-note"><strong>Requeridas em 2026:</strong> a nova fonte por OPM soma 215 promoções: 110 vinculadas diretamente aos 34 BPMs e 105 a outras OPMs, apresentadas em linha separada. <strong>Leitura da necessidade:</strong> saldo das movimentações − exonerações − demissões − requeridas do BPM; a soma dos resultados negativos é 336 policiais em 25 unidades. Promoção não é baixa institucional, e a fonte agregada não permite conferir sobreposição individual com as demais saídas. A aba de 2025 não foi incluída. Dados regionais e 726 licenças saúde permanecem no quadro Situação atual da unidade.</p>' : ''}
     </section>`;
   metricDetailContent.innerHTML = `
     <div class="detail-hero-grid">
@@ -1480,7 +1496,7 @@ metricDetailContent.addEventListener('click', (event) => {
     const field = battalionSortButton.dataset.battalionSort;
     if (field !== battalionSortState.field) {
       battalionSortState.field = field;
-      battalionSortState.direction = ['battalionStrength', 'exonerations', 'dismissals', 'calculatedDeficit'].includes(field) ? 'desc' : 'asc';
+      battalionSortState.direction = ['battalionStrength', 'exonerations', 'dismissals', 'requiredPromotions', 'calculatedDeficit'].includes(field) ? 'desc' : 'asc';
     }
     updateBattalionTable();
   }

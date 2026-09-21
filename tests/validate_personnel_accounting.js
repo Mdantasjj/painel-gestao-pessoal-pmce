@@ -115,7 +115,9 @@ for (const line of csv.slice(1, -1)) {
   ], `CSV mismatch: ${name}`);
 }
 
-assert.equal(number(details.exits.total), 245 + 83 + 552 + 215);
+assert.equal(number(details.exits.total), 16 + 64 + 245 + 83 + 552 + 215);
+assert.equal(number(details.exits.stats[0][1]), 16);
+assert.equal(number(details.exits.stats[1][1]), 64);
 assert.equal(number(details.pog.total), 111 + 110 + 50);
 assert.equal(number(details.pog.total) + number(details.raio.total) + number(details.copac.total), 1543);
 assert.equal(number(details.battalions.total), 587);
@@ -152,7 +154,7 @@ for (const phase of details.copac.phases) {
 }
 
 const html = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
-for (const [key, expected] of Object.entries({ exits: 1095, pog: 1543, restructuring: 503, battalions: 587 })) {
+for (const [key, expected] of Object.entries({ exits: 1175, pog: 1543, restructuring: 503, battalions: 587 })) {
   const match = html.match(new RegExp(`data-detail="${key}"[\\s\\S]*?<div class="metric-main"><strong>([\\d.]+)</strong>`));
   assert(match, `Card not found: ${key}`);
   assert.equal(number(match[1]), expected, `Card total mismatch: ${key}`);

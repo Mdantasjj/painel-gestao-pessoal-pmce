@@ -44,7 +44,7 @@ function renderDismissalsChart() {
   document.querySelector('#mainChart').innerHTML = `
     <div class="chart-key">${key}</div>
     <div class="bar-stage" style="--count:8">${groups}</div>
-    <div class="chart-source-note">A série mensal contextualiza 328 saídas administrativas de 2026. As 767 promoções requeridas de 2025–2026 são apresentadas separadamente, totalizando 1.095 registros de períodos e naturezas diferentes.</div>`;
+    <div class="chart-source-note">A série mensal mostra 340 lançamentos brutos de 2026, antes da retirada de 12 duplicidades. O indicador geral usa os 328 registros deduplicados, mais 80 processos agregados de 2025 e 767 promoções requeridas de 2025–2026: 1.175 registros de fontes e naturezas diferentes.</div>`;
 }
 
 function renderPromotions() {
@@ -115,32 +115,37 @@ const metricDetails = {
   exits: {
     accent: '#23845b',
     eyebrow: 'Memória de cálculo · perda de efetivo',
-    title: '1.095 registros considerados na análise de perdas',
-    total: '1.095',
+    title: '1.175 registros considerados na análise de perdas',
+    total: '1.175',
     unit: 'registros considerados',
-    description: 'Indicador combinado: 328 saídas administrativas confirmadas em 2026 e 767 promoções requeridas em 2025–2026. São períodos e naturezas diferentes; promoção não equivale a baixa da PMCE.',
+    description: 'Indicador combinado: 80 processos de demissão/exoneração informados para 2025, 328 saídas administrativas deduplicadas de 2026 e 767 promoções requeridas de 2025–2026. Processo e promoção não comprovam baixa institucional nem pessoa única.',
     stats: [
-      ['Demissões de 2026', '245', '22,4% dos 1.095 registros'],
-      ['Exonerações de 2026', '83', '7,6% dos 1.095 registros'],
+      ['Demissões de 2025', '16', 'Processos informados · sem OPM identificada'],
+      ['Exonerações de 2025', '64', 'Processos informados · sem OPM identificada'],
+      ['Demissões de 2026', '245', 'Registros deduplicados da base de 2026'],
+      ['Exonerações de 2026', '83', 'Registros deduplicados da base de 2026'],
       ['Requeridas de 2025', '552', '320 nos BPMs · 232 em outras OPMs'],
       ['Requeridas de 2026', '215', '110 nos BPMs · 105 em outras OPMs'],
-      ['Impactos nos 34 BPMs', '662', '232 saídas administrativas · 430 requeridas']
+      ['Impactos atribuídos aos 34 BPMs', '662', '232 saídas de 2026 · 430 requeridas; 2025 sem rateio']
     ],
     breakdown: [
-      ['Demissões — outros concursos', 22.4, '245 · 22,4%', '#145c40'],
-      ['Exonerações — outros concursos', 7.6, '83 · 7,6%', '#3d9065'],
-      ['Requeridas · 2025–2026', 70, '767 · 70,0%', '#698342']
+      ['Demissões · processos 2025', 16 / 1175 * 100, '16 · 1,4%', '#145c40'],
+      ['Exonerações · processos 2025', 64 / 1175 * 100, '64 · 5,4%', '#3d9065'],
+      ['Demissões · outros concursos 2026', 245 / 1175 * 100, '245 · 20,9%', '#28734e'],
+      ['Exonerações · outros concursos 2026', 83 / 1175 * 100, '83 · 7,1%', '#55a477'],
+      ['Requeridas · 2025–2026', 767 / 1175 * 100, '767 · 65,3%', '#698342']
     ],
-    sectionTitle: 'Reconciliação da base de saídas',
-    sectionSubtitle: 'A tabela demonstra as saídas sem duplicidades, acrescenta as requeridas e separa o recorte utilizado na análise dos 34 batalhões.',
+    sectionTitle: 'Conciliação dos registros considerados',
+    sectionSubtitle: 'Os processos de 2025 são agregados por ano e não foram atribuídos a batalhões.',
     tableColumns: ['Etapa de validação', 'Exonerações', 'Demissões', 'Requeridas', 'Total'],
     tableRows: [
-      ['Registros gerais antes da deduplicação', '88', '252', '767', '1.107'],
-      ['Contabilidade após retirar duplicidades', '83', '245', '767', '1.095'],
-      ['Fora dos 34 BPMs', '21', '75', '337', '433'],
-      ['Recorte final dos 34 BPMs', '62', '170', '430', '662']
+      ['Processos agregados de 2025', '64', '16', '0', '80'],
+      ['Saídas deduplicadas de 2026', '83', '245', '0', '328'],
+      ['Requeridas de 2025–2026', '0', '0', '767', '767'],
+      ['Total combinado de registros', '147', '261', '767', '1.175'],
+      ['Recorte atribuível aos 34 BPMs', '62', '170', '430', '662']
     ],
-    note: 'A relação de demissões e exonerações de 2026 contém 340 lançamentos; retiradas 12 duplicidades, restam 328 saídas administrativas confirmadas. A planilha de promoções por OPM contém 552 registros detalhados em 2025 (458 acessos ao oficialato e 94 promoções de oficiais) e 215 em 2026 (153 acessos e 62 promoções de oficiais), somando 767. Em 2025, a célula rotulada TOTAL mostra 458 porque sua fórmula soma apenas a seção de subtenentes; os 94 registros de oficiais foram incluídos a partir das linhas detalhadas. Das 767 requeridas, 430 têm vínculo direto com os 34 BPMs (320 em 2025 e 110 em 2026), e 337 pertencem a outras OPMs. O total de 1.095 combina períodos e naturezas distintos, sem comprovação de pessoas únicas ou baixas institucionais. Entre as 328 saídas administrativas, 232 pertencem aos BPMs e 96 ficam fora — 94 de outras OPMs e duas sem vínculo nominal extraível.'
+    note: 'A aba “total_demissao_exoneracao” da planilha “MOVIMENTAÇÕES PMS 2025 - 2026.xlsx” informa 16 processos de demissão e 64 de exoneração em 2025, total de 80. Ela não discrimina batalhão, data do ato ou confirmação do desligamento; por isso, os 80 entram apenas no total geral, sem alterar a necessidade calculada por BPM. A mesma aba traz um subtotal parcial de 2026 (12 demissões e 63 exonerações), que NÃO foi somado novamente: para 2026 prevalece a relação mais abrangente usada no estudo, com 340 lançamentos e 328 registros após retirar 12 duplicidades (245 demissões e 83 exonerações). A planilha de promoções por OPM contém 552 requeridas detalhadas em 2025 (458 acessos ao oficialato e 94 promoções de oficiais) e 215 em 2026 (153 acessos e 62 promoções de oficiais), somando 767. Em 2025, a célula rotulada TOTAL mostra 458 porque sua fórmula soma apenas a seção de subtenentes. Das 767 requeridas, 430 têm vínculo direto com os 34 BPMs (320 em 2025 e 110 em 2026), e 337 pertencem a outras OPMs. O total de 1.175 combina fontes e naturezas distintas, sem comprovação de pessoas únicas ou baixas institucionais. Dos registros de 2026, 232 pertencem aos BPMs e 96 ficam fora — 94 de outras OPMs e duas sem vínculo nominal extraível.'
   },
   raio: {
     accent: '#3b7e9d',

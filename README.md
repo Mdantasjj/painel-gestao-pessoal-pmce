@@ -6,11 +6,11 @@ Painel institucional responsivo da Polícia Militar do Ceará, preparado para ap
 
 Abra o arquivo `index.html` no navegador e use o botão de tela cheia no cabeçalho. Não há dependências externas nem etapa de compilação.
 
-Para conferir a contabilidade interna, execute `node tests/validate_personnel_accounting.js`. A verificação compara os 34 BPMs com os oito CRPMs, confere os nove BPMs da reestruturação individualmente, reconcilia a tabela com o CSV e testa os totais de POG, RAIO, COPAC e dos cards. A conferência direta da planilha histórica e a comparação com a base mais recente estão documentadas em `ANALISE_DADOS.md`.
+Para conferir a contabilidade interna, execute `node tests/validate_personnel_accounting.js`. A verificação compara os 34 BPMs com os oito CRPMs, confere os nove BPMs da reestruturação individualmente, reconcilia as tabelas com os CSVs e testa os totais de POG, RAIO, COPAC, pessoal e frota. A conferência direta da planilha histórica e a comparação com a base mais recente estão documentadas em `ANALISE_DADOS.md`.
 
 ## Detalhamento interativo
 
-Os quatro cards principais são clicáveis e também podem ser acionados pelas teclas `Enter` ou `Espaço`. Cada card abre uma memória de cálculo com composição do total, percentuais, tabelas discriminadas e ressalvas metodológicas. A janela pode ser fechada pelo botão, pela tecla `Esc` ou por um clique fora dela.
+Os cinco cards principais são clicáveis e também podem ser acionados pelas teclas `Enter` ou `Espaço`. Cada card abre uma memória de cálculo com composição do total, percentuais, tabelas discriminadas e ressalvas metodológicas. A janela pode ser fechada pelo botão, pela tecla `Esc` ou por um clique fora dela.
 
 O card **PROJETO DE EFETIVO 2027–2030** apresenta o total consolidado de **1.543 policiais necessários**, correspondente à soma dos três eixos: **POG + COTAM + BPTUR** (271 policiais), **RAIO** (912 policiais) e **COPAC/PReVio** (360 policiais). Na subpágina, os três subcards navegáveis preservam a discriminação e a memória de cálculo de cada eixo. Os três níveis do RAIO, as três fases do PReVio, o detalhamento do POG, a consulta por batalhão e os quadros independentes da COTAM e do BPTUR foram preservados.
 
@@ -48,9 +48,13 @@ A imagem fornecida para as saídas de efetivo está preservada em `assets/icone-
 
 O card **PERDA DE EFETIVO** apresenta **1.175 registros considerados**: 16 processos de demissão e 64 de exoneração informados para 2025, 245 demissões e 83 exonerações deduplicadas de 2026, além de 767 promoções requeridas de 2025–2026. O resumo de 2025 está na aba `total_demissao_exoneracao` de `MOVIMENTAÇÕES PMS 2025 - 2026.xlsx`; ele não discrimina OPM nem comprova a consumação dos desligamentos. A mesma aba tem um subtotal parcial de 2026, que não foi adicionado outra vez. A base mais abrangente de 2026 contém 340 lançamentos, dos quais 12 são duplicados, restando 328 registros. A planilha de requeridas contém 552 registros detalhados em 2025 e 215 em 2026. No recorte dos BPMs, permanecem 662 impactos atribuíveis (232 saídas de 2026 + 430 requeridas), sem rateio dos 80 processos agregados de 2025. O total geral combina fontes de naturezas diferentes e não comprova pessoas únicas ou baixas institucionais. O visualizador **Reconciliação da base de saídas** continua retirado; metodologia e ressalvas estão no estudo.
 
+No painel, demissões e exonerações são identificadas como relacionadas a **outros concursos**, conforme orientação do responsável pelo estudo. Os totais não mudaram; os 80 registros de 2025 continuam classificados como processos agregados, sem confirmação individual de conclusão na fonte.
+
 No eixo POG/COTAM/BPTUR, os **160 policiais para implementação** permanecem discriminados: 110 para a COTAM (10 oficiais e 100 praças) e 50 para a 6ª Cia/BPTUR (02 oficiais e 48 praças). Esse quantitativo é adicional e não foi descontado nem redistribuído dos batalhões analisados no POG.
 
-A página principal foi simplificada para exibir somente o cabeçalho institucional, a faixa de referência e quatro cards estratégicos. Os estudos do RAIO e do COPAC/PReVio foram incorporados como subcards do **PROJETO DE EFETIVO 2027–2030**. Os gráficos e visualizadores inferiores permanecem retirados; as análises discriminadas continuam disponíveis nas subpáginas abertas pelos cards.
+A página principal exibe o cabeçalho institucional, a faixa de referência e cinco cards estratégicos. Os estudos do RAIO e do COPAC/PReVio foram incorporados como subcards do **PROJETO DE EFETIVO 2027–2030**. Os gráficos e visualizadores inferiores permanecem retirados; as análises discriminadas continuam disponíveis nas subpáginas abertas pelos cards.
+
+O card **FROTA CONECTADA POR BATALHÃO** apresenta **306 veículos contabilizados** nos 25 BPMs identificados nominalmente no relatório de 23/09/2026: 289 viaturas e 17 motos. A fonte registra 309 viaturas conectadas nesse recorte; 20 estão classificadas como DRSO e foram subtraídas. Linhas sem BPM nominal não foram redistribuídas, e a ausência do 26º ao 34º BPM no relatório não foi tratada como zero. A memória completa está em `data/viaturas_conectadas_batalhoes.csv`.
 
 As fontes estão preservadas na pasta `data`. Os valores das quatro primeiras bases da planilha foram conferidos com suas fórmulas; o estudo de déficit foi recalculado a partir de `MOVIMENTAÇÕES DO BCG 025-2025 AO BCG 153-2026.pdf`, considerando somente os 34 BPMs numerados.
 

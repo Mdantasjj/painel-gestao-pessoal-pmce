@@ -109,6 +109,7 @@ svg { display: block; }
 .metric-card--teal { --accent: #2f855a; --soft: #d4eadc; --card-start: #daede1; --card-end: #f1f8f4; }
 .metric-card--olive { --accent: #698342; --soft: #e0ebcf; --card-start: #e5edd6; --card-end: #f5f8ed; }
 .metric-card--forest { --accent: #145c40; --soft: #cce5d6; --card-start: #d3e9dc; --card-end: #edf7f1; }
+.metric-card--fleet { --accent: #28734e; --soft: #d2e9da; --card-start: #d9ecdf; --card-end: #f0f8f3; grid-column: 1 / -1 !important; }
 .metric-card--interactive { cursor: pointer; transition: border-color .2s, box-shadow .2s, transform .2s; }
 .metric-card--interactive:hover { border-color: color-mix(in srgb, var(--accent), #fff 30%); box-shadow: 0 17px 36px rgba(10, 50, 35, .17); transform: translateY(-3px); }
 .metric-card--interactive:hover::after, .metric-card--interactive:focus-visible::after { opacity: 1; transform: scaleX(1); }
@@ -244,6 +245,7 @@ body.modal-open { overflow: hidden; }
 .detail-total-card p { margin: 12px 0 0; color: #59675f; font-size: 11.5px; line-height: 1.5; }
 .detail-stat-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
 #metricDetailContent[data-detail="pog"] .detail-stat-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+#metricDetailContent[data-detail="fleet"] .detail-stat-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 .detail-stat { display: flex; min-height: 94px; padding: 14px 15px; align-items: center; justify-content: center; flex-direction: column; border: 1px solid #dfe7e3; border-radius: 11px; text-align: center; background: #fff; }
 .detail-stat span { display: block; color: #74817a; font-size: 9.5px; font-weight: 720; text-transform: uppercase; letter-spacing: .045em; }
 .detail-stat strong { display: block; margin-top: 5px; color: #26372f; font-size: 23px; }
@@ -465,6 +467,15 @@ body.modal-open { overflow: hidden; }
 #metricDetailContent[data-detail="battalions"] .detail-table td:first-child { width: 58px; padding-right: 6px; padding-left: 6px; text-align: center; white-space: nowrap; }
 #metricDetailContent[data-detail="battalions"] .detail-table th:nth-child(n+3),
 #metricDetailContent[data-detail="battalions"] .detail-table td:nth-child(n+3) { text-align: center; }
+#metricDetailContent[data-detail="fleet"] .detail-table th:nth-child(2) { color: #fff; background: #216f4c; font-size: 10px; font-weight: 850; }
+#metricDetailContent[data-detail="fleet"] .detail-table td:nth-child(2) { border-left: 4px solid #2f8b5d; color: #104e34; background: #e4f2e9; font-size: 12px; font-weight: 850; }
+#metricDetailContent[data-detail="fleet"] .detail-table th:first-child,
+#metricDetailContent[data-detail="fleet"] .detail-table td:first-child { width: 64px; text-align: center; }
+#metricDetailContent[data-detail="fleet"] .detail-table th:nth-child(n+3),
+#metricDetailContent[data-detail="fleet"] .detail-table td:nth-child(n+3) { text-align: center; }
+#metricDetailContent[data-detail="fleet"] .detail-table th:last-child { color: #fff; background: #216f4c; }
+#metricDetailContent[data-detail="fleet"] .detail-table td:last-child { color: #083f29; background: #c7e5d1; box-shadow: inset 4px 0 #23794f; font-size: 14px; font-weight: 850; }
+#metricDetailContent[data-detail="fleet"] .detail-table tbody tr:last-child td { border-top: 2px solid #23794f; background: #e4f2e9; font-weight: 850; }
 .battalion-sort-toolbar { margin-bottom: 13px; padding: 13px; border: 2px solid #78b596; border-radius: 12px; background: linear-gradient(135deg, #e8f5ed, #fff); box-shadow: 0 8px 20px rgba(20, 92, 64, .1); }
 .battalion-sort-heading { display: flex; align-items: center; justify-content: space-between; gap: 14px; }
 .battalion-sort-heading > div { position: relative; min-height: 58px; padding: 11px 16px 11px 58px; flex: 1; border-radius: 9px; background: linear-gradient(110deg, #145c40, #2f855a); box-shadow: 0 7px 16px rgba(20, 92, 64, .18); }
@@ -585,6 +596,7 @@ body.modal-open { overflow: hidden; }
   .context-item { min-width: 0; }
   .metrics { grid-template-columns: 1fr; }
   .metrics > .metric-card { grid-column: auto; }
+  .metric-card--fleet { grid-column: auto !important; }
   .metric-card { min-height: 180px; }
   .visual-grid { grid-template-columns: 1fr; }
   .origin-kpis { grid-template-columns: 1fr; }
@@ -594,6 +606,7 @@ body.modal-open { overflow: hidden; }
   .metric-dialog-header h2 { font-size: clamp(20px, 5vw, 27px); }
   .metric-dialog-body { padding: 15px; }
   .detail-stat-grid { grid-template-columns: 1fr 1fr; }
+  #metricDetailContent[data-detail="fleet"] .detail-stat-grid { grid-template-columns: 1fr 1fr; }
   .project-study-card { grid-template-columns: 44px minmax(0, 1fr); grid-template-rows: auto 1fr auto; }
   .project-study-card-icon { width: 44px; height: 44px; }
   .project-study-card-total { grid-column: 1 / -1; grid-row: auto; align-items: baseline; flex-direction: row; }
@@ -673,6 +686,7 @@ body.modal-open { overflow: hidden; }
   .horizontal-bar-row { grid-template-columns: 20px 120px minmax(55px, 1fr) 60px; gap: 6px; }
   .detail-stat-grid { grid-template-columns: 1fr; }
   #metricDetailContent[data-detail="pog"] .detail-stat-grid { grid-template-columns: 1fr; }
+  #metricDetailContent[data-detail="fleet"] .detail-stat-grid { grid-template-columns: 1fr; }
   .raio-level-summary { grid-template-columns: repeat(2, minmax(68px, 1fr)); }
   .raio-level-heading, .raio-cities-heading { align-items: flex-start; flex-direction: column; }
   .pog-unit-control { grid-template-columns: 1fr; gap: 7px; }

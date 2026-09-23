@@ -27,8 +27,8 @@ function showToast(message) {
 function renderDismissalsChart() {
   const labels = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago'];
   const series = [
-    { name: 'Demissões', color: '#1b8258', values: [8, 2, 0, 7, 143, 76, 14, 2] },
-    { name: 'Exonerações', color: '#c1a253', values: [10, 7, 7, 24, 22, 6, 12, 0] }
+    { name: 'Demissões · outros concursos', color: '#1b8258', values: [8, 2, 0, 7, 143, 76, 14, 2] },
+    { name: 'Exonerações · outros concursos', color: '#c1a253', values: [10, 7, 7, 24, 22, 6, 12, 0] }
   ];
   const maxValue = 143;
   const key = series.map((item) => `<span><i style="background:${item.color}"></i>${item.name}</span>`).join('');
@@ -118,26 +118,26 @@ const metricDetails = {
     title: '1.175 registros considerados na análise de perdas',
     total: '1.175',
     unit: 'registros considerados',
-    description: 'Indicador combinado: 80 processos de demissão/exoneração informados para 2025, 328 saídas administrativas deduplicadas de 2026 e 767 promoções requeridas de 2025–2026. Processo e promoção não comprovam baixa institucional nem pessoa única.',
+    description: 'Indicador combinado: 80 processos de demissão/exoneração relacionados a outros concursos informados para 2025, 328 saídas administrativas deduplicadas de 2026 também classificadas como outros concursos e 767 promoções requeridas de 2025–2026. Processo e promoção não comprovam baixa institucional nem pessoa única.',
     stats: [
-      ['Demissões de 2025', '16', 'Processos informados · sem OPM identificada'],
-      ['Exonerações de 2025', '64', 'Processos informados · sem OPM identificada'],
-      ['Demissões de 2026', '245', 'Registros deduplicados da base de 2026'],
-      ['Exonerações de 2026', '83', 'Registros deduplicados da base de 2026'],
+      ['Demissões de 2025 · outros concursos', '16', 'Processos informados · sem OPM identificada'],
+      ['Exonerações de 2025 · outros concursos', '64', 'Processos informados · sem OPM identificada'],
+      ['Demissões de 2026 · outros concursos', '245', 'Registros deduplicados da base de 2026'],
+      ['Exonerações de 2026 · outros concursos', '83', 'Registros deduplicados da base de 2026'],
       ['Requeridas de 2025', '552', '320 nos BPMs · 232 em outras OPMs'],
       ['Requeridas de 2026', '215', '110 nos BPMs · 105 em outras OPMs'],
       ['Impactos atribuídos aos 34 BPMs', '662', '232 saídas de 2026 · 430 requeridas; 2025 sem rateio']
     ],
     breakdown: [
-      ['Demissões · processos 2025', 16 / 1175 * 100, '16 · 1,4%', '#145c40'],
-      ['Exonerações · processos 2025', 64 / 1175 * 100, '64 · 5,4%', '#3d9065'],
+      ['Demissões · outros concursos · processos 2025', 16 / 1175 * 100, '16 · 1,4%', '#145c40'],
+      ['Exonerações · outros concursos · processos 2025', 64 / 1175 * 100, '64 · 5,4%', '#3d9065'],
       ['Demissões · outros concursos 2026', 245 / 1175 * 100, '245 · 20,9%', '#28734e'],
       ['Exonerações · outros concursos 2026', 83 / 1175 * 100, '83 · 7,1%', '#55a477'],
       ['Requeridas · 2025–2026', 767 / 1175 * 100, '767 · 65,3%', '#698342']
     ],
     sectionTitle: 'Conciliação dos registros considerados',
     sectionSubtitle: 'Os processos de 2025 são agregados por ano e não foram atribuídos a batalhões.',
-    tableColumns: ['Etapa de validação', 'Exonerações', 'Demissões', 'Requeridas', 'Total'],
+    tableColumns: ['Etapa de validação', 'Exonerações · outros concursos', 'Demissões · outros concursos', 'Requeridas', 'Total'],
     tableRows: [
       ['Processos agregados de 2025', '64', '16', '0', '80'],
       ['Saídas deduplicadas de 2026', '83', '245', '0', '328'],
@@ -352,13 +352,11 @@ const metricDetails = {
     description: 'Cenário de recomposição com 430 promoções requeridas de 2025–2026 vinculadas aos BPMs, além de movimentações de 2025–2026 e saídas administrativas de 2026. As necessidades locais não são compensadas por saldos de outras unidades.',
     stats: [
       ['Batalhões analisados', '34', '29 com necessidade · 3 com saldo positivo · 2 em equilíbrio'],
-      ['Exonerações e demissões', '62 + 170', '232 saídas administrativas nos 34 BPMs'],
-      ['Requeridas nos BPMs', '430', '320 em 2025 · 110 em 2026'],
-      ['Situação consolidada', '−572', '+90 nas movimentações − 232 saídas − 430 requeridas'],
-      ['Situação dos batalhões', '29 · 3 · 2', '29 em déficit · 3 com saldo positivo · 2 em equilíbrio']
+      ['Exonerações e demissões · outros concursos', '62 + 170', '232 saídas administrativas nos 34 BPMs'],
+      ['Requeridas nos BPMs', '430', '320 em 2025 · 110 em 2026']
     ],
     breakdownTitle: 'Situação integrada dos 34 batalhões',
-    breakdownSubtitle: 'Distribuição dos BPMs após incorporar exonerações, demissões e requeridas ao saldo das movimentações.',
+    breakdownSubtitle: 'Distribuição dos BPMs após incorporar exonerações e demissões relacionadas a outros concursos, além das requeridas, ao saldo das movimentações.',
     hideBreakdown: true,
     breakdown: [
       ['Déficit', 85.29, '29 · 85,3%', '#145c40'],
@@ -366,8 +364,8 @@ const metricDetails = {
       ['Em equilíbrio', 5.88, '2 · 5,9%', '#83b99a']
     ],
     sectionTitle: 'Visão geral por batalhão',
-    sectionSubtitle: 'Necessidade por BPM após movimentações, exonerações, demissões e requeridas de 2025 e 2026; cada ano está discriminado na coluna Requeridas.',
-    tableColumns: ['Posição', 'Batalhão / cidades', 'Efetivo do batalhão', 'Exonerações', 'Demissões', 'Requeridas', 'Movimentações', 'Reestruturação necessidade'],
+    sectionSubtitle: 'Necessidade por BPM após movimentações, exonerações e demissões relacionadas a outros concursos e requeridas de 2025 e 2026; cada ano está discriminado na coluna Requeridas.',
+    tableColumns: ['Posição', 'Batalhão / cidades', 'Efetivo do batalhão', 'Exonerações · outros concursos', 'Demissões · outros concursos', 'Requeridas', 'Movimentações', 'Reestruturação necessidade'],
     tableRows: [],
     battalionTotals: {
       '1º BPM': 277, '2º BPM': 536, '3º BPM': 405, '4º BPM': 213, '5º BPM': 366,
@@ -442,6 +440,58 @@ const metricDetails = {
       '31º BPM': 9, '32º BPM': 12, '33º BPM': 2, '34º BPM': 3
     },
     note: 'A base consolidada informa 9.956 policiais nos 34 BPMs e oito CRPMs. Para cada BPM, a situação é calculada por saldo das movimentações − exonerações − demissões − promoções requeridas de 2025 e 2026 vinculadas à unidade. Foram identificadas 320 requeridas dos BPMs em 2025 e 110 em 2026, totalizando 430; outras 337 pertencem a OPMs fora do recorte. O saldo conjunto de +90 nas movimentações passa a −572 após 232 saídas administrativas de 2026 e 430 requeridas dos dois anos. A soma dos resultados negativos é 587 policiais em 29 BPMs; três têm saldo positivo e dois estão em equilíbrio. Promoção não é baixa da PMCE, as fontes cobrem períodos distintos e a planilha agregada não permite conferir repetição ou sobreposição individual. Trata-se de cenário de recomposição por OPM, não de contagem de baixas institucionais únicas. Os registros das demais OPMs não foram redistribuídos.'
+  },
+  fleet: {
+    accent: '#28734e',
+    eyebrow: 'Estudo operacional · frota conectada',
+    title: '306 viaturas e motos conectadas aos batalhões',
+    total: '306',
+    unit: 'veículos contabilizados',
+    description: 'Retrato das conexões registradas em 23/09/2026 às 08:27:15 para os 25 BPMs identificados nominalmente na fonte. O total reúne 289 viaturas, após retirar 20 registros classificados como DRSO, e 17 motos.',
+    stats: [
+      ['Viaturas contabilizadas', '289', '309 conectadas − 20 DRSO'],
+      ['Motos conectadas', '17', 'Mantidas separadas das viaturas'],
+      ['Batalhões identificados', '25', '1º ao 25º BPM com vínculo nominal'],
+      ['DRSO desconsideradas', '20', 'Excluídas do total apresentado']
+    ],
+    breakdownTitle: 'Composição da frota contabilizada',
+    breakdownSubtitle: 'Participação de viaturas e motos nos 306 veículos considerados, após a exclusão das DRSO.',
+    breakdown: [
+      ['Viaturas', 94.4, '289 · 94,4%', '#145c40'],
+      ['Motos', 5.6, '17 · 5,6%', '#68a77f']
+    ],
+    sectionTitle: 'Veículos conectados por batalhão',
+    sectionSubtitle: 'Ranking pelo total contabilizado; DRSO não integram as colunas de viaturas nem o total.',
+    tableColumns: ['Posição', 'Batalhão / cidades', 'Viaturas', 'Motos', 'Total conectado'],
+    tableRows: [
+      ['1', '11º BPM · Itapipoca · Acaraú', '24', '0', '24'],
+      ['2', '3º BPM · Sobral · Coreaú', '21', '1', '22'],
+      ['3', '2º BPM · Juazeiro do Norte', '20', '0', '20'],
+      ['4', '14º BPM · Maracanaú (Jereissati · Acaracuzinho)', '20', '0', '20'],
+      ['5', '7º BPM · Crateús · Santa Quitéria', '19', '0', '19'],
+      ['6', '9º BPM · Quixadá · Senador Pompeu', '16', '0', '16'],
+      ['7', '23º BPM · Paracuru · São Gonçalo do Amarante', '16', '0', '16'],
+      ['8', '1º BPM · Russas · Limoeiro', '13', '0', '13'],
+      ['9', '12º BPM · Caucaia (Centro · Cumbuco)', '11', '2', '13'],
+      ['10', '4º BPM · Canindé · Boa Viagem', '12', '0', '12'],
+      ['11', '16º BPM · Messejana · Jangurussu', '8', '4', '12'],
+      ['12', '17º BPM · Conjunto Ceará · Bom Jardim', '11', '1', '12'],
+      ['13', '18º BPM · Antônio Bezerra · Parquelândia', '10', '2', '12'],
+      ['14', '19º BPM · Cambeba · Aerolândia', '8', '3', '11'],
+      ['15', '10º BPM · Iguatu · Acopiara', '10', '0', '10'],
+      ['16', '13º BPM · Tauá · Mombaça', '10', '0', '10'],
+      ['17', '15º BPM · Eusébio · Aquiraz', '10', '0', '10'],
+      ['18', '8º BPM · Aldeota · Vicente Pinzón', '7', '2', '9'],
+      ['19', '25º BPM · Horizonte · Chorozinho', '8', '0', '8'],
+      ['20', '6º BPM · Parangaba · Bairro de Fátima', '7', '0', '7'],
+      ['21', '20º BPM · Pirambu · Barra do Ceará', '7', '0', '7'],
+      ['22', '22º BPM · Papicu · Dionísio Torres', '6', '1', '7'],
+      ['23', '21º BPM · Conjunto Esperança · Maraponga', '6', '0', '6'],
+      ['24', '24º BPM · Maranguape · Pacatuba', '5', '1', '6'],
+      ['25', '5º BPM · Centro · Carlito Pamplona', '4', '0', '4'],
+      ['—', 'TOTAL DOS 25 BPMs IDENTIFICADOS', '289', '17', '306']
+    ],
+    note: 'Fonte: relatório “VIATURAS CONECTADAS”, consulta de 23/09/2026 às 08:27:15. Foram agregadas somente as linhas que identificam nominalmente um BPM numerado. Na estrutura da fonte, DRSO é um subconjunto da coluna de viaturas; por isso, para cada unidade, o cálculo utilizado foi viaturas contabilizadas = viaturas conectadas − DRSO. As motos foram mantidas separadamente. Linhas de RESERVA, RAIO, unidades especializadas, outras instituições ou sem BPM nominal não foram redistribuídas. A fonte identifica nominalmente apenas o 1º ao 25º BPM; a ausência do 26º ao 34º BPM não foi interpretada como zero. O relatório alerta que registros posteriores à migração de AIS de 13/07/2026 devem ser consultados no relatório “2026 VIATURAS CONECTADAS”.'
   },
   copac: {
     accent: '#2f855a',
@@ -653,8 +703,8 @@ const workforceProjectStudies = [
 const battalionSortLabels = {
   unit: 'Batalhão',
   battalionStrength: 'Efetivo do batalhão',
-  exonerations: 'Exonerações',
-  dismissals: 'Demissões',
+  exonerations: 'Exonerações · outros concursos',
+  dismissals: 'Demissões · outros concursos',
   requiredPromotions: 'Requeridas',
   movementBalance: 'Movimentações',
   calculatedDeficit: 'Reestruturação necessidade'
@@ -1370,7 +1420,7 @@ function renderMetricDetail(key) {
       <div class="detail-section-heading"><div><h3>${data.sectionTitle}</h3><p>${data.sectionSubtitle}</p></div><span>Dados discriminados</span></div>
       ${battalionSortControls}
       ${key === 'battalions' ? `<div id="battalionTableResult">${detailTable}</div>` : detailTable}
-      ${key === 'battalions' ? '<p class="battalion-table-source-note"><strong>Requeridas em 2025–2026:</strong> 552 + 215 = 767 registros detalhados por OPM. A linha TOTAL da aba de 2025 mostra 458 porque soma apenas subtenentes; 94 promoções de oficiais também foram incluídas. Desses 767, 430 estão vinculados aos 34 BPMs (320 em 2025 e 110 em 2026), e 337 pertencem a outras OPMs. <strong>Leitura da necessidade:</strong> saldo das movimentações − exonerações − demissões − requeridas do BPM; os resultados negativos somam 587 policiais em 29 unidades. Promoção não é baixa institucional; as fontes têm períodos distintos e a planilha agregada não permite conferir sobreposição individual.</p>' : ''}
+      ${key === 'battalions' ? '<p class="battalion-table-source-note"><strong>Requeridas em 2025–2026:</strong> 552 + 215 = 767 registros detalhados por OPM. A linha TOTAL da aba de 2025 mostra 458 porque soma apenas subtenentes; 94 promoções de oficiais também foram incluídas. Desses 767, 430 estão vinculados aos 34 BPMs (320 em 2025 e 110 em 2026), e 337 pertencem a outras OPMs. <strong>Leitura da necessidade:</strong> saldo das movimentações − exonerações por outros concursos − demissões por outros concursos − requeridas do BPM; os resultados negativos somam 587 policiais em 29 unidades. Promoção não é baixa institucional; as fontes têm períodos distintos e a planilha agregada não permite conferir sobreposição individual.</p>' : ''}
     </section>`;
   metricDetailContent.innerHTML = `
     <div class="detail-hero-grid">

@@ -122,25 +122,6 @@ assert.equal(number(details.pog.total), 111 + 110 + 50);
 assert.equal(number(details.pog.total) + number(details.raio.total) + number(details.copac.total), 1543);
 assert.equal(number(details.battalions.total), 587);
 
-assert.equal(number(details.fleet.total), 306);
-assert.equal(number(details.fleet.stats[0][1]), 289);
-assert.equal(number(details.fleet.stats[1][1]), 17);
-assert.equal(number(details.fleet.stats[2][1]), 25);
-assert.equal(number(details.fleet.stats[3][1]), 20);
-assert.equal(total(details.fleet.tableRows.slice(0, -1), row => number(row[2])), 289);
-assert.equal(total(details.fleet.tableRows.slice(0, -1), row => number(row[3])), 17);
-assert.equal(total(details.fleet.tableRows.slice(0, -1), row => number(row[4])), 306);
-
-const fleetCsv = fs.readFileSync(path.join(root, 'data', 'viaturas_conectadas_batalhoes.csv'), 'utf8').trim().split(/\r?\n/);
-assert.equal(fleetCsv.length, 27);
-const fleetTotal = fleetCsv.at(-1).split(',');
-assert.deepEqual(fleetTotal.slice(1).map(Number), [309, 20, 289, 17, 306]);
-for (const line of fleetCsv.slice(1, -1)) {
-  const [name, connected, drso, counted, motorcycles, combined] = line.split(',');
-  assert.equal(Number(connected) - Number(drso), Number(counted), `Fleet DRSO mismatch: ${name}`);
-  assert.equal(Number(counted) + Number(motorcycles), Number(combined), `Fleet combined mismatch: ${name}`);
-}
-
 const pogUnits = details.pog.units;
 assert.equal(pogUnits.length, 34);
 assert.equal(total(pogUnits, ([, origin]) => origin), 1459);
@@ -173,10 +154,10 @@ for (const phase of details.copac.phases) {
 }
 
 const html = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
-for (const [key, expected] of Object.entries({ exits: 1175, pog: 1543, restructuring: 503, battalions: 587, fleet: 306 })) {
+for (const [key, expected] of Object.entries({ exits: 1175, pog: 1543, restructuring: 503, battalions: 587 })) {
   const match = html.match(new RegExp(`data-detail="${key}"[\\s\\S]*?<div class="metric-main"><strong>([\\d.]+)</strong>`));
   assert(match, `Card not found: ${key}`);
   assert.equal(number(match[1]), expected, `Card total mismatch: ${key}`);
 }
 
-console.log('Validated personnel studies, all five cards, the BPM CSV and the fleet accounting with DRSO excluded.');
+console.log('Validated 34 BPMs, 8 CRPMs, 9 restructuring units, POG, RAIO, COPAC, all four cards and the BPM CSV.');

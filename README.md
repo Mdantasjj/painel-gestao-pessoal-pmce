@@ -6,11 +6,11 @@ Painel institucional responsivo da Polícia Militar do Ceará, preparado para ap
 
 Abra o arquivo `index.html` no navegador e use o botão de tela cheia no cabeçalho. Não há dependências externas nem etapa de compilação.
 
-Para conferir a contabilidade interna, execute `node tests/validate_personnel_accounting.js`. A verificação compara os 34 BPMs com os oito CRPMs, confere os nove BPMs da reestruturação individualmente, reconcilia as tabelas com os CSVs e testa os totais de POG, RAIO, COPAC, pessoal e frota. A conferência direta da planilha histórica e a comparação com a base mais recente estão documentadas em `ANALISE_DADOS.md`.
+Para conferir a contabilidade interna, execute `node tests/validate_personnel_accounting.js`. A verificação compara os 34 BPMs com os oito CRPMs, confere os nove BPMs da reestruturação individualmente, reconcilia a tabela com o CSV e testa os totais de POG, RAIO, COPAC e dos cards. A conferência direta da planilha histórica e a comparação com a base mais recente estão documentadas em `ANALISE_DADOS.md`.
 
 ## Detalhamento interativo
 
-Os cinco cards principais são clicáveis e também podem ser acionados pelas teclas `Enter` ou `Espaço`. Cada card abre uma memória de cálculo com composição do total, percentuais, tabelas discriminadas e ressalvas metodológicas. A janela pode ser fechada pelo botão, pela tecla `Esc` ou por um clique fora dela.
+Os quatro cards principais são clicáveis e também podem ser acionados pelas teclas `Enter` ou `Espaço`. Cada card abre uma memória de cálculo com composição do total, percentuais, tabelas discriminadas e ressalvas metodológicas. A janela pode ser fechada pelo botão, pela tecla `Esc` ou por um clique fora dela.
 
 O card **PROJETO DE EFETIVO 2027–2030** apresenta o total consolidado de **1.543 policiais necessários**, correspondente à soma dos três eixos: **POG + COTAM + BPTUR** (271 policiais), **RAIO** (912 policiais) e **COPAC/PReVio** (360 policiais). Na subpágina, os três subcards navegáveis preservam a discriminação e a memória de cálculo de cada eixo. Os três níveis do RAIO, as três fases do PReVio, o detalhamento do POG, a consulta por batalhão e os quadros independentes da COTAM e do BPTUR foram preservados.
 
@@ -52,9 +52,7 @@ No painel, demissões e exonerações são identificadas como relacionadas a **o
 
 No eixo POG/COTAM/BPTUR, os **160 policiais para implementação** permanecem discriminados: 110 para a COTAM (10 oficiais e 100 praças) e 50 para a 6ª Cia/BPTUR (02 oficiais e 48 praças). Esse quantitativo é adicional e não foi descontado nem redistribuído dos batalhões analisados no POG.
 
-A página principal exibe o cabeçalho institucional, a faixa de referência e cinco cards estratégicos. Os estudos do RAIO e do COPAC/PReVio foram incorporados como subcards do **PROJETO DE EFETIVO 2027–2030**. Os gráficos e visualizadores inferiores permanecem retirados; as análises discriminadas continuam disponíveis nas subpáginas abertas pelos cards.
-
-O card **FROTA CONECTADA POR BATALHÃO** apresenta **306 veículos contabilizados** nos 25 BPMs identificados nominalmente no relatório de 23/09/2026: 289 viaturas e 17 motos. A fonte registra 309 viaturas conectadas nesse recorte; 20 estão classificadas como DRSO e foram subtraídas. Linhas sem BPM nominal não foram redistribuídas, e a ausência do 26º ao 34º BPM no relatório não foi tratada como zero. A memória completa está em `data/viaturas_conectadas_batalhoes.csv`.
+A página principal foi simplificada para exibir somente o cabeçalho institucional, a faixa de referência e quatro cards estratégicos. Os estudos do RAIO e do COPAC/PReVio foram incorporados como subcards do **PROJETO DE EFETIVO 2027–2030**. Os gráficos e visualizadores inferiores permanecem retirados; as análises discriminadas continuam disponíveis nas subpáginas abertas pelos cards.
 
 As fontes estão preservadas na pasta `data`. Os valores das quatro primeiras bases da planilha foram conferidos com suas fórmulas; o estudo de déficit foi recalculado a partir de `MOVIMENTAÇÕES DO BCG 025-2025 AO BCG 153-2026.pdf`, considerando somente os 34 BPMs numerados.
 

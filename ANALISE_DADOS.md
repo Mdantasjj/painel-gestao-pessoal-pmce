@@ -15,7 +15,6 @@ Fontes analisadas:
 - `2 - Relação dos PM (Promovidos na Promoção Requerida) - Por OPM.xlsx` — SHA-256 `A2781C69909990C030D054F4048DB441D9676188E33D0AF7883C5A7AF7478DC9`. Foram utilizadas as abas `PROMOÇÕES DOE - 2025` e `PROMOÇÕES DOE - 2026`, somando os quantitativos das linhas por OPM. A aba de 2025 contém 552 registros detalhados, embora a célula `TOTAL 458` some somente a seção de subtenentes (458 registros) e omita 94 promoções de oficiais; a de 2026 contém 215. O arquivo original não foi publicado; somente quantitativos agregados por BPM foram incorporados ao painel e ao CSV.
 - `data/MOVIMENTAÇÕES DO BCG 025-2025 AO BCG 153-2026.pdf` — SHA-256 `3643F9840C3C312C97CEAB6D13345F2C57ACD3C2D6171791C4B0AB674AA36063`.
 - `RELAÇÃO DOS PEDIDOS DE EXONERAÇÃO E DEMISSÃO - 2026 - AGOSTO.pdf` — SHA-256 `EE9B7090ACAF7E18635930BA87DDB2E5592FBF09740396CB1F19E281830DC312`. A fonte detalhada contém dados pessoais e, por isso, não foi copiada para o repositório público; somente os agregados por OPM e município foram utilizados.
-- `relatorio (1).pdf` — relatório “VIATURAS CONECTADAS”, consultado em 23/09/2026 às 08:27:15; SHA-256 `1FAF131A9F85293120970CFAF7FB5A7CDBF51F2985B5B962077F20AA6B0024B9`. O estudo de frota usa somente linhas com BPM numerado identificado nominalmente. DRSO foi subtraída das viaturas e as linhas sem vínculo nominal com BPM não foram redistribuídas.
 
 ## Indicadores consolidados
 
@@ -27,7 +26,6 @@ Fontes analisadas:
 | COPAC/PReVio — Efetivo mínimo das bases cidadãs | 360 policiais | 12 bases × 30 policiais; projeção bruta, sem dedução de efetivo disponível |
 | Reestruturação dos batalhões do interior e do litoral | 503 policiais adicionais para implementação | Nove BPMs abaixo da média atual de seus CRPMs; referência inteira por comando, efetivos da base consolidada mais recente; RAIO excluído |
 | BATALHÕES - Análise situacional de Efetivo | 587 policiais de necessidade situacional | 34 BPMs analisados: 29 em déficit, 3 com saldo positivo e 2 em equilíbrio; situação consolidada de −572 |
-| Frota conectada por batalhão | 306 veículos contabilizados | 289 viaturas após retirar 20 DRSO; 17 motos; 25 BPMs identificados nominalmente |
 
 ## Principais achados
 
@@ -51,7 +49,6 @@ Fontes analisadas:
 - Das 767 promoções requeridas detalhadas nos dois anos, 611 correspondem ao acesso de SUBTEN PM a 2ºTEN QOAPM (79,7%: 458 em 2025 e 153 em 2026); as demais 156 correspondem a promoções entre postos de oficiais (20,3%: 94 em 2025 e 62 em 2026).
 
 - O indicador de licença saúde foi alimentado pela relação funcional fornecida em 14/09/2026. Dos 875 registros sem matrículas duplicadas, 645 correspondem a LTS própria ou de dependente com vínculo direto a um dos 34 BPMs. A planilha geral possui ainda 96 agregados por mais de um ano em LTS: 81 vinculados diretamente aos BPMs e 15 pertencentes a comandos ou outras unidades. Não há sobreposição de matrícula entre os 81 agregados e a primeira relação. O total territorial é de 726 militares. O indicador exclui licenças gestante, paternidade e interesse particular. Somente os quantitativos agregados são mantidos no projeto; nomes e matrículas permanecem fora do repositório. A coluna foi retirada da tabela geral, e os quantitativos de licença saúde não são exibidos no painel. `Reestruturação necessidade` apresenta somente os resultados negativos após movimentações, exonerações, demissões e requeridas de 2025–2026 diretamente vinculadas ao BPM.
-- No estudo de frota, as 143 linhas vinculadas nominalmente ao 1º–25º BPM somam 309 viaturas conectadas e 17 motos. Como 20 das viaturas estão marcadas como DRSO, elas foram retiradas: `309 − 20 + 17 = 306`. Os BPMs 26º–34º não aparecem nominalmente nessa fonte e, por isso, não foram apresentados com valor zero. Reservas e registros de RAIO, especializadas, outras instituições ou sem BPM nominal também não foram redistribuídos.
 
 ## Conferência da reestruturação, batalhão por batalhão
 

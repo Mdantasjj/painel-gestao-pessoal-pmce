@@ -441,58 +441,6 @@ const metricDetails = {
     },
     note: 'A base consolidada informa 9.956 policiais nos 34 BPMs e oito CRPMs. Para cada BPM, a situação é calculada por saldo das movimentações − exonerações − demissões − promoções requeridas de 2025 e 2026 vinculadas à unidade. Foram identificadas 320 requeridas dos BPMs em 2025 e 110 em 2026, totalizando 430; outras 337 pertencem a OPMs fora do recorte. O saldo conjunto de +90 nas movimentações passa a −572 após 232 saídas administrativas de 2026 e 430 requeridas dos dois anos. A soma dos resultados negativos é 587 policiais em 29 BPMs; três têm saldo positivo e dois estão em equilíbrio. Promoção não é baixa da PMCE, as fontes cobrem períodos distintos e a planilha agregada não permite conferir repetição ou sobreposição individual. Trata-se de cenário de recomposição por OPM, não de contagem de baixas institucionais únicas. Os registros das demais OPMs não foram redistribuídos.'
   },
-  fleet: {
-    accent: '#28734e',
-    eyebrow: 'Estudo operacional · frota conectada',
-    title: '306 viaturas e motos conectadas aos batalhões',
-    total: '306',
-    unit: 'veículos contabilizados',
-    description: 'Retrato das conexões registradas em 23/09/2026 às 08:27:15 para os 25 BPMs identificados nominalmente na fonte. O total reúne 289 viaturas, após retirar 20 registros classificados como DRSO, e 17 motos.',
-    stats: [
-      ['Viaturas contabilizadas', '289', '309 conectadas − 20 DRSO'],
-      ['Motos conectadas', '17', 'Mantidas separadas das viaturas'],
-      ['Batalhões identificados', '25', '1º ao 25º BPM com vínculo nominal'],
-      ['DRSO desconsideradas', '20', 'Excluídas do total apresentado']
-    ],
-    breakdownTitle: 'Composição da frota contabilizada',
-    breakdownSubtitle: 'Participação de viaturas e motos nos 306 veículos considerados, após a exclusão das DRSO.',
-    breakdown: [
-      ['Viaturas', 94.4, '289 · 94,4%', '#145c40'],
-      ['Motos', 5.6, '17 · 5,6%', '#68a77f']
-    ],
-    sectionTitle: 'Veículos conectados por batalhão',
-    sectionSubtitle: 'Ranking pelo total contabilizado; DRSO não integram as colunas de viaturas nem o total.',
-    tableColumns: ['Posição', 'Batalhão / cidades', 'Viaturas', 'Motos', 'Total conectado'],
-    tableRows: [
-      ['1', '11º BPM · Itapipoca · Acaraú', '24', '0', '24'],
-      ['2', '3º BPM · Sobral · Coreaú', '21', '1', '22'],
-      ['3', '2º BPM · Juazeiro do Norte', '20', '0', '20'],
-      ['4', '14º BPM · Maracanaú (Jereissati · Acaracuzinho)', '20', '0', '20'],
-      ['5', '7º BPM · Crateús · Santa Quitéria', '19', '0', '19'],
-      ['6', '9º BPM · Quixadá · Senador Pompeu', '16', '0', '16'],
-      ['7', '23º BPM · Paracuru · São Gonçalo do Amarante', '16', '0', '16'],
-      ['8', '1º BPM · Russas · Limoeiro', '13', '0', '13'],
-      ['9', '12º BPM · Caucaia (Centro · Cumbuco)', '11', '2', '13'],
-      ['10', '4º BPM · Canindé · Boa Viagem', '12', '0', '12'],
-      ['11', '16º BPM · Messejana · Jangurussu', '8', '4', '12'],
-      ['12', '17º BPM · Conjunto Ceará · Bom Jardim', '11', '1', '12'],
-      ['13', '18º BPM · Antônio Bezerra · Parquelândia', '10', '2', '12'],
-      ['14', '19º BPM · Cambeba · Aerolândia', '8', '3', '11'],
-      ['15', '10º BPM · Iguatu · Acopiara', '10', '0', '10'],
-      ['16', '13º BPM · Tauá · Mombaça', '10', '0', '10'],
-      ['17', '15º BPM · Eusébio · Aquiraz', '10', '0', '10'],
-      ['18', '8º BPM · Aldeota · Vicente Pinzón', '7', '2', '9'],
-      ['19', '25º BPM · Horizonte · Chorozinho', '8', '0', '8'],
-      ['20', '6º BPM · Parangaba · Bairro de Fátima', '7', '0', '7'],
-      ['21', '20º BPM · Pirambu · Barra do Ceará', '7', '0', '7'],
-      ['22', '22º BPM · Papicu · Dionísio Torres', '6', '1', '7'],
-      ['23', '21º BPM · Conjunto Esperança · Maraponga', '6', '0', '6'],
-      ['24', '24º BPM · Maranguape · Pacatuba', '5', '1', '6'],
-      ['25', '5º BPM · Centro · Carlito Pamplona', '4', '0', '4'],
-      ['—', 'TOTAL DOS 25 BPMs IDENTIFICADOS', '289', '17', '306']
-    ],
-    note: 'Fonte: relatório “VIATURAS CONECTADAS”, consulta de 23/09/2026 às 08:27:15. Foram agregadas somente as linhas que identificam nominalmente um BPM numerado. Na estrutura da fonte, DRSO é um subconjunto da coluna de viaturas; por isso, para cada unidade, o cálculo utilizado foi viaturas contabilizadas = viaturas conectadas − DRSO. As motos foram mantidas separadamente. Linhas de RESERVA, RAIO, unidades especializadas, outras instituições ou sem BPM nominal não foram redistribuídas. A fonte identifica nominalmente apenas o 1º ao 25º BPM; a ausência do 26º ao 34º BPM não foi interpretada como zero. O relatório alerta que registros posteriores à migração de AIS de 13/07/2026 devem ser consultados no relatório “2026 VIATURAS CONECTADAS”.'
-  },
   copac: {
     accent: '#2f855a',
     eyebrow: 'Memória de cálculo · COPAC/PReVio',

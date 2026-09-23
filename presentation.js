@@ -365,7 +365,7 @@ const metricDetails = {
     ],
     sectionTitle: 'Visão geral por batalhão',
     sectionSubtitle: 'A necessidade consolidada soma a necessidade situacional de cada BPM à parcela da reestruturação do interior e do litoral. Nos batalhões fora desse segundo estudo, a penúltima coluna apresenta apenas um hífen.',
-    tableColumns: ['Posição', 'Batalhão / cidades', '<span class="column-title-line">Efetivo do</span><span class="column-title-line">batalhão</span>', 'Exonerações · outros concursos', 'Demissões · outros concursos', 'Requeridas', 'Movimentações', '<span class="column-title-line">Reestruturação</span><span class="column-title-line">interior e litoral</span>', 'Necessidade de efetivo'],
+    tableColumns: ['Posição', 'Batalhão / cidades', '<span class="column-title-line">Efetivo do</span><span class="column-title-line">batalhão</span>', 'Exonerações · outros concursos', 'Demissões · outros concursos', 'Requeridas', 'Movimentações', '<span class="column-title-line">Reestruturação</span><span class="column-title-line">interior e litoral</span>', '<span class="column-title-line">Necessidade de</span><span class="column-title-line">efetivo</span>'],
     tableRows: [],
     battalionTotals: {
       '1º BPM': 277, '2º BPM': 536, '3º BPM': 405, '4º BPM': 213, '5º BPM': 366,

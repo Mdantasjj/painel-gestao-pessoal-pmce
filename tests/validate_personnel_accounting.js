@@ -89,10 +89,25 @@ for (const [field, expected] of Object.entries({
   exonerations: 62,
   dismissals: 170,
   situation: -572,
-  calculatedDeficit: 587
+  calculatedDeficit: 587,
+  restructuringNeed: 503,
+  totalNeed: 1090
 })) {
   assert.equal(total(records, record => record[field]), expected, field);
 }
+for (const record of records) {
+  const expected = expectedRestructuring[record.name]?.[2] ?? null;
+  assert.equal(record.restructuringNeed, expected, `Integrated restructuring mismatch: ${record.name}`);
+  assert.equal(record.totalNeed, record.calculatedDeficit + (expected ?? 0), `Consolidated need mismatch: ${record.name}`);
+}
+const unaffectedTableRow = details.battalions.tableRows.find(row => row[1] === '1º BPM');
+const affectedTableRow = details.battalions.tableRows.find(row => row[1] === '26º BPM');
+const battalionTotalRow = details.battalions.tableRows.at(-1);
+assert(unaffectedTableRow[7].includes('<strong>—</strong>'), 'Unaffected BPM must show a hyphen');
+assert(affectedTableRow[7].includes('<strong>39</strong>'), '26º BPM restructuring value missing');
+assert(affectedTableRow[8].includes('<strong>61</strong>'), '26º BPM consolidated need mismatch');
+assert(battalionTotalRow[7].includes('<strong>503</strong>'), 'Restructuring table total mismatch');
+assert(battalionTotalRow[8].includes('<strong>1.090</strong>'), 'Consolidated table total mismatch');
 assert.equal(records.filter(record => record.situation < 0).length, 29);
 assert.equal(records.filter(record => record.situation > 0).length, 3);
 assert.equal(records.filter(record => record.situation === 0).length, 2);
@@ -111,7 +126,9 @@ for (const line of csv.slice(1, -1)) {
     record.requiredPromotions,
     record.movementBalance,
     record.situation,
-    record.calculatedDeficit
+    record.calculatedDeficit,
+    record.restructuringNeed ?? 0,
+    record.totalNeed
   ], `CSV mismatch: ${name}`);
 }
 
@@ -120,7 +137,7 @@ assert.equal(number(details.exits.stats[0][1]), 16);
 assert.equal(number(details.exits.stats[1][1]), 64);
 assert.equal(number(details.pog.total), 111 + 110 + 50);
 assert.equal(number(details.pog.total) + number(details.raio.total) + number(details.copac.total), 1543);
-assert.equal(number(details.battalions.total), 587);
+assert.equal(number(details.battalions.total), 1090);
 
 const pogUnits = details.pog.units;
 assert.equal(pogUnits.length, 34);
@@ -154,7 +171,7 @@ for (const phase of details.copac.phases) {
 }
 
 const html = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
-for (const [key, expected] of Object.entries({ exits: 1175, pog: 1543, restructuring: 503, battalions: 587 })) {
+for (const [key, expected] of Object.entries({ exits: 1175, pog: 1543, restructuring: 503, battalions: 1090 })) {
   const match = html.match(new RegExp(`data-detail="${key}"[\\s\\S]*?<div class="metric-main"><strong>([\\d.]+)</strong>`));
   assert(match, `Card not found: ${key}`);
   assert.equal(number(match[1]), expected, `Card total mismatch: ${key}`);

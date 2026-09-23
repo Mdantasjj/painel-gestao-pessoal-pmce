@@ -455,6 +455,8 @@ body.modal-open { overflow: hidden; }
 #metricDetailContent[data-detail="pog"] .detail-table td:first-child,
 #metricDetailContent[data-detail="restructuring"] .detail-table th:first-child,
 #metricDetailContent[data-detail="restructuring"] .detail-table td:first-child { width: 58px; padding-right: 6px; padding-left: 6px; text-align: center; white-space: nowrap; }
+#metricDetailContent[data-detail="restructuring"] .detail-table th,
+#metricDetailContent[data-detail="restructuring"] .detail-table td { text-align: center; }
 #metricDetailContent[data-detail="pog"] .pog-implementation-section .detail-table th:nth-child(n+4),
 #metricDetailContent[data-detail="pog"] .pog-implementation-section .detail-table td:nth-child(n+4) { text-align: center; }
 #metricDetailContent[data-detail="battalions"] .detail-table th:nth-child(2) { color: #fff; background: #216f4c; font-size: 10px; font-weight: 850; }

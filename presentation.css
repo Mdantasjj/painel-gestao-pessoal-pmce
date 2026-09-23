@@ -487,7 +487,8 @@ body.modal-open { overflow: hidden; }
 #metricDetailContent[data-detail="battalions"] .detail-table th,
 #metricDetailContent[data-detail="battalions"] .detail-table td { padding-right: 7px; padding-left: 7px; overflow-wrap: anywhere; }
 #metricDetailContent[data-detail="battalions"] .detail-table th { line-height: 1.25; white-space: normal; }
-#metricDetailContent[data-detail="battalions"] .detail-table th .column-title-line { display: block; }
+#metricDetailContent[data-detail="battalions"] .detail-table th .column-title-line,
+#metricDetailContent[data-detail="restructuring"] .detail-table th .column-title-line { display: block; }
 #metricDetailContent[data-detail="battalions"] .detail-table th:first-child,
 #metricDetailContent[data-detail="battalions"] .detail-table td:first-child { width: 54px; }
 #metricDetailContent[data-detail="battalions"] .detail-table th:nth-child(2),

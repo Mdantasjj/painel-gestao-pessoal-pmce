@@ -339,7 +339,7 @@ const metricDetails = {
     units: [],
     sectionTitle: 'Distribuição do efetivo adicional por batalhão',
     sectionSubtitle: '',
-    tableColumns: ['Posição', 'Batalhão / cidade', 'Efetivo atual', 'Referência inteira', 'Situação', 'Efetivo adicional necessário'],
+    tableColumns: ['Posição', 'Batalhão / cidade', 'Efetivo atual', 'Referência inteira', 'Situação', '<span class="column-title-line">Efetivo adicional</span><span class="column-title-line">necessário</span>'],
     tableRows: [],
     note: ''
   },

@@ -44,7 +44,7 @@ function renderDismissalsChart() {
   document.querySelector('#mainChart').innerHTML = `
     <div class="chart-key">${key}</div>
     <div class="bar-stage" style="--count:8">${groups}</div>
-    <div class="chart-source-note">A série mensal mostra 340 lançamentos brutos de 2026, antes da retirada de 12 duplicidades. O indicador geral usa os 328 registros deduplicados, mais 80 processos agregados de 2025 e 767 promoções requeridas de 2025–2026: 1.175 registros de fontes e naturezas diferentes.</div>`;
+    <div class="chart-source-note">A série mensal mostra 340 lançamentos brutos de 2026, antes da retirada de 12 duplicidades. O indicador geral usa 1.175 registros de saídas/requeridas e acrescenta 374 movimentações internas dos BPMs para unidades especializadas, totalizando 1.549 registros de fontes e naturezas diferentes.</div>`;
 }
 
 function renderPromotions() {
@@ -115,10 +115,10 @@ const metricDetails = {
   exits: {
     accent: '#23845b',
     eyebrow: 'Memória de cálculo · perda de efetivo',
-    title: '1.175 registros considerados na análise de perdas',
-    total: '1.175',
+    title: '1.549 registros considerados na análise de perdas',
+    total: '1.549',
     unit: 'registros considerados',
-    description: 'Indicador combinado: 80 processos de demissão/exoneração relacionados a outros concursos informados para 2025, 328 saídas administrativas deduplicadas de 2026 também classificadas como outros concursos e 767 promoções requeridas de 2025–2026. Processo e promoção não comprovam baixa institucional nem pessoa única.',
+    description: 'Indicador combinado: 80 processos de demissão/exoneração relacionados a outros concursos informados para 2025, 328 saídas administrativas deduplicadas de 2026, 767 promoções requeridas de 2025–2026 e 374 movimentações dos BPMs para unidades especializadas. Movimentação interna, processo e promoção não comprovam baixa institucional nem pessoa única.',
     stats: [
       ['Demissões de 2025 · outros concursos', '16', 'Processos informados · sem OPM identificada'],
       ['Exonerações de 2025 · outros concursos', '64', 'Processos informados · sem OPM identificada'],
@@ -126,14 +126,16 @@ const metricDetails = {
       ['Exonerações de 2026 · outros concursos', '83', 'Registros deduplicados da base de 2026'],
       ['Requeridas de 2025', '552', '320 nos BPMs · 232 em outras OPMs'],
       ['Requeridas de 2026', '215', '110 nos BPMs · 105 em outras OPMs'],
+      ['Perdas dos BPMs para especializadas', '374', 'Movimentações internas: 271 em 2025 · 103 em 2026'],
       ['Impactos atribuídos aos 34 BPMs', '662', '232 saídas de 2026 · 430 requeridas; 2025 sem rateio']
     ],
     breakdown: [
-      ['Demissões · outros concursos · processos 2025', 16 / 1175 * 100, '16 · 1,4%', '#145c40'],
-      ['Exonerações · outros concursos · processos 2025', 64 / 1175 * 100, '64 · 5,4%', '#3d9065'],
-      ['Demissões · outros concursos 2026', 245 / 1175 * 100, '245 · 20,9%', '#28734e'],
-      ['Exonerações · outros concursos 2026', 83 / 1175 * 100, '83 · 7,1%', '#55a477'],
-      ['Requeridas · 2025–2026', 767 / 1175 * 100, '767 · 65,3%', '#698342']
+      ['Demissões · outros concursos · processos 2025', 16 / 1549 * 100, '16 · 1,0%', '#145c40'],
+      ['Exonerações · outros concursos · processos 2025', 64 / 1549 * 100, '64 · 4,1%', '#3d9065'],
+      ['Demissões · outros concursos 2026', 245 / 1549 * 100, '245 · 15,8%', '#28734e'],
+      ['Exonerações · outros concursos 2026', 83 / 1549 * 100, '83 · 5,4%', '#55a477'],
+      ['Requeridas · 2025–2026', 767 / 1549 * 100, '767 · 49,5%', '#698342'],
+      ['Movimentações dos BPMs para especializadas', 374 / 1549 * 100, '374 · 24,1%', '#2f855a']
     ],
     sectionTitle: 'Conciliação dos registros considerados',
     sectionSubtitle: 'Os processos de 2025 são agregados por ano e não foram atribuídos a batalhões.',
@@ -145,7 +147,7 @@ const metricDetails = {
       ['Total combinado de registros', '147', '261', '767', '1.175'],
       ['Recorte atribuível aos 34 BPMs', '62', '170', '430', '662']
     ],
-    note: 'A aba “total_demissao_exoneracao” da planilha “MOVIMENTAÇÕES PMS 2025 - 2026.xlsx” informa 16 processos de demissão e 64 de exoneração em 2025, total de 80. Ela não discrimina batalhão, data do ato ou confirmação do desligamento; por isso, os 80 entram apenas no total geral, sem alterar a necessidade calculada por BPM. A mesma aba traz um subtotal parcial de 2026 (12 demissões e 63 exonerações), que NÃO foi somado novamente: para 2026 prevalece a relação mais abrangente usada no estudo, com 340 lançamentos e 328 registros após retirar 12 duplicidades (245 demissões e 83 exonerações). A planilha de promoções por OPM contém 552 requeridas detalhadas em 2025 (458 acessos ao oficialato e 94 promoções de oficiais) e 215 em 2026 (153 acessos e 62 promoções de oficiais), somando 767. Em 2025, a célula rotulada TOTAL mostra 458 porque sua fórmula soma apenas a seção de subtenentes. Das 767 requeridas, 430 têm vínculo direto com os 34 BPMs (320 em 2025 e 110 em 2026), e 337 pertencem a outras OPMs. O total de 1.175 combina fontes e naturezas distintas, sem comprovação de pessoas únicas ou baixas institucionais. Dos registros de 2026, 232 pertencem aos BPMs e 96 ficam fora — 94 de outras OPMs e duas sem vínculo nominal extraível.'
+    note: 'A aba “total_demissao_exoneracao” da planilha “MOVIMENTAÇÕES PMS 2025 - 2026.xlsx” informa 16 processos de demissão e 64 de exoneração em 2025, total de 80. Ela não discrimina batalhão, data do ato ou confirmação do desligamento; por isso, os 80 entram apenas no total geral, sem alterar a necessidade calculada por BPM. A mesma aba traz um subtotal parcial de 2026 (12 demissões e 63 exonerações), que NÃO foi somado novamente: para 2026 prevalece a relação mais abrangente usada no estudo, com 340 lançamentos e 328 registros após retirar 12 duplicidades (245 demissões e 83 exonerações). A planilha de promoções por OPM contém 552 requeridas detalhadas em 2025 e 215 em 2026, somando 767. Das 767 requeridas, 430 têm vínculo direto com os 34 BPMs e 337 pertencem a outras OPMs. A base de movimentações registra ainda 374 transferências com origem nos BPMs numerados e destino em unidades especializadas: 271 em 2025 e 103 em 2026. Esse fluxo representa perda local dos BPMs, mas não desligamento da PMCE; ele já integra os saldos de movimentação usados na análise situacional e não deve ser somado novamente a esse cálculo. O total visual de 1.549 combina registros e naturezas distintas, sem comprovação de pessoas únicas.'
   },
   raio: {
     accent: '#3b7e9d',

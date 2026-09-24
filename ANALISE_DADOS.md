@@ -20,7 +20,7 @@ Fontes analisadas:
 
 | Aba | Total utilizado no card | Composição principal |
 |---|---:|---|
-| Perda de efetivo | 1.175 registros considerados | 16 processos de demissão e 64 de exoneração de 2025; 245 demissões e 83 exonerações deduplicadas de 2026; 767 requeridas de 2025–2026 |
+| Perda de efetivo | 1.549 registros considerados | 1.175 saídas/requeridas + 374 movimentações dos BPMs para unidades especializadas (271 em 2025 e 103 em 2026) |
 | RAIO — Necessidade de efetivo para compor as 20 bases satélites em 3 níveis de implementação | 912 policiais | 20 oficiais e 892 praças |
 | Projeto de Efetivo 2027–2030 — Eixo POG + COTAM + BPTUR | 271 policiais | 111 de déficit nos 34 BPMs territoriais, 110 para a COTAM e 50 para a 6ª Cia/BPTUR |
 | COPAC/PReVio — Efetivo mínimo das bases cidadãs | 360 policiais | 12 bases × 30 policiais; projeção bruta, sem dedução de efetivo disponível |
@@ -31,6 +31,7 @@ Fontes analisadas:
 
 - POG significa Policiamento Ostensivo Geral, atividade voltada ao atendimento de ocorrências e à maior visibilidade da Polícia Militar perante a sociedade.
 - O resumo anual adicional informa **80 processos em 2025**: 16 demissões e 64 exonerações. A fonte mais abrangente de 2026 registra 340 lançamentos; retiradas 12 duplicidades, restam 328 registros — 245 demissões e 83 exonerações. A planilha por OPM acrescenta 552 requeridas detalhadas em 2025 e 215 em 2026, totalizando 767. A soma de registros de períodos e naturezas diferentes é **1.175** (80 + 328 + 767), sem comprovação de pessoas únicas, de baixas institucionais para os processos de 2025 ou de equivalência entre as fontes.
+- A base de movimentações acrescenta ao visual de composição **374 transferências dos 34 BPMs numerados para unidades especializadas**: 271 em 2025 e 103 em 2026. Somadas visualmente aos 1.175 registros anteriores, resultam em 1.549. Essas transferências são perdas locais dos BPMs, não saídas da PMCE, e já participam do saldo usado na necessidade situacional; portanto, não são adicionadas novamente ao cálculo de recomposição.
 - A análise territorial utiliza 232 saídas administrativas de 2026 vinculadas aos 34 BPMs: 62 exonerações e 170 demissões. Outras 96 saídas administrativas de 2026 ficam fora do recorte — 94 de outras OPMs e duas sem vínculo nominal extraível. Os 80 processos agregados de 2025 não têm OPM nesse resumo e não foram rateados entre batalhões. Das 767 requeridas de 2025–2026, 430 foram atribuídas diretamente aos BPMs (320 + 110) e 337 permanecem em outras OPMs (232 + 105); somente as 430 entram no cenário por batalhão.
 - Na relação individualizada de 2026, 326 registros únicos possuem origem identificável, distribuídos por 65 OPMs e 53 municípios. No recorte visual por batalhão, o 12º BPM — Caucaia (Centro · Cumbuco) lidera com 17 registros; Fortaleza concentra 153 registros no recorte municipal. Os 80 processos agregados de 2025 não integram esse detalhamento.
 - As 20 bases satélite projetam 912 policiais: 783 no emprego operacional, 60 na guarda, 49 em funções administrativas e 20 oficiais. O componente operacional corresponde a 85,9% do total.

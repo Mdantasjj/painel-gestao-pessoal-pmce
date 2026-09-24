@@ -88,7 +88,8 @@ for (const [field, expected] of Object.entries({
   movementBalance: 90,
   exonerations: 62,
   dismissals: 170,
-  losses: 662,
+  grossLosses: 662,
+  losses: 587,
   situation: -572,
   calculatedDeficit: 587,
   restructuringNeed: 503,
@@ -97,7 +98,8 @@ for (const [field, expected] of Object.entries({
   assert.equal(total(records, record => record[field]), expected, field);
 }
 for (const record of records) {
-  assert.equal(record.losses, record.exonerations + record.dismissals + record.requiredPromotions, `Losses mismatch: ${record.name}`);
+  assert.equal(record.grossLosses, record.exonerations + record.dismissals + record.requiredPromotions, `Gross losses mismatch: ${record.name}`);
+  assert.equal(record.losses, Math.max(0, record.grossLosses - record.movementBalance), `Losses mismatch: ${record.name}`);
   const expected = expectedRestructuring[record.name]?.[2] ?? null;
   assert.equal(record.restructuringNeed, expected, `Integrated restructuring mismatch: ${record.name}`);
   assert.equal(record.totalNeed, record.calculatedDeficit + (expected ?? 0), `Consolidated need mismatch: ${record.name}`);
@@ -108,7 +110,7 @@ const battalionTotalRow = details.battalions.tableRows.at(-1);
 assert(unaffectedTableRow[8].includes('<strong>—</strong>'), 'Unaffected BPM must show a hyphen');
 assert(affectedTableRow[8].includes('<strong>39</strong>'), '26º BPM restructuring value missing');
 assert(affectedTableRow[9].includes('<strong>61</strong>'), '26º BPM consolidated need mismatch');
-assert(battalionTotalRow[6].includes('<strong>662</strong>'), 'Losses table total mismatch');
+assert(battalionTotalRow[7].includes('<strong>587</strong>'), 'Losses table total mismatch');
 assert(battalionTotalRow[8].includes('<strong>503</strong>'), 'Restructuring table total mismatch');
 assert(battalionTotalRow[9].includes('<strong>1.090</strong>'), 'Consolidated table total mismatch');
 assert.equal(records.filter(record => record.situation < 0).length, 29);

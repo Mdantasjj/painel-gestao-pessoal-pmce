@@ -365,7 +365,7 @@ const metricDetails = {
     ],
     sectionTitle: 'Visão geral por batalhão',
     sectionSubtitle: 'A necessidade consolidada soma a necessidade situacional de cada BPM à parcela da reestruturação do interior e do litoral. Nos batalhões fora desse segundo estudo, a penúltima coluna apresenta apenas um hífen.',
-    tableColumns: ['Posição', 'Batalhão / cidades', '<span class="column-title-line">Efetivo do</span><span class="column-title-line">batalhão</span>', 'Exonerações · outros concursos', 'Demissões · outros concursos', 'Requeridas', 'Perdas', 'Movimentações', 'Reestruturação.', '<span class="column-title-line">Necessidade de</span><span class="column-title-line">efetivo</span>'],
+    tableColumns: ['Posição', 'Batalhão / cidades', '<span class="column-title-line">Efetivo do</span><span class="column-title-line">batalhão</span>', 'Exonerações · outros concursos', 'Demissões · outros concursos', 'Requeridas', 'Movimentações', 'Perdas', 'Reestruturação.', '<span class="column-title-line">Necessidade de</span><span class="column-title-line">efetivo</span>'],
     tableRows: [],
     battalionTotals: {
       '1º BPM': 277, '2º BPM': 536, '3º BPM': 405, '4º BPM': 213, '5º BPM': 366,
@@ -654,8 +654,8 @@ const battalionSortLabels = {
   exonerations: 'Exonerações · outros concursos',
   dismissals: 'Demissões · outros concursos',
   requiredPromotions: 'Requeridas',
-  losses: 'Perdas',
   movementBalance: 'Movimentações',
+  losses: 'Perdas',
   restructuringNeed: 'Reestruturação.',
   totalNeed: 'Necessidade de efetivo'
 };
@@ -673,9 +673,10 @@ function getBattalionTableRecords() {
     const requiredPromotions2025 = metricDetails.battalions.requiredPromotions2025[name] ?? 0;
     const requiredPromotions2026 = metricDetails.battalions.requiredPromotions2026[name] ?? 0;
     const requiredPromotions = requiredPromotions2025 + requiredPromotions2026;
-    const losses = exonerations + dismissals + requiredPromotions;
-    const situation = balance - losses;
-    const calculatedDeficit = Math.max(0, -situation);
+    const grossLosses = exonerations + dismissals + requiredPromotions;
+    const situation = balance - grossLosses;
+    const losses = Math.max(0, -situation);
+    const calculatedDeficit = losses;
     const restructuringUnit = metricDetails.restructuring.units.find(([unitName]) => unitName === name);
     const restructuringNeed = restructuringUnit ? restructuringUnit[3] : null;
     return {
@@ -692,6 +693,7 @@ function getBattalionTableRecords() {
       requiredPromotions2025,
       requiredPromotions2026,
       requiredPromotions,
+      grossLosses,
       losses,
       calculatedDeficit,
       restructuringNeed,
@@ -751,8 +753,8 @@ function buildBattalionTableRows(field = 'situation', direction = 'asc') {
       renderBattalionExitValue(record.exonerations, 'saídas'),
       renderBattalionExitValue(record.dismissals, 'saídas'),
       renderBattalionExitValue(record.requiredPromotions, `2025: ${record.requiredPromotions2025} · 2026: ${record.requiredPromotions2026}`),
-      renderBattalionExitValue(record.losses, 'total de perdas'),
       renderBattalionSignedValue(record.movementBalance, 'saldo'),
+      renderBattalionExitValue(record.losses, 'após movimentações'),
       renderBattalionOptionalValue(record.restructuringNeed, 'interior e litoral'),
       renderBattalionExitValue(record.totalNeed, 'necessidade total')
     ]);
@@ -763,8 +765,8 @@ function buildBattalionTableRows(field = 'situation', direction = 'asc') {
     '—',
     '—',
     renderBattalionExitValue(337, '2025: 232 · 2026: 105'),
-    renderBattalionExitValue(337, 'fora dos BPMs'),
     '—',
+    renderBattalionExitValue(337, 'fora dos BPMs'),
     '—',
     '—'
   ]);
@@ -775,8 +777,8 @@ function buildBattalionTableRows(field = 'situation', direction = 'asc') {
     renderBattalionExitValue(62, 'saídas'),
     renderBattalionExitValue(170, 'saídas'),
     renderBattalionExitValue(430, '2025: 320 · 2026: 110'),
-    renderBattalionExitValue(662, '62 + 170 + 430'),
     renderBattalionSignedValue(90, 'saldo'),
+    renderBattalionExitValue(587, 'perdas locais'),
     renderBattalionExitValue(503, '26º ao 34º BPM'),
     renderBattalionExitValue(1090, '587 + 503')
   ]);

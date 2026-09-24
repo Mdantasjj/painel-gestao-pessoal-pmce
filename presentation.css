@@ -485,7 +485,7 @@ body.modal-open { overflow: hidden; }
 .battalion-sort-direction { display: flex; min-width: 124px; min-height: 38px; padding: 6px 10px; align-items: center; justify-content: center; gap: 7px; border: 1px solid #77ad8e; border-radius: 19px; color: #145c40; background: #fff; font-size: 8.5px; font-weight: 800; cursor: pointer; }
 .battalion-sort-direction b { display: grid; width: 23px; height: 23px; place-items: center; border-radius: 50%; color: #fff; background: #23794f; font-size: 13px; }
 .battalion-sort-status { margin: 9px 0 0; color: #647a6e; font-size: 8.5px; font-weight: 680; text-align: right; }
-#metricDetailContent[data-detail="battalions"] .detail-table { min-width: 1160px; table-layout: fixed; }
+#metricDetailContent[data-detail="battalions"] .detail-table { min-width: 1250px; table-layout: fixed; }
 #metricDetailContent[data-detail="battalions"] .detail-table th,
 #metricDetailContent[data-detail="battalions"] .detail-table td { padding-right: 7px; padding-left: 7px; overflow-wrap: anywhere; }
 #metricDetailContent[data-detail="battalions"] .detail-table th { line-height: 1.25; white-space: normal; }
@@ -502,13 +502,15 @@ body.modal-open { overflow: hidden; }
 #metricDetailContent[data-detail="battalions"] .detail-table th:nth-child(5),
 #metricDetailContent[data-detail="battalions"] .detail-table td:nth-child(5),
 #metricDetailContent[data-detail="battalions"] .detail-table th:nth-child(6),
-#metricDetailContent[data-detail="battalions"] .detail-table td:nth-child(6) { width: 90px; }
+#metricDetailContent[data-detail="battalions"] .detail-table td:nth-child(6),
 #metricDetailContent[data-detail="battalions"] .detail-table th:nth-child(7),
-#metricDetailContent[data-detail="battalions"] .detail-table td:nth-child(7) { width: 105px; }
+#metricDetailContent[data-detail="battalions"] .detail-table td:nth-child(7) { width: 90px; }
 #metricDetailContent[data-detail="battalions"] .detail-table th:nth-child(8),
-#metricDetailContent[data-detail="battalions"] .detail-table td:nth-child(8) { width: 145px; }
+#metricDetailContent[data-detail="battalions"] .detail-table td:nth-child(8) { width: 105px; }
 #metricDetailContent[data-detail="battalions"] .detail-table th:nth-child(9),
-#metricDetailContent[data-detail="battalions"] .detail-table td:nth-child(9) { width: 135px; }
+#metricDetailContent[data-detail="battalions"] .detail-table td:nth-child(9) { width: 145px; }
+#metricDetailContent[data-detail="battalions"] .detail-table th:nth-child(10),
+#metricDetailContent[data-detail="battalions"] .detail-table td:nth-child(10) { width: 135px; }
 #metricDetailContent[data-detail="battalions"] .battalion-strength-value small,
 #metricDetailContent[data-detail="battalions"] .battalion-exit-value small { line-height: 1.2; text-align: center; white-space: normal; }
 #metricDetailContent[data-detail="battalions"] .battalion-unallocated-row td { border-top: 2px solid #a8cdb8; background: #f1f8f4; }

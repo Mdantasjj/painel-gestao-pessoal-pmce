@@ -65,14 +65,16 @@ const expectedRestructuring = {
 };
 const restructuring = details.restructuring;
 assert.equal(restructuring.units.length, 9);
-for (const [name, current, reference, additional, region, average] of restructuring.units) {
+for (const [name, current, reference, additional, region, average, losses] of restructuring.units) {
   assert.deepEqual([current, reference, additional], expectedRestructuring[name], name);
   assert.equal(average, details.battalions.crpmTotals[region] / restructuring.regionalCounts[region]);
   assert.equal(reference, Math.ceil(average), `Reference mismatch: ${name}`);
   assert.equal(additional, Math.max(0, reference - current), `Additional need mismatch: ${name}`);
+  assert.equal(losses, records.find(record => record.name === name).losses, `Restructuring losses mismatch: ${name}`);
   const row = restructuring.tableRows.find((item) => item[1] === name);
   assert(row, `Table row missing: ${name}`);
-  assert.equal(number(row[5]), additional, `Table need mismatch: ${name}`);
+  assert.equal(number(row[5]), losses, `Table losses mismatch: ${name}`);
+  assert.equal(number(row[6]), additional, `Table need mismatch: ${name}`);
 }
 assert.equal(total(restructuring.units, ([, current]) => current), 1831);
 assert.equal(total(restructuring.units, ([, , , additional]) => additional), 503);

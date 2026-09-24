@@ -339,7 +339,7 @@ const metricDetails = {
     units: [],
     sectionTitle: 'Distribuição do efetivo adicional por batalhão',
     sectionSubtitle: '',
-    tableColumns: ['Posição', 'Batalhão / cidade', 'Efetivo atual', 'Referência inteira', 'Situação', '<span class="column-title-line">Efetivo adicional</span><span class="column-title-line">necessário</span>'],
+    tableColumns: ['Posição', 'Batalhão / cidade', 'Efetivo atual', 'Referência inteira', 'Situação', 'Perdas', '<span class="column-title-line">Efetivo adicional</span><span class="column-title-line">necessário</span>'],
     tableRows: [],
     note: ''
   },
@@ -570,7 +570,11 @@ function recalculateRestructuringFromConsolidatedStrength() {
     const regionalAverage = consolidated.crpmTotals[region] / regionCounts[region];
     const reference = Math.ceil(regionalAverage);
     const additional = Math.max(0, reference - current);
-    return [name, current, reference, additional, region, regionalAverage];
+    const movementBalance = metricDetails.pog.units.find(([unitName]) => unitName === name)?.[3] ?? 0;
+    const [exonerations = 0, dismissals = 0] = consolidated.administrativeExits[name] || [];
+    const requiredPromotions = (consolidated.requiredPromotions2025[name] ?? 0) + (consolidated.requiredPromotions2026[name] ?? 0);
+    const losses = Math.max(0, exonerations + dismissals + requiredPromotions - movementBalance);
+    return [name, current, reference, additional, region, regionalAverage, losses];
   }).sort((a, b) => b[3] - a[3]);
   const currentTotal = units.reduce((sum, [, current]) => sum + current, 0);
   const additionalTotal = units.reduce((sum, [, , , additional]) => sum + additional, 0);
@@ -590,9 +594,9 @@ function recalculateRestructuringFromConsolidatedStrength() {
   ];
   study.breakdownSubtitle = `Participação de cada BPM nos ${format(additionalTotal)} policiais adicionais necessários.`;
   study.sectionSubtitle = 'Cada referência é a média atual do CRPM arredondada para cima; necessidade = referência inteira − efetivo atual.';
-  study.tableRows = units.map(([name, current, reference, additional], index) => [
+  study.tableRows = units.map(([name, current, reference, additional, , , losses], index) => [
     String(index + 1), name, format(current), format(reference),
-    additional > 0 ? 'Abaixo da média' : 'Na média ou acima', format(additional)
+    additional > 0 ? 'Abaixo da média' : 'Na média ou acima', format(losses), format(additional)
   ]);
   study.note = `Escopo: nove BPMs numerados (26º a 34º) identificados na aba “Resumo Executivo” da planilha de reorganização; 6º a 9º BPRAIO continuam fora. Os efetivos atuais e totais regionais foram atualizados pela base consolidada posterior dos 34 BPMs e oito CRPMs, que totaliza 9.956 policiais e substitui os valores antigos da planilha de reorganização. Para cada unidade, a média atual do CRPM é calculada por efetivo regional ÷ número de BPMs do comando; a meta é arredondada para cima antes de subtrair o efetivo da unidade. Os nove acréscimos inteiros somam ${format(additionalTotal)} policiais. Esse é um cenário de nivelamento à média de referência atual, não efetivo já autorizado nem meta recalculada após a alocação. Na visão consolidada dos 34 BPMs, esses valores são incorporados à parcela situacional de cada unidade conforme orientação de planejamento.`;
 

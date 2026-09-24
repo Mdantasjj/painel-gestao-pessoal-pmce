@@ -596,7 +596,7 @@ function recalculateRestructuringFromConsolidatedStrength() {
   study.sectionSubtitle = 'Cada referência é a média atual do CRPM arredondada para cima; necessidade = referência inteira − efetivo atual.';
   study.tableRows = units.map(([name, current, reference, additional, , , losses], index) => [
     String(index + 1), name, format(current), format(reference),
-    additional > 0 ? 'Abaixo da média' : 'Na média ou acima', format(losses), format(additional)
+    additional > 0 ? 'Abaixo da média' : 'Na média ou acima', format(losses), additional > 0 ? `-${format(additional)}` : '0'
   ]);
   study.note = `Escopo: nove BPMs numerados (26º a 34º) identificados na aba “Resumo Executivo” da planilha de reorganização; 6º a 9º BPRAIO continuam fora. Os efetivos atuais e totais regionais foram atualizados pela base consolidada posterior dos 34 BPMs e oito CRPMs, que totaliza 9.956 policiais e substitui os valores antigos da planilha de reorganização. Para cada unidade, a média atual do CRPM é calculada por efetivo regional ÷ número de BPMs do comando; a meta é arredondada para cima antes de subtrair o efetivo da unidade. Os nove acréscimos inteiros somam ${format(additionalTotal)} policiais. Esse é um cenário de nivelamento à média de referência atual, não efetivo já autorizado nem meta recalculada após a alocação. Na visão consolidada dos 34 BPMs, esses valores são incorporados à parcela situacional de cada unidade conforme orientação de planejamento.`;
 

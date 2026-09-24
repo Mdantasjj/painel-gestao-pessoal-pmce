@@ -74,7 +74,7 @@ for (const [name, current, reference, additional, region, average, losses] of re
   const row = restructuring.tableRows.find((item) => item[1] === name);
   assert(row, `Table row missing: ${name}`);
   assert.equal(number(row[5]), losses, `Table losses mismatch: ${name}`);
-  assert.equal(number(row[6]), additional, `Table need mismatch: ${name}`);
+  assert.equal(number(row[6]), -additional, `Table need display mismatch: ${name}`);
 }
 assert.equal(total(restructuring.units, ([, current]) => current), 1831);
 assert.equal(total(restructuring.units, ([, , , additional]) => additional), 503);

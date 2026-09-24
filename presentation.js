@@ -347,13 +347,13 @@ const metricDetails = {
     accent: '#145c40',
     eyebrow: 'Análise consolidada · batalhões',
     title: 'BATALHÕES - Análise situacional de Efetivo',
-    total: '1.090',
-    unit: 'necessidade consolidada dos BPMs',
-    description: 'Cenário consolidado: 587 policiais da necessidade situacional dos 34 BPMs mais 503 policiais da reestruturação do interior e do litoral, vinculados ao 26º–34º BPM. As necessidades locais não são compensadas por saldos de outras unidades.',
+    total: '1.233',
+    unit: 'necessidade consolidada apurada',
+    description: 'Cenário consolidado: 587 policiais da necessidade situacional dos 34 BPMs, 503 policiais da reestruturação do interior e do litoral e 143 policiais da necessidade situacional apurável nas unidades especializadas. As necessidades locais não são compensadas por saldos positivos de outras unidades.',
     stats: [
-      ['Batalhões analisados', '34', '29 com necessidade · 3 com saldo positivo · 2 em equilíbrio'],
-      ['Exonerações e demissões · outros concursos', '62 + 170', '232 saídas administrativas nos 34 BPMs'],
-      ['Requeridas nos BPMs', '430', '320 em 2025 · 110 em 2026']
+      ['Unidades analisadas', '52', '34 BPMs · 18 unidades especializadas'],
+      ['Exonerações e demissões · outros concursos', '75 + 202', '277 saídas discriminadas nas unidades da tabela'],
+      ['Necessidade nas especializadas', '143', 'Resultado apurável em 14 unidades; quatro BPRAIO sem saldo individualizado']
     ],
     breakdownTitle: 'Situação integrada dos 34 batalhões',
     breakdownSubtitle: 'Distribuição dos BPMs após incorporar exonerações e demissões relacionadas a outros concursos, além das requeridas, ao saldo das movimentações.',
@@ -363,9 +363,9 @@ const metricDetails = {
       ['Saldo positivo', 8.82, '3 · 8,8%', '#3d9065'],
       ['Em equilíbrio', 5.88, '2 · 5,9%', '#83b99a']
     ],
-    sectionTitle: 'Visão geral por batalhão',
-    sectionSubtitle: 'A necessidade consolidada soma a necessidade situacional de cada BPM à parcela da reestruturação do interior e do litoral. Nos batalhões fora desse segundo estudo, a penúltima coluna apresenta apenas um hífen.',
-    tableColumns: ['Posição', 'Batalhão / cidades', '<span class="column-title-line">Efetivo do</span><span class="column-title-line">batalhão</span>', 'Exonerações · outros concursos', 'Demissões · outros concursos', 'Requeridas', 'Movimentações', 'Perdas', 'Reestruturação.', '<span class="column-title-line">Necessidade de</span><span class="column-title-line">efetivo</span>'],
+    sectionTitle: 'Visão geral por batalhão e unidade especializada',
+    sectionSubtitle: 'A tabela preserva os 34 BPMs e acrescenta as unidades especializadas. O 6º ao 9º BPRAIO permanecem com traço no saldo e na necessidade porque as movimentações de 2025–2026 não estão individualizadas pelas denominações atuais.',
+    tableColumns: ['Posição', 'Unidade / cidades', '<span class="column-title-line">Efetivo da</span><span class="column-title-line">unidade</span>', 'Exonerações · outros concursos', 'Demissões · outros concursos', 'Requeridas', 'Movimentações', 'Perdas', 'Reestruturação.', '<span class="column-title-line">Necessidade de</span><span class="column-title-line">efetivo</span>'],
     tableRows: [],
     battalionTotals: {
       '1º BPM': 277, '2º BPM': 536, '3º BPM': 405, '4º BPM': 213, '5º BPM': 366,
@@ -430,6 +430,26 @@ const metricDetails = {
       '29º BPM': 2, '30º BPM': 1, '31º BPM': 0, '32º BPM': 1,
       '33º BPM': 2, '34º BPM': 3
     },
+    specializedUnits: [
+      { name: '1º BPRAIO', strength: 572, exonerations: 0, dismissals: 0, required2025: 3, required2026: 1, movementBalance: -3 },
+      { name: '2º BPRAIO', strength: 261, exonerations: 1, dismissals: 1, required2025: 5, required2026: 0, movementBalance: 19 },
+      { name: '3º BPRAIO', strength: 294, exonerations: 0, dismissals: 1, required2025: 0, required2026: 1, movementBalance: 57 },
+      { name: '4º BPRAIO', strength: 376, exonerations: 0, dismissals: 3, required2025: 2, required2026: 0, movementBalance: 28 },
+      { name: '5º BPRAIO', strength: 522, exonerations: 1, dismissals: 5, required2025: 3, required2026: 2, movementBalance: 26 },
+      { name: '6º BPRAIO', strength: 450, exonerations: 0, dismissals: 0, required2025: 0, required2026: 0, movementBalance: null },
+      { name: '7º BPRAIO', strength: 254, exonerations: 0, dismissals: 0, required2025: 0, required2026: 0, movementBalance: null },
+      { name: '8º BPRAIO', strength: 233, exonerations: 0, dismissals: 0, required2025: 0, required2026: 0, movementBalance: null },
+      { name: '9º BPRAIO', strength: 179, exonerations: 0, dismissals: 0, required2025: 0, required2026: 0, movementBalance: null },
+      { name: 'BEPI', strength: 479, exonerations: 0, dismissals: 0, required2025: 3, required2026: 1, movementBalance: 1 },
+      { name: 'BOPE', strength: 75, exonerations: 0, dismissals: 0, required2025: 0, required2026: 1, movementBalance: 2 },
+      { name: 'BPCHOQUE', strength: 412, exonerations: 2, dismissals: 4, required2025: 11, required2026: 11, movementBalance: 52 },
+      { name: 'BPGEP', strength: 581, exonerations: 0, dismissals: 2, required2025: 48, required2026: 12, movementBalance: 1 },
+      { name: 'BPMA', strength: 266, exonerations: 2, dismissals: 5, required2025: 5, required2026: 1, movementBalance: -13 },
+      { name: 'BPRE', strength: 614, exonerations: 0, dismissals: 1, required2025: 11, required2026: 4, movementBalance: 3 },
+      { name: 'BPTUR', strength: 559, exonerations: 5, dismissals: 8, required2025: 6, required2026: 6, movementBalance: 10 },
+      { name: 'COTAM', strength: 189, exonerations: 2, dismissals: 0, required2025: 3, required2026: 1, movementBalance: 2 },
+      { name: 'RPMONT', strength: 141, exonerations: 0, dismissals: 2, required2025: 6, required2026: 0, movementBalance: -6 }
+    ],
     healthLeaveTotals: {
       '1º BPM': 14, '2º BPM': 29, '3º BPM': 19, '4º BPM': 8, '5º BPM': 53,
       '6º BPM': 46, '7º BPM': 11, '8º BPM': 29, '9º BPM': 15, '10º BPM': 6,
@@ -439,7 +459,7 @@ const metricDetails = {
       '26º BPM': 12, '27º BPM': 7, '28º BPM': 7, '29º BPM': 14, '30º BPM': 14,
       '31º BPM': 9, '32º BPM': 12, '33º BPM': 2, '34º BPM': 3
     },
-    note: 'A base consolidada informa 9.956 policiais nos 34 BPMs e oito CRPMs. Para cada BPM, a situação é calculada por saldo das movimentações − exonerações − demissões − promoções requeridas de 2025 e 2026 vinculadas à unidade. A soma dos resultados negativos é 587 policiais. Conforme orientação de planejamento, a coluna final incorpora também os 503 policiais da reestruturação do interior e do litoral: 39 no 26º BPM, 62 no 27º, 94 no 28º, 31 no 29º, 37 no 30º, 75 no 31º, 11 no 32º, 109 no 33º e 45 no 34º. Assim, a necessidade consolidada apresentada é 1.090 policiais (587 + 503). Os dois estudos possuem métodos diferentes; a soma é um cenário integrado solicitado para planejamento, não comprovação de pessoas únicas nem efetivo já autorizado.'
+    note: 'Para cada unidade, a situação é calculada por saldo das movimentações − exonerações − demissões − promoções requeridas de 2025 e 2026 vinculadas. As necessidades locais apuradas somam 587 policiais nos 34 BPMs e 143 nas unidades especializadas com saldo individualizado. A parcela de 503 policiais da reestruturação permanece restrita ao 26º–34º BPM. O resultado consolidado é 1.233 policiais (587 + 503 + 143). Os 80 processos agregados de exoneração e demissão de 2025 não foram distribuídos, pois a fonte não identifica a OPM. No 6º, 7º, 8º e 9º BPRAIO, o saldo e a necessidade permanecem indisponíveis porque a fonte de movimentações não individualiza essas denominações. Promoção requerida não comprova baixa institucional, e o cenário não representa efetivo já autorizado.'
   },
   copac: {
     accent: '#2f855a',
@@ -653,8 +673,8 @@ const workforceProjectStudies = [
 ];
 
 const battalionSortLabels = {
-  unit: 'Batalhão',
-  battalionStrength: 'Efetivo do batalhão',
+  unit: 'Unidade',
+  battalionStrength: 'Efetivo da unidade',
   exonerations: 'Exonerações · outros concursos',
   dismissals: 'Demissões · outros concursos',
   requiredPromotions: 'Requeridas',
@@ -671,7 +691,7 @@ const battalionsPerCrpm = Object.values(metricDetails.battalions.crpmByUnit).red
 }, {});
 
 function getBattalionTableRecords() {
-  return metricDetails.pog.units.map(([name, , , balance]) => {
+  const battalionRecords = metricDetails.pog.units.map(([name, , , balance]) => {
     const crpm = metricDetails.battalions.crpmByUnit[name];
     const [exonerations = 0, dismissals = 0] = metricDetails.battalions.administrativeExits[name] || [];
     const requiredPromotions2025 = metricDetails.battalions.requiredPromotions2025[name] ?? 0;
@@ -704,6 +724,33 @@ function getBattalionTableRecords() {
       totalNeed: calculatedDeficit + (restructuringNeed ?? 0)
     };
   });
+
+  const specializedRecords = metricDetails.battalions.specializedUnits.map((unit) => {
+    const requiredPromotions = unit.required2025 + unit.required2026;
+    const grossLosses = unit.exonerations + unit.dismissals + requiredPromotions;
+    const hasMovementBalance = unit.movementBalance != null;
+    const situation = hasMovementBalance ? unit.movementBalance - grossLosses : null;
+    const losses = hasMovementBalance ? Math.max(0, -situation) : null;
+    return {
+      name: unit.name,
+      unitType: 'specialized',
+      battalionStrength: unit.strength,
+      movementBalance: unit.movementBalance,
+      situation,
+      exonerations: unit.exonerations,
+      dismissals: unit.dismissals,
+      requiredPromotions2025: unit.required2025,
+      requiredPromotions2026: unit.required2026,
+      requiredPromotions,
+      grossLosses,
+      losses,
+      calculatedDeficit: losses,
+      restructuringNeed: null,
+      totalNeed: losses
+    };
+  });
+
+  return [...battalionRecords, ...specializedRecords];
 }
 
 function compareBattalionRecords(a, b, field, direction) {
@@ -737,6 +784,7 @@ function renderBattalionExitValue(total, note, unavailable = false) {
 }
 
 function renderBattalionSignedValue(total, note) {
+  if (total == null) return '<span class="battalion-exit-value is-unavailable"><strong>—</strong><small>não individualizado</small></span>';
   const value = total > 0 ? `+${total.toLocaleString('pt-BR')}` : total.toLocaleString('pt-BR');
   return `<span class="battalion-exit-value"><strong>${value}</strong><small>${note}</small></span>`;
 }
@@ -758,9 +806,9 @@ function buildBattalionTableRows(field = 'situation', direction = 'asc') {
       renderBattalionExitValue(record.dismissals, 'saídas'),
       renderBattalionExitValue(record.requiredPromotions, `2025: ${record.requiredPromotions2025} · 2026: ${record.requiredPromotions2026}`),
       renderBattalionSignedValue(record.movementBalance, 'saldo'),
-      renderBattalionExitValue(record.losses, 'após movimentações'),
+      renderBattalionExitValue(record.losses, 'após movimentações', record.losses == null),
       renderBattalionOptionalValue(record.restructuringNeed, 'interior e litoral'),
-      renderBattalionExitValue(record.totalNeed, 'necessidade total')
+      renderBattalionExitValue(record.totalNeed, 'necessidade total', record.totalNeed == null)
     ]);
   rows.push([
     '—',
@@ -768,9 +816,9 @@ function buildBattalionTableRows(field = 'situation', direction = 'asc') {
     '—',
     '—',
     '—',
-    renderBattalionExitValue(337, '2025: 232 · 2026: 105'),
+    renderBattalionExitValue(190, '2025: 126 · 2026: 64'),
     '—',
-    renderBattalionExitValue(337, 'fora dos BPMs'),
+    renderBattalionExitValue(190, 'fora dos BPMs e especializadas listadas'),
     '—',
     '—'
   ]);
@@ -785,6 +833,30 @@ function buildBattalionTableRows(field = 'situation', direction = 'asc') {
     renderBattalionExitValue(587, 'perdas locais'),
     renderBattalionExitValue(503, '26º ao 34º BPM'),
     renderBattalionExitValue(1090, '587 + 503')
+  ]);
+  rows.push([
+    '—',
+    'TOTAL DAS UNIDADES ESPECIALIZADAS',
+    renderBattalionStrengthValue(6457, 'policiais'),
+    renderBattalionExitValue(13, 'saídas'),
+    renderBattalionExitValue(32, 'saídas'),
+    renderBattalionExitValue(147, '2025: 106 · 2026: 41'),
+    renderBattalionSignedValue(179, 'saldo das 14 unidades individualizadas'),
+    renderBattalionExitValue(143, 'perdas locais apuráveis'),
+    '—',
+    renderBattalionExitValue(143, 'necessidade apurável')
+  ]);
+  rows.push([
+    '—',
+    'TOTAL CONSOLIDADO',
+    renderBattalionStrengthValue(16413, '34 BPMs + 18 especializadas'),
+    renderBattalionExitValue(75, 'saídas'),
+    renderBattalionExitValue(202, 'saídas'),
+    renderBattalionExitValue(577, 'unidades discriminadas'),
+    renderBattalionSignedValue(269, 'saldo conhecido'),
+    renderBattalionExitValue(730, 'perdas locais apuráveis'),
+    renderBattalionExitValue(503, '26º ao 34º BPM'),
+    renderBattalionExitValue(1233, '730 + 503')
   ]);
   return rows;
 }
@@ -815,12 +887,26 @@ function renderPogUnitLabel(unitName) {
   return `<span class="pog-opm-label"><strong>${formatPogUnitName(unitName)}</strong></span>`;
 }
 
+function renderBattalionUnitLabel(unitName) {
+  const isSpecialized = metricDetails.battalions.specializedUnits.some((unit) => unit.name === unitName);
+  return `<span class="pog-opm-label${isSpecialized ? ' specialized-unit-label' : ''}"><strong>${formatPogUnitName(unitName)}</strong>${isSpecialized ? '<small>Unidade especializada</small>' : ''}</span>`;
+}
+
 function renderDetailTable(data, detailKey = '') {
   const head = data.tableColumns.map((column) => `<th scope="col">${column}</th>`).join('');
-  const rows = data.tableRows.map((row) => `<tr${detailKey === 'battalions' && row[1] === 'REQUERIDAS DE OUTRAS OPMs' ? ' class="battalion-unallocated-row"' : ''}>${row.map((cell, index) => {
-    const content = ['pog', 'restructuring', 'battalions'].includes(detailKey) && index === 1 ? renderPogUnitLabel(cell) : cell;
+  const rows = data.tableRows.map((row) => {
+    const rowClass = detailKey === 'battalions' && row[1] === 'REQUERIDAS DE OUTRAS OPMs'
+      ? ' class="battalion-unallocated-row"'
+      : detailKey === 'battalions' && String(row[1]).startsWith('TOTAL')
+        ? ' class="battalion-total-row"'
+        : '';
+    return `<tr${rowClass}>${row.map((cell, index) => {
+    const content = detailKey === 'battalions' && index === 1
+      ? renderBattalionUnitLabel(cell)
+      : ['pog', 'restructuring'].includes(detailKey) && index === 1 ? renderPogUnitLabel(cell) : cell;
     return `<td>${content}</td>`;
-  }).join('')}</tr>`).join('');
+  }).join('')}</tr>`;
+  }).join('');
   return `<div class="detail-table-wrap"><table class="detail-table"><thead><tr>${head}</tr></thead><tbody>${rows}</tbody></table></div>`;
 }
 
@@ -1395,7 +1481,7 @@ function renderMetricDetail(key) {
       <div class="detail-section-heading"><div><h3>${data.sectionTitle}</h3><p>${data.sectionSubtitle}</p></div><span>Dados discriminados</span></div>
       ${battalionSortControls}
       ${key === 'battalions' ? `<div id="battalionTableResult">${detailTable}</div>` : detailTable}
-      ${key === 'battalions' ? '<p class="battalion-table-source-note"><strong>Requeridas em 2025–2026:</strong> 552 + 215 = 767 registros detalhados por OPM. A linha TOTAL da aba de 2025 mostra 458 porque soma apenas subtenentes; 94 promoções de oficiais também foram incluídas. Desses 767, 430 estão vinculados aos 34 BPMs (320 em 2025 e 110 em 2026), e 337 pertencem a outras OPMs. <strong>Leitura da necessidade:</strong> os resultados negativos da parcela situacional somam 587 policiais; a penúltima coluna acrescenta 503 da reestruturação ao 26º–34º BPM, resultando em 1.090 na coluna consolidada. Promoção não é baixa institucional; as fontes e os dois métodos têm naturezas distintas.</p>' : ''}
+      ${key === 'battalions' ? '<p class="battalion-table-source-note"><strong>Escopo ampliado:</strong> a tabela apresenta os 34 BPMs e 18 unidades especializadas. Das 767 requeridas de 2025–2026, 430 estão nos BPMs, 147 nas especializadas listadas e 190 em outras OPMs. Os 80 processos agregados de exoneração e demissão de 2025 não foram rateados porque a fonte não identifica a unidade. <strong>Leitura da necessidade:</strong> 587 nos BPMs + 143 nas especializadas com movimentação individualizada + 503 da reestruturação = 1.233 policiais. O 6º ao 9º BPRAIO permanece sem saldo e sem necessidade calculada. Promoção requerida não é baixa institucional.</p>' : ''}
     </section>`;
   metricDetailContent.innerHTML = `
     <div class="detail-hero-grid">

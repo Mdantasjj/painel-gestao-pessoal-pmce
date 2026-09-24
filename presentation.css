@@ -494,7 +494,7 @@ body.modal-open { overflow: hidden; }
 #metricDetailContent[data-detail="battalions"] .detail-table th:first-child,
 #metricDetailContent[data-detail="battalions"] .detail-table td:first-child { width: 54px; }
 #metricDetailContent[data-detail="battalions"] .detail-table th:nth-child(2),
-#metricDetailContent[data-detail="battalions"] .detail-table td:nth-child(2) { width: 250px; }
+#metricDetailContent[data-detail="battalions"] .detail-table td:nth-child(2) { width: 210px; }
 #metricDetailContent[data-detail="battalions"] .detail-table th:nth-child(3),
 #metricDetailContent[data-detail="battalions"] .detail-table td:nth-child(3) { width: 120px; }
 #metricDetailContent[data-detail="battalions"] .detail-table th:nth-child(4),

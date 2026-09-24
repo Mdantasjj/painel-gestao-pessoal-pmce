@@ -347,13 +347,13 @@ const metricDetails = {
     accent: '#145c40',
     eyebrow: 'Análise consolidada · batalhões',
     title: 'BATALHÕES - Análise situacional de Efetivo',
-    total: '1.233',
+    total: '1.256',
     unit: 'necessidade consolidada apurada',
-    description: 'Cenário consolidado: 587 policiais da necessidade situacional dos 34 BPMs, 503 policiais da reestruturação do interior e do litoral e 143 policiais da necessidade situacional apurável nas unidades especializadas. As necessidades locais não são compensadas por saldos positivos de outras unidades.',
+    description: 'Cenário consolidado: 587 policiais da necessidade situacional dos 34 BPMs, 503 policiais da reestruturação do interior e do litoral e 166 policiais da necessidade situacional apurável nas unidades especializadas, incluindo a COPAC. As necessidades locais não são compensadas por saldos positivos de outras unidades.',
     stats: [
-      ['Unidades analisadas', '52', '34 BPMs · 18 unidades especializadas'],
-      ['Exonerações e demissões · outros concursos', '75 + 202', '277 saídas discriminadas nas unidades da tabela'],
-      ['Necessidade nas especializadas', '143', 'Resultado apurável em 14 unidades; quatro BPRAIO sem saldo individualizado']
+      ['Unidades analisadas', '53', '34 BPMs · 19 unidades especializadas'],
+      ['Exonerações e demissões · outros concursos', '75 + 215', '290 saídas discriminadas nas unidades da tabela'],
+      ['Necessidade nas especializadas', '166', 'Resultado apurável em 15 unidades; quatro BPRAIO sem saldo individualizado']
     ],
     breakdownTitle: 'Situação integrada dos 34 batalhões',
     breakdownSubtitle: 'Distribuição dos BPMs após incorporar exonerações e demissões relacionadas a outros concursos, além das requeridas, ao saldo das movimentações.',
@@ -364,7 +364,7 @@ const metricDetails = {
       ['Em equilíbrio', 5.88, '2 · 5,9%', '#83b99a']
     ],
     sectionTitle: 'Visão geral por batalhão e unidade especializada',
-    sectionSubtitle: 'A tabela preserva os 34 BPMs e acrescenta as unidades especializadas. O 6º ao 9º BPRAIO permanecem com traço no saldo e na necessidade porque as movimentações de 2025–2026 não estão individualizadas pelas denominações atuais.',
+    sectionSubtitle: 'A tabela preserva os 34 BPMs e acrescenta 19 unidades especializadas, incluindo a COPAC. O 6º ao 9º BPRAIO permanecem com traço no saldo e na necessidade porque as movimentações de 2025–2026 não estão individualizadas pelas denominações atuais.',
     tableColumns: ['Posição', 'Unidade / cidades', '<span class="column-title-line">Efetivo da</span><span class="column-title-line">unidade</span>', 'Exonerações · outros concursos', 'Demissões · outros concursos', 'Requeridas', 'Movimentações', 'Perdas', 'Reestruturação.', '<span class="column-title-line">Necessidade de</span><span class="column-title-line">efetivo</span>'],
     tableRows: [],
     battalionTotals: {
@@ -448,6 +448,7 @@ const metricDetails = {
       { name: 'BPRE', strength: 614, exonerations: 0, dismissals: 1, required2025: 11, required2026: 4, movementBalance: 3 },
       { name: 'BPTUR', strength: 559, exonerations: 5, dismissals: 8, required2025: 6, required2026: 6, movementBalance: 10 },
       { name: 'COTAM', strength: 189, exonerations: 2, dismissals: 0, required2025: 3, required2026: 1, movementBalance: 2 },
+      { name: 'COPAC', strength: 374, exonerations: 0, dismissals: 13, required2025: 2, required2026: 2, movementBalance: -6 },
       { name: 'RPMONT', strength: 141, exonerations: 0, dismissals: 2, required2025: 6, required2026: 0, movementBalance: -6 }
     ],
     healthLeaveTotals: {
@@ -459,7 +460,7 @@ const metricDetails = {
       '26º BPM': 12, '27º BPM': 7, '28º BPM': 7, '29º BPM': 14, '30º BPM': 14,
       '31º BPM': 9, '32º BPM': 12, '33º BPM': 2, '34º BPM': 3
     },
-    note: 'Para cada unidade, a situação é calculada por saldo das movimentações − exonerações − demissões − promoções requeridas de 2025 e 2026 vinculadas. As necessidades locais apuradas somam 587 policiais nos 34 BPMs e 143 nas unidades especializadas com saldo individualizado. A parcela de 503 policiais da reestruturação permanece restrita ao 26º–34º BPM. O resultado consolidado é 1.233 policiais (587 + 503 + 143). Os 80 processos agregados de exoneração e demissão de 2025 não foram distribuídos, pois a fonte não identifica a OPM. No 6º, 7º, 8º e 9º BPRAIO, o saldo e a necessidade permanecem indisponíveis porque a fonte de movimentações não individualiza essas denominações. Promoção requerida não comprova baixa institucional, e o cenário não representa efetivo já autorizado.'
+    note: 'Para cada unidade, a situação é calculada por saldo das movimentações − exonerações − demissões − promoções requeridas de 2025 e 2026 vinculadas. As necessidades locais apuradas somam 587 policiais nos 34 BPMs e 166 nas unidades especializadas com saldo individualizado; a COPAC responde por 23 policiais desse segundo subtotal. A parcela de 503 policiais da reestruturação permanece restrita ao 26º–34º BPM. O resultado consolidado é 1.256 policiais (587 + 503 + 166). Os 80 processos agregados de exoneração e demissão de 2025 não foram distribuídos, pois a fonte não identifica a OPM. No 6º, 7º, 8º e 9º BPRAIO, o saldo e a necessidade permanecem indisponíveis porque a fonte de movimentações não individualiza essas denominações. Promoção requerida não comprova baixa institucional, e o cenário não representa efetivo já autorizado.'
   },
   copac: {
     accent: '#2f855a',
@@ -816,9 +817,9 @@ function buildBattalionTableRows(field = 'situation', direction = 'asc') {
     '—',
     '—',
     '—',
-    renderBattalionExitValue(190, '2025: 126 · 2026: 64'),
+    renderBattalionExitValue(186, '2025: 124 · 2026: 62'),
     '—',
-    renderBattalionExitValue(190, 'fora dos BPMs e especializadas listadas'),
+    renderBattalionExitValue(186, 'fora dos BPMs e especializadas listadas'),
     '—',
     '—'
   ]);
@@ -837,26 +838,26 @@ function buildBattalionTableRows(field = 'situation', direction = 'asc') {
   rows.push([
     '—',
     'TOTAL DAS UNIDADES ESPECIALIZADAS',
-    renderBattalionStrengthValue(6457, 'policiais'),
+    renderBattalionStrengthValue(6831, 'policiais'),
     renderBattalionExitValue(13, 'saídas'),
-    renderBattalionExitValue(32, 'saídas'),
-    renderBattalionExitValue(147, '2025: 106 · 2026: 41'),
-    renderBattalionSignedValue(179, 'saldo das 14 unidades individualizadas'),
-    renderBattalionExitValue(143, 'perdas locais apuráveis'),
+    renderBattalionExitValue(45, 'saídas'),
+    renderBattalionExitValue(151, '2025: 108 · 2026: 43'),
+    renderBattalionSignedValue(173, 'saldo das 15 unidades individualizadas'),
+    renderBattalionExitValue(166, 'perdas locais apuráveis'),
     '—',
-    renderBattalionExitValue(143, 'necessidade apurável')
+    renderBattalionExitValue(166, 'necessidade apurável')
   ]);
   rows.push([
     '—',
     'TOTAL CONSOLIDADO',
-    renderBattalionStrengthValue(16413, '34 BPMs + 18 especializadas'),
+    renderBattalionStrengthValue(16787, '34 BPMs + 19 especializadas'),
     renderBattalionExitValue(75, 'saídas'),
-    renderBattalionExitValue(202, 'saídas'),
-    renderBattalionExitValue(577, 'unidades discriminadas'),
-    renderBattalionSignedValue(269, 'saldo conhecido'),
-    renderBattalionExitValue(730, 'perdas locais apuráveis'),
+    renderBattalionExitValue(215, 'saídas'),
+    renderBattalionExitValue(581, 'unidades discriminadas'),
+    renderBattalionSignedValue(263, 'saldo conhecido'),
+    renderBattalionExitValue(753, 'perdas locais apuráveis'),
     renderBattalionExitValue(503, '26º ao 34º BPM'),
-    renderBattalionExitValue(1233, '730 + 503')
+    renderBattalionExitValue(1256, '753 + 503')
   ]);
   return rows;
 }
@@ -1481,7 +1482,7 @@ function renderMetricDetail(key) {
       <div class="detail-section-heading"><div><h3>${data.sectionTitle}</h3><p>${data.sectionSubtitle}</p></div><span>Dados discriminados</span></div>
       ${battalionSortControls}
       ${key === 'battalions' ? `<div id="battalionTableResult">${detailTable}</div>` : detailTable}
-      ${key === 'battalions' ? '<p class="battalion-table-source-note"><strong>Escopo ampliado:</strong> a tabela apresenta os 34 BPMs e 18 unidades especializadas. Das 767 requeridas de 2025–2026, 430 estão nos BPMs, 147 nas especializadas listadas e 190 em outras OPMs. Os 80 processos agregados de exoneração e demissão de 2025 não foram rateados porque a fonte não identifica a unidade. <strong>Leitura da necessidade:</strong> 587 nos BPMs + 143 nas especializadas com movimentação individualizada + 503 da reestruturação = 1.233 policiais. O 6º ao 9º BPRAIO permanece sem saldo e sem necessidade calculada. Promoção requerida não é baixa institucional.</p>' : ''}
+      ${key === 'battalions' ? '<p class="battalion-table-source-note"><strong>Escopo ampliado:</strong> a tabela apresenta os 34 BPMs e 19 unidades especializadas, incluindo a COPAC. Das 767 requeridas de 2025–2026, 430 estão nos BPMs, 151 nas especializadas listadas e 186 em outras OPMs. Os 80 processos agregados de exoneração e demissão de 2025 não foram rateados porque a fonte não identifica a unidade. <strong>Leitura da necessidade:</strong> 587 nos BPMs + 166 nas especializadas com movimentação individualizada + 503 da reestruturação = 1.256 policiais. Na COPAC, 13 demissões + 4 requeridas − saldo de movimentações de −6 resultam em 23 policiais de necessidade situacional. O 6º ao 9º BPRAIO permanece sem saldo e sem necessidade calculada. Promoção requerida não é baixa institucional.</p>' : ''}
     </section>`;
   metricDetailContent.innerHTML = `
     <div class="detail-hero-grid">

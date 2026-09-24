@@ -366,7 +366,7 @@ const metricDetails = {
       ['Em equilíbrio', 5.88, '2 · 5,9%', '#83b99a']
     ],
     sectionTitle: 'Visão geral por batalhão e unidade especializada',
-    sectionSubtitle: 'A tabela preserva os 34 BPMs e acrescenta 19 unidades especializadas, incluindo a COPAC. O 6º ao 9º BPRAIO permanecem com traço no saldo e na necessidade porque as movimentações de 2025–2026 não estão individualizadas pelas denominações atuais.',
+    sectionSubtitle: 'A tabela preserva os 34 BPMs e acrescenta 19 unidades especializadas, incluindo a COPAC. As unidades RAIO - 6º BPM a RAIO - 9º BPM permanecem com traço no saldo e na necessidade porque as movimentações de 2025–2026 não estão individualizadas pelas denominações atuais.',
     tableColumns: ['Posição', 'Unidade / cidades', '<span class="column-title-line">Efetivo da</span><span class="column-title-line">unidade</span>', 'Exonerações · outros concursos', 'Demissões · outros concursos', 'Requeridas', 'Movimentações', 'Perdas', 'Reestruturação.', '<span class="column-title-line">Necessidade de</span><span class="column-title-line">efetivo</span>'],
     tableRows: [],
     battalionTotals: {
@@ -433,15 +433,15 @@ const metricDetails = {
       '33º BPM': 2, '34º BPM': 3
     },
     specializedUnits: [
-      { name: '1º BPRAIO', strength: 572, exonerations: 0, dismissals: 0, required2025: 3, required2026: 1, movementBalance: -3 },
-      { name: '2º BPRAIO', strength: 261, exonerations: 1, dismissals: 1, required2025: 5, required2026: 0, movementBalance: 19 },
-      { name: '3º BPRAIO', strength: 294, exonerations: 0, dismissals: 1, required2025: 0, required2026: 1, movementBalance: 57 },
-      { name: '4º BPRAIO', strength: 376, exonerations: 0, dismissals: 3, required2025: 2, required2026: 0, movementBalance: 28 },
-      { name: '5º BPRAIO', strength: 522, exonerations: 1, dismissals: 5, required2025: 3, required2026: 2, movementBalance: 26 },
-      { name: '6º BPRAIO', strength: 450, exonerations: 0, dismissals: 0, required2025: 0, required2026: 0, movementBalance: null },
-      { name: '7º BPRAIO', strength: 254, exonerations: 0, dismissals: 0, required2025: 0, required2026: 0, movementBalance: null },
-      { name: '8º BPRAIO', strength: 233, exonerations: 0, dismissals: 0, required2025: 0, required2026: 0, movementBalance: null },
-      { name: '9º BPRAIO', strength: 179, exonerations: 0, dismissals: 0, required2025: 0, required2026: 0, movementBalance: null },
+      { name: 'RAIO - 1º BPM', strength: 572, exonerations: 0, dismissals: 0, required2025: 3, required2026: 1, movementBalance: -3 },
+      { name: 'RAIO - 2º BPM', strength: 261, exonerations: 1, dismissals: 1, required2025: 5, required2026: 0, movementBalance: 19 },
+      { name: 'RAIO - 3º BPM', strength: 294, exonerations: 0, dismissals: 1, required2025: 0, required2026: 1, movementBalance: 57 },
+      { name: 'RAIO - 4º BPM', strength: 376, exonerations: 0, dismissals: 3, required2025: 2, required2026: 0, movementBalance: 28 },
+      { name: 'RAIO - 5º BPM', strength: 522, exonerations: 1, dismissals: 5, required2025: 3, required2026: 2, movementBalance: 26 },
+      { name: 'RAIO - 6º BPM', strength: 450, exonerations: 0, dismissals: 0, required2025: 0, required2026: 0, movementBalance: null },
+      { name: 'RAIO - 7º BPM', strength: 254, exonerations: 0, dismissals: 0, required2025: 0, required2026: 0, movementBalance: null },
+      { name: 'RAIO - 8º BPM', strength: 233, exonerations: 0, dismissals: 0, required2025: 0, required2026: 0, movementBalance: null },
+      { name: 'RAIO - 9º BPM', strength: 179, exonerations: 0, dismissals: 0, required2025: 0, required2026: 0, movementBalance: null },
       { name: 'BEPI', strength: 479, exonerations: 0, dismissals: 0, required2025: 3, required2026: 1, movementBalance: 1 },
       { name: 'BOPE', strength: 75, exonerations: 0, dismissals: 0, required2025: 0, required2026: 1, movementBalance: 2 },
       { name: 'BPCHOQUE', strength: 412, exonerations: 2, dismissals: 4, required2025: 11, required2026: 11, movementBalance: 52 },
@@ -462,7 +462,7 @@ const metricDetails = {
       '26º BPM': 12, '27º BPM': 7, '28º BPM': 7, '29º BPM': 14, '30º BPM': 14,
       '31º BPM': 9, '32º BPM': 12, '33º BPM': 2, '34º BPM': 3
     },
-    note: 'Para cada unidade, a situação é calculada por saldo das movimentações − exonerações − demissões − promoções requeridas de 2025 e 2026 vinculadas. As necessidades locais apuradas somam 587 policiais nos 34 BPMs e 166 nas unidades especializadas com saldo individualizado; a COPAC responde por 23 policiais desse segundo subtotal. A parcela de 503 policiais da reestruturação permanece restrita ao 26º–34º BPM. O resultado consolidado é 1.256 policiais (587 + 503 + 166). Os 80 processos agregados de exoneração e demissão de 2025 não foram distribuídos, pois a fonte não identifica a OPM. No 6º, 7º, 8º e 9º BPRAIO, o saldo e a necessidade permanecem indisponíveis porque a fonte de movimentações não individualiza essas denominações. Promoção requerida não comprova baixa institucional, e o cenário não representa efetivo já autorizado.'
+    note: 'Para cada unidade, a situação é calculada por saldo das movimentações − exonerações − demissões − promoções requeridas de 2025 e 2026 vinculadas. As necessidades locais apuradas somam 587 policiais nos 34 BPMs e 166 nas unidades especializadas com saldo individualizado; a COPAC responde por 23 policiais desse segundo subtotal. A parcela de 503 policiais da reestruturação permanece restrita ao 26º–34º BPM. O resultado consolidado é 1.256 policiais (587 + 503 + 166). Os 80 processos agregados de exoneração e demissão de 2025 não foram distribuídos, pois a fonte não identifica a OPM. Em RAIO - 6º BPM, RAIO - 7º BPM, RAIO - 8º BPM e RAIO - 9º BPM, o saldo e a necessidade permanecem indisponíveis porque a fonte de movimentações não individualiza essas denominações. Promoção requerida não comprova baixa institucional, e o cenário não representa efetivo já autorizado.'
   },
   copac: {
     accent: '#2f855a',
@@ -1484,7 +1484,7 @@ function renderMetricDetail(key) {
       <div class="detail-section-heading"><div><h3>${data.sectionTitle}</h3><p>${data.sectionSubtitle}</p></div><span>Dados discriminados</span></div>
       ${battalionSortControls}
       ${key === 'battalions' ? `<div id="battalionTableResult">${detailTable}</div>` : detailTable}
-      ${key === 'battalions' ? '<p class="battalion-table-source-note"><strong>Escopo ampliado:</strong> a tabela apresenta os 34 BPMs e 19 unidades especializadas, incluindo a COPAC. Das 767 requeridas de 2025–2026, 430 estão nos BPMs, 151 nas especializadas listadas e 186 em outras OPMs. Os 80 processos agregados de exoneração e demissão de 2025 não foram rateados porque a fonte não identifica a unidade. <strong>Leitura da necessidade:</strong> 587 nos BPMs + 166 nas especializadas com movimentação individualizada + 503 da reestruturação = 1.256 policiais. Na COPAC, 13 demissões + 4 requeridas − saldo de movimentações de −6 resultam em 23 policiais de necessidade situacional. O 6º ao 9º BPRAIO permanece sem saldo e sem necessidade calculada. Promoção requerida não é baixa institucional.</p>' : ''}
+      ${key === 'battalions' ? '<p class="battalion-table-source-note"><strong>Escopo ampliado:</strong> a tabela apresenta os 34 BPMs e 19 unidades especializadas, incluindo a COPAC. Das 767 requeridas de 2025–2026, 430 estão nos BPMs, 151 nas especializadas listadas e 186 em outras OPMs. Os 80 processos agregados de exoneração e demissão de 2025 não foram rateados porque a fonte não identifica a unidade. <strong>Leitura da necessidade:</strong> 587 nos BPMs + 166 nas especializadas com movimentação individualizada + 503 da reestruturação = 1.256 policiais. Na COPAC, 13 demissões + 4 requeridas − saldo de movimentações de −6 resultam em 23 policiais de necessidade situacional. RAIO - 6º BPM a RAIO - 9º BPM permanecem sem saldo e sem necessidade calculada. Promoção requerida não é baixa institucional.</p>' : ''}
     </section>`;
   metricDetailContent.innerHTML = `
     <div class="detail-hero-grid">

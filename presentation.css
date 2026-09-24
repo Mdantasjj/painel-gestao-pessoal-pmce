@@ -459,6 +459,8 @@ body.modal-open { overflow: hidden; }
 #metricDetailContent[data-detail="restructuring"] .detail-table td { text-align: center; }
 #metricDetailContent[data-detail="restructuring"] .detail-table th:nth-child(2),
 #metricDetailContent[data-detail="restructuring"] .detail-table td:nth-child(2) { width: 190px; white-space: normal; }
+#metricDetailContent[data-detail="restructuring"] .detail-table th:nth-child(5),
+#metricDetailContent[data-detail="restructuring"] .detail-table td:nth-child(5) { width: 105px; white-space: normal; }
 #metricDetailContent[data-detail="restructuring"] .detail-table th:nth-child(6),
 #metricDetailContent[data-detail="restructuring"] .detail-table td:nth-child(6) { width: 82px; }
 #metricDetailContent[data-detail="restructuring"] .detail-table th:last-child,

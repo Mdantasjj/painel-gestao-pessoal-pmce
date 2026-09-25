@@ -677,17 +677,17 @@ const workforceProjectStudies = [
     key: 'mariaPenhaPog',
     eyebrow: 'Eixo 04 · proteção especializada',
     title: 'MARIA DA PENHA - POG',
-    description: 'Eixo destinado à organização territorial dos projetos 1O2D e 1O3D no Policiamento Ostensivo Geral.',
-    value: '02',
-    unit: 'opções de projeto',
-    meta: 'PROJETO 1O2D · PROJETO 1O3D',
+    description: 'Eixo destinado à organização territorial dos projetos 1O2D e 1O3D no Policiamento Ostensivo Geral, com uma patrulha de três policiais por município, de segunda a sexta.',
+    value: '21–60',
+    unit: 'policiais por dia',
+    meta: '1O2D: 21 · 1O3D: 60',
     image: 'assets/icone-reestruturacao-batalhoes.jpeg',
     imageAlt: 'Ícone provisório do eixo Maria da Penha - POG',
     stats: [
-      ['Modelos previstos', '02', 'PROJETO 1O2D e PROJETO 1O3D'],
-      ['Municípios no 1O2D', '07', 'Relação territorial inicial informada'],
-      ['Municípios no 1O3D', '20', 'Relação territorial inicial informada'],
-      ['Impacto no total', 'Não contabilizado', 'Aguardando os quantitativos de efetivo']
+      ['PROJETO 1O2D', '21 por dia', '07 patrulhas · três policiais em cada município'],
+      ['PROJETO 1O3D', '60 por dia', '20 patrulhas · três policiais em cada município'],
+      ['Escala semanal', 'Segunda a sexta', 'Cinco dias de emprego por semana'],
+      ['Impacto no total', 'Não contabilizado', 'Aguardando definição da opção a implementar']
     ]
   }
 ];
@@ -1395,14 +1395,37 @@ function buildMariaDaPenhaProjectDetail(projectId) {
   if (!project.cities.length) {
     return `<div class="project-pending-message"><strong>${project.name}</strong><span>A estrutura está reservada e aguarda os municípios e quantitativos do estudo.</span></div>`;
   }
-  const cities = project.cities.map((city, index) => `<div class="maria-project-city"><span>${String(index + 1).padStart(2, '0')}</span><strong>${city}</strong></div>`).join('');
+  const policePerPatrol = 3;
+  const weekdays = ['Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta'];
+  const dailyPatrols = project.cities.length;
+  const dailyPolice = dailyPatrols * policePerPatrol;
+  const weeklyPoliceShifts = dailyPolice * weekdays.length;
+  const scheduleRows = project.cities.map((city, index) => `
+    <tr>
+      <td><span class="maria-schedule-city"><b>${String(index + 1).padStart(2, '0')}</b><strong>${city}</strong></span></td>
+      ${weekdays.map(() => '<td><strong>3</strong><small>1 patrulha</small></td>').join('')}
+      <td><strong>15</strong><small>jornadas</small></td>
+    </tr>`).join('');
   return `
     <div class="maria-project-detail-heading">
       <div><span>Opção selecionada</span><strong>${project.name}</strong></div>
       <b>${project.cities.length} municípios</b>
     </div>
-    <div class="maria-project-city-grid">${cities}</div>
-    <p class="maria-project-note">Os municípios estão cadastrados como escopo territorial. O efetivo necessário ainda não foi informado e, por isso, não altera o total do Projeto de Efetivo 2027–2030.</p>`;
+    <div class="maria-project-kpis">
+      <div><span>Patrulhas por dia</span><strong>${dailyPatrols}</strong><small>Uma por município</small></div>
+      <div><span>Policiais por patrulha</span><strong>${policePerPatrol}</strong><small>Composição informada</small></div>
+      <div><span>Efetivo mínimo diário</span><strong>${dailyPolice}</strong><small>Emprego simultâneo</small></div>
+      <div><span>Jornadas na semana</span><strong>${weeklyPoliceShifts}</strong><small>${dailyPolice} × cinco dias</small></div>
+    </div>
+    <div class="maria-schedule-heading"><strong>Escala semanal por município</strong><span>Segunda a sexta · três policiais por patrulha</span></div>
+    <div class="maria-schedule-wrap">
+      <table class="maria-schedule-table">
+        <thead><tr><th>Município</th>${weekdays.map((day) => `<th>${day}</th>`).join('')}<th>Total semanal</th></tr></thead>
+        <tbody>${scheduleRows}</tbody>
+        <tfoot><tr><th>Total por dia</th>${weekdays.map(() => `<td><strong>${dailyPolice}</strong><small>${dailyPatrols} patrulhas</small></td>`).join('')}<td><strong>${weeklyPoliceShifts}</strong><small>jornadas</small></td></tr></tfoot>
+      </table>
+    </div>
+    <p class="maria-project-note"><strong>Critério:</strong> uma patrulha em cada município, composta por três policiais, de segunda a sexta. O número diário representa o efetivo mínimo em serviço; as jornadas semanais não correspondem a policiais distintos. Reserva técnica, férias, licenças, folgas e substituições ainda não foram incorporadas. Como 1O2D e 1O3D são opções alternativas, seus quantitativos não são somados entre si nem ao total geral nesta etapa.</p>`;
 }
 
 function renderMariaDaPenhaStudy() {
@@ -1411,7 +1434,7 @@ function renderMariaDaPenhaStudy() {
     <button class="maria-project-option${index === 0 ? ' is-active' : ''}" type="button" data-maria-project="${project.id}" aria-pressed="${index === 0}">
       <span>Opção ${String(index + 1).padStart(2, '0')}</span>
       <strong>${project.name}</strong>
-      <small>${project.cities.length ? `${project.cities.length} municípios cadastrados` : project.status}</small>
+      <small>${project.cities.length ? `${project.cities.length} municípios · ${project.cities.length * 3} policiais/dia` : project.status}</small>
     </button>`).join('');
   return `
     <div class="project-study-panel" id="projectStudyPanel-mariaPenhaPog" data-project-study-panel="mariaPenhaPog" role="tabpanel" aria-labelledby="projectStudyTab-mariaPenhaPog" hidden>

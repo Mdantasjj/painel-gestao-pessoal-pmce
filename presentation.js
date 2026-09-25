@@ -1400,11 +1400,12 @@ function buildMariaDaPenhaProjectDetail(projectId) {
   const weeklyPolice = fixedPatrols * policePerPatrol;
   const currentProjectTotal = 1543;
   const projectedProjectTotal = currentProjectTotal + weeklyPolice;
-  const scheduleRows = project.cities.map((city, index) => `
-    <tr>
-      <td><span class="maria-schedule-city"><b>${String(index + 1).padStart(2, '0')}</b><strong>${city}</strong></span></td>
-      <td><strong>3</strong><small>policiais</small></td>
-    </tr>`).join('');
+  const effectiveItems = project.cities.map((city, index) => `
+    <div class="maria-effective-item">
+      <span>${String(index + 1).padStart(2, '0')}</span>
+      <strong>${city}</strong>
+      <b>3<small>policiais</small></b>
+    </div>`).join('');
   return `
     <div class="maria-project-detail-heading">
       <div><span>Opção selecionada</span><strong>${project.name}</strong></div>
@@ -1418,12 +1419,11 @@ function buildMariaDaPenhaProjectDetail(projectId) {
       <div class="is-impact"><span>Impacto total projetado</span><strong>${projectedProjectTotal.toLocaleString('pt-BR')}</strong><small>1.543 + ${weeklyPolice} policiais</small></div>
     </div>
     <div class="maria-schedule-heading"><strong>Efetivo por município</strong><span>Equipe fixa: serviço segunda–sexta · folga sábado–domingo</span></div>
-    <div class="maria-schedule-wrap">
-      <table class="maria-schedule-table">
-        <thead><tr><th>Município</th><th>Efetivo</th></tr></thead>
-        <tbody>${scheduleRows}</tbody>
-        <tfoot><tr><th>Total do projeto</th><td><strong>${weeklyPolice}</strong><small>policiais fixos</small></td></tr></tfoot>
-      </table>
+    <div class="maria-effective-grid">${effectiveItems}</div>
+    <div class="maria-effective-total">
+      <span>Total da opção</span>
+      <strong>${weeklyPolice}</strong>
+      <small>policiais fixos em ${fixedPatrols} patrulhas</small>
     </div>
     <p class="maria-project-note"><strong>Critério:</strong> cada município recebe uma patrulha fixa com três policiais. Os mesmos três policiais trabalham de segunda a sexta e folgam no sábado e domingo; portanto, não há multiplicação do efetivo pelos cinco dias úteis. Reserva técnica para férias, licenças ou substituições ainda não foi incorporada. Como 1O2D e 1O3D são opções alternativas, o impacto consolidado é de ${projectedProjectTotal.toLocaleString('pt-BR')} policiais para a opção selecionada; os dois modelos não são somados entre si.</p>`;
 }

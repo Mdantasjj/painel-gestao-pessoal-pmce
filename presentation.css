@@ -315,17 +315,16 @@ body.modal-open { overflow: hidden; }
 .maria-schedule-heading { display: flex; margin-top: 15px; align-items: flex-end; justify-content: space-between; gap: 12px; }
 .maria-schedule-heading strong { color: #244f3b; font-size: 13px; }
 .maria-schedule-heading span { color: #6c7e74; font-size: 8.5px; }
-.maria-schedule-wrap { margin-top: 8px; overflow: auto; border: 1px solid #d9e7df; border-radius: 10px; }
-.maria-schedule-table { width: 100%; min-width: 360px; border-collapse: collapse; font-size: 9px; }
-.maria-schedule-table th { padding: 9px 8px; color: #496557; text-align: center; text-transform: uppercase; background: #eaf4ee; font-size: 7.5px; letter-spacing: .035em; }
-.maria-schedule-table th:first-child { min-width: 175px; text-align: left; }
-.maria-schedule-table td { padding: 8px; border-top: 1px solid #e6eee9; color: #315846; text-align: center; background: #fff; }
-.maria-schedule-table td strong { display: block; color: #145c40; font-size: 12px; }
-.maria-schedule-table td small { display: block; margin-top: 3px; color: #7a8880; font-size: 7px; }
-.maria-schedule-table tfoot th, .maria-schedule-table tfoot td { border-top: 2px solid #79ad8f; background: #e4f2e9; font-weight: 850; }
-.maria-schedule-city { display: flex; align-items: center; gap: 9px; text-align: left; }
-.maria-schedule-city b { display: grid; width: 24px; height: 24px; place-items: center; border-radius: 6px; color: #fff; background: #3b8c63; font-size: 7.5px; }
-.maria-schedule-city strong { color: #28533f; font-size: 9px; text-transform: uppercase; }
+.maria-effective-grid { display: grid; margin-top: 9px; grid-template-columns: repeat(auto-fit, minmax(205px, 1fr)); gap: 7px; }
+.maria-effective-item { display: grid; min-height: 48px; padding: 8px 10px; grid-template-columns: 25px minmax(0, 1fr) auto; align-items: center; gap: 9px; border: 1px solid #d5e7dd; border-radius: 9px; background: #f5faf7; }
+.maria-effective-item > span { display: grid; width: 24px; height: 24px; place-items: center; border-radius: 6px; color: #fff; background: #3b8c63; font-size: 7.5px; font-weight: 850; }
+.maria-effective-item > strong { color: #28533f; font-size: 9.5px; line-height: 1.2; text-transform: uppercase; }
+.maria-effective-item > b { display: flex; min-width: 42px; align-items: flex-end; flex-direction: column; color: #145c40; font-size: 16px; line-height: 1; }
+.maria-effective-item > b small { margin-top: 3px; color: #78887f; font-size: 6.8px; font-weight: 650; text-transform: uppercase; }
+.maria-effective-total { display: grid; margin-top: 9px; padding: 10px 13px; grid-template-columns: minmax(0, 1fr) auto; align-items: center; column-gap: 12px; border: 1px solid #79ad8f; border-radius: 9px; background: #e4f2e9; }
+.maria-effective-total span { color: #315846; font-size: 9px; font-weight: 850; text-transform: uppercase; }
+.maria-effective-total strong { grid-row: span 2; color: #0d5136; font-size: 25px; line-height: 1; }
+.maria-effective-total small { color: #6c7e74; font-size: 8px; }
 .maria-project-city-grid { display: grid; margin-top: 12px; grid-template-columns: repeat(auto-fit, minmax(175px, 1fr)); gap: 8px; }
 .maria-project-city { display: flex; min-height: 46px; padding: 9px 11px; align-items: center; gap: 10px; border: 1px solid #d9e9e0; border-radius: 9px; background: #f3faf6; }
 .maria-project-city span { display: grid; width: 25px; height: 25px; place-items: center; border-radius: 7px; color: #fff; background: #3b8c63; font-size: 8px; font-weight: 850; }

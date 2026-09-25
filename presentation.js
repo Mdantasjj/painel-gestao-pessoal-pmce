@@ -672,6 +672,38 @@ const workforceProjectStudies = [
     meta: '12 bases · três fases',
     image: 'assets/icone-copac-previo.jpeg',
     imageAlt: 'Policiais do COPAC em base cidadã do PReVio'
+  },
+  {
+    key: 'project1o2d',
+    eyebrow: 'Eixo 04 · projeto em estruturação',
+    title: 'PROJETO 1O2D',
+    description: 'Novo eixo reservado para a construção da proposta, das premissas operacionais e da respectiva memória de cálculo.',
+    value: '—',
+    unit: 'quantitativo a definir',
+    meta: 'Aguardando dados do estudo',
+    image: 'assets/icone-reestruturacao-batalhoes.jpeg',
+    imageAlt: 'Ícone provisório do Projeto 1O2D',
+    pending: true,
+    stats: [
+      ['Situação', 'Em estruturação', 'Escopo e quantitativos ainda não informados'],
+      ['Impacto no total', 'Não contabilizado', 'O total de 1.543 policiais permanece inalterado']
+    ]
+  },
+  {
+    key: 'project1o3d',
+    eyebrow: 'Eixo 05 · projeto em estruturação',
+    title: 'PROJETO 1O3D',
+    description: 'Novo eixo reservado para a construção da proposta, das premissas operacionais e da respectiva memória de cálculo.',
+    value: '—',
+    unit: 'quantitativo a definir',
+    meta: 'Aguardando dados do estudo',
+    image: 'assets/icone-deficit-efetivo.png',
+    imageAlt: 'Ícone provisório do Projeto 1O3D',
+    pending: true,
+    stats: [
+      ['Situação', 'Em estruturação', 'Escopo e quantitativos ainda não informados'],
+      ['Impacto no total', 'Não contabilizado', 'O total de 1.543 policiais permanece inalterado']
+    ]
   }
 ];
 
@@ -1333,7 +1365,7 @@ function renderProjectStudySelector() {
   return `
     <section class="detail-section project-study-selector-section">
       <div class="detail-section-heading">
-        <div><h3>Escolha um eixo para aprofundar</h3><p>Os três subcards mantêm separados os universos, as premissas e os cálculos de cada estudo.</p></div>
+        <div><h3>Escolha um eixo para aprofundar</h3><p>Os cinco subcards mantêm separados os universos, as premissas e os cálculos de cada estudo.</p></div>
         <span>Estudos separados</span>
       </div>
       <div class="project-study-selector" role="tablist" aria-label="Eixos do Projeto de Efetivo 2027 a 2030">${cards}</div>
@@ -1343,7 +1375,7 @@ function renderProjectStudySelector() {
 function renderProjectStudySummary(studyKey) {
   const study = workforceProjectStudies.find((item) => item.key === studyKey);
   const data = metricDetails[studyKey];
-  const stats = data.stats.map(([label, value, note]) => `
+  const stats = (data?.stats || study.stats || []).map(([label, value, note]) => `
     <div class="project-study-stat"><span>${label}</span><strong>${value}</strong><small>${note}</small></div>`).join('');
   return `
     <section class="project-study-summary">
@@ -1355,6 +1387,24 @@ function renderProjectStudySummary(studyKey) {
       <div class="project-study-summary-total"><strong>${study.value}</strong><span>${study.unit}</span></div>
       <div class="project-study-stat-grid">${stats}</div>
     </section>`;
+}
+
+function renderPendingProjectStudy(studyKey) {
+  const study = workforceProjectStudies.find((item) => item.key === studyKey);
+  return `
+    <div class="project-study-panel" id="projectStudyPanel-${study.key}" data-project-study-panel="${study.key}" role="tabpanel" aria-labelledby="projectStudyTab-${study.key}" hidden>
+      ${renderProjectStudySummary(study.key)}
+      <section class="detail-section project-pending-section">
+        <div class="detail-section-heading">
+          <div><h3>Estrutura reservada para o estudo</h3><p>O subcard já está integrado ao painel e receberá os dados, os totais e a memória de cálculo quando forem fornecidos.</p></div>
+          <span>Em elaboração</span>
+        </div>
+        <div class="project-pending-message">
+          <strong>${study.title}</strong>
+          <span>Nenhum quantitativo foi somado ao Projeto de Efetivo 2027–2030 nesta etapa.</span>
+        </div>
+      </section>
+    </div>`;
 }
 
 function renderProjectBreakdown(data, detailKey) {
@@ -1397,7 +1447,7 @@ function renderWorkforceProjectDetail() {
   metricDetailEyebrow.textContent = overview.eyebrow;
   metricDetailTitle.textContent = overview.title;
   metricDetailContent.innerHTML = `
-    <p id="metricDetailDescription" hidden>Detalhamento dos três eixos do Projeto de Efetivo 2027–2030.</p>
+    <p id="metricDetailDescription" hidden>Detalhamento dos cinco eixos do Projeto de Efetivo 2027–2030.</p>
     ${renderProjectStudySelector()}
     <div class="project-study-panel" id="projectStudyPanel-pog" data-project-study-panel="pog" role="tabpanel" aria-labelledby="projectStudyTab-pog">
       ${renderProjectStudySummary('pog')}
@@ -1419,7 +1469,9 @@ function renderWorkforceProjectDetail() {
       ${renderProjectBreakdown(copac, 'copac')}
       ${renderCopacResources(copac)}
       <p class="detail-methodology">${copac.note}</p>
-    </div>`;
+    </div>
+    ${renderPendingProjectStudy('project1o2d')}
+    ${renderPendingProjectStudy('project1o3d')}`;
   renderPogUnitDetail('12º BPM');
 }
 

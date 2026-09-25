@@ -254,8 +254,9 @@ body.modal-open { overflow: hidden; }
 .detail-section-heading p { margin: 4px 0 0; color: #79867f; font-size: 9.5px; }
 .detail-section-heading > span { color: var(--green-700); font-size: 9.5px; font-weight: 750; text-transform: uppercase; }
 .project-study-selector-section { border: 1px solid #8fbea5; background: linear-gradient(145deg, #eaf6ef, #fff 48%); }
-.project-study-selector { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 11px; }
-.project-study-card { position: relative; display: grid; min-width: 0; min-height: 178px; padding: 14px; grid-template-columns: 48px minmax(0, 1fr); grid-template-rows: auto 1fr auto; align-items: start; gap: 10px 11px; overflow: hidden; border: 1px solid #bdd8c9; border-radius: 12px; color: #315846; text-align: left; background: #fff; box-shadow: 0 5px 14px rgba(20, 92, 64, .07); cursor: pointer; transition: border-color .18s ease, box-shadow .18s ease, transform .18s ease; }
+.project-study-selector { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 11px; }
+.project-study-card { position: relative; display: grid; min-width: 0; min-height: 178px; padding: 14px; grid-column: span 2; grid-template-columns: 48px minmax(0, 1fr); grid-template-rows: auto 1fr auto; align-items: start; gap: 10px 11px; overflow: hidden; border: 1px solid #bdd8c9; border-radius: 12px; color: #315846; text-align: left; background: #fff; box-shadow: 0 5px 14px rgba(20, 92, 64, .07); cursor: pointer; transition: border-color .18s ease, box-shadow .18s ease, transform .18s ease; }
+.project-study-card:nth-last-child(-n+2) { grid-column: span 3; }
 .project-study-card::after { position: absolute; inset: auto 0 0; height: 4px; background: #2f855a; content: ''; opacity: 0; transform: scaleX(.35); transition: .18s ease; }
 .project-study-card:hover { border-color: #5b9f7b; box-shadow: 0 9px 20px rgba(20, 92, 64, .12); transform: translateY(-2px); }
 .project-study-card.is-active { border-color: #176a47; background: linear-gradient(145deg, #e0f1e7, #fff 70%); box-shadow: 0 10px 22px rgba(20, 92, 64, .14); }
@@ -287,6 +288,10 @@ body.modal-open { overflow: hidden; }
 .project-study-stat span { color: #cce9d8; font-size: 7.7px; font-weight: 800; letter-spacing: .035em; text-transform: uppercase; }
 .project-study-stat strong { margin-top: 5px; color: #fff; font-size: 18px; line-height: 1; }
 .project-study-stat small { margin-top: 5px; color: #deefe5; font-size: 7.8px; line-height: 1.3; }
+.project-pending-section { border-color: #a8ceb9; background: linear-gradient(145deg, #eef8f2, #fff); }
+.project-pending-message { display: flex; min-height: 112px; align-items: center; justify-content: center; flex-direction: column; gap: 8px; border: 1px dashed #8dbca2; border-radius: 11px; color: #2a6247; text-align: center; background: rgba(231,245,237,.72); }
+.project-pending-message strong { font-size: 19px; }
+.project-pending-message span { max-width: 520px; color: #60796b; font-size: 10px; line-height: 1.45; }
 .detail-breakdown { display: grid; gap: 9px; }
 .detail-breakdown-row { display: grid; grid-template-columns: minmax(130px, 1fr) minmax(180px, 2.5fr) 92px; align-items: center; gap: 12px; }
 .detail-breakdown-row > span { color: #45534c; font-size: 10.5px; font-weight: 720; letter-spacing: .035em; text-transform: uppercase; }
@@ -573,7 +578,7 @@ body.modal-open { overflow: hidden; }
   .origin-columns { grid-template-columns: 1fr; }
   .detail-hero-grid { grid-template-columns: 1fr; }
   .project-study-selector { grid-template-columns: 1fr; }
-  .project-study-card { min-height: 130px; grid-template-columns: 48px minmax(0, 1fr) auto; grid-template-rows: 1fr auto; }
+  .project-study-card, .project-study-card:nth-last-child(-n+2) { min-height: 130px; grid-column: auto; grid-template-columns: 48px minmax(0, 1fr) auto; grid-template-rows: 1fr auto; }
   .project-study-card-total { grid-column: 3; grid-row: 1; align-items: flex-end; flex-direction: column; }
   .project-study-card-action { grid-column: 2 / 4; }
   .donut-wrap { min-height: 230px; flex-direction: row; gap: 40px; }

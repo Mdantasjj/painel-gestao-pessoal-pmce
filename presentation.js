@@ -674,36 +674,35 @@ const workforceProjectStudies = [
     imageAlt: 'Policiais do COPAC em base cidadã do PReVio'
   },
   {
-    key: 'project1o2d',
-    eyebrow: 'Eixo 04 · projeto em estruturação',
-    title: 'PROJETO 1O2D',
-    description: 'Novo eixo reservado para a construção da proposta, das premissas operacionais e da respectiva memória de cálculo.',
-    value: '—',
-    unit: 'quantitativo a definir',
-    meta: 'Aguardando dados do estudo',
+    key: 'mariaPenhaPog',
+    eyebrow: 'Eixo 04 · proteção especializada',
+    title: 'MARIA DA PENHA - POG',
+    description: 'Eixo destinado à organização territorial dos projetos 1O2D e 1O3D no Policiamento Ostensivo Geral.',
+    value: '02',
+    unit: 'opções de projeto',
+    meta: 'PROJETO 1O2D · PROJETO 1O3D',
     image: 'assets/icone-reestruturacao-batalhoes.jpeg',
-    imageAlt: 'Ícone provisório do Projeto 1O2D',
-    pending: true,
+    imageAlt: 'Ícone provisório do eixo Maria da Penha - POG',
     stats: [
-      ['Situação', 'Em estruturação', 'Escopo e quantitativos ainda não informados'],
-      ['Impacto no total', 'Não contabilizado', 'O total de 1.543 policiais permanece inalterado']
+      ['Modelos previstos', '02', 'PROJETO 1O2D e PROJETO 1O3D'],
+      ['Municípios no 1O2D', '07', 'Relação territorial inicial informada'],
+      ['Impacto no total', 'Não contabilizado', 'Aguardando os quantitativos de efetivo']
     ]
+  }
+];
+
+const mariaDaPenhaProjects = [
+  {
+    id: '1o2d',
+    name: 'PROJETO 1O2D',
+    status: 'Municípios informados',
+    cities: ['Barbalha', 'Crato', 'Itaitinga', 'Quixeramobim', 'Nova Russas', 'Pacatuba', 'Juazeiro do Norte']
   },
   {
-    key: 'project1o3d',
-    eyebrow: 'Eixo 05 · projeto em estruturação',
-    title: 'PROJETO 1O3D',
-    description: 'Novo eixo reservado para a construção da proposta, das premissas operacionais e da respectiva memória de cálculo.',
-    value: '—',
-    unit: 'quantitativo a definir',
-    meta: 'Aguardando dados do estudo',
-    image: 'assets/icone-deficit-efetivo.png',
-    imageAlt: 'Ícone provisório do Projeto 1O3D',
-    pending: true,
-    stats: [
-      ['Situação', 'Em estruturação', 'Escopo e quantitativos ainda não informados'],
-      ['Impacto no total', 'Não contabilizado', 'O total de 1.543 policiais permanece inalterado']
-    ]
+    id: '1o3d',
+    name: 'PROJETO 1O3D',
+    status: 'Aguardando dados',
+    cities: []
   }
 ];
 
@@ -1365,7 +1364,7 @@ function renderProjectStudySelector() {
   return `
     <section class="detail-section project-study-selector-section">
       <div class="detail-section-heading">
-        <div><h3>Escolha um eixo para aprofundar</h3><p>Os cinco subcards mantêm separados os universos, as premissas e os cálculos de cada estudo.</p></div>
+        <div><h3>Escolha um eixo para aprofundar</h3><p>Os quatro subcards mantêm separados os universos, as premissas e os cálculos de cada estudo.</p></div>
         <span>Estudos separados</span>
       </div>
       <div class="project-study-selector" role="tablist" aria-label="Eixos do Projeto de Efetivo 2027 a 2030">${cards}</div>
@@ -1389,22 +1388,53 @@ function renderProjectStudySummary(studyKey) {
     </section>`;
 }
 
-function renderPendingProjectStudy(studyKey) {
-  const study = workforceProjectStudies.find((item) => item.key === studyKey);
+function buildMariaDaPenhaProjectDetail(projectId) {
+  const project = mariaDaPenhaProjects.find((item) => item.id === projectId);
+  if (!project) return '';
+  if (!project.cities.length) {
+    return `<div class="project-pending-message"><strong>${project.name}</strong><span>A estrutura está reservada e aguarda os municípios e quantitativos do estudo.</span></div>`;
+  }
+  const cities = project.cities.map((city, index) => `<div class="maria-project-city"><span>${String(index + 1).padStart(2, '0')}</span><strong>${city}</strong></div>`).join('');
   return `
-    <div class="project-study-panel" id="projectStudyPanel-${study.key}" data-project-study-panel="${study.key}" role="tabpanel" aria-labelledby="projectStudyTab-${study.key}" hidden>
+    <div class="maria-project-detail-heading">
+      <div><span>Opção selecionada</span><strong>${project.name}</strong></div>
+      <b>${project.cities.length} municípios</b>
+    </div>
+    <div class="maria-project-city-grid">${cities}</div>
+    <p class="maria-project-note">Os municípios estão cadastrados como escopo territorial. O efetivo necessário ainda não foi informado e, por isso, não altera o total do Projeto de Efetivo 2027–2030.</p>`;
+}
+
+function renderMariaDaPenhaStudy() {
+  const study = workforceProjectStudies.find((item) => item.key === 'mariaPenhaPog');
+  const options = mariaDaPenhaProjects.map((project, index) => `
+    <button class="maria-project-option${index === 0 ? ' is-active' : ''}" type="button" data-maria-project="${project.id}" aria-pressed="${index === 0}">
+      <span>Opção ${String(index + 1).padStart(2, '0')}</span>
+      <strong>${project.name}</strong>
+      <small>${project.cities.length ? `${project.cities.length} municípios cadastrados` : project.status}</small>
+    </button>`).join('');
+  return `
+    <div class="project-study-panel" id="projectStudyPanel-mariaPenhaPog" data-project-study-panel="mariaPenhaPog" role="tabpanel" aria-labelledby="projectStudyTab-mariaPenhaPog" hidden>
       ${renderProjectStudySummary(study.key)}
-      <section class="detail-section project-pending-section">
+      <section class="detail-section maria-project-section">
         <div class="detail-section-heading">
-          <div><h3>Estrutura reservada para o estudo</h3><p>O subcard já está integrado ao painel e receberá os dados, os totais e a memória de cálculo quando forem fornecidos.</p></div>
-          <span>Em elaboração</span>
+          <div><h3>Escolha uma opção do projeto</h3><p>Os modelos 1O2D e 1O3D permanecem separados para facilitar a leitura e a futura memória de cálculo.</p></div>
+          <span>Maria da Penha - POG</span>
         </div>
-        <div class="project-pending-message">
-          <strong>${study.title}</strong>
-          <span>Nenhum quantitativo foi somado ao Projeto de Efetivo 2027–2030 nesta etapa.</span>
-        </div>
+        <div class="maria-project-options">${options}</div>
+        <div class="maria-project-detail" id="mariaProjectDetail" aria-live="polite">${buildMariaDaPenhaProjectDetail('1o2d')}</div>
       </section>
     </div>`;
+}
+
+function selectMariaDaPenhaProject(projectId) {
+  const detail = document.querySelector('#mariaProjectDetail');
+  if (!detail) return;
+  metricDetailContent.querySelectorAll('[data-maria-project]').forEach((button) => {
+    const isActive = button.dataset.mariaProject === projectId;
+    button.classList.toggle('is-active', isActive);
+    button.setAttribute('aria-pressed', String(isActive));
+  });
+  detail.innerHTML = buildMariaDaPenhaProjectDetail(projectId);
 }
 
 function renderProjectBreakdown(data, detailKey) {
@@ -1447,7 +1477,7 @@ function renderWorkforceProjectDetail() {
   metricDetailEyebrow.textContent = overview.eyebrow;
   metricDetailTitle.textContent = overview.title;
   metricDetailContent.innerHTML = `
-    <p id="metricDetailDescription" hidden>Detalhamento dos cinco eixos do Projeto de Efetivo 2027–2030.</p>
+    <p id="metricDetailDescription" hidden>Detalhamento dos quatro eixos do Projeto de Efetivo 2027–2030.</p>
     ${renderProjectStudySelector()}
     <div class="project-study-panel" id="projectStudyPanel-pog" data-project-study-panel="pog" role="tabpanel" aria-labelledby="projectStudyTab-pog">
       ${renderProjectStudySummary('pog')}
@@ -1470,8 +1500,7 @@ function renderWorkforceProjectDetail() {
       ${renderCopacResources(copac)}
       <p class="detail-methodology">${copac.note}</p>
     </div>
-    ${renderPendingProjectStudy('project1o2d')}
-    ${renderPendingProjectStudy('project1o3d')}`;
+    ${renderMariaDaPenhaStudy()}`;
   renderPogUnitDetail('12º BPM');
 }
 
@@ -1597,6 +1626,8 @@ metricModal.querySelector('[data-modal-close]').addEventListener('click', closeM
 metricDetailContent.addEventListener('click', (event) => {
   const projectStudyButton = event.target.closest('[data-project-study]');
   if (projectStudyButton) selectProjectStudy(projectStudyButton.dataset.projectStudy);
+  const mariaProjectButton = event.target.closest('[data-maria-project]');
+  if (mariaProjectButton) selectMariaDaPenhaProject(mariaProjectButton.dataset.mariaProject);
   const raioButton = event.target.closest('[data-raio-level]');
   if (raioButton) renderRaioLevelDetail(raioButton.dataset.raioLevel);
   const copacButton = event.target.closest('[data-copac-phase]');

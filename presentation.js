@@ -1396,8 +1396,6 @@ function buildMariaDaPenhaProjectDetail(projectId) {
     return `<div class="project-pending-message"><strong>${project.name}</strong><span>A estrutura está reservada e aguarda os municípios e quantitativos do estudo.</span></div>`;
   }
   const policePerPatrol = 3;
-  const serviceDays = ['Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta'];
-  const restDays = ['Sábado', 'Domingo'];
   const fixedPatrols = project.cities.length;
   const weeklyPolice = fixedPatrols * policePerPatrol;
   const currentProjectTotal = 1543;
@@ -1405,9 +1403,6 @@ function buildMariaDaPenhaProjectDetail(projectId) {
   const scheduleRows = project.cities.map((city, index) => `
     <tr>
       <td><span class="maria-schedule-city"><b>${String(index + 1).padStart(2, '0')}</b><strong>${city}</strong></span></td>
-      <td><strong>3</strong><small>policiais fixos</small></td>
-      ${serviceDays.map(() => '<td class="is-service"><strong>Serviço</strong><small>equipe completa</small></td>').join('')}
-      ${restDays.map(() => '<td class="is-rest"><strong>Folga</strong><small>fim de semana</small></td>').join('')}
       <td><strong>3</strong><small>policiais</small></td>
     </tr>`).join('');
   return `
@@ -1422,12 +1417,12 @@ function buildMariaDaPenhaProjectDetail(projectId) {
       <div><span>Regime de trabalho</span><strong>5 × 2</strong><small>Seg–sex · folga sáb–dom</small></div>
       <div class="is-impact"><span>Impacto total projetado</span><strong>${projectedProjectTotal.toLocaleString('pt-BR')}</strong><small>1.543 + ${weeklyPolice} policiais</small></div>
     </div>
-    <div class="maria-schedule-heading"><strong>Escala semanal por município</strong><span>Mesma equipe: serviço segunda–sexta · folga sábado–domingo</span></div>
+    <div class="maria-schedule-heading"><strong>Efetivo por município</strong><span>Equipe fixa: serviço segunda–sexta · folga sábado–domingo</span></div>
     <div class="maria-schedule-wrap">
       <table class="maria-schedule-table">
-        <thead><tr><th>Município</th><th>Equipe</th>${serviceDays.map((day) => `<th>${day}</th>`).join('')}${restDays.map((day) => `<th>${day}</th>`).join('')}<th>Efetivo</th></tr></thead>
+        <thead><tr><th>Município</th><th>Efetivo</th></tr></thead>
         <tbody>${scheduleRows}</tbody>
-        <tfoot><tr><th>Total do projeto</th><td><strong>${weeklyPolice}</strong><small>policiais fixos</small></td>${serviceDays.map(() => `<td><strong>${weeklyPolice}</strong><small>em serviço</small></td>`).join('')}${restDays.map(() => '<td><strong>Folga</strong><small>todas as equipes</small></td>').join('')}<td><strong>${weeklyPolice}</strong><small>policiais</small></td></tr></tfoot>
+        <tfoot><tr><th>Total do projeto</th><td><strong>${weeklyPolice}</strong><small>policiais fixos</small></td></tr></tfoot>
       </table>
     </div>
     <p class="maria-project-note"><strong>Critério:</strong> cada município recebe uma patrulha fixa com três policiais. Os mesmos três policiais trabalham de segunda a sexta e folgam no sábado e domingo; portanto, não há multiplicação do efetivo pelos cinco dias úteis. Reserva técnica para férias, licenças ou substituições ainda não foi incorporada. Como 1O2D e 1O3D são opções alternativas, o impacto consolidado é de ${projectedProjectTotal.toLocaleString('pt-BR')} policiais para a opção selecionada; os dois modelos não são somados entre si.</p>`;

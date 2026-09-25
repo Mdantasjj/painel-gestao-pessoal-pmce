@@ -316,16 +316,12 @@ body.modal-open { overflow: hidden; }
 .maria-schedule-heading strong { color: #244f3b; font-size: 13px; }
 .maria-schedule-heading span { color: #6c7e74; font-size: 8.5px; }
 .maria-schedule-wrap { margin-top: 8px; overflow: auto; border: 1px solid #d9e7df; border-radius: 10px; }
-.maria-schedule-table { width: 100%; min-width: 1080px; border-collapse: collapse; font-size: 9px; }
+.maria-schedule-table { width: 100%; min-width: 360px; border-collapse: collapse; font-size: 9px; }
 .maria-schedule-table th { padding: 9px 8px; color: #496557; text-align: center; text-transform: uppercase; background: #eaf4ee; font-size: 7.5px; letter-spacing: .035em; }
 .maria-schedule-table th:first-child { min-width: 175px; text-align: left; }
 .maria-schedule-table td { padding: 8px; border-top: 1px solid #e6eee9; color: #315846; text-align: center; background: #fff; }
 .maria-schedule-table td strong { display: block; color: #145c40; font-size: 12px; }
 .maria-schedule-table td small { display: block; margin-top: 3px; color: #7a8880; font-size: 7px; }
-.maria-schedule-table td.is-service { background: #edf8f2; }
-.maria-schedule-table td.is-service strong { color: #176a47; font-size: 9px; text-transform: uppercase; }
-.maria-schedule-table td.is-rest { background: #f5f8f6; }
-.maria-schedule-table td.is-rest strong { color: #60796b; font-size: 9px; text-transform: uppercase; }
 .maria-schedule-table tfoot th, .maria-schedule-table tfoot td { border-top: 2px solid #79ad8f; background: #e4f2e9; font-weight: 850; }
 .maria-schedule-city { display: flex; align-items: center; gap: 9px; text-align: left; }
 .maria-schedule-city b { display: grid; width: 24px; height: 24px; place-items: center; border-radius: 6px; color: #fff; background: #3b8c63; font-size: 7.5px; }

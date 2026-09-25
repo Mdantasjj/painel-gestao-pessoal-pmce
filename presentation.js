@@ -1432,8 +1432,8 @@ function renderMariaDaPenhaStudy() {
   const study = workforceProjectStudies.find((item) => item.key === 'mariaPenhaPog');
   const options = mariaDaPenhaProjects.map((project, index) => `
     <button class="maria-project-option${index === 0 ? ' is-active' : ''}" type="button" data-maria-project="${project.id}" aria-pressed="${index === 0}">
-      <span>Opção ${String(index + 1).padStart(2, '0')}</span>
-      <strong>${project.name}</strong>
+      <span>${project.name}</span>
+      <strong>Opção ${index + 1}</strong>
       <small>${project.cities.length ? `${project.cities.length} municípios · ${project.cities.length * 3} policiais fixos` : project.status}</small>
     </button>`).join('');
   return `

@@ -129,6 +129,7 @@ svg { display: block; }
 .metric-icon--exits img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center; }
 .metric-main { display: flex; align-items: baseline; gap: 10px; margin-top: 18px; }
 .metric-main strong { flex: 0 0 auto; color: color-mix(in srgb, var(--accent), #08261d 38%); font-size: clamp(38px, 2.75vw, 54px); font-variant-numeric: tabular-nums; letter-spacing: -.05em; line-height: 1; white-space: nowrap; }
+.metric-card--gold .metric-main strong { font-size: clamp(32px, 2.35vw, 46px); }
 .metric-main small { color: #405f50; font-size: 11px; font-weight: 650; }
 .metric-axis-totals { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; margin-top: 17px; }
 .metric-axis-totals > div { display: flex; min-width: 0; min-height: 74px; padding: 9px 8px; align-items: center; justify-content: center; flex-direction: column; border: 1px solid color-mix(in srgb, var(--accent), #fff 54%); border-radius: 10px; text-align: center; background: rgba(255,255,255,.66); box-shadow: inset 0 1px rgba(255,255,255,.72); }
@@ -305,11 +306,13 @@ body.modal-open { overflow: hidden; }
 .maria-project-detail-heading span { color: #668071; font-size: 8px; font-weight: 800; text-transform: uppercase; }
 .maria-project-detail-heading strong { margin-top: 4px; color: #145c40; font-size: 16px; }
 .maria-project-detail-heading > b { padding: 7px 10px; border-radius: 8px; color: #fff; background: #23794f; font-size: 10px; }
-.maria-project-kpis { display: grid; margin-top: 12px; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
+.maria-project-kpis { display: grid; margin-top: 12px; grid-template-columns: repeat(auto-fit, minmax(135px, 1fr)); gap: 8px; }
 .maria-project-kpis > div { display: flex; min-height: 82px; padding: 10px; justify-content: center; flex-direction: column; border: 1px solid #cfe4d8; border-radius: 9px; background: #eff8f3; }
 .maria-project-kpis span { color: #557064; font-size: 7.5px; font-weight: 850; letter-spacing: .04em; text-transform: uppercase; }
 .maria-project-kpis strong { margin-top: 5px; color: #145c40; font-size: 23px; line-height: 1; }
 .maria-project-kpis small { margin-top: 5px; color: #74847c; font-size: 7.8px; }
+.maria-project-kpis > .is-impact { border-color: #67a985; background: #dff1e7; }
+.maria-project-kpis > .is-impact strong { color: #0d5136; }
 .maria-schedule-heading { display: flex; margin-top: 15px; align-items: flex-end; justify-content: space-between; gap: 12px; }
 .maria-schedule-heading strong { color: #244f3b; font-size: 13px; }
 .maria-schedule-heading span { color: #6c7e74; font-size: 8.5px; }
@@ -702,6 +705,7 @@ body.modal-open { overflow: hidden; }
   .metric-icon { width: 40px; height: 40px; }
   .metric-main { margin-top: 15px; }
   .metric-main strong { font-size: clamp(40px, 13vw, 50px); }
+  .metric-card--gold .metric-main strong { font-size: clamp(29px, 9.3vw, 40px); }
   .metric-axis-totals { gap: 5px; margin-top: 14px; }
   .metric-axis-totals > div { min-height: 69px; padding: 8px 5px; }
   .metric-axis-totals span { font-size: 6.8px; }

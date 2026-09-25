@@ -687,7 +687,7 @@ const workforceProjectStudies = [
       ['PROJETO 1O2D', '21 por dia', '07 patrulhas · três policiais em cada município'],
       ['PROJETO 1O3D', '60 por dia', '20 patrulhas · três policiais em cada município'],
       ['Escala semanal', 'Segunda a sexta', 'Cinco dias de emprego por semana'],
-      ['Impacto no total', 'Não contabilizado', 'Aguardando definição da opção a implementar']
+      ['Impacto total projetado', '1.564 ou 1.603', 'Base de 1.543 + opção escolhida']
     ]
   }
 ];
@@ -1400,6 +1400,8 @@ function buildMariaDaPenhaProjectDetail(projectId) {
   const dailyPatrols = project.cities.length;
   const dailyPolice = dailyPatrols * policePerPatrol;
   const weeklyPoliceShifts = dailyPolice * weekdays.length;
+  const currentProjectTotal = 1543;
+  const projectedProjectTotal = currentProjectTotal + dailyPolice;
   const scheduleRows = project.cities.map((city, index) => `
     <tr>
       <td><span class="maria-schedule-city"><b>${String(index + 1).padStart(2, '0')}</b><strong>${city}</strong></span></td>
@@ -1416,6 +1418,7 @@ function buildMariaDaPenhaProjectDetail(projectId) {
       <div><span>Policiais por patrulha</span><strong>${policePerPatrol}</strong><small>Composição informada</small></div>
       <div><span>Efetivo mínimo diário</span><strong>${dailyPolice}</strong><small>Emprego simultâneo</small></div>
       <div><span>Jornadas na semana</span><strong>${weeklyPoliceShifts}</strong><small>${dailyPolice} × cinco dias</small></div>
+      <div class="is-impact"><span>Impacto total projetado</span><strong>${projectedProjectTotal.toLocaleString('pt-BR')}</strong><small>1.543 + ${dailyPolice} policiais</small></div>
     </div>
     <div class="maria-schedule-heading"><strong>Escala semanal por município</strong><span>Segunda a sexta · três policiais por patrulha</span></div>
     <div class="maria-schedule-wrap">
@@ -1425,7 +1428,7 @@ function buildMariaDaPenhaProjectDetail(projectId) {
         <tfoot><tr><th>Total por dia</th>${weekdays.map(() => `<td><strong>${dailyPolice}</strong><small>${dailyPatrols} patrulhas</small></td>`).join('')}<td><strong>${weeklyPoliceShifts}</strong><small>jornadas</small></td></tr></tfoot>
       </table>
     </div>
-    <p class="maria-project-note"><strong>Critério:</strong> uma patrulha em cada município, composta por três policiais, de segunda a sexta. O número diário representa o efetivo mínimo em serviço; as jornadas semanais não correspondem a policiais distintos. Reserva técnica, férias, licenças, folgas e substituições ainda não foram incorporadas. Como 1O2D e 1O3D são opções alternativas, seus quantitativos não são somados entre si nem ao total geral nesta etapa.</p>`;
+    <p class="maria-project-note"><strong>Critério:</strong> uma patrulha em cada município, composta por três policiais, de segunda a sexta. O número diário representa o efetivo mínimo em serviço; as jornadas semanais não correspondem a policiais distintos. Reserva técnica, férias, licenças, folgas e substituições ainda não foram incorporadas. Como 1O2D e 1O3D são opções alternativas, o impacto consolidado é de ${projectedProjectTotal.toLocaleString('pt-BR')} policiais para a opção selecionada; os dois modelos não são somados entre si.</p>`;
 }
 
 function renderMariaDaPenhaStudy() {

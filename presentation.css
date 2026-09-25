@@ -315,13 +315,13 @@ body.modal-open { overflow: hidden; }
 .maria-schedule-heading { display: flex; margin-top: 15px; align-items: flex-end; justify-content: space-between; gap: 12px; }
 .maria-schedule-heading strong { color: #244f3b; font-size: 13px; }
 .maria-schedule-heading span { color: #6c7e74; font-size: 8.5px; }
-.maria-effective-grid { display: grid; margin-top: 9px; grid-template-columns: repeat(auto-fit, minmax(205px, 1fr)); gap: 7px; }
-.maria-effective-item { display: grid; min-height: 48px; padding: 8px 10px; grid-template-columns: 25px minmax(0, 1fr) auto; align-items: center; gap: 9px; border: 1px solid #d5e7dd; border-radius: 9px; background: #f5faf7; }
-.maria-effective-item > span { display: grid; width: 24px; height: 24px; place-items: center; border-radius: 6px; color: #fff; background: #3b8c63; font-size: 7.5px; font-weight: 850; }
-.maria-effective-item > strong { color: #28533f; font-size: 9.5px; line-height: 1.2; text-transform: uppercase; }
-.maria-effective-item > b { display: flex; min-width: 42px; align-items: flex-end; flex-direction: column; color: #145c40; font-size: 16px; line-height: 1; }
+.maria-effective-grid { display: grid; width: min(100%, 760px); margin: 9px auto 0; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 6px; }
+.maria-effective-item { display: grid; min-height: 42px; padding: 6px 8px; grid-template-columns: 21px minmax(0, 1fr) auto; align-items: center; gap: 6px; border: 1px solid #d5e7dd; border-radius: 8px; background: #f5faf7; }
+.maria-effective-item > span { display: grid; width: 20px; height: 20px; place-items: center; border-radius: 5px; color: #fff; background: #3b8c63; font-size: 6.8px; font-weight: 850; }
+.maria-effective-item > strong { color: #28533f; font-size: 8.6px; line-height: 1.15; text-transform: uppercase; }
+.maria-effective-item > b { display: flex; min-width: 34px; align-items: flex-end; flex-direction: column; color: #145c40; font-size: 15px; line-height: 1; }
 .maria-effective-item > b small { margin-top: 3px; color: #78887f; font-size: 6.8px; font-weight: 650; text-transform: uppercase; }
-.maria-effective-total { display: grid; margin-top: 9px; padding: 10px 13px; grid-template-columns: minmax(0, 1fr) auto; align-items: center; column-gap: 12px; border: 1px solid #79ad8f; border-radius: 9px; background: #e4f2e9; }
+.maria-effective-total { display: grid; width: min(100%, 760px); margin: 9px auto 0; padding: 9px 12px; grid-template-columns: minmax(0, 1fr) auto; align-items: center; column-gap: 12px; border: 1px solid #79ad8f; border-radius: 9px; background: #e4f2e9; }
 .maria-effective-total span { color: #315846; font-size: 9px; font-weight: 850; text-transform: uppercase; }
 .maria-effective-total strong { grid-row: span 2; color: #0d5136; font-size: 25px; line-height: 1; }
 .maria-effective-total small { color: #6c7e74; font-size: 8px; }

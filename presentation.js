@@ -686,6 +686,7 @@ const workforceProjectStudies = [
     stats: [
       ['Modelos previstos', '02', 'PROJETO 1O2D e PROJETO 1O3D'],
       ['Municípios no 1O2D', '07', 'Relação territorial inicial informada'],
+      ['Municípios no 1O3D', '20', 'Relação territorial inicial informada'],
       ['Impacto no total', 'Não contabilizado', 'Aguardando os quantitativos de efetivo']
     ]
   }
@@ -701,8 +702,8 @@ const mariaDaPenhaProjects = [
   {
     id: '1o3d',
     name: 'PROJETO 1O3D',
-    status: 'Aguardando dados',
-    cities: []
+    status: 'Municípios informados',
+    cities: ['Aquiraz', 'Barbalha', 'Boa Viagem', 'Crato', 'Eusébio', 'Granja', 'Ipu', 'Itaitinga', 'Limoeiro do Norte', 'Missão Velha', 'Nova Russas', 'Quixeramobim', 'Pacajus', 'Pacatuba', 'Paracuru', 'Russas', 'São Benedito', 'São Gonçalo do Amarante', 'Viçosa do Ceará', 'Juazeiro do Norte']
   }
 ];
 

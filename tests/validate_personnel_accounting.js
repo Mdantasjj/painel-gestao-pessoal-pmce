@@ -3,9 +3,9 @@ const fs = require('node:fs');
 const path = require('node:path');
 const vm = require('node:vm');
 
-const root = path.resolve(__dirname, '..');
+const root = __filename === '[stdin]' ? process.cwd() : path.resolve(__dirname, '..');
 const source = fs.readFileSync(path.join(root, 'presentation.js'), 'utf8');
-const first = source.indexOf('const metricDetails =');
+const first = source.indexOf('const battalionCompanyStrengths =');
 const last = source.indexOf('const metricModal =');
 assert(first >= 0 && last > first, 'Dashboard data block not found');
 
@@ -22,19 +22,19 @@ const number = text => Number(String(text).replaceAll('.', ''));
 const total = (items, getter) => items.reduce((sum, item) => sum + getter(item), 0);
 
 const expectedStrength = {
-  '1º BPM': 277, '2º BPM': 536, '3º BPM': 405, '4º BPM': 213,
-  '5º BPM': 366, '6º BPM': 312, '7º BPM': 299, '8º BPM': 317,
-  '9º BPM': 310, '10º BPM': 183, '11º BPM': 398, '12º BPM': 334,
-  '13º BPM': 151, '14º BPM': 375, '15º BPM': 273, '16º BPM': 402,
-  '17º BPM': 378, '18º BPM': 364, '19º BPM': 425, '20º BPM': 383,
-  '21º BPM': 334, '22º BPM': 248, '23º BPM': 332, '24º BPM': 302,
-  '25º BPM': 208, '26º BPM': 275, '27º BPM': 212, '28º BPM': 180,
-  '29º BPM': 260, '30º BPM': 201, '31º BPM': 163, '32º BPM': 224,
-  '33º BPM': 126, '34º BPM': 190
+  '1º BPM': 294, '2º BPM': 587, '3º BPM': 406, '4º BPM': 240,
+  '5º BPM': 385, '6º BPM': 340, '7º BPM': 312, '8º BPM': 321,
+  '9º BPM': 325, '10º BPM': 195, '11º BPM': 413, '12º BPM': 362,
+  '13º BPM': 154, '14º BPM': 357, '15º BPM': 249, '16º BPM': 403,
+  '17º BPM': 381, '18º BPM': 384, '19º BPM': 455, '20º BPM': 400,
+  '21º BPM': 360, '22º BPM': 254, '23º BPM': 326, '24º BPM': 324,
+  '25º BPM': 217, '26º BPM': 286, '27º BPM': 212, '28º BPM': 173,
+  '29º BPM': 240, '30º BPM': 187, '31º BPM': 161, '32º BPM': 222,
+  '33º BPM': 125, '34º BPM': 191
 };
 const expectedRegionalStrength = {
-  '1º CRPM': 2137, '2º CRPM': 941, '3º CRPM': 1096, '4º CRPM': 1410,
-  '5º CRPM': 1392, '6º CRPM': 1158, '7º CRPM': 871, '8º CRPM': 951
+  '1º CRPM': 2250, '2º CRPM': 974, '3º CRPM': 1103, '4º CRPM': 1474,
+  '5º CRPM': 1433, '6º CRPM': 1147, '7º CRPM': 893, '8º CRPM': 967
 };
 assert.equal(Object.keys(details.battalions.battalionTotals).length, 34);
 for (const [name, expected] of Object.entries(expectedStrength)) {
@@ -43,8 +43,8 @@ for (const [name, expected] of Object.entries(expectedStrength)) {
 for (const [name, expected] of Object.entries(expectedRegionalStrength)) {
   assert.equal(details.battalions.crpmTotals[name], expected, `CRPM strength mismatch: ${name}`);
 }
-assert.equal(total(Object.values(details.battalions.battalionTotals), value => value), 9956);
-assert.equal(total(Object.values(details.battalions.crpmTotals), value => value), 9956);
+assert.equal(total(Object.values(details.battalions.battalionTotals), value => value), 10241);
+assert.equal(total(Object.values(details.battalions.crpmTotals), value => value), 10241);
 for (const [region, expected] of Object.entries(details.battalions.crpmTotals)) {
   const actual = total(
     Object.entries(details.battalions.battalionTotals)
@@ -55,15 +55,15 @@ for (const [region, expected] of Object.entries(details.battalions.crpmTotals)) 
 }
 
 const expectedRestructuring = {
-  '26º BPM': [275, 314, 39],
-  '27º BPM': [212, 274, 62],
-  '28º BPM': [180, 274, 94],
-  '29º BPM': [260, 291, 31],
-  '30º BPM': [201, 238, 37],
-  '31º BPM': [163, 238, 75],
-  '32º BPM': [224, 235, 11],
-  '33º BPM': [126, 235, 109],
-  '34º BPM': [190, 235, 45]
+  '26º BPM': [286, 325, 39],
+  '27º BPM': [212, 276, 64],
+  '28º BPM': [173, 276, 103],
+  '29º BPM': [240, 298, 58],
+  '30º BPM': [187, 242, 55],
+  '31º BPM': [161, 242, 81],
+  '32º BPM': [222, 246, 24],
+  '33º BPM': [125, 246, 121],
+  '34º BPM': [191, 246, 55]
 };
 const restructuring = details.restructuring;
 assert.equal(restructuring.units.length, 9);
@@ -78,11 +78,11 @@ for (const [name, current, reference, additional, region, average, losses] of re
   assert.equal(number(row[5]), losses, `Table losses mismatch: ${name}`);
   assert.equal(number(row[6]), -additional, `Table need display mismatch: ${name}`);
 }
-assert.equal(total(restructuring.units, ([, current]) => current), 1831);
-assert.equal(total(restructuring.units, ([, , , additional]) => additional), 503);
-assert.equal(restructuring.totalNumber, 503);
-assert.equal(total(restructuring.units, ([, current, , additional]) => current + additional), 2334);
-assert.equal(total(restructuring.units.slice(0, 5), ([, , , additional]) => additional), 385);
+assert.equal(total(restructuring.units, ([, current]) => current), 1797);
+assert.equal(total(restructuring.units, ([, , , additional]) => additional), 600);
+assert.equal(restructuring.totalNumber, 600);
+assert.equal(total(restructuring.units, ([, current, , additional]) => current + additional), 2397);
+assert.equal(total(restructuring.units.slice(0, 5), ([, , , additional]) => additional), 427);
 
 assert.equal(records.length, 53);
 assert.equal(battalionRecords.length, 34);
@@ -98,8 +98,8 @@ for (const [field, expected] of Object.entries({
   losses: 587,
   situation: -572,
   calculatedDeficit: 587,
-  restructuringNeed: 503,
-  totalNeed: 1090
+  restructuringNeed: 600,
+  totalNeed: 1187
 })) {
   assert.equal(total(battalionRecords, record => record[field]), expected, field);
 }
@@ -117,21 +117,21 @@ assert(unaffectedTableRow[8].includes('<strong>—</strong>'), 'Unaffected BPM m
 assert(affectedTableRow[8].includes('<strong>39</strong>'), '26º BPM restructuring value missing');
 assert(affectedTableRow[9].includes('<strong>61</strong>'), '26º BPM consolidated need mismatch');
 assert(battalionTotalRow[7].includes('<strong>587</strong>'), 'Losses table total mismatch');
-assert(battalionTotalRow[8].includes('<strong>503</strong>'), 'Restructuring table total mismatch');
-assert(battalionTotalRow[9].includes('<strong>1.090</strong>'), 'Consolidated table total mismatch');
+assert(battalionTotalRow[8].includes('<strong>600</strong>'), 'Restructuring table total mismatch');
+assert(battalionTotalRow[9].includes('<strong>1.187</strong>'), 'Consolidated table total mismatch');
 assert.equal(battalionRecords.filter(record => record.situation < 0).length, 29);
 assert.equal(battalionRecords.filter(record => record.situation > 0).length, 3);
 assert.equal(battalionRecords.filter(record => record.situation === 0).length, 2);
 
 assert.equal(Object.keys(details.pog.secondCompanyTerritories).length, 8);
-assert.equal(Object.keys(details.pog.secondCompanyStrength).length, 8);
-assert.equal(total(Object.values(details.pog.secondCompanyStrength), value => value), 539);
+assert.equal(Object.keys(details.pog.companyStrengthByBattalion).length, 34);
 assert.equal(Object.keys(details.pog.companyCountByBattalion).length, 34);
-assert.equal(total(Object.values(details.pog.companyCountByBattalion), value => value), 83);
+assert.equal(total(Object.values(details.pog.companyCountByBattalion), value => value), 84);
+assert.equal(total(Object.values(details.pog.companyStrengthByBattalion), values => total(values, value => value)), 10241);
 for (let number = 27; number <= 34; number += 1) {
   assert(details.pog.secondCompanyTerritories[`${number}º BPM`]?.length >= 2, `2nd company territory missing: ${number}º BPM`);
-  assert(details.pog.secondCompanyStrength[`${number}º BPM`] > 0, `2nd company strength missing: ${number}º BPM`);
-  assert(details.pog.secondCompanyStrength[`${number}º BPM`] < details.battalions.battalionTotals[`${number}º BPM`], `2nd company must be a component of ${number}º BPM`);
+  assert(details.pog.companyStrengthByBattalion[`${number}º BPM`]?.[1] > 0, `2nd company strength missing: ${number}º BPM`);
+  assert(details.pog.companyStrengthByBattalion[`${number}º BPM`][1] < details.battalions.battalionTotals[`${number}º BPM`], `2nd company must be a component of ${number}º BPM`);
 }
 
 const csv = fs.readFileSync(path.join(root, 'data', 'saidas_batalhoes_2026.csv'), 'utf8').trim().split(/\r?\n/);
@@ -159,7 +159,7 @@ assert.equal(number(details.exits.stats[0][1]), 16);
 assert.equal(number(details.exits.stats[1][1]), 64);
 assert.equal(number(details.pog.total), 111 + 110 + 50);
 assert.equal(number(details.pog.total) + number(details.raio.total) + number(details.copac.total), 1543);
-assert.equal(number(details.battalions.total), 1256);
+assert.equal(number(details.battalions.total), 1353);
 
 const pogUnits = details.pog.units;
 assert.equal(pogUnits.length, 34);
@@ -193,7 +193,7 @@ for (const phase of details.copac.phases) {
 }
 
 const html = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
-for (const [key, expected] of Object.entries({ exits: 1549, pog: 1543, restructuring: 503, battalions: 1256 })) {
+for (const [key, expected] of Object.entries({ exits: 1549, pog: 1543, restructuring: 600, battalions: 1353 })) {
   const match = html.match(new RegExp(`data-detail="${key}"[\\s\\S]*?<div class="metric-main"><strong>([\\d.]+)</strong>`));
   assert(match, `Card not found: ${key}`);
   assert.equal(number(match[1]), expected, `Card total mismatch: ${key}`);

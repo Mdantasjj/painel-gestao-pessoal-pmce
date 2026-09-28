@@ -126,6 +126,8 @@ assert.equal(battalionRecords.filter(record => record.situation === 0).length, 2
 assert.equal(Object.keys(details.pog.secondCompanyTerritories).length, 8);
 assert.equal(Object.keys(details.pog.secondCompanyStrength).length, 8);
 assert.equal(total(Object.values(details.pog.secondCompanyStrength), value => value), 539);
+assert.equal(Object.keys(details.pog.companyCountByBattalion).length, 34);
+assert.equal(total(Object.values(details.pog.companyCountByBattalion), value => value), 83);
 for (let number = 27; number <= 34; number += 1) {
   assert(details.pog.secondCompanyTerritories[`${number}º BPM`]?.length >= 2, `2nd company territory missing: ${number}º BPM`);
   assert(details.pog.secondCompanyStrength[`${number}º BPM`] > 0, `2nd company strength missing: ${number}º BPM`);

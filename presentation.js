@@ -344,6 +344,15 @@ const metricDetails = {
       '33º BPM': 35,
       '34º BPM': 72
     },
+    companyCountByBattalion: {
+      '1º BPM': 2, '2º BPM': 3, '3º BPM': 4, '4º BPM': 2, '5º BPM': 3,
+      '6º BPM': 3, '7º BPM': 3, '8º BPM': 2, '9º BPM': 4, '10º BPM': 2,
+      '11º BPM': 3, '12º BPM': 2, '13º BPM': 3, '14º BPM': 2, '15º BPM': 2,
+      '16º BPM': 3, '17º BPM': 2, '18º BPM': 2, '19º BPM': 3, '20º BPM': 3,
+      '21º BPM': 2, '22º BPM': 2, '23º BPM': 4, '24º BPM': 2, '25º BPM': 2,
+      '26º BPM': 2, '27º BPM': 2, '28º BPM': 2, '29º BPM': 2, '30º BPM': 2,
+      '31º BPM': 2, '32º BPM': 2, '33º BPM': 2, '34º BPM': 2
+    },
     note: 'O total de 271 reúne duas naturezas distintas: 111 policiais de déficit acumulado nos 12 BPMs do POG com saldo negativo e 160 policiais de necessidade adicional para implementação operacional. No POG, o recorte apresenta exclusivamente os 34 BPMs numerados, com 1.459 registros na origem, 1.549 no destino e saldo conjunto de +90. Comandos regionais e demais unidades foram retirados, pois a fonte não permite redistribuir seus registros entre batalhões. Para a implementação, foram informados 10 oficiais e 100 praças para a COTAM e 02 oficiais e 48 praças para a 6ª Cia/BPTUR. Os 160 policiais não foram descontados nem redistribuídos dos batalhões analisados.'
   },
   restructuring: {
@@ -386,7 +395,7 @@ const metricDetails = {
       ['Em equilíbrio', 5.88, '2 · 5,9%', '#83b99a']
     ],
     sectionTitle: 'Visão geral por batalhão e unidade especializada',
-    sectionSubtitle: 'A tabela preserva os 34 BPMs e acrescenta 19 unidades especializadas, incluindo a COPAC. Nos BPMs 27º a 34º, o efetivo informado da 2ª Companhia aparece como parcela já incluída no total do batalhão. As unidades RAIO - 6º BPM a RAIO - 9º BPM permanecem com traço no saldo e na necessidade porque as movimentações de 2025–2026 não estão individualizadas pelas denominações atuais.',
+    sectionSubtitle: 'A tabela preserva os 34 BPMs, suas 83 Companhias territoriais vinculadas e acrescenta 19 unidades especializadas, incluindo a COPAC. Nos BPMs 27º a 34º, o efetivo informado da 2ª Companhia aparece como parcela já incluída no total do batalhão. As unidades RAIO - 6º BPM a RAIO - 9º BPM permanecem com traço no saldo e na necessidade porque as movimentações de 2025–2026 não estão individualizadas pelas denominações atuais.',
     tableColumns: ['Posição', 'Unidade / cidades', '<span class="column-title-line">Efetivo da</span><span class="column-title-line">unidade</span>', 'Exonerações · outros concursos', 'Demissões · outros concursos', 'Requeridas', 'Movimentações', 'Perdas', 'Reestruturação.', '<span class="column-title-line">Necessidade de</span><span class="column-title-line">efetivo</span>'],
     tableRows: [],
     battalionTotals: {
@@ -482,7 +491,7 @@ const metricDetails = {
       '26º BPM': 12, '27º BPM': 7, '28º BPM': 7, '29º BPM': 14, '30º BPM': 14,
       '31º BPM': 9, '32º BPM': 12, '33º BPM': 2, '34º BPM': 3
     },
-    note: 'Para cada unidade, a situação é calculada por saldo das movimentações − exonerações − demissões − promoções requeridas de 2025 e 2026 vinculadas. As OPMs subordinadas identificadas como 2ª Cia/27º BPM a 2ª Cia/34º BPM permanecem consolidadas no respectivo batalhão. O efetivo informado dessas oito Companhias soma 539 policiais e é exibido como composição dos totais já consolidados dos BPMs, não como acréscimo; adicioná-lo novamente faria a base territorial passar incorretamente de 9.956 para 10.495 policiais e quebraria a conciliação com os oito CRPMs. Seus registros de movimentações, saídas e requeridas também permanecem vinculados ao BPM correspondente. As necessidades locais apuradas somam 587 policiais nos 34 BPMs e 166 nas unidades especializadas com saldo individualizado; a COPAC responde por 23 policiais desse segundo subtotal. A parcela de 503 policiais da reestruturação permanece restrita ao 26º–34º BPM. O resultado consolidado é 1.256 policiais (587 + 503 + 166). Os 80 processos agregados de exoneração e demissão de 2025 não foram distribuídos, pois a fonte não identifica a OPM. Em RAIO - 6º BPM, RAIO - 7º BPM, RAIO - 8º BPM e RAIO - 9º BPM, o saldo e a necessidade permanecem indisponíveis porque a fonte de movimentações não individualiza essas denominações. Promoção requerida não comprova baixa institucional, e o cenário não representa efetivo já autorizado.'
+    note: 'Para cada unidade, a situação é calculada por saldo das movimentações − exonerações − demissões − promoções requeridas de 2025 e 2026 vinculadas. A estrutura informada reúne 83 Companhias territoriais subordinadas aos 34 BPMs; referências a 1ª, 2ª, 3ª ou 4ª Cia são consolidadas no respectivo batalhão e não formam unidades adicionais na soma. O efetivo informado das oito 2ª Companhias do 27º ao 34º BPM soma 539 policiais e é exibido como composição dos totais já consolidados dos BPMs, não como acréscimo; adicioná-lo novamente faria a base territorial passar incorretamente de 9.956 para 10.495 policiais e quebraria a conciliação com os oito CRPMs. Seus registros de movimentações, saídas e requeridas também permanecem vinculados ao BPM correspondente. As necessidades locais apuradas somam 587 policiais nos 34 BPMs e 166 nas unidades especializadas com saldo individualizado; a COPAC responde por 23 policiais desse segundo subtotal. A parcela de 503 policiais da reestruturação permanece restrita ao 26º–34º BPM. O resultado consolidado é 1.256 policiais (587 + 503 + 166). Os 80 processos agregados de exoneração e demissão de 2025 não foram distribuídos, pois a fonte não identifica a OPM. Em RAIO - 6º BPM, RAIO - 7º BPM, RAIO - 8º BPM e RAIO - 9º BPM, o saldo e a necessidade permanecem indisponíveis porque a fonte de movimentações não individualiza essas denominações. Promoção requerida não comprova baixa institucional, e o cenário não representa efetivo já autorizado.'
   },
   copac: {
     accent: '#2f855a',
@@ -942,15 +951,25 @@ function renderPogUnitLabel(unitName) {
   return `<span class="pog-opm-label"><strong>${formatPogUnitName(unitName)}</strong></span>`;
 }
 
+function formatCompanyStructure(companyCount) {
+  const labels = Array.from({ length: companyCount }, (_, index) => `${index + 1}ª`);
+  return labels.length === 2
+    ? `${labels[0]} e ${labels[1]} Cias`
+    : `${labels.slice(0, -1).join(', ')} e ${labels.at(-1)} Cias`;
+}
+
 function renderBattalionUnitLabel(unitName) {
   const isSpecialized = metricDetails.battalions.specializedUnits.some((unit) => unit.name === unitName);
   const secondCompanyTerritory = metricDetails.pog.secondCompanyTerritories[unitName];
   const secondCompanyStrength = metricDetails.pog.secondCompanyStrength[unitName];
-  const complementaryLabel = isSpecialized
-    ? '<small>Unidade especializada</small>'
-    : secondCompanyTerritory
-      ? `<small class="company-territory-note">2ª Cia: ${secondCompanyTerritory.join(' · ')} <b>${secondCompanyStrength} policiais</b><em>incluídos no BPM</em></small>`
-      : '';
+  const companyCount = metricDetails.pog.companyCountByBattalion[unitName];
+  const structureLabel = companyCount
+    ? `<small class="battalion-company-structure">Estrutura: ${formatCompanyStructure(companyCount)}</small>`
+    : '';
+  const secondCompanyLabel = secondCompanyTerritory
+    ? `<small class="company-territory-note">2ª Cia: ${secondCompanyTerritory.join(' · ')} <b>${secondCompanyStrength} policiais</b><em>incluídos no BPM</em></small>`
+    : '';
+  const complementaryLabel = isSpecialized ? '<small>Unidade especializada</small>' : `${structureLabel}${secondCompanyLabel}`;
   return `<span class="pog-opm-label${isSpecialized ? ' specialized-unit-label' : ''}"><strong>${formatPogUnitName(unitName)}</strong>${complementaryLabel}</span>`;
 }
 

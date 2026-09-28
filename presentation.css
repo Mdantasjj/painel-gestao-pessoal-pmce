@@ -572,6 +572,7 @@ body.modal-open { overflow: hidden; }
 #metricDetailContent[data-detail="battalions"] .battalion-total-row td { border-top: 2px solid #79ad8f; background: #e8f4ed; font-weight: 800; }
 #metricDetailContent[data-detail="battalions"] .battalion-total-row:last-child td { background: #d9ecdf; color: #0f5135; }
 .specialized-unit-label small { display: block; margin-top: 3px; color: #2f855a; font-size: 8px; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; }
+.battalion-company-structure { display: block; margin-top: 3px; color: #2f855a; font-size: 7.5px; font-weight: 800; line-height: 1.25; text-transform: uppercase; }
 .company-territory-note { display: block; max-width: 245px; margin-top: 4px; color: #668071; font-size: 8px; font-weight: 650; line-height: 1.35; }
 .company-territory-note b { color: #145c40; font-weight: 850; white-space: nowrap; }
 .company-territory-note b::before { content: ' · '; color: #8aa096; }

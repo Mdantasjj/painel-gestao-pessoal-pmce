@@ -539,9 +539,15 @@ body.modal-open { overflow: hidden; }
 .battalion-sort-direction b { display: grid; width: 23px; height: 23px; place-items: center; border-radius: 50%; color: #fff; background: #23794f; font-size: 13px; }
 .battalion-sort-status { margin: 9px 0 0; color: #647a6e; font-size: 8.5px; font-weight: 680; text-align: right; }
 #metricDetailContent[data-detail="battalions"] .detail-table { min-width: 1250px; table-layout: fixed; }
+#metricDetailContent[data-detail="battalions"] .detail-table-wrap { border-color: #83aa92; box-shadow: 0 0 0 1px rgba(33,111,76,.08); }
 #metricDetailContent[data-detail="battalions"] .detail-table th,
-#metricDetailContent[data-detail="battalions"] .detail-table td { padding-right: 7px; padding-left: 7px; overflow-wrap: anywhere; }
-#metricDetailContent[data-detail="battalions"] .detail-table th { line-height: 1.25; white-space: normal; }
+#metricDetailContent[data-detail="battalions"] .detail-table td { padding: 5px 7px; overflow-wrap: anywhere; border: 1px solid #b8d0c1; }
+#metricDetailContent[data-detail="battalions"] .detail-table th { border-color: #91b39f; border-bottom-width: 2px; line-height: 1.2; white-space: normal; }
+#metricDetailContent[data-detail="battalions"] .detail-table tbody tr:nth-child(even):not(.battalion-total-row):not(.battalion-unallocated-row) td:not(:nth-child(2)):not(:last-child) { background-color: #f5faf7; }
+#metricDetailContent[data-detail="battalions"] .detail-table tbody tr:hover td:not(:nth-child(2)):not(:last-child) { background-color: #e8f4ed; }
+#metricDetailContent[data-detail="battalions"] .detail-table tbody tr:hover td:nth-child(2) { background-color: #d5eadc; }
+#metricDetailContent[data-detail="battalions"] .detail-table tbody tr:hover td:last-child { background-color: #b4d9c0; }
+#metricDetailContent[data-detail="battalions"] .detail-table td:nth-child(2) { line-height: 1.15; }
 #metricDetailContent[data-detail="battalions"] .detail-table th .column-title-line,
 #metricDetailContent[data-detail="restructuring"] .detail-table th .column-title-line { display: block; }
 #metricDetailContent[data-detail="battalions"] .detail-table th:first-child,
@@ -572,17 +578,17 @@ body.modal-open { overflow: hidden; }
 #metricDetailContent[data-detail="battalions"] .battalion-total-row td { border-top: 2px solid #79ad8f; background: #e8f4ed; font-weight: 800; }
 #metricDetailContent[data-detail="battalions"] .battalion-total-row:last-child td { background: #d9ecdf; color: #0f5135; }
 .specialized-unit-label small { display: block; margin-top: 3px; color: #2f855a; font-size: 8px; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; }
-.battalion-company-structure { display: block; margin-top: 3px; color: #2f855a; font-size: 7.5px; font-weight: 800; line-height: 1.25; text-transform: uppercase; }
+.battalion-company-structure { display: block; margin-top: 1px; color: #2f855a; font-size: 7.5px; font-weight: 800; line-height: 1.1; text-transform: uppercase; }
 #metricDetailContent[data-detail="battalions"] .detail-table tbody tr:last-child td { border-top: 2px solid #23794f; background: #e4f2e9; font-weight: 850; }
 #metricDetailContent[data-detail="battalions"] .detail-table tbody tr:last-child td:nth-child(2) { color: #0d5136; }
-.battalion-strength-value { display: flex; min-height: 34px; align-items: center; justify-content: center; flex-direction: column; }
+.battalion-strength-value { display: flex; min-height: 26px; align-items: center; justify-content: center; flex-direction: column; }
 .battalion-strength-value strong { color: #145c40; font-size: 13px; line-height: 1.1; }
-.battalion-strength-value small { margin-top: 3px; color: #6f8177; font-size: 8px; font-weight: 680; }
+.battalion-strength-value small { margin-top: 1px; color: #6f8177; font-size: 8px; font-weight: 680; }
 .battalion-strength-value.is-unavailable strong { color: #708078; font-size: 9px; font-weight: 750; }
 .battalion-strength-value.is-unavailable small { color: #8a9790; }
-.battalion-exit-value { display: flex; min-height: 34px; align-items: center; justify-content: center; flex-direction: column; }
+.battalion-exit-value { display: flex; min-height: 26px; align-items: center; justify-content: center; flex-direction: column; }
 .battalion-exit-value strong { color: #145c40; font-size: 13px; line-height: 1.1; }
-.battalion-exit-value small { margin-top: 3px; color: #6f8177; font-size: 7.5px; font-weight: 680; white-space: nowrap; }
+.battalion-exit-value small { margin-top: 1px; color: #6f8177; font-size: 7.5px; font-weight: 680; white-space: nowrap; }
 .battalion-exit-value.is-unavailable strong { color: #718279; }
 .battalion-exit-value.is-unavailable small { color: #89968f; }
 .battalion-table-source-note { margin: 10px 0 0; padding: 10px 12px; border-left: 4px solid #2f855a; border-radius: 7px; color: #365b48; background: #edf7f1; font-size: 9.5px; line-height: 1.45; }

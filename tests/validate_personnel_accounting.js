@@ -149,9 +149,16 @@ assert.deepEqual(Array.from(details.pog.territories['21º BPM']), ['Conjunto Esp
 assert.deepEqual(Array.from(details.pog.territories['22º BPM']), ['Papicu', 'Dionísio Torres']);
 assert.deepEqual(Array.from(details.pog.territories['12º BPM']), ['Centro', 'Cumbuco']);
 assert.deepEqual(Array.from(details.pog.territories['26º BPM']), ['Jurema', 'Nova Metrópole']);
+assert.deepEqual(Array.from(details.pog.territories['27º BPM']), ['Tianguá', 'São Benedito']);
+assert.deepEqual(Array.from(details.pog.territories['28º BPM']), ['Camocim', 'Granja']);
+assert.deepEqual(Array.from(details.pog.territories['29º BPM']), ['Baturité', 'Guaramiranga']);
+assert.deepEqual(Array.from(details.pog.territories['30º BPM']), ['Aracati', 'Beberibe']);
+assert.deepEqual(Array.from(details.pog.territories['31º BPM']), ['Jaguaribe', 'Alto Santo']);
+assert.deepEqual(Array.from(details.pog.territories['32º BPM']), ['Brejo Santo', 'Mauriti']);
+assert.deepEqual(Array.from(details.pog.territories['33º BPM']), ['Campos Sales', 'Assaré']);
+assert.deepEqual(Array.from(details.pog.territories['34º BPM']), ['Icó', 'Várzea Alegre']);
 assert.deepEqual(Array.from(details.pog.territories['23º BPM']), ['Paraipaba', 'São Gonçalo do Amarante']);
 assert.deepEqual(Array.from(details.pog.territories['25º BPM']), ['Horizonte', 'Pacajus']);
-assert.deepEqual(Array.from(details.pog.territories['32º BPM']), ['Brejo Santo', 'Mauriti']);
 
 const csv = fs.readFileSync(path.join(root, 'data', 'saidas_batalhoes_2026.csv'), 'utf8').trim().split(/\r?\n/);
 assert.equal(csv.length, 36);

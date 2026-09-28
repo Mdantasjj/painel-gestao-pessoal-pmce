@@ -437,7 +437,7 @@ const metricDetails = {
     units: [],
     sectionTitle: 'Distribuição do efetivo adicional por batalhão',
     sectionSubtitle: '',
-    tableColumns: ['Posição', 'Batalhão / cidade', 'Efetivo atual', 'Referência inteira', 'Situação', 'Perdas', '<span class="column-title-line">Efetivo adicional</span><span class="column-title-line">necessário</span>'],
+    tableColumns: ['Posição', '<span class="column-title-line">Batalhão /</span><span class="column-title-line">localidades</span>', 'Efetivo atual', 'Referência inteira', 'Situação', 'Perdas', '<span class="column-title-line">Efetivo adicional</span><span class="column-title-line">necessário</span>'],
     tableRows: [],
     note: ''
   },
@@ -690,7 +690,7 @@ function recalculateRestructuringFromConsolidatedStrength() {
     ['Efetivo após implementação', format(targetTotal), `${format(currentTotal)} atuais + ${format(additionalTotal)} adicionais`]
   ];
   study.breakdownSubtitle = `Participação de cada BPM nos ${format(additionalTotal)} policiais adicionais necessários.`;
-  study.sectionSubtitle = 'Cada referência é a média atual do CRPM arredondada para cima; necessidade = referência inteira − efetivo atual.';
+  study.sectionSubtitle = 'O 26º BPM exibe os bairros Jurema e Nova Metrópole; do 27º ao 34º BPM, aparecem respectivamente as cidades da 1ª e da 2ª Cias. Cada referência é a média atual do CRPM arredondada para cima; necessidade = referência inteira − efetivo atual.';
   study.tableRows = units.map(([name, current, reference, additional, , , losses], index) => [
     String(index + 1), name, format(current), format(reference),
     additional > 0 ? 'Abaixo da média' : 'Na média ou acima', format(losses), additional > 0 ? `-${format(additional)}` : '0'

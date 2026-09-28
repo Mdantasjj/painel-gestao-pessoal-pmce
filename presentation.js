@@ -395,7 +395,7 @@ const metricDetails = {
       ['Em equilíbrio', 5.88, '2 · 5,9%', '#83b99a']
     ],
     sectionTitle: 'Visão geral por batalhão e unidade especializada',
-    sectionSubtitle: 'A tabela preserva os 34 BPMs, suas 83 Companhias territoriais vinculadas e acrescenta 19 unidades especializadas, incluindo a COPAC. Nos BPMs 27º a 34º, o efetivo informado da 2ª Companhia aparece como parcela já incluída no total do batalhão. As unidades RAIO - 6º BPM a RAIO - 9º BPM permanecem com traço no saldo e na necessidade porque as movimentações de 2025–2026 não estão individualizadas pelas denominações atuais.',
+    sectionSubtitle: 'A tabela preserva os 34 BPMs, suas 83 Companhias territoriais vinculadas e acrescenta 19 unidades especializadas, incluindo a COPAC. A estrutura de Companhias é exibida de forma resumida abaixo de cada batalhão. As unidades RAIO - 6º BPM a RAIO - 9º BPM permanecem com traço no saldo e na necessidade porque as movimentações de 2025–2026 não estão individualizadas pelas denominações atuais.',
     tableColumns: ['Posição', 'Unidade / cidades', '<span class="column-title-line">Efetivo da</span><span class="column-title-line">unidade</span>', 'Exonerações · outros concursos', 'Demissões · outros concursos', 'Requeridas', 'Movimentações', 'Perdas', 'Reestruturação.', '<span class="column-title-line">Necessidade de</span><span class="column-title-line">efetivo</span>'],
     tableRows: [],
     battalionTotals: {
@@ -960,16 +960,11 @@ function formatCompanyStructure(companyCount) {
 
 function renderBattalionUnitLabel(unitName) {
   const isSpecialized = metricDetails.battalions.specializedUnits.some((unit) => unit.name === unitName);
-  const secondCompanyTerritory = metricDetails.pog.secondCompanyTerritories[unitName];
-  const secondCompanyStrength = metricDetails.pog.secondCompanyStrength[unitName];
   const companyCount = metricDetails.pog.companyCountByBattalion[unitName];
   const structureLabel = companyCount
     ? `<small class="battalion-company-structure">Estrutura: ${formatCompanyStructure(companyCount)}</small>`
     : '';
-  const secondCompanyLabel = secondCompanyTerritory
-    ? `<small class="company-territory-note">2ª Cia: ${secondCompanyTerritory.join(' · ')} <b>${secondCompanyStrength} policiais</b><em>incluídos no BPM</em></small>`
-    : '';
-  const complementaryLabel = isSpecialized ? '<small>Unidade especializada</small>' : `${structureLabel}${secondCompanyLabel}`;
+  const complementaryLabel = isSpecialized ? '<small>Unidade especializada</small>' : structureLabel;
   return `<span class="pog-opm-label${isSpecialized ? ' specialized-unit-label' : ''}"><strong>${formatPogUnitName(unitName)}</strong>${complementaryLabel}</span>`;
 }
 

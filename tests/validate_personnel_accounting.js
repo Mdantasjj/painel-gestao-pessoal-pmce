@@ -136,7 +136,16 @@ for (let number = 1; number <= 34; number += 1) {
 assert.equal(total(Object.values(details.pog.companyCitiesByBattalion), cities => cities.filter(city => city == null).length), 1);
 assert.equal(details.pog.companyCitiesByBattalion['2º BPM'][3], null);
 assert.deepEqual(Array.from(details.pog.territories['3º BPM']), ['Sobral', 'Forquilha', 'Massapê']);
-assert.deepEqual(Array.from(details.pog.territories['5º BPM']), ['Fortaleza']);
+assert.deepEqual(Array.from(details.pog.territories['5º BPM']), ['Centro', 'Carlito Pamplona']);
+assert.deepEqual(Array.from(details.pog.territories['6º BPM']), ['Parangaba', 'Bairro de Fátima']);
+assert.deepEqual(Array.from(details.pog.territories['8º BPM']), ['Aldeota', 'Vicente Pinzón']);
+assert.deepEqual(Array.from(details.pog.territories['16º BPM']), ['Messejana', 'Jangurussu']);
+assert.deepEqual(Array.from(details.pog.territories['17º BPM']), ['Conjunto Ceará', 'Bom Jardim']);
+assert.deepEqual(Array.from(details.pog.territories['18º BPM']), ['Antônio Bezerra', 'Parquelândia']);
+assert.deepEqual(Array.from(details.pog.territories['19º BPM']), ['Cambeba', 'Aerolândia']);
+assert.deepEqual(Array.from(details.pog.territories['20º BPM']), ['Pirambu', 'Barra do Ceará']);
+assert.deepEqual(Array.from(details.pog.territories['21º BPM']), ['Conjunto Esperança', 'Maraponga']);
+assert.deepEqual(Array.from(details.pog.territories['22º BPM']), ['Papicu', 'Dionísio Torres']);
 assert.deepEqual(Array.from(details.pog.territories['23º BPM']), ['Paracuru', 'Paraipaba', 'São Gonçalo do Amarante', 'Trairi']);
 assert.deepEqual(Array.from(details.pog.territories['25º BPM']), ['Horizonte', 'Pacajus']);
 assert.deepEqual(Array.from(details.pog.territories['32º BPM']), ['Brejo Santo', 'Mauriti']);

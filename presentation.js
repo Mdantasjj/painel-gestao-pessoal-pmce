@@ -158,10 +158,24 @@ const battalionHeadquartersCities = {
   '33º BPM': 'Campos Sales', '34º BPM': 'Icó'
 };
 
+const capitalBattalionNeighborhoods = {
+  '5º BPM': ['Centro', 'Carlito Pamplona'],
+  '6º BPM': ['Parangaba', 'Bairro de Fátima'],
+  '8º BPM': ['Aldeota', 'Vicente Pinzón'],
+  '16º BPM': ['Messejana', 'Jangurussu'],
+  '17º BPM': ['Conjunto Ceará', 'Bom Jardim'],
+  '18º BPM': ['Antônio Bezerra', 'Parquelândia'],
+  '19º BPM': ['Cambeba', 'Aerolândia'],
+  '20º BPM': ['Pirambu', 'Barra do Ceará'],
+  '21º BPM': ['Conjunto Esperança', 'Maraponga'],
+  '22º BPM': ['Papicu', 'Dionísio Torres']
+};
+
 const battalionTerritoriesFromAddresses = Object.fromEntries(
   Object.entries(battalionCompanyCities).map(([battalion, cities]) => [
     battalion,
-    [...new Set([battalionHeadquartersCities[battalion], ...cities].filter(Boolean))]
+    capitalBattalionNeighborhoods[battalion]
+      ?? [...new Set([battalionHeadquartersCities[battalion], ...cities].filter(Boolean))]
   ])
 );
 
@@ -442,7 +456,7 @@ const metricDetails = {
       ['Em equilíbrio', 5.88, '2 · 5,9%', '#83b99a']
     ],
     sectionTitle: 'Visão geral por batalhão e unidade especializada',
-    sectionSubtitle: 'A tabela preserva os 34 BPMs, suas 84 Companhias territoriais vinculadas e acrescenta 19 unidades especializadas, incluindo a COPAC. As cidades foram corrigidas pela planilha de endereços das bases; a estrutura de Companhias permanece resumida abaixo de cada batalhão. As unidades RAIO - 6º BPM a RAIO - 9º BPM permanecem com traço no saldo e na necessidade porque as movimentações de 2025–2026 não estão individualizadas pelas denominações atuais.',
+    sectionSubtitle: 'A tabela preserva os 34 BPMs, suas 84 Companhias territoriais vinculadas e acrescenta 19 unidades especializadas, incluindo a COPAC. Os batalhões do interior e da Região Metropolitana exibem cidades; os batalhões da Capital exibem seus bairros de referência. A estrutura de Companhias permanece resumida abaixo de cada batalhão. As unidades RAIO - 6º BPM a RAIO - 9º BPM permanecem com traço no saldo e na necessidade porque as movimentações de 2025–2026 não estão individualizadas pelas denominações atuais.',
     tableColumns: ['Posição', 'Unidade / cidades', '<span class="column-title-line">Efetivo da</span><span class="column-title-line">unidade</span>', 'Exonerações · outros concursos', 'Demissões · outros concursos', 'Requeridas', 'Movimentações', 'Perdas', 'Reestruturação.', '<span class="column-title-line">Necessidade de</span><span class="column-title-line">efetivo</span>'],
     tableRows: [],
     battalionTotals: battalionTotalsFromCompanies,
@@ -679,7 +693,7 @@ function recalculateRestructuringFromConsolidatedStrength() {
 
   consolidated.total = format(consolidatedNeed);
   consolidated.description = `Cenário consolidado: ${format(battalionSituationalNeed)} policiais da necessidade situacional dos 34 BPMs, ${format(additionalTotal)} policiais da reestruturação do interior e do litoral e ${format(specializedNeed)} policiais da necessidade situacional apurável nas unidades especializadas, incluindo a COPAC. As necessidades locais não são compensadas por saldos positivos de outras unidades.`;
-  consolidated.note = `Para cada unidade, a situação é calculada por saldo das movimentações − exonerações − demissões − promoções requeridas de 2025 e 2026 vinculadas. A nova base detalhada reúne 84 Companhias territoriais subordinadas aos 34 BPMs e soma ${format(battalionStrengthTotal)} policiais; referências a 1ª, 2ª, 3ª ou 4ª Cia são consolidadas no respectivo batalhão. As cidades exibidas foram obtidas da aba POG da planilha “ENDEREÇOS_DAS_BASES.xlsx”. O 2º BPM considera também a 4ª Cia informada com um policial na base de efetivo, mas a planilha de endereços não apresenta uma cidade para essa Companhia. As necessidades locais apuradas somam ${format(battalionSituationalNeed)} policiais nos 34 BPMs e ${format(specializedNeed)} nas unidades especializadas com saldo individualizado. A parcela de ${format(additionalTotal)} policiais da reestruturação permanece restrita ao 26º–34º BPM. O resultado consolidado é ${format(consolidatedNeed)} policiais (${format(battalionSituationalNeed)} + ${format(additionalTotal)} + ${format(specializedNeed)}). Os 80 processos agregados de exoneração e demissão de 2025 não foram distribuídos, pois a fonte não identifica a OPM. Em RAIO - 6º BPM, RAIO - 7º BPM, RAIO - 8º BPM e RAIO - 9º BPM, o saldo e a necessidade permanecem indisponíveis porque a fonte de movimentações não individualiza essas denominações. Promoção requerida não comprova baixa institucional, e o cenário não representa efetivo já autorizado.`;
+  consolidated.note = `Para cada unidade, a situação é calculada por saldo das movimentações − exonerações − demissões − promoções requeridas de 2025 e 2026 vinculadas. A nova base detalhada reúne 84 Companhias territoriais subordinadas aos 34 BPMs e soma ${format(battalionStrengthTotal)} policiais; referências a 1ª, 2ª, 3ª ou 4ª Cia são consolidadas no respectivo batalhão. As cidades foram obtidas da aba POG da planilha “ENDEREÇOS_DAS_BASES.xlsx”; nos BPMs da Capital, a identificação visual usa os bairros de referência informados no estudo. O 2º BPM considera também a 4ª Cia informada com um policial na base de efetivo, mas a planilha de endereços não apresenta uma cidade para essa Companhia. As necessidades locais apuradas somam ${format(battalionSituationalNeed)} policiais nos 34 BPMs e ${format(specializedNeed)} nas unidades especializadas com saldo individualizado. A parcela de ${format(additionalTotal)} policiais da reestruturação permanece restrita ao 26º–34º BPM. O resultado consolidado é ${format(consolidatedNeed)} policiais (${format(battalionSituationalNeed)} + ${format(additionalTotal)} + ${format(specializedNeed)}). Os 80 processos agregados de exoneração e demissão de 2025 não foram distribuídos, pois a fonte não identifica a OPM. Em RAIO - 6º BPM, RAIO - 7º BPM, RAIO - 8º BPM e RAIO - 9º BPM, o saldo e a necessidade permanecem indisponíveis porque a fonte de movimentações não individualiza essas denominações. Promoção requerida não comprova baixa institucional, e o cenário não representa efetivo já autorizado.`;
 
   const card = document.querySelector('.metric-card[data-detail="restructuring"]');
   if (card) {

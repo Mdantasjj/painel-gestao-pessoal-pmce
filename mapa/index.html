@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0d3c2d" />
+    <meta name="description" content="Mapa territorial dos batalhões da Polícia Militar do Ceará" />
+    <title>Mapa dos Batalhões | PMCE</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="vendor/leaflet.css" />
+    <link rel="stylesheet" href="vendor/MarkerCluster.css" />
+    <link rel="stylesheet" href="map.css" />
+  </head>
+  <body>
+    <main id="map" aria-label="Mapa do Ceará dividido por municípios e bairros de Fortaleza, com a localização dos 34 batalhões"></main>
+
+    <section class="map-heading" aria-label="Identificação do mapa">
+      <span>Polícia Militar do Ceará</span>
+      <strong>Mapa territorial dos batalhões</strong>
+      <small>184 municípios · 121 bairros de Fortaleza · 34 BPMs</small>
+    </section>
+
+    <form class="map-search" id="mapSearch" role="search">
+      <label for="mapSearchInput">Localizar no mapa</label>
+      <div>
+        <input id="mapSearchInput" type="search" autocomplete="off" placeholder="Batalhão, município ou bairro" list="mapSearchOptions" />
+        <button type="submit" aria-label="Pesquisar">⌕</button>
+      </div>
+      <datalist id="mapSearchOptions"></datalist>
+      <p id="mapSearchFeedback" aria-live="polite"></p>
+    </form>
+
+    <aside class="map-layers" aria-label="Camadas do mapa">
+      <strong>Camadas</strong>
+      <label><input type="checkbox" id="toggleMunicipalities" checked /> Municípios</label>
+      <label><input type="checkbox" id="toggleNeighborhoods" checked /> Bairros de Fortaleza</label>
+      <label><input type="checkbox" id="toggleBattalions" checked /> Batalhões</label>
+    </aside>
+
+    <aside class="map-legend" aria-label="Legenda de necessidade de efetivo">
+      <strong>Necessidade de efetivo</strong>
+      <span><i class="need-zero"></i> Sem necessidade apurada</span>
+      <span><i class="need-low"></i> 1 a 39 policiais</span>
+      <span><i class="need-medium"></i> 40 a 79 policiais</span>
+      <span><i class="need-high"></i> 80 ou mais policiais</span>
+      <small>Passe o mouse sobre um batalhão para consultar a análise situacional.</small>
+    </aside>
+
+    <div class="map-loading" id="mapLoading" role="status">
+      <span></span>
+      <strong>Carregando mapa territorial…</strong>
+    </div>
+
+    <div class="map-error" id="mapError" role="alert" hidden>
+      <strong>Não foi possível carregar o mapa.</strong>
+      <span>Atualize a página ou verifique a conexão com o servidor.</span>
+    </div>
+
+    <script src="vendor/leaflet.js"></script>
+    <script src="vendor/leaflet.markercluster.js"></script>
+    <script src="map.js"></script>
+  </body>
+</html>

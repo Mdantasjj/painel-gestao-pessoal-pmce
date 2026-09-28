@@ -125,6 +125,46 @@ const battalionCompanyStrengths = {
   '31º BPM': [110, 51], '32º BPM': [155, 67], '33º BPM': [90, 35], '34º BPM': [120, 71]
 };
 
+const battalionCompanyCities = {
+  '1º BPM': ['Russas', 'Limoeiro do Norte'], '2º BPM': ['Juazeiro do Norte', 'Barbalha', 'Crato', null],
+  '3º BPM': ['Sobral', 'Forquilha', 'Massapê', 'Sobral'], '4º BPM': ['Canindé', 'Boa Viagem'],
+  '5º BPM': ['Fortaleza', 'Fortaleza', 'Fortaleza'], '6º BPM': ['Fortaleza', 'Fortaleza', 'Fortaleza'],
+  '7º BPM': ['Crateús', 'Nova Russas', 'Santa Quitéria'], '8º BPM': ['Fortaleza', 'Fortaleza'],
+  '9º BPM': ['Quixadá', 'Senador Pompeu', 'Morada Nova', 'Quixeramobim'], '10º BPM': ['Iguatu', 'Jucás'],
+  '11º BPM': ['Itapipoca', 'Pentecoste', 'Acaraú'], '12º BPM': ['Caucaia', 'Caucaia'],
+  '13º BPM': ['Tauá', 'Parambu', 'Mombaça'], '14º BPM': ['Maracanaú', 'Maracanaú'],
+  '15º BPM': ['Eusébio', 'Cascavel'], '16º BPM': ['Fortaleza', 'Fortaleza', 'Fortaleza'],
+  '17º BPM': ['Fortaleza', 'Fortaleza'], '18º BPM': ['Fortaleza', 'Fortaleza'],
+  '19º BPM': ['Fortaleza', 'Fortaleza', 'Fortaleza'], '20º BPM': ['Fortaleza', 'Fortaleza', 'Fortaleza'],
+  '21º BPM': ['Fortaleza', 'Fortaleza'], '22º BPM': ['Fortaleza', 'Fortaleza'],
+  '23º BPM': ['Paraipaba', 'São Gonçalo do Amarante', 'São Gonçalo do Amarante', 'Trairi'],
+  '24º BPM': ['Maranguape', 'Pacatuba'], '25º BPM': ['Horizonte', 'Pacajus'],
+  '26º BPM': ['Caucaia', 'Caucaia'], '27º BPM': ['Tianguá', 'São Benedito'],
+  '28º BPM': ['Camocim', 'Granja'], '29º BPM': ['Baturité', 'Guaramiranga'],
+  '30º BPM': ['Aracati', 'Beberibe'], '31º BPM': ['Jaguaribe', 'Alto Santo'],
+  '32º BPM': ['Brejo Santo', 'Mauriti'], '33º BPM': ['Campos Sales', 'Assaré'],
+  '34º BPM': ['Icó', 'Várzea Alegre']
+};
+
+const battalionHeadquartersCities = {
+  '1º BPM': 'Russas', '2º BPM': 'Juazeiro do Norte', '3º BPM': 'Sobral', '4º BPM': 'Canindé',
+  '5º BPM': 'Fortaleza', '6º BPM': 'Fortaleza', '7º BPM': 'Crateús', '8º BPM': 'Fortaleza',
+  '9º BPM': 'Quixadá', '10º BPM': 'Iguatu', '11º BPM': 'Itapipoca', '12º BPM': 'Caucaia',
+  '13º BPM': 'Tauá', '14º BPM': 'Maracanaú', '15º BPM': 'Eusébio', '16º BPM': 'Fortaleza',
+  '17º BPM': 'Fortaleza', '18º BPM': 'Fortaleza', '19º BPM': 'Fortaleza', '20º BPM': 'Fortaleza',
+  '21º BPM': 'Fortaleza', '22º BPM': 'Fortaleza', '23º BPM': 'Paracuru', '24º BPM': 'Maranguape',
+  '25º BPM': 'Horizonte', '26º BPM': 'Caucaia', '27º BPM': 'Tianguá', '28º BPM': 'Camocim',
+  '29º BPM': 'Baturité', '30º BPM': 'Aracati', '31º BPM': 'Jaguaribe', '32º BPM': 'Brejo Santo',
+  '33º BPM': 'Campos Sales', '34º BPM': 'Icó'
+};
+
+const battalionTerritoriesFromAddresses = Object.fromEntries(
+  Object.entries(battalionCompanyCities).map(([battalion, cities]) => [
+    battalion,
+    [...new Set([battalionHeadquartersCities[battalion], ...cities].filter(Boolean))]
+  ])
+);
+
 const battalionTotalsFromCompanies = Object.fromEntries(
   Object.entries(battalionCompanyStrengths).map(([battalion, strengths]) => [
     battalion,
@@ -356,27 +396,8 @@ const metricDetails = {
       ['6º BPM', 43, 47, 4], ['7º BPM', 34, 37, 3], ['8º BPM', 66, 43, -23],
       ['9º BPM', 42, 71, 29]
     ],
-    territories: {
-      '1º BPM': ['Russas', 'Limoeiro'], '2º BPM': ['Juazeiro do Norte'], '3º BPM': ['Sobral', 'Coreaú'], '4º BPM': ['Canindé', 'Boa Viagem'],
-      '5º BPM': ['Centro', 'Carlito Pamplona'], '6º BPM': ['Parangaba', 'Bairro de Fátima'], '7º BPM': ['Crateús', 'Santa Quitéria'], '8º BPM': ['Aldeota', 'Vicente Pinzón'],
-      '9º BPM': ['Quixadá', 'Senador Pompeu'], '10º BPM': ['Iguatu', 'Acopiara'], '11º BPM': ['Itapipoca', 'Acaraú'], '12º BPM': ['Caucaia (Centro · Cumbuco)'],
-      '13º BPM': ['Tauá', 'Mombaça'], '14º BPM': ['Maracanaú (Jereissati · Acaracuzinho)'], '15º BPM': ['Eusébio', 'Aquiraz'], '16º BPM': ['Messejana', 'Jangurussu'],
-      '17º BPM': ['Conjunto Ceará', 'Bom Jardim'], '18º BPM': ['Antônio Bezerra', 'Parquelândia'], '19º BPM': ['Cambeba', 'Aerolândia'], '20º BPM': ['Pirambu', 'Barra do Ceará'],
-      '21º BPM': ['Conjunto Esperança', 'Maraponga'], '22º BPM': ['Papicu', 'Dionísio Torres'], '23º BPM': ['Paracuru', 'São Gonçalo do Amarante'], '24º BPM': ['Maranguape', 'Pacatuba'],
-      '25º BPM': ['Horizonte', 'Chorozinho'], '26º BPM': ['Caucaia (Jurema · Nova Metrópole)'], '27º BPM': ['Tianguá', 'Viçosa do Ceará'], '28º BPM': ['Camocim', 'Granja'],
-      '29º BPM': ['Baturité', 'Redenção'], '30º BPM': ['Aracati', 'Beberibe'], '31º BPM': ['Jaguaribe', 'Alto Santo'], '32º BPM': ['Penaforte', 'Brejo Santo'],
-      '33º BPM': ['Campos Sales', 'Assaré'], '34º BPM': ['Icó', 'Várzea Alegre']
-    },
-    secondCompanyTerritories: {
-      '27º BPM': ['São Benedito', 'Guaraciaba do Norte', 'Carnaubal', 'Croatá'],
-      '28º BPM': ['Granja', 'Martinópole', 'Uruoca', 'Moraújo'],
-      '29º BPM': ['Guaramiranga', 'Pacoti', 'Mulungu', 'Palmácia', 'Aratuba'],
-      '30º BPM': ['Beberibe', 'Fortim'],
-      '31º BPM': ['Alto Santo', 'Iracema', 'Potiretama'],
-      '32º BPM': ['Mauriti', 'Milagres', 'Barro'],
-      '33º BPM': ['Assaré', 'Antonina do Norte', 'Altaneira'],
-      '34º BPM': ['Várzea Alegre', 'Cedro', 'Lavras da Mangabeira', 'Granjeiro']
-    },
+    territories: battalionTerritoriesFromAddresses,
+    companyCitiesByBattalion: battalionCompanyCities,
     companyStrengthByBattalion: battalionCompanyStrengths,
     companyCountByBattalion,
     note: 'O total de 271 reúne duas naturezas distintas: 111 policiais de déficit acumulado nos 12 BPMs do POG com saldo negativo e 160 policiais de necessidade adicional para implementação operacional. No POG, o recorte apresenta exclusivamente os 34 BPMs numerados, com 1.459 registros na origem, 1.549 no destino e saldo conjunto de +90. Comandos regionais e demais unidades foram retirados, pois a fonte não permite redistribuir seus registros entre batalhões. Para a implementação, foram informados 10 oficiais e 100 praças para a COTAM e 02 oficiais e 48 praças para a 6ª Cia/BPTUR. Os 160 policiais não foram descontados nem redistribuídos dos batalhões analisados.'
@@ -421,7 +442,7 @@ const metricDetails = {
       ['Em equilíbrio', 5.88, '2 · 5,9%', '#83b99a']
     ],
     sectionTitle: 'Visão geral por batalhão e unidade especializada',
-    sectionSubtitle: 'A tabela preserva os 34 BPMs, suas 84 Companhias territoriais vinculadas e acrescenta 19 unidades especializadas, incluindo a COPAC. A estrutura de Companhias é exibida de forma resumida abaixo de cada batalhão. As unidades RAIO - 6º BPM a RAIO - 9º BPM permanecem com traço no saldo e na necessidade porque as movimentações de 2025–2026 não estão individualizadas pelas denominações atuais.',
+    sectionSubtitle: 'A tabela preserva os 34 BPMs, suas 84 Companhias territoriais vinculadas e acrescenta 19 unidades especializadas, incluindo a COPAC. As cidades foram corrigidas pela planilha de endereços das bases; a estrutura de Companhias permanece resumida abaixo de cada batalhão. As unidades RAIO - 6º BPM a RAIO - 9º BPM permanecem com traço no saldo e na necessidade porque as movimentações de 2025–2026 não estão individualizadas pelas denominações atuais.',
     tableColumns: ['Posição', 'Unidade / cidades', '<span class="column-title-line">Efetivo da</span><span class="column-title-line">unidade</span>', 'Exonerações · outros concursos', 'Demissões · outros concursos', 'Requeridas', 'Movimentações', 'Perdas', 'Reestruturação.', '<span class="column-title-line">Necessidade de</span><span class="column-title-line">efetivo</span>'],
     tableRows: [],
     battalionTotals: battalionTotalsFromCompanies,
@@ -658,7 +679,7 @@ function recalculateRestructuringFromConsolidatedStrength() {
 
   consolidated.total = format(consolidatedNeed);
   consolidated.description = `Cenário consolidado: ${format(battalionSituationalNeed)} policiais da necessidade situacional dos 34 BPMs, ${format(additionalTotal)} policiais da reestruturação do interior e do litoral e ${format(specializedNeed)} policiais da necessidade situacional apurável nas unidades especializadas, incluindo a COPAC. As necessidades locais não são compensadas por saldos positivos de outras unidades.`;
-  consolidated.note = `Para cada unidade, a situação é calculada por saldo das movimentações − exonerações − demissões − promoções requeridas de 2025 e 2026 vinculadas. A nova base detalhada reúne 84 Companhias territoriais subordinadas aos 34 BPMs e soma ${format(battalionStrengthTotal)} policiais; referências a 1ª, 2ª, 3ª ou 4ª Cia são consolidadas no respectivo batalhão. O 2º BPM passou a considerar também a 4ª Cia informada com um policial. As necessidades locais apuradas somam ${format(battalionSituationalNeed)} policiais nos 34 BPMs e ${format(specializedNeed)} nas unidades especializadas com saldo individualizado. A parcela de ${format(additionalTotal)} policiais da reestruturação permanece restrita ao 26º–34º BPM. O resultado consolidado é ${format(consolidatedNeed)} policiais (${format(battalionSituationalNeed)} + ${format(additionalTotal)} + ${format(specializedNeed)}). Os 80 processos agregados de exoneração e demissão de 2025 não foram distribuídos, pois a fonte não identifica a OPM. Em RAIO - 6º BPM, RAIO - 7º BPM, RAIO - 8º BPM e RAIO - 9º BPM, o saldo e a necessidade permanecem indisponíveis porque a fonte de movimentações não individualiza essas denominações. Promoção requerida não comprova baixa institucional, e o cenário não representa efetivo já autorizado.`;
+  consolidated.note = `Para cada unidade, a situação é calculada por saldo das movimentações − exonerações − demissões − promoções requeridas de 2025 e 2026 vinculadas. A nova base detalhada reúne 84 Companhias territoriais subordinadas aos 34 BPMs e soma ${format(battalionStrengthTotal)} policiais; referências a 1ª, 2ª, 3ª ou 4ª Cia são consolidadas no respectivo batalhão. As cidades exibidas foram obtidas da aba POG da planilha “ENDEREÇOS_DAS_BASES.xlsx”. O 2º BPM considera também a 4ª Cia informada com um policial na base de efetivo, mas a planilha de endereços não apresenta uma cidade para essa Companhia. As necessidades locais apuradas somam ${format(battalionSituationalNeed)} policiais nos 34 BPMs e ${format(specializedNeed)} nas unidades especializadas com saldo individualizado. A parcela de ${format(additionalTotal)} policiais da reestruturação permanece restrita ao 26º–34º BPM. O resultado consolidado é ${format(consolidatedNeed)} policiais (${format(battalionSituationalNeed)} + ${format(additionalTotal)} + ${format(specializedNeed)}). Os 80 processos agregados de exoneração e demissão de 2025 não foram distribuídos, pois a fonte não identifica a OPM. Em RAIO - 6º BPM, RAIO - 7º BPM, RAIO - 8º BPM e RAIO - 9º BPM, o saldo e a necessidade permanecem indisponíveis porque a fonte de movimentações não individualiza essas denominações. Promoção requerida não comprova baixa institucional, e o cenário não representa efetivo já autorizado.`;
 
   const card = document.querySelector('.metric-card[data-detail="restructuring"]');
   if (card) {

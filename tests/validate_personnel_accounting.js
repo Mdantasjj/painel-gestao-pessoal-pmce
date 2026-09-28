@@ -123,16 +123,23 @@ assert.equal(battalionRecords.filter(record => record.situation < 0).length, 29)
 assert.equal(battalionRecords.filter(record => record.situation > 0).length, 3);
 assert.equal(battalionRecords.filter(record => record.situation === 0).length, 2);
 
-assert.equal(Object.keys(details.pog.secondCompanyTerritories).length, 8);
 assert.equal(Object.keys(details.pog.companyStrengthByBattalion).length, 34);
+assert.equal(Object.keys(details.pog.companyCitiesByBattalion).length, 34);
+assert.equal(Object.keys(details.pog.territories).length, 34);
 assert.equal(Object.keys(details.pog.companyCountByBattalion).length, 34);
 assert.equal(total(Object.values(details.pog.companyCountByBattalion), value => value), 84);
 assert.equal(total(Object.values(details.pog.companyStrengthByBattalion), values => total(values, value => value)), 10241);
-for (let number = 27; number <= 34; number += 1) {
-  assert(details.pog.secondCompanyTerritories[`${number}º BPM`]?.length >= 2, `2nd company territory missing: ${number}º BPM`);
-  assert(details.pog.companyStrengthByBattalion[`${number}º BPM`]?.[1] > 0, `2nd company strength missing: ${number}º BPM`);
-  assert(details.pog.companyStrengthByBattalion[`${number}º BPM`][1] < details.battalions.battalionTotals[`${number}º BPM`], `2nd company must be a component of ${number}º BPM`);
+for (let number = 1; number <= 34; number += 1) {
+  const battalion = `${number}º BPM`;
+  assert.equal(details.pog.companyCitiesByBattalion[battalion].length, details.pog.companyStrengthByBattalion[battalion].length, `Company/city mismatch: ${battalion}`);
 }
+assert.equal(total(Object.values(details.pog.companyCitiesByBattalion), cities => cities.filter(city => city == null).length), 1);
+assert.equal(details.pog.companyCitiesByBattalion['2º BPM'][3], null);
+assert.deepEqual(Array.from(details.pog.territories['3º BPM']), ['Sobral', 'Forquilha', 'Massapê']);
+assert.deepEqual(Array.from(details.pog.territories['5º BPM']), ['Fortaleza']);
+assert.deepEqual(Array.from(details.pog.territories['23º BPM']), ['Paracuru', 'Paraipaba', 'São Gonçalo do Amarante', 'Trairi']);
+assert.deepEqual(Array.from(details.pog.territories['25º BPM']), ['Horizonte', 'Pacajus']);
+assert.deepEqual(Array.from(details.pog.territories['32º BPM']), ['Brejo Santo', 'Mauriti']);
 
 const csv = fs.readFileSync(path.join(root, 'data', 'saidas_batalhoes_2026.csv'), 'utf8').trim().split(/\r?\n/);
 assert.equal(csv.length, 36);

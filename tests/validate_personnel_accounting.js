@@ -16,6 +16,8 @@ vm.runInNewContext(
   sandbox
 );
 const { details, records } = sandbox.audit;
+const battalionRecords = records.filter(record => record.unitType !== 'specialized');
+const specializedRecords = records.filter(record => record.unitType === 'specialized');
 const number = text => Number(String(text).replaceAll('.', ''));
 const total = (items, getter) => items.reduce((sum, item) => sum + getter(item), 0);
 
@@ -82,7 +84,9 @@ assert.equal(restructuring.totalNumber, 503);
 assert.equal(total(restructuring.units, ([, current, , additional]) => current + additional), 2334);
 assert.equal(total(restructuring.units.slice(0, 5), ([, , , additional]) => additional), 385);
 
-assert.equal(records.length, 34);
+assert.equal(records.length, 53);
+assert.equal(battalionRecords.length, 34);
+assert.equal(specializedRecords.length, 19);
 for (const [field, expected] of Object.entries({
   requiredPromotions2025: 320,
   requiredPromotions2026: 110,
@@ -97,9 +101,9 @@ for (const [field, expected] of Object.entries({
   restructuringNeed: 503,
   totalNeed: 1090
 })) {
-  assert.equal(total(records, record => record[field]), expected, field);
+  assert.equal(total(battalionRecords, record => record[field]), expected, field);
 }
-for (const record of records) {
+for (const record of battalionRecords) {
   assert.equal(record.grossLosses, record.exonerations + record.dismissals + record.requiredPromotions, `Gross losses mismatch: ${record.name}`);
   assert.equal(record.losses, Math.max(0, record.grossLosses - record.movementBalance), `Losses mismatch: ${record.name}`);
   const expected = expectedRestructuring[record.name]?.[2] ?? null;
@@ -108,22 +112,27 @@ for (const record of records) {
 }
 const unaffectedTableRow = details.battalions.tableRows.find(row => row[1] === '1º BPM');
 const affectedTableRow = details.battalions.tableRows.find(row => row[1] === '26º BPM');
-const battalionTotalRow = details.battalions.tableRows.at(-1);
+const battalionTotalRow = details.battalions.tableRows.find(row => row[1] === 'TOTAL DOS 34 BPMs');
 assert(unaffectedTableRow[8].includes('<strong>—</strong>'), 'Unaffected BPM must show a hyphen');
 assert(affectedTableRow[8].includes('<strong>39</strong>'), '26º BPM restructuring value missing');
 assert(affectedTableRow[9].includes('<strong>61</strong>'), '26º BPM consolidated need mismatch');
 assert(battalionTotalRow[7].includes('<strong>587</strong>'), 'Losses table total mismatch');
 assert(battalionTotalRow[8].includes('<strong>503</strong>'), 'Restructuring table total mismatch');
 assert(battalionTotalRow[9].includes('<strong>1.090</strong>'), 'Consolidated table total mismatch');
-assert.equal(records.filter(record => record.situation < 0).length, 29);
-assert.equal(records.filter(record => record.situation > 0).length, 3);
-assert.equal(records.filter(record => record.situation === 0).length, 2);
+assert.equal(battalionRecords.filter(record => record.situation < 0).length, 29);
+assert.equal(battalionRecords.filter(record => record.situation > 0).length, 3);
+assert.equal(battalionRecords.filter(record => record.situation === 0).length, 2);
+
+assert.equal(Object.keys(details.pog.secondCompanyTerritories).length, 8);
+for (let number = 27; number <= 34; number += 1) {
+  assert(details.pog.secondCompanyTerritories[`${number}º BPM`]?.length >= 2, `2nd company territory missing: ${number}º BPM`);
+}
 
 const csv = fs.readFileSync(path.join(root, 'data', 'saidas_batalhoes_2026.csv'), 'utf8').trim().split(/\r?\n/);
 assert.equal(csv.length, 36);
 for (const line of csv.slice(1, -1)) {
   const [name, ...values] = line.split(',');
-  const record = records.find(item => item.name === name);
+  const record = battalionRecords.find(item => item.name === name);
   assert(record, `CSV BPM missing: ${name}`);
   assert.deepEqual(values.map(Number), [
     record.exonerations,
@@ -139,12 +148,12 @@ for (const line of csv.slice(1, -1)) {
   ], `CSV mismatch: ${name}`);
 }
 
-assert.equal(number(details.exits.total), 16 + 64 + 245 + 83 + 552 + 215);
+assert.equal(number(details.exits.total), 16 + 64 + 245 + 83 + 552 + 215 + 374);
 assert.equal(number(details.exits.stats[0][1]), 16);
 assert.equal(number(details.exits.stats[1][1]), 64);
 assert.equal(number(details.pog.total), 111 + 110 + 50);
 assert.equal(number(details.pog.total) + number(details.raio.total) + number(details.copac.total), 1543);
-assert.equal(number(details.battalions.total), 1090);
+assert.equal(number(details.battalions.total), 1256);
 
 const pogUnits = details.pog.units;
 assert.equal(pogUnits.length, 34);
@@ -178,7 +187,7 @@ for (const phase of details.copac.phases) {
 }
 
 const html = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
-for (const [key, expected] of Object.entries({ exits: 1175, pog: 1543, restructuring: 503, battalions: 1090 })) {
+for (const [key, expected] of Object.entries({ exits: 1549, pog: 1543, restructuring: 503, battalions: 1256 })) {
   const match = html.match(new RegExp(`data-detail="${key}"[\\s\\S]*?<div class="metric-main"><strong>([\\d.]+)</strong>`));
   assert(match, `Card not found: ${key}`);
   assert.equal(number(match[1]), expected, `Card total mismatch: ${key}`);

@@ -324,6 +324,16 @@ const metricDetails = {
       '29º BPM': ['Baturité', 'Redenção'], '30º BPM': ['Aracati', 'Beberibe'], '31º BPM': ['Jaguaribe', 'Alto Santo'], '32º BPM': ['Penaforte', 'Brejo Santo'],
       '33º BPM': ['Campos Sales', 'Assaré'], '34º BPM': ['Icó', 'Várzea Alegre']
     },
+    secondCompanyTerritories: {
+      '27º BPM': ['São Benedito', 'Guaraciaba do Norte', 'Carnaubal', 'Croatá'],
+      '28º BPM': ['Granja', 'Martinópole', 'Uruoca', 'Moraújo'],
+      '29º BPM': ['Guaramiranga', 'Pacoti', 'Mulungu', 'Palmácia', 'Aratuba'],
+      '30º BPM': ['Beberibe', 'Fortim'],
+      '31º BPM': ['Alto Santo', 'Iracema', 'Potiretama'],
+      '32º BPM': ['Mauriti', 'Milagres', 'Barro'],
+      '33º BPM': ['Assaré', 'Antonina do Norte', 'Altaneira'],
+      '34º BPM': ['Várzea Alegre', 'Cedro', 'Lavras da Mangabeira', 'Granjeiro']
+    },
     note: 'O total de 271 reúne duas naturezas distintas: 111 policiais de déficit acumulado nos 12 BPMs do POG com saldo negativo e 160 policiais de necessidade adicional para implementação operacional. No POG, o recorte apresenta exclusivamente os 34 BPMs numerados, com 1.459 registros na origem, 1.549 no destino e saldo conjunto de +90. Comandos regionais e demais unidades foram retirados, pois a fonte não permite redistribuir seus registros entre batalhões. Para a implementação, foram informados 10 oficiais e 100 praças para a COTAM e 02 oficiais e 48 praças para a 6ª Cia/BPTUR. Os 160 policiais não foram descontados nem redistribuídos dos batalhões analisados.'
   },
   restructuring: {
@@ -462,7 +472,7 @@ const metricDetails = {
       '26º BPM': 12, '27º BPM': 7, '28º BPM': 7, '29º BPM': 14, '30º BPM': 14,
       '31º BPM': 9, '32º BPM': 12, '33º BPM': 2, '34º BPM': 3
     },
-    note: 'Para cada unidade, a situação é calculada por saldo das movimentações − exonerações − demissões − promoções requeridas de 2025 e 2026 vinculadas. As necessidades locais apuradas somam 587 policiais nos 34 BPMs e 166 nas unidades especializadas com saldo individualizado; a COPAC responde por 23 policiais desse segundo subtotal. A parcela de 503 policiais da reestruturação permanece restrita ao 26º–34º BPM. O resultado consolidado é 1.256 policiais (587 + 503 + 166). Os 80 processos agregados de exoneração e demissão de 2025 não foram distribuídos, pois a fonte não identifica a OPM. Em RAIO - 6º BPM, RAIO - 7º BPM, RAIO - 8º BPM e RAIO - 9º BPM, o saldo e a necessidade permanecem indisponíveis porque a fonte de movimentações não individualiza essas denominações. Promoção requerida não comprova baixa institucional, e o cenário não representa efetivo já autorizado.'
+    note: 'Para cada unidade, a situação é calculada por saldo das movimentações − exonerações − demissões − promoções requeridas de 2025 e 2026 vinculadas. As OPMs subordinadas identificadas como 2ª Cia/27º BPM a 2ª Cia/34º BPM permanecem consolidadas no respectivo batalhão; seus registros já integravam os totais e não foram somados novamente. As necessidades locais apuradas somam 587 policiais nos 34 BPMs e 166 nas unidades especializadas com saldo individualizado; a COPAC responde por 23 policiais desse segundo subtotal. A parcela de 503 policiais da reestruturação permanece restrita ao 26º–34º BPM. O resultado consolidado é 1.256 policiais (587 + 503 + 166). Os 80 processos agregados de exoneração e demissão de 2025 não foram distribuídos, pois a fonte não identifica a OPM. Em RAIO - 6º BPM, RAIO - 7º BPM, RAIO - 8º BPM e RAIO - 9º BPM, o saldo e a necessidade permanecem indisponíveis porque a fonte de movimentações não individualiza essas denominações. Promoção requerida não comprova baixa institucional, e o cenário não representa efetivo já autorizado.'
   },
   copac: {
     accent: '#2f855a',
@@ -924,7 +934,13 @@ function renderPogUnitLabel(unitName) {
 
 function renderBattalionUnitLabel(unitName) {
   const isSpecialized = metricDetails.battalions.specializedUnits.some((unit) => unit.name === unitName);
-  return `<span class="pog-opm-label${isSpecialized ? ' specialized-unit-label' : ''}"><strong>${formatPogUnitName(unitName)}</strong>${isSpecialized ? '<small>Unidade especializada</small>' : ''}</span>`;
+  const secondCompanyTerritory = metricDetails.pog.secondCompanyTerritories[unitName];
+  const complementaryLabel = isSpecialized
+    ? '<small>Unidade especializada</small>'
+    : secondCompanyTerritory
+      ? `<small class="company-territory-note">2ª Cia: ${secondCompanyTerritory.join(' · ')}</small>`
+      : '';
+  return `<span class="pog-opm-label${isSpecialized ? ' specialized-unit-label' : ''}"><strong>${formatPogUnitName(unitName)}</strong>${complementaryLabel}</span>`;
 }
 
 function renderDetailTable(data, detailKey = '') {

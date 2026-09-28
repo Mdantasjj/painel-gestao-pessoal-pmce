@@ -1392,6 +1392,7 @@ function renderProjectStudySummary(studyKey) {
 function buildMariaDaPenhaProjectDetail(projectId) {
   const project = mariaDaPenhaProjects.find((item) => item.id === projectId);
   if (!project) return '';
+  const optionName = `Opção ${mariaDaPenhaProjects.findIndex((item) => item.id === projectId) + 1}`;
   if (!project.cities.length) {
     return `<div class="project-pending-message"><strong>${project.name}</strong><span>A estrutura está reservada e aguarda os municípios e quantitativos do estudo.</span></div>`;
   }
@@ -1408,7 +1409,7 @@ function buildMariaDaPenhaProjectDetail(projectId) {
     </div>`).join('');
   return `
     <div class="maria-project-detail-heading">
-      <div><span>Opção selecionada</span><strong>${project.name}</strong></div>
+      <div><strong>${optionName}</strong></div>
       <b>${project.cities.length} municípios</b>
     </div>
     <div class="maria-project-kpis">

@@ -573,6 +573,9 @@ body.modal-open { overflow: hidden; }
 #metricDetailContent[data-detail="battalions"] .battalion-total-row:last-child td { background: #d9ecdf; color: #0f5135; }
 .specialized-unit-label small { display: block; margin-top: 3px; color: #2f855a; font-size: 8px; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; }
 .company-territory-note { display: block; max-width: 245px; margin-top: 4px; color: #668071; font-size: 8px; font-weight: 650; line-height: 1.35; }
+.company-territory-note b { color: #145c40; font-weight: 850; white-space: nowrap; }
+.company-territory-note b::before { content: ' · '; color: #8aa096; }
+.company-territory-note em { display: block; margin-top: 2px; color: #3e775d; font-size: 7px; font-style: normal; font-weight: 800; text-transform: uppercase; }
 #metricDetailContent[data-detail="battalions"] .detail-table tbody tr:last-child td { border-top: 2px solid #23794f; background: #e4f2e9; font-weight: 850; }
 #metricDetailContent[data-detail="battalions"] .detail-table tbody tr:last-child td:nth-child(2) { color: #0d5136; }
 .battalion-strength-value { display: flex; min-height: 34px; align-items: center; justify-content: center; flex-direction: column; }

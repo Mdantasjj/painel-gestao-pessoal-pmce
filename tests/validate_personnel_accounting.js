@@ -124,8 +124,12 @@ assert.equal(battalionRecords.filter(record => record.situation > 0).length, 3);
 assert.equal(battalionRecords.filter(record => record.situation === 0).length, 2);
 
 assert.equal(Object.keys(details.pog.secondCompanyTerritories).length, 8);
+assert.equal(Object.keys(details.pog.secondCompanyStrength).length, 8);
+assert.equal(total(Object.values(details.pog.secondCompanyStrength), value => value), 539);
 for (let number = 27; number <= 34; number += 1) {
   assert(details.pog.secondCompanyTerritories[`${number}º BPM`]?.length >= 2, `2nd company territory missing: ${number}º BPM`);
+  assert(details.pog.secondCompanyStrength[`${number}º BPM`] > 0, `2nd company strength missing: ${number}º BPM`);
+  assert(details.pog.secondCompanyStrength[`${number}º BPM`] < details.battalions.battalionTotals[`${number}º BPM`], `2nd company must be a component of ${number}º BPM`);
 }
 
 const csv = fs.readFileSync(path.join(root, 'data', 'saidas_batalhoes_2026.csv'), 'utf8').trim().split(/\r?\n/);

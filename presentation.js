@@ -171,10 +171,16 @@ const capitalBattalionNeighborhoods = {
   '22º BPM': ['Papicu', 'Dionísio Torres']
 };
 
+const caucaiaBattalionNeighborhoods = {
+  '12º BPM': ['Centro', 'Cumbuco'],
+  '26º BPM': ['Jurema', 'Nova Metrópole']
+};
+
 const battalionTerritoriesFromAddresses = Object.fromEntries(
   Object.entries(battalionCompanyCities).map(([battalion, cities]) => [
     battalion,
     capitalBattalionNeighborhoods[battalion]
+      ?? caucaiaBattalionNeighborhoods[battalion]
       ?? [...new Set([battalionHeadquartersCities[battalion], ...cities].filter(Boolean))]
   ])
 );
@@ -456,7 +462,7 @@ const metricDetails = {
       ['Em equilíbrio', 5.88, '2 · 5,9%', '#83b99a']
     ],
     sectionTitle: 'Visão geral por batalhão e unidade especializada',
-    sectionSubtitle: 'A tabela preserva os 34 BPMs, suas 84 Companhias territoriais vinculadas e acrescenta 19 unidades especializadas, incluindo a COPAC. Os batalhões do interior e da Região Metropolitana exibem cidades; os batalhões da Capital exibem seus bairros de referência. A estrutura de Companhias permanece resumida abaixo de cada batalhão. As unidades RAIO - 6º BPM a RAIO - 9º BPM permanecem com traço no saldo e na necessidade porque as movimentações de 2025–2026 não estão individualizadas pelas denominações atuais.',
+    sectionSubtitle: 'A tabela preserva os 34 BPMs, suas 84 Companhias territoriais vinculadas e acrescenta 19 unidades especializadas, incluindo a COPAC. Os batalhões do interior e da Região Metropolitana exibem cidades; os batalhões da Capital e os dois batalhões de Caucaia exibem seus bairros de referência. A estrutura de Companhias permanece resumida abaixo de cada batalhão. As unidades RAIO - 6º BPM a RAIO - 9º BPM permanecem com traço no saldo e na necessidade porque as movimentações de 2025–2026 não estão individualizadas pelas denominações atuais.',
     tableColumns: ['Posição', 'Unidade / cidades', '<span class="column-title-line">Efetivo da</span><span class="column-title-line">unidade</span>', 'Exonerações · outros concursos', 'Demissões · outros concursos', 'Requeridas', 'Movimentações', 'Perdas', 'Reestruturação.', '<span class="column-title-line">Necessidade de</span><span class="column-title-line">efetivo</span>'],
     tableRows: [],
     battalionTotals: battalionTotalsFromCompanies,

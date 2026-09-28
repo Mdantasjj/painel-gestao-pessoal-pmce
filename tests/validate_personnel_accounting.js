@@ -146,6 +146,8 @@ assert.deepEqual(Array.from(details.pog.territories['19º BPM']), ['Cambeba', 'A
 assert.deepEqual(Array.from(details.pog.territories['20º BPM']), ['Pirambu', 'Barra do Ceará']);
 assert.deepEqual(Array.from(details.pog.territories['21º BPM']), ['Conjunto Esperança', 'Maraponga']);
 assert.deepEqual(Array.from(details.pog.territories['22º BPM']), ['Papicu', 'Dionísio Torres']);
+assert.deepEqual(Array.from(details.pog.territories['12º BPM']), ['Centro', 'Cumbuco']);
+assert.deepEqual(Array.from(details.pog.territories['26º BPM']), ['Jurema', 'Nova Metrópole']);
 assert.deepEqual(Array.from(details.pog.territories['23º BPM']), ['Paracuru', 'Paraipaba', 'São Gonçalo do Amarante', 'Trairi']);
 assert.deepEqual(Array.from(details.pog.territories['25º BPM']), ['Horizonte', 'Pacajus']);
 assert.deepEqual(Array.from(details.pog.territories['32º BPM']), ['Brejo Santo', 'Mauriti']);

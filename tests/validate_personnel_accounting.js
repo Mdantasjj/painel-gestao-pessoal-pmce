@@ -195,7 +195,7 @@ for (const line of csv.slice(1, -1)) {
 assert.equal(number(details.exits.total), 16 + 64 + 243 + 81 + 504 + 203 + 374);
 assert.equal(number(details.exits.stats[0][1]), 64 + 81);
 assert.equal(number(details.exits.stats[1][1]), 16 + 243);
-assert.equal(details.exits.stats.length, 5, 'Os cards anuais de exonerações e demissões devem permanecer consolidados');
+assert.equal(details.exits.stats.length, 4, 'Os cards anuais de exonerações e demissões devem permanecer consolidados');
 assert(!details.exits.stats.some(([label]) => label.includes('Impactos atribuídos')), 'Card de impacto atribuído ainda presente');
 assert.equal(number(details.exits.tableRows[1][4]), 324);
 assert.equal(number(details.exits.tableRows[3][4]), 1111);
@@ -210,11 +210,10 @@ assert.deepEqual(
   [1184, 221, 80],
   'Operational, administrative and unassigned loss scopes mismatch'
 );
-assert.equal(total(details.exits.unitScope.tableRows.slice(0, 4), row => number(row[6])), 1485, 'Unit-scope loss total mismatch');
 assert.deepEqual(
   Array.from(details.exits.unitScope.tableRows[4].slice(2), number),
-  [145, 259, 707, 374, 1485],
-  'Unit-scope component totals mismatch'
+  [145, 259, 707],
+  'Visible unit-scope component totals mismatch'
 );
 assert.equal(number(details.pog.total), 111 + 110 + 50);
 assert.equal(number(details.pog.total) + number(details.raio.total) + number(details.copac.total), 1543);
@@ -304,6 +303,8 @@ assert(css.includes('.detail-table th:nth-child(7) { overflow-wrap: normal; whit
 assert(css.includes('*, *::before, *::after {') && css.includes('font-family: "Montserrat", "Segoe UI", Arial, sans-serif !important;'), 'Montserrat must be enforced across every dashboard element');
 assert(css.includes('.project-study-card-total--scenarios { display: grid; grid-template-columns: 1fr;'), 'Maria da Penha scenarios must be stacked in the project card');
 assert(!html.includes('374 movimentações para especializadas'), 'Specialized-movement note must not be shown on the main card');
+assert(!source.includes('Perdas dos BPMs para especializadas'), 'Specialized-movement stat must not be shown in the loss study');
+assert(!source.includes('Movimentações dos BPMs para especializadas'), 'Specialized-movement breakdown must not be shown in the loss study');
 for (const [key, expected] of Object.entries({ exits: 1485, pog: 1543, restructuring: 410, battalions: 1145 })) {
   const match = html.match(new RegExp(`data-detail="${key}"[\\s\\S]*?<div class="metric-main"><strong>([\\d.]+)</strong>`));
   assert(match, `Card not found: ${key}`);

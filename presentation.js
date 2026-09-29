@@ -247,6 +247,25 @@ const metricDetails = {
       ['Total combinado de registros', '145', '261', '767', '1.173'],
       ['Recorte atribuível aos 34 BPMs', '60', '170', '430', '660']
     ],
+    unitScope: {
+      summary: [
+        ['Unidades operacionais', '1.246', '34 BPMs territoriais e 19 especializadas'],
+        ['Administrativas e demais OPMs', '221', 'Comandos, diretorias, apoio e outras unidades'],
+        ['Sem OPM individualizada', '80', 'Processos agregados de 2025']
+      ],
+      unitLists: [
+        ['Operacionais consideradas', ['1º ao 34º BPM', 'RAIO - 1º ao 9º BPM', 'BEPI', 'BOPE', 'BPCHOQUE', 'BPGEP', 'BPMA', 'BPRE', 'BPTUR', 'COTAM', 'COPAC', 'RPMONT']],
+        ['Administrativas, comandos e apoio identificados', ['AGCG', 'ASCOI', 'ASINT', 'CCS/QCG', 'CGO', 'CGP', 'COGEIC', 'COLOG', 'CSASR', 'DPGO/DPGI', 'DS', 'HGPM', 'QCG/CBMPM', 'SUBCOMANDO-GERAL', 'CRPMs', 'CCPM/Colégios', 'CPGs', 'Outras OPMs']]
+      ],
+      tableColumns: ['Natureza da unidade', 'Escopo considerado', 'Exonerações', 'Demissões', 'Requeridas', 'Movimentações', 'Total'],
+      tableRows: [
+        ['Operacional territorial', '34 BPMs', '60', '170', '430', '374', '1.034'],
+        ['Operacional especializada', '19 unidades especializadas', '13', '45', '154', '0', '212'],
+        ['Administrativa e demais OPMs', 'Comandos, diretorias, apoio e outras unidades', '8', '30', '183', '0', '221'],
+        ['Sem OPM individualizada', 'Processos agregados de 2025', '64', '16', '0', '0', '80'],
+        ['TOTAL DO ESTUDO', 'Todas as parcelas consideradas', '145', '261', '767', '374', '1.547']
+      ]
+    },
     note: 'A aba “total_demissao_exoneracao” da planilha “MOVIMENTAÇÕES PMS 2025 - 2026.xlsx” informa 16 processos de demissão e 64 de exoneração em 2025, total de 80. Ela não discrimina batalhão, data do ato ou confirmação do desligamento; por isso, os 80 entram apenas no total geral, sem alterar a necessidade calculada por BPM. A mesma aba traz um subtotal parcial de 2026 (12 demissões e 63 exonerações), que NÃO foi somado novamente. Para 2026 prevalece a relação mais abrangente: são 340 lançamentos e 326 registros únicos após consolidar 14 NUPs repetidos. Em dois desses NUPs, a classificação evoluiu de exoneração para demissão; foi mantida somente a classificação mais recente, resultando em 245 demissões e 81 exonerações. A planilha de promoções por OPM contém 552 requeridas detalhadas em 2025 e 215 em 2026, somando 767. Das 767 requeridas, 430 têm vínculo direto com os 34 BPMs e 337 pertencem a outras OPMs. A base de movimentações registra ainda 374 transferências com origem nos BPMs numerados e destino em unidades especializadas: 271 em 2025 e 103 em 2026. Esse fluxo representa perda local dos BPMs, mas não desligamento da PMCE; ele já integra os saldos de movimentação usados na análise situacional e não deve ser somado novamente a esse cálculo. O total visual de 1.547 combina registros e naturezas distintas, sem comprovação de pessoas únicas entre fontes diferentes.'
   },
   raio: {
@@ -1609,6 +1628,33 @@ function renderProjectBreakdown(data, detailKey) {
     </section>`;
 }
 
+function renderExitUnitScope(data) {
+  const scope = data.unitScope;
+  if (!scope) return '';
+  const summary = scope.summary.map(([label, value, note]) => `
+    <div class="exit-unit-summary-card">
+      <span>${label}</span>
+      <strong>${value}</strong>
+      <small>${note}</small>
+    </div>`).join('');
+  const unitLists = scope.unitLists.map(([title, units]) => `
+    <div class="exit-unit-list">
+      <strong>${title}</strong>
+      <div>${units.map((unit) => `<span>${unit}</span>`).join('')}</div>
+    </div>`).join('');
+  return `
+    <section class="detail-section exit-unit-scope-section">
+      <div class="detail-section-heading">
+        <div><h3>Unidades administrativas e operacionais</h3><p>Classificação exclusiva deste estudo, sem alterar os cálculos ou as tabelas dos demais cards.</p></div>
+        <span>Recorte por natureza da OPM</span>
+      </div>
+      <div class="exit-unit-summary-grid">${summary}</div>
+      <div class="exit-unit-lists">${unitLists}</div>
+      ${renderDetailTable(scope, 'exits')}
+      <p class="exit-unit-scope-note"><strong>Leitura:</strong> as 374 movimentações estão vinculadas aos BPMs de origem e representam perda local para essas unidades, mas não desligamento da corporação. Os 80 processos de 2025 permanecem sem classificação administrativa ou operacional porque a fonte não informa a OPM.</p>
+    </section>`;
+}
+
 function renderProjectPogTable(data) {
   return `
     <section class="detail-section">
@@ -1710,6 +1756,7 @@ function renderMetricDetail(key) {
   const restructuringTopFive = key === 'restructuring' ? renderRestructuringTopFive(data) : '';
   const copacResources = key === 'copac' ? renderCopacResources(data) : '';
   const battalionSortControls = key === 'battalions' ? renderBattalionSortControls() : '';
+  const exitUnitScope = key === 'exits' ? renderExitUnitScope(data) : '';
   const detailTable = renderDetailTable(data, key);
   const discriminatedTable = ['exits', 'raio', 'copac'].includes(key) ? '' : `
     <section class="detail-section">
@@ -1733,6 +1780,7 @@ function renderMetricDetail(key) {
     ${restructuringUnitExplorer}
     ${restructuringTopFive}
     ${breakdownSection}
+    ${exitUnitScope}
     ${battalionRankings}
     ${copacResources}
     ${discriminatedTable}

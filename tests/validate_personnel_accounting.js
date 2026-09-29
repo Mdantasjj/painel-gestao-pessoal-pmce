@@ -199,6 +199,21 @@ assert(!details.exits.stats.some(([label]) => label.includes('Impactos atribuíd
 assert.equal(number(details.exits.tableRows[1][4]), 326);
 assert.equal(number(details.exits.tableRows[3][4]), 1173);
 assert.equal(number(details.exits.tableRows[4][4]), 660);
+assert.equal(details.exits.unitScope.tableRows.length, 5, 'Unit-scope loss table must contain four groups and a total');
+assert.equal(details.exits.unitScope.unitLists.length, 2, 'Operational and administrative unit lists must remain separated');
+assert(details.exits.unitScope.unitLists[0][1].includes('COPAC'), 'COPAC missing from the operational loss scope');
+assert(details.exits.unitScope.unitLists[1][1].includes('COGEIC'), 'Administrative units missing from the loss scope');
+assert.deepEqual(
+  Array.from(details.exits.unitScope.summary, row => number(row[1])),
+  [1246, 221, 80],
+  'Operational, administrative and unassigned loss scopes mismatch'
+);
+assert.equal(total(details.exits.unitScope.tableRows.slice(0, 4), row => number(row[6])), 1547, 'Unit-scope loss total mismatch');
+assert.deepEqual(
+  Array.from(details.exits.unitScope.tableRows[4].slice(2), number),
+  [145, 261, 767, 374, 1547],
+  'Unit-scope component totals mismatch'
+);
 assert.equal(number(details.pog.total), 111 + 110 + 50);
 assert.equal(number(details.pog.total) + number(details.raio.total) + number(details.copac.total), 1543);
 assert.equal(number(details.battalions.total), 1204);

@@ -929,7 +929,7 @@ function renderBattalionOptionalValue(total, note) {
 
 function renderBattalionLossValue(record) {
   if (record.losses == null) return renderBattalionExitValue(0, 'após movimentações', true);
-  if (Object.hasOwn(battalionLossAdjustments, record.name)) return renderBattalionSignedValue(record.losses, 'PERDAS ANTERIORES');
+  if (Object.hasOwn(battalionLossAdjustments, record.name)) return renderBattalionExitValue(record.losses, 'PERDAS ANTERIORES');
   return renderBattalionExitValue(record.losses, 'após movimentações');
 }
 

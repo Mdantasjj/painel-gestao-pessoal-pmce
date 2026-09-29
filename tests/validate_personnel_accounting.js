@@ -127,7 +127,8 @@ assert(battalionTotalRow[7].includes('<strong>633</strong>'), 'Losses table tota
 assert(battalionTotalRow[8].includes('<strong>410</strong>'), 'Restructuring table total mismatch');
 assert(battalionTotalRow[9].includes('<strong>1.043</strong>'), 'Consolidated table total mismatch');
 const thirteenthBattalionRow = details.battalions.tableRows.find(row => row[1] === '13º BPM');
-assert(thirteenthBattalionRow[7].includes('<strong>+48</strong>'), '13º BPM previous losses adjustment missing');
+assert(thirteenthBattalionRow[7].includes('<strong>48</strong>'), '13º BPM previous losses adjustment missing');
+assert(!thirteenthBattalionRow[7].includes('<strong>+48</strong>'), '13º BPM losses must not display a plus sign');
 assert(thirteenthBattalionRow[7].includes('PERDAS ANTERIORES'), '13º BPM previous losses label missing');
 assert.equal(battalionRecords.filter(record => record.situation < 0).length, 29);
 assert.equal(battalionRecords.filter(record => record.situation > 0).length, 3);

@@ -56,22 +56,28 @@ for (const [region, expected] of Object.entries(details.battalions.crpmTotals)) 
 
 const expectedRestructuring = {
   '26º BPM': [286, 325, 39],
-  '27º BPM': [212, 276, 64],
-  '28º BPM': [173, 276, 103],
-  '29º BPM': [240, 298, 58],
-  '30º BPM': [187, 242, 55],
-  '31º BPM': [161, 242, 81],
-  '32º BPM': [222, 246, 24],
-  '33º BPM': [125, 246, 121],
+  '27º BPM': [212, 276, 24],
+  '28º BPM': [173, 276, 63],
+  '29º BPM': [240, 298, 28],
+  '30º BPM': [187, 242, 35],
+  '31º BPM': [161, 242, 51],
+  '32º BPM': [222, 246, 44],
+  '33º BPM': [125, 246, 71],
   '34º BPM': [191, 246, 55]
+};
+const expectedRestructuringAdjustments = {
+  '27º BPM': -40, '28º BPM': -40, '29º BPM': -30, '30º BPM': -20,
+  '31º BPM': -30, '32º BPM': 20, '33º BPM': -50
 };
 const restructuring = details.restructuring;
 assert.equal(restructuring.units.length, 9);
-for (const [name, current, reference, additional, region, average, losses] of restructuring.units) {
+for (const [name, current, reference, additional, region, average, losses, baseAdditional, manualAdjustment] of restructuring.units) {
   assert.deepEqual([current, reference, additional], expectedRestructuring[name], name);
   assert.equal(average, details.battalions.crpmTotals[region] / restructuring.regionalCounts[region]);
   assert.equal(reference, Math.ceil(average), `Reference mismatch: ${name}`);
-  assert.equal(additional, Math.max(0, reference - current), `Additional need mismatch: ${name}`);
+  assert.equal(baseAdditional, Math.max(0, reference - current), `Base need mismatch: ${name}`);
+  assert.equal(manualAdjustment, expectedRestructuringAdjustments[name] ?? 0, `Manual restructuring adjustment mismatch: ${name}`);
+  assert.equal(additional, baseAdditional + manualAdjustment, `Adjusted need mismatch: ${name}`);
   assert.equal(losses, records.find(record => record.name === name).losses, `Restructuring losses mismatch: ${name}`);
   const row = restructuring.tableRows.find((item) => item[1] === name);
   assert(row, `Table row missing: ${name}`);
@@ -79,10 +85,10 @@ for (const [name, current, reference, additional, region, average, losses] of re
   assert.equal(number(row[6]), -additional, `Table need display mismatch: ${name}`);
 }
 assert.equal(total(restructuring.units, ([, current]) => current), 1797);
-assert.equal(total(restructuring.units, ([, , , additional]) => additional), 600);
-assert.equal(restructuring.totalNumber, 600);
-assert.equal(total(restructuring.units, ([, current, , additional]) => current + additional), 2397);
-assert.equal(total(restructuring.units.slice(0, 5), ([, , , additional]) => additional), 427);
+assert.equal(total(restructuring.units, ([, , , additional]) => additional), 410);
+assert.equal(restructuring.totalNumber, 410);
+assert.equal(total(restructuring.units, ([, current, , additional]) => current + additional), 2207);
+assert.equal(total([...restructuring.units].sort((a, b) => b[3] - a[3]).slice(0, 5), ([, , , additional]) => additional), 284);
 
 assert.equal(records.length, 53);
 assert.equal(battalionRecords.length, 34);
@@ -98,8 +104,8 @@ for (const [field, expected] of Object.entries({
   losses: 585,
   situation: -570,
   calculatedDeficit: 585,
-  restructuringNeed: 600,
-  totalNeed: 1185
+  restructuringNeed: 410,
+  totalNeed: 995
 })) {
   assert.equal(total(battalionRecords, record => record[field]), expected, field);
 }
@@ -117,8 +123,8 @@ assert(unaffectedTableRow[8].includes('<strong>—</strong>'), 'Unaffected BPM m
 assert(affectedTableRow[8].includes('<strong>39</strong>'), '26º BPM restructuring value missing');
 assert(affectedTableRow[9].includes('<strong>61</strong>'), '26º BPM consolidated need mismatch');
 assert(battalionTotalRow[7].includes('<strong>585</strong>'), 'Losses table total mismatch');
-assert(battalionTotalRow[8].includes('<strong>600</strong>'), 'Restructuring table total mismatch');
-assert(battalionTotalRow[9].includes('<strong>1.185</strong>'), 'Consolidated table total mismatch');
+assert(battalionTotalRow[8].includes('<strong>410</strong>'), 'Restructuring table total mismatch');
+assert(battalionTotalRow[9].includes('<strong>995</strong>'), 'Consolidated table total mismatch');
 assert.equal(battalionRecords.filter(record => record.situation < 0).length, 29);
 assert.equal(battalionRecords.filter(record => record.situation > 0).length, 3);
 assert.equal(battalionRecords.filter(record => record.situation === 0).length, 2);
@@ -190,7 +196,7 @@ assert.equal(number(details.exits.tableRows[3][4]), 1173);
 assert.equal(number(details.exits.tableRows[4][4]), 660);
 assert.equal(number(details.pog.total), 111 + 110 + 50);
 assert.equal(number(details.pog.total) + number(details.raio.total) + number(details.copac.total), 1543);
-assert.equal(number(details.battalions.total), 1346);
+assert.equal(number(details.battalions.total), 1156);
 
 assert.deepEqual(Object.keys(sortLabels), ['unit', 'battalionStrength', 'movementBalance', 'restructuringNeed', 'totalNeed']);
 assert.equal(sortLabels.unit, 'UNIDADE, ORDEM ALFANUMÉRICA');
@@ -261,7 +267,7 @@ for (const phase of details.copac.phases) {
 }
 
 const html = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
-for (const [key, expected] of Object.entries({ exits: 1547, pog: 1543, restructuring: 600, battalions: 1346 })) {
+for (const [key, expected] of Object.entries({ exits: 1547, pog: 1543, restructuring: 410, battalions: 1156 })) {
   const match = html.match(new RegExp(`data-detail="${key}"[\\s\\S]*?<div class="metric-main"><strong>([\\d.]+)</strong>`));
   assert(match, `Card not found: ${key}`);
   assert.equal(number(match[1]), expected, `Card total mismatch: ${key}`);

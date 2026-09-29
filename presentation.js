@@ -645,6 +645,16 @@ const metricDetails = {
   }
 };
 
+const battalionRestructuringAdjustments = {
+  '27º BPM': -40,
+  '28º BPM': -40,
+  '29º BPM': -30,
+  '30º BPM': -20,
+  '31º BPM': -30,
+  '32º BPM': 20,
+  '33º BPM': -50
+};
+
 function recalculateRestructuringFromConsolidatedStrength() {
   const study = metricDetails.restructuring;
   const consolidated = metricDetails.battalions;
@@ -658,12 +668,14 @@ function recalculateRestructuringFromConsolidatedStrength() {
     const region = consolidated.crpmByUnit[name];
     const regionalAverage = consolidated.crpmTotals[region] / regionCounts[region];
     const reference = Math.ceil(regionalAverage);
-    const additional = Math.max(0, reference - current);
+    const baseAdditional = Math.max(0, reference - current);
+    const manualAdjustment = battalionRestructuringAdjustments[name] ?? 0;
+    const additional = baseAdditional + manualAdjustment;
     const movementBalance = metricDetails.pog.units.find(([unitName]) => unitName === name)?.[3] ?? 0;
     const [exonerations = 0, dismissals = 0] = consolidated.administrativeExits[name] || [];
     const requiredPromotions = (consolidated.requiredPromotions2025[name] ?? 0) + (consolidated.requiredPromotions2026[name] ?? 0);
     const losses = Math.max(0, exonerations + dismissals + requiredPromotions - movementBalance);
-    return [name, current, reference, additional, region, regionalAverage, losses];
+    return [name, current, reference, additional, region, regionalAverage, losses, baseAdditional, manualAdjustment];
   }).sort((a, b) => b[3] - a[3]);
   const currentTotal = units.reduce((sum, [, current]) => sum + current, 0);
   const additionalTotal = units.reduce((sum, [, , , additional]) => sum + additional, 0);
@@ -680,23 +692,23 @@ function recalculateRestructuringFromConsolidatedStrength() {
   study.regionalCounts = regionCounts;
   study.total = format(additionalTotal);
   study.title = `Reestruturação do interior e litoral: ${format(additionalTotal)} policiais necessários - Dec.: 34.820/2022 para o Dec.: 36.491/2025`;
-  study.description = `Com os efetivos consolidados mais recentes, os nove batalhões do recorte estão abaixo da média atual de seus CRPMs. Para levá-los à referência inteira, são necessários ${format(additionalTotal)} policiais adicionais. O conjunto passa de ${format(currentTotal)} para ${format(targetTotal)} policiais. É uma comparação com a média atual, não uma nova média recalculada após o reforço.`;
+  study.description = `A base matemática dos nove batalhões foi preservada e recebeu ajustes manuais exclusivamente na coluna Reestruturação. Após os acréscimos e subtrações informados, são necessários ${format(additionalTotal)} policiais. O conjunto passa de ${format(currentTotal)} para ${format(targetTotal)} policiais.`;
   study.stats = [
     ['Efetivo atual', format(currentTotal), 'Policiais nos nove batalhões analisados'],
-    ['Efetivo adicional necessário', format(additionalTotal), 'Reforço distribuído entre os nove batalhões'],
+    ['Efetivo adicional necessário', format(additionalTotal), 'Reforço ajustado manualmente entre os nove batalhões'],
     ['Efetivo após implementação', format(targetTotal), `${format(currentTotal)} atuais + ${format(additionalTotal)} adicionais`]
   ];
   study.breakdownSubtitle = `Participação de cada BPM nos ${format(additionalTotal)} policiais necessários à transição do Dec. 34.820/2022 para o Dec. 36.491/2025.`;
-  study.sectionSubtitle = 'O 26º BPM exibe os bairros Jurema e Nova Metrópole; do 27º ao 34º BPM, aparecem respectivamente as cidades da 1ª e da 2ª Cias. Cada referência é a média atual do CRPM arredondada para cima; necessidade = referência inteira − efetivo atual.';
+  study.sectionSubtitle = 'O 26º BPM exibe os bairros Jurema e Nova Metrópole; do 27º ao 34º BPM, aparecem respectivamente as cidades da 1ª e da 2ª Cias. A referência matemática permanece visível, enquanto a necessidade incorpora os ajustes manuais da reestruturação.';
   study.tableRows = units.map(([name, current, reference, additional, , , losses], index) => [
     String(index + 1), name, format(current), format(reference),
     additional > 0 ? 'Abaixo da média' : 'Na média ou acima', format(losses), additional > 0 ? `-${format(additional)}` : '0'
   ]);
-  study.note = `Escopo: nove BPMs numerados (26º a 34º) identificados na aba “Resumo Executivo” da planilha de reorganização; 6º a 9º BPRAIO continuam fora. Os efetivos atuais foram recalculados pela soma das 84 Companhias territoriais informadas, totalizando ${format(battalionStrengthTotal)} policiais nos 34 BPMs. Os totais dos oito CRPMs são derivados da mesma base. Para cada unidade, a média atual do CRPM é calculada por efetivo regional ÷ número de BPMs do comando; a meta é arredondada para cima antes de subtrair o efetivo da unidade. Os nove acréscimos inteiros somam ${format(additionalTotal)} policiais. Esse é um cenário de nivelamento à média de referência atual, não efetivo já autorizado nem meta recalculada após a alocação. Na visão consolidada dos 34 BPMs, esses valores são incorporados à parcela situacional de cada unidade conforme orientação de planejamento.`;
+  study.note = `Escopo: nove BPMs numerados (26º a 34º) identificados na aba “Resumo Executivo” da planilha de reorganização; 6º a 9º BPRAIO continuam fora. Os efetivos atuais foram recalculados pela soma das 84 Companhias territoriais informadas, totalizando ${format(battalionStrengthTotal)} policiais nos 34 BPMs. A referência matemática original foi preservada. Sobre a coluna Reestruturação foram aplicados manualmente: 27º BPM −40; 28º BPM −40; 29º BPM −30; 30º BPM −20; 31º BPM −30; 32º BPM +20; 33º BPM −50. O 26º e o 34º BPM permanecem inalterados. O resultado ajustado dos nove batalhões soma ${format(additionalTotal)} policiais. A coluna Perdas não foi alterada.`;
 
   consolidated.total = format(consolidatedNeed);
   consolidated.description = `Cenário consolidado: ${format(battalionSituationalNeed)} policiais da necessidade situacional dos 34 BPMs, ${format(additionalTotal)} policiais da reestruturação do interior e do litoral e ${format(specializedNeed)} policiais da necessidade situacional apurável nas unidades especializadas, incluindo a COPAC. As necessidades locais não são compensadas por saldos positivos de outras unidades.`;
-  consolidated.note = `Para cada unidade, a situação é calculada por saldo das movimentações − exonerações − demissões − promoções requeridas de 2025 e 2026 vinculadas. A nova base detalhada reúne 84 Companhias territoriais subordinadas aos 34 BPMs e soma ${format(battalionStrengthTotal)} policiais; referências a 1ª, 2ª, 3ª ou 4ª Cia são consolidadas no respectivo batalhão. As cidades foram obtidas da aba POG da planilha “ENDEREÇOS_DAS_BASES.xlsx”. Fora da Capital e de Caucaia, a identificação visual mostra, respectivamente, as cidades da 1ª e da 2ª Companhia; na Capital e em Caucaia, são usados os bairros de referência informados no estudo. O 2º BPM considera também a 4ª Cia informada com um policial na base de efetivo, mas a planilha de endereços não apresenta uma cidade para essa Companhia. As necessidades locais apuradas somam ${format(battalionSituationalNeed)} policiais nos 34 BPMs e ${format(specializedNeed)} nas unidades especializadas com saldo individualizado. A parcela de ${format(additionalTotal)} policiais da reestruturação permanece restrita ao 26º–34º BPM. O resultado consolidado é ${format(consolidatedNeed)} policiais (${format(battalionSituationalNeed)} + ${format(additionalTotal)} + ${format(specializedNeed)}). Os 80 processos agregados de exoneração e demissão de 2025 não foram distribuídos, pois a fonte não identifica a OPM. Em RAIO - 6º BPM, RAIO - 7º BPM, RAIO - 8º BPM e RAIO - 9º BPM, o saldo e a necessidade permanecem indisponíveis porque a fonte de movimentações não individualiza essas denominações. Promoção requerida não comprova baixa institucional, e o cenário não representa efetivo já autorizado.`;
+  consolidated.note = `Para cada unidade, a situação é calculada por saldo das movimentações − exonerações − demissões − promoções requeridas de 2025 e 2026 vinculadas. A nova base detalhada reúne 84 Companhias territoriais subordinadas aos 34 BPMs e soma ${format(battalionStrengthTotal)} policiais; referências a 1ª, 2ª, 3ª ou 4ª Cia são consolidadas no respectivo batalhão. As cidades foram obtidas da aba POG da planilha “ENDEREÇOS_DAS_BASES.xlsx”. Fora da Capital e de Caucaia, a identificação visual mostra, respectivamente, as cidades da 1ª e da 2ª Companhia; na Capital e em Caucaia, são usados os bairros de referência informados no estudo. O 2º BPM considera também a 4ª Cia informada com um policial na base de efetivo, mas a planilha de endereços não apresenta uma cidade para essa Companhia. As perdas permanecem em ${format(battalionSituationalNeed)} policiais nos 34 BPMs. A reestruturação ajustada soma ${format(additionalTotal)} policiais e permanece restrita ao 26º–34º BPM; as unidades especializadas somam ${format(specializedNeed)}. O resultado consolidado é ${format(consolidatedNeed)} policiais (${format(battalionSituationalNeed)} + ${format(additionalTotal)} + ${format(specializedNeed)}). Os 80 processos agregados de exoneração e demissão de 2025 não foram distribuídos, pois a fonte não identifica a OPM. Em RAIO - 6º BPM, RAIO - 7º BPM, RAIO - 8º BPM e RAIO - 9º BPM, o saldo e a necessidade permanecem indisponíveis porque a fonte de movimentações não individualiza essas denominações. Promoção requerida não comprova baixa institucional, e o cenário não representa efetivo já autorizado.`;
 
   const card = document.querySelector('.metric-card[data-detail="restructuring"]');
   if (card) {
@@ -1387,9 +1399,9 @@ function renderRestructuringUnitDetail(unitName) {
   const share = belowAverage ? operationalDifference / metricDetails.restructuring.totalNumber * 100 : 0;
   const regionalTotal = metricDetails.battalions.crpmTotals[region];
   const regionalCount = metricDetails.restructuring.regionalCounts[region];
-  const calculation = `${region}: ${formatNumber(regionalTotal)} policiais ÷ ${regionalCount} BPMs = média atual de ${formatNumber(regionalAverage)}; meta inteira de ${formatNumber(reference)}.`;
+  const calculation = `${region}: ${formatNumber(regionalTotal)} policiais ÷ ${regionalCount} BPMs = média atual de ${formatNumber(regionalAverage)}; referência matemática inteira de ${formatNumber(reference)}.`;
   const interpretation = belowAverage
-    ? `Acrescentar ${formatNumber(operationalDifference)} policiais a este BPM para atingir a referência atual. Com o reforço, seu efetivo passa de ${formatNumber(current)} para ${formatNumber(current + operationalDifference)} policiais. Esta unidade representa ${formatNumber(share)}% dos ${metricDetails.restructuring.total} necessários. ${calculation}`
+    ? `Aplicar o reforço ajustado de ${formatNumber(operationalDifference)} policiais a este BPM. Com o reforço, seu efetivo passa de ${formatNumber(current)} para ${formatNumber(current + operationalDifference)} policiais. Esta unidade representa ${formatNumber(share)}% dos ${metricDetails.restructuring.total} necessários após os ajustes manuais. ${calculation}`
     : `Este BPM não precisa de reforço neste recorte. ${calculation}`;
   result.innerHTML = `
     <div class="pog-unit-result-heading">
@@ -1429,7 +1441,7 @@ function renderRestructuringTopFive(data) {
   return `
     <section class="detail-section restructuring-ranking-section">
       <div class="detail-section-heading">
-        <div><h3>Top 5 maiores necessidades de efetivo</h3><p>Batalhões que receberiam o maior reforço para atingir a referência de seus comandos.</p></div>
+        <div><h3>Top 5 maiores necessidades de efetivo</h3><p>Batalhões com os maiores reforços após os ajustes manuais da reestruturação.</p></div>
         <span>${topFiveShare.toLocaleString('pt-BR', { minimumFractionDigits: 1, maximumFractionDigits: 1 })}% dos ${data.total} policiais</span>
       </div>
       <div class="restructuring-ranking">${rows}</div>

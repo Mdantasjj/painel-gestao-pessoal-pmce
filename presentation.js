@@ -27,7 +27,7 @@ function showToast(message) {
 function renderDismissalsChart() {
   const labels = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago'];
   const series = [
-    { name: 'Demissões · outros concursos', color: '#1b8258', values: [8, 2, 0, 7, 143, 76, 14, 2] },
+    { name: 'Demissões · outros concursos', color: '#1b8258', values: [6, 2, 0, 7, 143, 76, 14, 2] },
     { name: 'Exonerações · outros concursos', color: '#c1a253', values: [10, 7, 7, 24, 22, 6, 12, 0] }
   ];
   const maxValue = 143;
@@ -44,7 +44,7 @@ function renderDismissalsChart() {
   document.querySelector('#mainChart').innerHTML = `
     <div class="chart-key">${key}</div>
     <div class="bar-stage" style="--count:8">${groups}</div>
-    <div class="chart-source-note">A série mensal mostra 340 lançamentos brutos de 2026. Após consolidar 14 NUPs repetidos, permanecem 326 registros únicos. O indicador geral usa 1.173 registros de saídas/requeridas e acrescenta 374 movimentações internas dos BPMs para unidades especializadas, totalizando 1.547 registros de fontes e naturezas diferentes.</div>`;
+    <div class="chart-source-note">A série mensal considera 338 lançamentos brutos de 2026 após excluir dois registros do BPGEP. Depois da consolidação dos NUPs repetidos, permanecem 324 registros únicos considerados. O indicador geral usa 1.111 registros de saídas/requeridas e acrescenta 374 movimentações internas dos BPMs para unidades especializadas, totalizando 1.485 registros de fontes e naturezas diferentes.</div>`;
 }
 
 function renderPromotions() {
@@ -218,55 +218,55 @@ const metricDetails = {
   exits: {
     accent: '#23845b',
     eyebrow: 'Memória de cálculo · perda de efetivo',
-    title: '1.547 registros considerados na análise de perdas',
-    total: '1.547',
+    title: '1.485 registros considerados na análise de perdas',
+    total: '1.485',
     unit: 'registros considerados',
-    description: 'Indicador combinado: 80 processos de demissão/exoneração relacionados a outros concursos informados para 2025, 326 saídas administrativas únicas de 2026, 767 promoções requeridas de 2025–2026 e 374 movimentações dos BPMs para unidades especializadas. Movimentação interna, processo e promoção não comprovam baixa institucional nem pessoa única.',
+    description: 'Indicador combinado após excluir o BPGEP: 80 processos de demissão/exoneração relacionados a outros concursos informados para 2025, 324 saídas administrativas únicas consideradas de 2026, 707 promoções requeridas de 2025–2026 e 374 movimentações dos BPMs para unidades especializadas. Movimentação interna, processo e promoção não comprovam baixa institucional nem pessoa única.',
     stats: [
       ['Exonerações de 2025–2026 · outros concursos', '145', '64 processos de 2025 + 81 registros únicos de 2026'],
-      ['Demissões de 2025–2026 · outros concursos', '261', '16 processos de 2025 + 245 registros deduplicados de 2026'],
-      ['Requeridas de 2025', '552', '320 nos BPMs · 232 em outras OPMs'],
-      ['Requeridas de 2026', '215', '110 nos BPMs · 105 em outras OPMs'],
+      ['Demissões de 2025–2026 · outros concursos', '259', '16 processos de 2025 + 243 registros considerados de 2026'],
+      ['Requeridas de 2025', '504', '320 nos BPMs · 184 em outras OPMs'],
+      ['Requeridas de 2026', '203', '110 nos BPMs · 93 em outras OPMs'],
       ['Perdas dos BPMs para especializadas', '374', 'Movimentações internas: 271 em 2025 · 103 em 2026']
     ],
     breakdown: [
-      ['Demissões · outros concursos · processos 2025', 16 / 1547 * 100, '16 · 1,0%', '#145c40'],
-      ['Exonerações · outros concursos · processos 2025', 64 / 1547 * 100, '64 · 4,1%', '#3d9065'],
-      ['Demissões · outros concursos 2026', 245 / 1547 * 100, '245 · 15,8%', '#28734e'],
-      ['Exonerações · outros concursos 2026', 81 / 1547 * 100, '81 · 5,2%', '#55a477'],
-      ['Requeridas · 2025–2026', 767 / 1547 * 100, '767 · 49,6%', '#698342'],
-      ['Movimentações dos BPMs para especializadas', 374 / 1547 * 100, '374 · 24,2%', '#2f855a']
+      ['Demissões · outros concursos · processos 2025', 16 / 1485 * 100, '16 · 1,1%', '#145c40'],
+      ['Exonerações · outros concursos · processos 2025', 64 / 1485 * 100, '64 · 4,3%', '#3d9065'],
+      ['Demissões · outros concursos 2026', 243 / 1485 * 100, '243 · 16,4%', '#28734e'],
+      ['Exonerações · outros concursos 2026', 81 / 1485 * 100, '81 · 5,5%', '#55a477'],
+      ['Requeridas · 2025–2026', 707 / 1485 * 100, '707 · 47,6%', '#698342'],
+      ['Movimentações dos BPMs para especializadas', 374 / 1485 * 100, '374 · 25,2%', '#2f855a']
     ],
     sectionTitle: 'Conciliação dos registros considerados',
     sectionSubtitle: 'Os processos de 2025 são agregados por ano e não foram atribuídos a batalhões.',
     tableColumns: ['Etapa de validação', 'Exonerações · outros concursos', 'Demissões · outros concursos', 'Requeridas', 'Total'],
     tableRows: [
       ['Processos agregados de 2025', '64', '16', '0', '80'],
-      ['Saídas únicas de 2026', '81', '245', '0', '326'],
-      ['Requeridas de 2025–2026', '0', '0', '767', '767'],
-      ['Total combinado de registros', '145', '261', '767', '1.173'],
+      ['Saídas únicas de 2026 · sem BPGEP', '81', '243', '0', '324'],
+      ['Requeridas de 2025–2026 · sem BPGEP', '0', '0', '707', '707'],
+      ['Total combinado de registros', '145', '259', '707', '1.111'],
       ['Recorte atribuível aos 34 BPMs', '60', '170', '430', '660']
     ],
     unitScope: {
       summary: [
-        ['Unidades operacionais', '1.246', '34 BPMs territoriais e 19 especializadas'],
+        ['Unidades operacionais', '1.184', '34 BPMs territoriais e 18 especializadas'],
         ['Administrativas e demais OPMs', '221', 'Comandos, diretorias, apoio e outras unidades'],
         ['Sem OPM individualizada', '80', 'Processos agregados de 2025']
       ],
       unitLists: [
-        ['Operacionais consideradas', ['1º ao 34º BPM', 'RAIO - 1º ao 9º BPM', 'BEPI', 'BOPE', 'BPCHOQUE', 'BPGEP', 'BPMA', 'BPRE', 'BPTUR', 'COTAM', 'COPAC', 'RPMONT']],
+        ['Operacionais consideradas', ['1º ao 34º BPM', 'RAIO - 1º ao 9º BPM', 'BEPI', 'BOPE', 'BPCHOQUE', 'BPMA', 'BPRE', 'BPTUR', 'COTAM', 'COPAC', 'RPMONT']],
         ['Administrativas, comandos e apoio identificados', ['AGCG', 'ASCOI', 'ASINT', 'CCS/QCG', 'CGO', 'CGP', 'COGEIC', 'COLOG', 'CSASR', 'DPGO/DPGI', 'DS', 'HGPM', 'QCG/CBMPM', 'SUBCOMANDO-GERAL', 'CRPMs', 'CCPM/Colégios', 'CPGs', 'Outras OPMs']]
       ],
       tableColumns: ['Natureza da unidade', 'Escopo considerado', 'Exonerações', 'Demissões', 'Requeridas', 'Movimentações', 'Total'],
       tableRows: [
         ['Operacional territorial', '34 BPMs', '60', '170', '430', '374', '1.034'],
-        ['Operacional especializada', '19 unidades especializadas', '13', '45', '154', '0', '212'],
+        ['Operacional especializada', '18 unidades especializadas', '13', '43', '94', '0', '150'],
         ['Administrativa e demais OPMs', 'Comandos, diretorias, apoio e outras unidades', '8', '30', '183', '0', '221'],
         ['Sem OPM individualizada', 'Processos agregados de 2025', '64', '16', '0', '0', '80'],
-        ['TOTAL DO ESTUDO', 'Todas as parcelas consideradas', '145', '261', '767', '374', '1.547']
+        ['TOTAL DO ESTUDO', 'Todas as parcelas consideradas', '145', '259', '707', '374', '1.485']
       ]
     },
-    note: 'A aba “total_demissao_exoneracao” da planilha “MOVIMENTAÇÕES PMS 2025 - 2026.xlsx” informa 16 processos de demissão e 64 de exoneração em 2025, total de 80. Ela não discrimina batalhão, data do ato ou confirmação do desligamento; por isso, os 80 entram apenas no total geral, sem alterar a necessidade calculada por BPM. A mesma aba traz um subtotal parcial de 2026 (12 demissões e 63 exonerações), que NÃO foi somado novamente. Para 2026 prevalece a relação mais abrangente: são 340 lançamentos e 326 registros únicos após consolidar 14 NUPs repetidos. Em dois desses NUPs, a classificação evoluiu de exoneração para demissão; foi mantida somente a classificação mais recente, resultando em 245 demissões e 81 exonerações. A planilha de promoções por OPM contém 552 requeridas detalhadas em 2025 e 215 em 2026, somando 767. Das 767 requeridas, 430 têm vínculo direto com os 34 BPMs e 337 pertencem a outras OPMs. A base de movimentações registra ainda 374 transferências com origem nos BPMs numerados e destino em unidades especializadas: 271 em 2025 e 103 em 2026. Esse fluxo representa perda local dos BPMs, mas não desligamento da PMCE; ele já integra os saldos de movimentação usados na análise situacional e não deve ser somado novamente a esse cálculo. O total visual de 1.547 combina registros e naturezas distintas, sem comprovação de pessoas únicas entre fontes diferentes.'
+    note: 'A aba “total_demissao_exoneracao” da planilha “MOVIMENTAÇÕES PMS 2025 - 2026.xlsx” informa 16 processos de demissão e 64 de exoneração em 2025, total de 80. Ela não discrimina batalhão, data do ato ou confirmação do desligamento; por isso, os 80 entram apenas no total geral, sem alterar a necessidade calculada por BPM. A base mais abrangente de 2026 contém originalmente 326 registros únicos após consolidar 14 NUPs repetidos. Por determinação metodológica, foram excluídas duas demissões do BPGEP, restando 243 demissões e 81 exonerações, total de 324 registros considerados em 2026. Da planilha de promoções por OPM também foram retiradas 48 requeridas de 2025 e 12 de 2026 vinculadas ao BPGEP; permanecem 504 em 2025 e 203 em 2026, total de 707. A base de movimentações registra ainda 374 transferências com origem nos BPMs numerados e destino em unidades especializadas: 271 em 2025 e 103 em 2026. Esse fluxo foi preservado porque representa perda local dos BPMs de origem, mas não desligamento da PMCE; ele já integra os saldos usados na análise situacional e não deve ser somado novamente a esse cálculo. O total visual de 1.485 combina registros e naturezas distintas, sem comprovação de pessoas únicas entre fontes diferentes.'
   },
   raio: {
     accent: '#3b7e9d',
@@ -465,9 +465,9 @@ const metricDetails = {
     unit: 'necessidade consolidada apurada',
     description: '',
     stats: [
-      ['Unidades analisadas', '53', '34 BPMs · 19 unidades especializadas'],
-      ['Exonerações e demissões · outros concursos', '73 + 215', '288 saídas discriminadas nas unidades da tabela'],
-      ['Necessidade nas especializadas', '161', 'Resultado apurável em 15 unidades; quatro BPRAIO sem saldo individualizado']
+      ['Unidades analisadas', '52', '34 BPMs · 18 unidades especializadas'],
+      ['Exonerações e demissões · outros concursos', '73 + 213', '286 saídas discriminadas nas unidades da tabela'],
+      ['Necessidade nas especializadas', '102', 'Resultado apurável em 14 unidades; quatro BPRAIO sem saldo individualizado']
     ],
     breakdownTitle: 'Situação integrada dos 34 batalhões',
     breakdownSubtitle: 'Distribuição dos BPMs após incorporar exonerações e demissões relacionadas a outros concursos, além das requeridas, ao saldo das movimentações.',
@@ -478,7 +478,7 @@ const metricDetails = {
       ['Em equilíbrio', 5.88, '2 · 5,9%', '#83b99a']
     ],
     sectionTitle: 'Visão geral por batalhão e unidade especializada',
-    sectionSubtitle: 'A tabela preserva os 34 BPMs, suas 84 Companhias territoriais vinculadas e acrescenta 19 unidades especializadas, incluindo a COPAC. Fora da Capital e de Caucaia, cada batalhão exibe, nesta ordem, as cidades da 1ª e da 2ª Companhia. Os batalhões da Capital e os dois batalhões de Caucaia exibem seus bairros de referência. A estrutura de Companhias permanece resumida abaixo de cada batalhão. As unidades RAIO - 6º BPM a RAIO - 9º BPM permanecem com traço no saldo e na necessidade porque as movimentações de 2025–2026 não estão individualizadas pelas denominações atuais.',
+    sectionSubtitle: 'A tabela preserva os 34 BPMs, suas 84 Companhias territoriais vinculadas e acrescenta 18 unidades especializadas, incluindo a COPAC e excluindo o BPGEP. Fora da Capital e de Caucaia, cada batalhão exibe, nesta ordem, as cidades da 1ª e da 2ª Companhia. Os batalhões da Capital e os dois batalhões de Caucaia exibem seus bairros de referência. A estrutura de Companhias permanece resumida abaixo de cada batalhão. As unidades RAIO - 6º BPM a RAIO - 9º BPM permanecem com traço no saldo e na necessidade porque as movimentações de 2025–2026 não estão individualizadas pelas denominações atuais.',
     tableColumns: ['Posição', 'Unidade / cidades', '<span class="column-title-line">Efetivo da</span><span class="column-title-line">unidade</span>', 'Exonerações · outros concursos', 'Demissões · outros concursos', 'Requeridas', 'Movimentações', 'Perdas', 'Reestruturação.', '<span class="column-title-line">Necessidade de</span><span class="column-title-line">efetivo</span>'],
     tableRows: [],
     battalionTotals: battalionTotalsFromCompanies,
@@ -530,7 +530,6 @@ const metricDetails = {
       { name: 'BEPI', strength: 479, exonerations: 0, dismissals: 0, required2025: 3, required2026: 1, movementBalance: 2 },
       { name: 'BOPE', strength: 75, exonerations: 0, dismissals: 0, required2025: 0, required2026: 1, movementBalance: 2 },
       { name: 'BPCHOQUE', strength: 412, exonerations: 2, dismissals: 4, required2025: 11, required2026: 11, movementBalance: 53 },
-      { name: 'BPGEP', strength: 581, exonerations: 0, dismissals: 2, required2025: 48, required2026: 12, movementBalance: 3 },
       { name: 'BPMA', strength: 266, exonerations: 2, dismissals: 5, required2025: 5, required2026: 1, movementBalance: -12 },
       { name: 'BPRE', strength: 614, exonerations: 0, dismissals: 1, required2025: 11, required2026: 4, movementBalance: 4 },
       { name: 'BPTUR', strength: 559, exonerations: 5, dismissals: 8, required2025: 6, required2026: 6, movementBalance: 8 },
@@ -706,7 +705,7 @@ function recalculateRestructuringFromConsolidatedStrength() {
   const format = (number) => number.toLocaleString('pt-BR');
   const battalionStrengthTotal = Object.values(consolidated.battalionTotals).reduce((sum, strength) => sum + strength, 0);
   const battalionSituationalNeed = 633;
-  const specializedNeed = 161;
+  const specializedNeed = 102;
   const battalionCombinedNeed = battalionSituationalNeed + additionalTotal;
   const consolidatedNeed = battalionCombinedNeed + specializedNeed;
 
@@ -948,7 +947,7 @@ function renderBattalionOptionalValue(total, note) {
 
 function renderBattalionLossValue(record) {
   if (record.losses == null) return renderBattalionExitValue(0, 'após movimentações', true);
-  if (Object.hasOwn(battalionLossAdjustments, record.name)) return renderBattalionExitValue(record.losses, 'PERDAS ANTERIORES');
+  if (Object.hasOwn(battalionLossAdjustments, record.name)) return renderBattalionExitValue(record.losses, 'Perdas anteriores');
   return renderBattalionExitValue(record.losses, 'após movimentações');
 }
 
@@ -1009,7 +1008,7 @@ function buildBattalionTableRows(field = 'situation', direction = 'asc') {
     renderBattalionExitValue(sumField(specializedRecords, 'exonerations'), 'saídas'),
     renderBattalionExitValue(sumField(specializedRecords, 'dismissals'), 'saídas'),
     renderBattalionExitValue(sumField(specializedRecords, 'requiredPromotions'), '2025: 111 · 2026: 43'),
-    renderBattalionSignedValue(sumField(specializedRecords, 'movementBalance'), 'saldo das 15 unidades individualizadas'),
+    renderBattalionSignedValue(sumField(specializedRecords, 'movementBalance'), 'saldo das 14 unidades individualizadas'),
     renderBattalionExitValue(specializedLosses, 'perdas locais apuráveis'),
     '—',
     renderBattalionExitValue(specializedLosses, 'necessidade apurável')
@@ -1017,7 +1016,7 @@ function buildBattalionTableRows(field = 'situation', direction = 'asc') {
   rows.push([
     '—',
     'TOTAL CONSOLIDADO',
-    renderBattalionStrengthValue(battalionStrength + specializedStrength, '34 BPMs + 19 especializadas'),
+    renderBattalionStrengthValue(battalionStrength + specializedStrength, '34 BPMs + 18 especializadas'),
     renderBattalionExitValue(sumField(records, 'exonerations'), 'saídas'),
     renderBattalionExitValue(sumField(records, 'dismissals'), 'saídas'),
     renderBattalionExitValue(sumField(records, 'requiredPromotions'), 'unidades discriminadas'),
@@ -1763,7 +1762,7 @@ function renderMetricDetail(key) {
       <div class="detail-section-heading"><div><h3>${data.sectionTitle}</h3><p>${data.sectionSubtitle}</p></div><span>Dados discriminados</span></div>
       ${battalionSortControls}
       ${key === 'battalions' ? `<div id="battalionTableResult">${detailTable}</div>` : detailTable}
-      ${key === 'battalions' ? `<p class="battalion-table-source-note"><strong>Escopo ampliado:</strong> a tabela apresenta os 34 BPMs e 19 unidades especializadas, incluindo a COPAC. Das 767 requeridas de 2025–2026, 430 estão nos BPMs, 154 nas especializadas listadas e 183 em outras OPMs. Os 80 processos agregados de exoneração e demissão de 2025 não foram rateados porque a fonte não identifica a unidade. <strong>Leitura da necessidade:</strong> 633 nos BPMs, incluindo +48 de perdas anteriores no 13º BPM, + 161 nas especializadas com movimentação individualizada + ${metricDetails.restructuring.total} da reestruturação = ${data.total} policiais. Na COPAC, 13 demissões + 7 requeridas − saldo de movimentações de −3 resultam em 23 policiais de necessidade situacional. Os saldos das especializadas reproduzem literalmente o relatório de movimentações do BCG 025/2025 ao BCG 153/2026; COGEIC e CGP não integram a tabela. RAIO - 6º BPM a RAIO - 9º BPM permanecem sem saldo e sem necessidade calculada. Promoção requerida não é baixa institucional.</p>` : ''}
+      ${key === 'battalions' ? `<p class="battalion-table-source-note"><strong>Escopo ampliado:</strong> a tabela apresenta os 34 BPMs e 18 unidades especializadas, incluindo a COPAC e excluindo o BPGEP. Das 707 requeridas consideradas de 2025–2026, 430 estão nos BPMs, 94 nas especializadas listadas e 183 em outras OPMs. Os 80 processos agregados de exoneração e demissão de 2025 não foram rateados porque a fonte não identifica a unidade. <strong>Leitura da necessidade:</strong> 633 nos BPMs, incluindo 48 de perdas anteriores no 13º BPM, + 102 nas especializadas com movimentação individualizada + ${metricDetails.restructuring.total} da reestruturação = ${data.total} policiais. Na COPAC, 13 demissões + 7 requeridas − saldo de movimentações de −3 resultam em 23 policiais de necessidade situacional. Os saldos das especializadas reproduzem literalmente o relatório de movimentações do BCG 025/2025 ao BCG 153/2026; BPGEP, COGEIC e CGP não integram a tabela. RAIO - 6º BPM a RAIO - 9º BPM permanecem sem saldo e sem necessidade calculada. Promoção requerida não é baixa institucional.</p>` : ''}
     </section>`;
   metricDetailContent.innerHTML = `
     <div class="detail-hero-grid">

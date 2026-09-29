@@ -361,6 +361,7 @@ body.modal-open { overflow: hidden; }
 .exit-unit-scope-section .detail-table td:first-child { width: 190px; text-align: left; white-space: normal; }
 .exit-unit-scope-section .detail-table th:nth-child(2),
 .exit-unit-scope-section .detail-table td:nth-child(2) { width: 235px; text-align: left; white-space: normal; }
+.exit-unit-scope-section .detail-table th:nth-child(6) { overflow-wrap: normal; white-space: nowrap; }
 .exit-unit-scope-section .detail-table tbody tr:last-child td { border-top: 2px solid #23794f; background: #d9edde; font-weight: 850; }
 .exit-unit-scope-note { margin: 12px 2px 0; color: #5d6d65; font-size: 9.5px; line-height: 1.5; }
 .exit-unit-scope-note strong { color: #155b3e; }
@@ -583,9 +584,10 @@ body.modal-open { overflow: hidden; }
 #metricDetailContent[data-detail="battalions"] .detail-table th:nth-child(5),
 #metricDetailContent[data-detail="battalions"] .detail-table td:nth-child(5),
 #metricDetailContent[data-detail="battalions"] .detail-table th:nth-child(6),
-#metricDetailContent[data-detail="battalions"] .detail-table td:nth-child(6),
+#metricDetailContent[data-detail="battalions"] .detail-table td:nth-child(6) { width: 91px; }
 #metricDetailContent[data-detail="battalions"] .detail-table th:nth-child(7),
-#metricDetailContent[data-detail="battalions"] .detail-table td:nth-child(7) { width: 91px; }
+#metricDetailContent[data-detail="battalions"] .detail-table td:nth-child(7) { width: 122px; }
+#metricDetailContent[data-detail="battalions"] .detail-table th:nth-child(7) { overflow-wrap: normal; white-space: nowrap; }
 #metricDetailContent[data-detail="battalions"] .detail-table th:nth-child(8),
 #metricDetailContent[data-detail="battalions"] .detail-table td:nth-child(8) { width: 92px; }
 #metricDetailContent[data-detail="battalions"] .detail-table th:nth-child(9),

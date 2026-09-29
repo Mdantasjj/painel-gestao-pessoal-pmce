@@ -293,7 +293,7 @@ body.modal-open { overflow: hidden; }
 .project-pending-message span { max-width: 520px; color: #60796b; font-size: 10px; line-height: 1.45; }
 .maria-project-section { border-color: #9fc9b2; background: linear-gradient(145deg, #eef8f2, #fff 58%); }
 .maria-project-options { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
-.maria-project-option { display: flex; min-height: 105px; padding: 14px; align-items: flex-start; flex-direction: column; border: 1px solid #b8d8c6; border-radius: 11px; color: #2c5d45; text-align: left; background: #fff; box-shadow: 0 5px 14px rgba(20,92,64,.06); cursor: pointer; transition: .18s ease; }
+.maria-project-option { display: flex; min-height: 105px; padding: 14px; align-items: center; flex-direction: column; border: 1px solid #b8d8c6; border-radius: 11px; color: #2c5d45; text-align: center; background: #fff; box-shadow: 0 5px 14px rgba(20,92,64,.06); cursor: pointer; transition: .18s ease; }
 .maria-project-option:hover { border-color: #4f9870; transform: translateY(-2px); }
 .maria-project-option.is-active { border-color: #176a47; background: #e3f2e9; box-shadow: inset 0 0 0 2px #2f855a; }
 .maria-project-option > span { color: #2f855a; font-size: 8px; font-weight: 850; letter-spacing: .08em; text-transform: uppercase; }

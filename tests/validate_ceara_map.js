@@ -19,9 +19,9 @@ assert.equal(sum('exoneracoes'), 60, 'Total de exonerações divergente');
 assert.equal(sum('demissoes'), 170, 'Total de demissões divergente');
 assert.equal(sum('requeridas'), 430, 'Total de requeridas divergente');
 assert.equal(sum('movimentacoes'), 90, 'Saldo das movimentações divergente');
-assert.equal(sum('perdas'), 585, 'Necessidade situacional divergente');
+assert.equal(sum('perdas'), 633, 'Necessidade situacional divergente');
 assert.equal(sum('reestruturacao'), 410, 'Reestruturação divergente');
-assert.equal(sum('necessidade'), 995, 'Necessidade consolidada dos 34 BPMs divergente');
+assert.equal(sum('necessidade'), 1043, 'Necessidade consolidada dos 34 BPMs divergente');
 
 for (const feature of municipalities.features) {
   const properties = feature.properties;

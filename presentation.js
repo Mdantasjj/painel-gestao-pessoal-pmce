@@ -655,6 +655,10 @@ const battalionRestructuringAdjustments = {
   '33º BPM': -50
 };
 
+const battalionLossAdjustments = {
+  '13º BPM': 48
+};
+
 function recalculateRestructuringFromConsolidatedStrength() {
   const study = metricDetails.restructuring;
   const consolidated = metricDetails.battalions;
@@ -682,7 +686,7 @@ function recalculateRestructuringFromConsolidatedStrength() {
   const targetTotal = currentTotal + additionalTotal;
   const format = (number) => number.toLocaleString('pt-BR');
   const battalionStrengthTotal = Object.values(consolidated.battalionTotals).reduce((sum, strength) => sum + strength, 0);
-  const battalionSituationalNeed = 585;
+  const battalionSituationalNeed = 633;
   const specializedNeed = 161;
   const battalionCombinedNeed = battalionSituationalNeed + additionalTotal;
   const consolidatedNeed = battalionCombinedNeed + specializedNeed;
@@ -708,7 +712,7 @@ function recalculateRestructuringFromConsolidatedStrength() {
 
   consolidated.total = format(consolidatedNeed);
   consolidated.description = `Cenário consolidado: ${format(battalionSituationalNeed)} policiais da necessidade situacional dos 34 BPMs, ${format(additionalTotal)} policiais da reestruturação do interior e do litoral e ${format(specializedNeed)} policiais da necessidade situacional apurável nas unidades especializadas, incluindo a COPAC. As necessidades locais não são compensadas por saldos positivos de outras unidades.`;
-  consolidated.note = `Para cada unidade, a situação é calculada por saldo das movimentações − exonerações − demissões − promoções requeridas de 2025 e 2026 vinculadas. A nova base detalhada reúne 84 Companhias territoriais subordinadas aos 34 BPMs e soma ${format(battalionStrengthTotal)} policiais; referências a 1ª, 2ª, 3ª ou 4ª Cia são consolidadas no respectivo batalhão. As cidades foram obtidas da aba POG da planilha “ENDEREÇOS_DAS_BASES.xlsx”. Fora da Capital e de Caucaia, a identificação visual mostra, respectivamente, as cidades da 1ª e da 2ª Companhia; na Capital e em Caucaia, são usados os bairros de referência informados no estudo. O 2º BPM considera também a 4ª Cia informada com um policial na base de efetivo, mas a planilha de endereços não apresenta uma cidade para essa Companhia. As perdas permanecem em ${format(battalionSituationalNeed)} policiais nos 34 BPMs. A reestruturação ajustada soma ${format(additionalTotal)} policiais e permanece restrita ao 26º–34º BPM; as unidades especializadas somam ${format(specializedNeed)}. O resultado consolidado é ${format(consolidatedNeed)} policiais (${format(battalionSituationalNeed)} + ${format(additionalTotal)} + ${format(specializedNeed)}). Os 80 processos agregados de exoneração e demissão de 2025 não foram distribuídos, pois a fonte não identifica a OPM. Em RAIO - 6º BPM, RAIO - 7º BPM, RAIO - 8º BPM e RAIO - 9º BPM, o saldo e a necessidade permanecem indisponíveis porque a fonte de movimentações não individualiza essas denominações. Promoção requerida não comprova baixa institucional, e o cenário não representa efetivo já autorizado.`;
+  consolidated.note = `Para cada unidade, a situação é calculada por saldo das movimentações − exonerações − demissões − promoções requeridas de 2025 e 2026 vinculadas. A nova base detalhada reúne 84 Companhias territoriais subordinadas aos 34 BPMs e soma ${format(battalionStrengthTotal)} policiais; referências a 1ª, 2ª, 3ª ou 4ª Cia são consolidadas no respectivo batalhão. As cidades foram obtidas da aba POG da planilha “ENDEREÇOS_DAS_BASES.xlsx”. Fora da Capital e de Caucaia, a identificação visual mostra, respectivamente, as cidades da 1ª e da 2ª Companhia; na Capital e em Caucaia, são usados os bairros de referência informados no estudo. O 2º BPM considera também a 4ª Cia informada com um policial na base de efetivo, mas a planilha de endereços não apresenta uma cidade para essa Companhia. As perdas somam ${format(battalionSituationalNeed)} policiais nos 34 BPMs, incluindo +48 de perdas anteriores acrescentadas manualmente ao 13º BPM. A reestruturação ajustada soma ${format(additionalTotal)} policiais e permanece restrita ao 26º–34º BPM; as unidades especializadas somam ${format(specializedNeed)}. O resultado consolidado é ${format(consolidatedNeed)} policiais (${format(battalionSituationalNeed)} + ${format(additionalTotal)} + ${format(specializedNeed)}). Os 80 processos agregados de exoneração e demissão de 2025 não foram distribuídos, pois a fonte não identifica a OPM. Em RAIO - 6º BPM, RAIO - 7º BPM, RAIO - 8º BPM e RAIO - 9º BPM, o saldo e a necessidade permanecem indisponíveis porque a fonte de movimentações não individualiza essas denominações. Promoção requerida não comprova baixa institucional, e o cenário não representa efetivo já autorizado.`;
 
   const card = document.querySelector('.metric-card[data-detail="restructuring"]');
   if (card) {
@@ -823,7 +827,9 @@ function getBattalionTableRecords() {
     const requiredPromotions = requiredPromotions2025 + requiredPromotions2026;
     const grossLosses = exonerations + dismissals + requiredPromotions;
     const situation = balance - grossLosses;
-    const losses = Math.max(0, -situation);
+    const baseLosses = Math.max(0, -situation);
+    const manualLossAdjustment = battalionLossAdjustments[name] ?? 0;
+    const losses = baseLosses + manualLossAdjustment;
     const calculatedDeficit = losses;
     const restructuringUnit = metricDetails.restructuring.units.find(([unitName]) => unitName === name);
     const restructuringNeed = restructuringUnit ? restructuringUnit[3] : null;
@@ -842,6 +848,8 @@ function getBattalionTableRecords() {
       requiredPromotions2026,
       requiredPromotions,
       grossLosses,
+      baseLosses,
+      manualLossAdjustment,
       losses,
       calculatedDeficit,
       restructuringNeed,
@@ -919,6 +927,12 @@ function renderBattalionOptionalValue(total, note) {
     : renderBattalionExitValue(total, note);
 }
 
+function renderBattalionLossValue(record) {
+  if (record.losses == null) return renderBattalionExitValue(0, 'após movimentações', true);
+  if (Object.hasOwn(battalionLossAdjustments, record.name)) return renderBattalionSignedValue(record.losses, 'PERDAS ANTERIORES');
+  return renderBattalionExitValue(record.losses, 'após movimentações');
+}
+
 function buildBattalionTableRows(field = 'situation', direction = 'asc') {
   const records = getBattalionTableRecords();
   const battalionRecords = records.filter((record) => record.unitType !== 'specialized');
@@ -941,7 +955,7 @@ function buildBattalionTableRows(field = 'situation', direction = 'asc') {
       renderBattalionExitValue(record.dismissals, 'saídas'),
       renderBattalionExitValue(record.requiredPromotions, `2025: ${record.requiredPromotions2025} · 2026: ${record.requiredPromotions2026}`),
       renderBattalionSignedValue(record.movementBalance, 'saldo'),
-      renderBattalionExitValue(record.losses, 'após movimentações', record.losses == null),
+      renderBattalionLossValue(record),
       renderBattalionOptionalValue(record.restructuringNeed, 'interior e litoral'),
       renderBattalionExitValue(record.totalNeed, 'necessidade total', record.totalNeed == null)
     ]);
@@ -1702,7 +1716,7 @@ function renderMetricDetail(key) {
       <div class="detail-section-heading"><div><h3>${data.sectionTitle}</h3><p>${data.sectionSubtitle}</p></div><span>Dados discriminados</span></div>
       ${battalionSortControls}
       ${key === 'battalions' ? `<div id="battalionTableResult">${detailTable}</div>` : detailTable}
-      ${key === 'battalions' ? `<p class="battalion-table-source-note"><strong>Escopo ampliado:</strong> a tabela apresenta os 34 BPMs e 19 unidades especializadas, incluindo a COPAC. Das 767 requeridas de 2025–2026, 430 estão nos BPMs, 154 nas especializadas listadas e 183 em outras OPMs. Os 80 processos agregados de exoneração e demissão de 2025 não foram rateados porque a fonte não identifica a unidade. <strong>Leitura da necessidade:</strong> 585 nos BPMs + 161 nas especializadas com movimentação individualizada + ${metricDetails.restructuring.total} da reestruturação = ${data.total} policiais. Na COPAC, 13 demissões + 7 requeridas − saldo de movimentações de −3 resultam em 23 policiais de necessidade situacional. Os saldos das especializadas reproduzem literalmente o relatório de movimentações do BCG 025/2025 ao BCG 153/2026; COGEIC e CGP não integram a tabela. RAIO - 6º BPM a RAIO - 9º BPM permanecem sem saldo e sem necessidade calculada. Promoção requerida não é baixa institucional.</p>` : ''}
+      ${key === 'battalions' ? `<p class="battalion-table-source-note"><strong>Escopo ampliado:</strong> a tabela apresenta os 34 BPMs e 19 unidades especializadas, incluindo a COPAC. Das 767 requeridas de 2025–2026, 430 estão nos BPMs, 154 nas especializadas listadas e 183 em outras OPMs. Os 80 processos agregados de exoneração e demissão de 2025 não foram rateados porque a fonte não identifica a unidade. <strong>Leitura da necessidade:</strong> 633 nos BPMs, incluindo +48 de perdas anteriores no 13º BPM, + 161 nas especializadas com movimentação individualizada + ${metricDetails.restructuring.total} da reestruturação = ${data.total} policiais. Na COPAC, 13 demissões + 7 requeridas − saldo de movimentações de −3 resultam em 23 policiais de necessidade situacional. Os saldos das especializadas reproduzem literalmente o relatório de movimentações do BCG 025/2025 ao BCG 153/2026; COGEIC e CGP não integram a tabela. RAIO - 6º BPM a RAIO - 9º BPM permanecem sem saldo e sem necessidade calculada. Promoção requerida não é baixa institucional.</p>` : ''}
     </section>`;
   metricDetailContent.innerHTML = `
     <div class="detail-hero-grid">

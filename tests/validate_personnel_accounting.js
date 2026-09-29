@@ -301,7 +301,7 @@ for (const phase of details.copac.phases) {
 const html = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
 const css = fs.readFileSync(path.join(root, 'presentation.css'), 'utf8');
 assert(css.includes('.detail-table th:nth-child(7) { overflow-wrap: normal; white-space: nowrap; }'), 'Movimentações heading must remain on one line');
-assert(css.includes('html, body, button, input, select, textarea, table, th, td { font-family: "Montserrat"'), 'Montserrat must be applied across dashboard controls and tables');
+assert(css.includes('*, *::before, *::after {') && css.includes('font-family: "Montserrat", "Segoe UI", Arial, sans-serif !important;'), 'Montserrat must be enforced across every dashboard element');
 assert(css.includes('.project-study-card-total--scenarios { display: grid; grid-template-columns: 1fr;'), 'Maria da Penha scenarios must be stacked in the project card');
 assert(!html.includes('374 movimentações para especializadas'), 'Specialized-movement note must not be shown on the main card');
 for (const [key, expected] of Object.entries({ exits: 1485, pog: 1543, restructuring: 410, battalions: 1145 })) {

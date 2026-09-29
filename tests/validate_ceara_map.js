@@ -40,6 +40,6 @@ const html = fs.readFileSync(path.join(root, 'mapa/index.html'), 'utf8');
 const css = fs.readFileSync(path.join(root, 'mapa/map.css'), 'utf8');
 assert(html.includes('map.js') && html.includes('vendor/leaflet.js'), 'Dependências da página do mapa ausentes');
 assert(html.includes('vendor/leaflet.markercluster.js'), 'Agrupamento dos batalhões ausente');
-assert(css.includes('font-family: "Montserrat"'), 'Montserrat não aplicada ao mapa');
+assert(css.includes('*, *::before, *::after {') && css.includes('font-family: "Montserrat", "Segoe UI", Arial, sans-serif !important;'), 'Montserrat não aplicada globalmente ao mapa');
 
 console.log('Validated Ceará map: 184 municipalities, 121 Fortaleza neighborhoods and 34 BPMs.');

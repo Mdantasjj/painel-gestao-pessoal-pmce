@@ -793,14 +793,18 @@ const workforceProjectStudies = [
     eyebrow: 'Eixo 04 · proteção especializada',
     title: 'MARIA DA PENHA - POG',
     description: 'Eixo destinado à organização territorial de duas opções do projeto no Policiamento Ostensivo Geral, com uma equipe fixa de três policiais por município: serviço de segunda a sexta e folga no sábado e domingo.',
-    value: '21–60',
-    unit: 'policiais fixos',
-    meta: 'OPÇÃO 1: 21 · OPÇÃO 2: 60',
+    value: '21 ou 60',
+    unit: 'policiais',
+    meta: '7 ou 20 municípios',
+    scenarios: [
+      ['21', 'policiais para 7 municípios'],
+      ['60', 'policiais para 20 municípios']
+    ],
     image: 'assets/icone-reestruturacao-batalhoes.jpeg',
     imageAlt: 'Ícone provisório do eixo Maria da Penha - POG',
     stats: [
-      ['OPÇÃO 1', '21 policiais', '07 patrulhas fixas · três policiais em cada município'],
-      ['OPÇÃO 2', '60 policiais', '20 patrulhas fixas · três policiais em cada município'],
+      ['OPÇÃO 1', '21', 'POLICIAIS PARA 7 MUNICÍPIOS'],
+      ['OPÇÃO 2', '60', 'POLICIAIS PARA 20 MUNICÍPIOS'],
       ['Escala semanal', 'Regime 5 × 2', 'Serviço de segunda a sexta · folga sábado e domingo'],
       ['Impacto total projetado', '1.564 ou 1.603', 'Base de 1.543 + opção escolhida']
     ]
@@ -1499,13 +1503,18 @@ function renderCopacResources(data) {
 }
 
 function renderProjectStudySelector() {
-  const cards = workforceProjectStudies.map((study, index) => `
-    <button class="project-study-card${index === 0 ? ' is-active' : ''}" type="button" role="tab" id="projectStudyTab-${study.key}" data-project-study="${study.key}" aria-controls="projectStudyPanel-${study.key}" aria-selected="${index === 0}" tabindex="${index === 0 ? '0' : '-1'}">
-      <span class="project-study-card-icon"><img src="${study.image}" alt="${study.imageAlt}"></span>
-      <span class="project-study-card-copy"><small>${study.eyebrow}</small><strong>${study.title}</strong><em>${study.meta}</em></span>
-      <span class="project-study-card-total"><b>${study.value}</b><small>${study.unit}</small></span>
-      <span class="project-study-card-action">Abrir estudo <b>→</b></span>
-    </button>`).join('');
+  const cards = workforceProjectStudies.map((study, index) => {
+    const total = study.scenarios
+      ? `<span class="project-study-card-total project-study-card-total--scenarios">${study.scenarios.map(([value, label]) => `<span><b>${value}</b><small>${label}</small></span>`).join('')}</span>`
+      : `<span class="project-study-card-total"><b>${study.value}</b><small>${study.unit}</small></span>`;
+    return `
+      <button class="project-study-card${index === 0 ? ' is-active' : ''}" type="button" role="tab" id="projectStudyTab-${study.key}" data-project-study="${study.key}" aria-controls="projectStudyPanel-${study.key}" aria-selected="${index === 0}" tabindex="${index === 0 ? '0' : '-1'}">
+        <span class="project-study-card-icon"><img src="${study.image}" alt="${study.imageAlt}"></span>
+        <span class="project-study-card-copy"><small>${study.eyebrow}</small><strong>${study.title}</strong><em>${study.meta}</em></span>
+        ${total}
+        <span class="project-study-card-action">Abrir estudo <b>→</b></span>
+      </button>`;
+  }).join('');
   return `
     <section class="detail-section project-study-selector-section">
       <div class="detail-section-heading">
@@ -1579,7 +1588,7 @@ function renderMariaDaPenhaStudy() {
     <button class="maria-project-option${index === 0 ? ' is-active' : ''}" type="button" data-maria-project="${project.id}" aria-pressed="${index === 0}">
       <span>PROJETO MARIA DA PENHA</span>
       <strong>${project.name}</strong>
-      <small>${project.cities.length ? `${project.cities.length} municípios · ${project.cities.length * 3} policiais fixos` : project.status}</small>
+      <small>${project.cities.length ? `${project.cities.length * 3} policiais para ${project.cities.length} municípios` : project.status}</small>
     </button>`).join('');
   return `
     <div class="project-study-panel" id="projectStudyPanel-mariaPenhaPog" data-project-study-panel="mariaPenhaPog" role="tabpanel" aria-labelledby="projectStudyTab-mariaPenhaPog" hidden>

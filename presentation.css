@@ -19,6 +19,7 @@
 * { box-sizing: border-box; }
 html { min-width: 320px; min-height: 100%; background: #dce9e1; }
 body { min-width: 320px; min-height: 100vh; margin: 0; overflow-x: hidden; background: #dce9e1; }
+html, body, button, input, select, textarea, table, th, td { font-family: "Montserrat", "Segoe UI", Arial, sans-serif; }
 button, input, select, textarea { font: inherit; }
 svg { display: block; }
 .icon-library { position: absolute; width: 0; height: 0; overflow: hidden; }
@@ -271,6 +272,10 @@ body.modal-open { overflow: hidden; }
 .project-study-card-total { display: flex; grid-column: 1 / -1; align-items: baseline; gap: 7px; color: #145c40; }
 .project-study-card-total b { font-size: 29px; line-height: 1; }
 .project-study-card-total small { color: #6d7f75; font-size: 9px; }
+.project-study-card-total--scenarios { display: grid; grid-template-columns: 1fr; align-items: stretch; gap: 7px; }
+.project-study-card-total--scenarios > span { display: flex; min-width: 0; padding: 8px 10px; align-items: center; gap: 8px; border: 1px solid #b9d8c6; border-radius: 8px; background: #edf7f1; }
+.project-study-card-total--scenarios > span b { flex: 0 0 auto; font-size: 23px; }
+.project-study-card-total--scenarios > span small { color: #315e48; font-size: 8px; font-weight: 800; line-height: 1.2; text-transform: uppercase; }
 .project-study-card-action { display: flex; grid-column: 1 / -1; align-items: center; justify-content: flex-end; gap: 4px; color: #24734f; font-size: 8.5px; font-weight: 800; }
 .project-study-card-action b { font-size: 12px; }
 .project-study-panel[hidden] { display: none !important; }
@@ -649,6 +654,7 @@ body.modal-open { overflow: hidden; }
   .project-study-selector { grid-template-columns: 1fr; }
   .project-study-card { min-height: 130px; grid-template-columns: 48px minmax(0, 1fr) auto; grid-template-rows: 1fr auto; }
   .project-study-card-total { grid-column: 3; grid-row: 1; align-items: flex-end; flex-direction: column; }
+  .project-study-card-total--scenarios { grid-column: 1 / -1; grid-row: auto; align-items: stretch; }
   .project-study-card-action { grid-column: 2 / 4; }
   .donut-wrap { min-height: 230px; flex-direction: row; gap: 40px; }
   .legend { max-width: 300px; margin: 0; }

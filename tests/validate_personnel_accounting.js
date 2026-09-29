@@ -226,7 +226,16 @@ assert.equal(sortLabels.restructuringNeed, 'REESTRUTURAÇÃO - DEC. 36.491/2025'
 assert.equal(sortLabels.totalNeed, 'NECESSIDADE FINAL DE EFETIVO');
 assert.deepEqual(Array.from(mariaProjects, project => project.name), ['OPÇÃO 1', 'OPÇÃO 2']);
 assert(!source.includes('1O2D') && !source.includes('1O3D'), 'Nomenclaturas antigas ainda presentes no painel');
-assert(workforceStudies.find(study => study.key === 'mariaPenhaPog').meta.includes('OPÇÃO 1'));
+const mariaStudy = workforceStudies.find(study => study.key === 'mariaPenhaPog');
+assert.equal(mariaStudy.value, '21 ou 60');
+assert.equal(mariaStudy.meta, '7 ou 20 municípios');
+assert.deepEqual(
+  Array.from(mariaStudy.scenarios, scenario => Array.from(scenario)),
+  [
+    ['21', 'policiais para 7 municípios'],
+    ['60', 'policiais para 20 municípios']
+  ]
+);
 
 assert.deepEqual(
   Array.from(details.battalions.administrativeExits['15º BPM']),
@@ -292,6 +301,9 @@ for (const phase of details.copac.phases) {
 const html = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
 const css = fs.readFileSync(path.join(root, 'presentation.css'), 'utf8');
 assert(css.includes('.detail-table th:nth-child(7) { overflow-wrap: normal; white-space: nowrap; }'), 'Movimentações heading must remain on one line');
+assert(css.includes('html, body, button, input, select, textarea, table, th, td { font-family: "Montserrat"'), 'Montserrat must be applied across dashboard controls and tables');
+assert(css.includes('.project-study-card-total--scenarios { display: grid; grid-template-columns: 1fr;'), 'Maria da Penha scenarios must be stacked in the project card');
+assert(!html.includes('374 movimentações para especializadas'), 'Specialized-movement note must not be shown on the main card');
 for (const [key, expected] of Object.entries({ exits: 1485, pog: 1543, restructuring: 410, battalions: 1145 })) {
   const match = html.match(new RegExp(`data-detail="${key}"[\\s\\S]*?<div class="metric-main"><strong>([\\d.]+)</strong>`));
   assert(match, `Card not found: ${key}`);

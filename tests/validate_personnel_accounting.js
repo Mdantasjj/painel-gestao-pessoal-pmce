@@ -12,10 +12,10 @@ assert(first >= 0 && last > first, 'Dashboard data block not found');
 const sandbox = { document: { querySelector: () => null } };
 vm.runInNewContext(
   source.slice(first, last) +
-    ';globalThis.audit = { details: metricDetails, records: getBattalionTableRecords() };',
+    ';globalThis.audit = { details: metricDetails, records: getBattalionTableRecords(), sortLabels: battalionSortLabels, workforceStudies: workforceProjectStudies, mariaProjects: mariaDaPenhaProjects };',
   sandbox
 );
-const { details, records } = sandbox.audit;
+const { details, records, sortLabels, workforceStudies, mariaProjects } = sandbox.audit;
 const battalionRecords = records.filter(record => record.unitType !== 'specialized');
 const specializedRecords = records.filter(record => record.unitType === 'specialized');
 const number = text => Number(String(text).replaceAll('.', ''));
@@ -181,16 +181,24 @@ for (const line of csv.slice(1, -1)) {
 }
 
 assert.equal(number(details.exits.total), 16 + 64 + 245 + 81 + 552 + 215 + 374);
-assert.equal(number(details.exits.stats[0][1]), 16);
-assert.equal(number(details.exits.stats[1][1]), 64);
-assert.equal(number(details.exits.stats[2][1]), 245);
-assert.equal(number(details.exits.stats[3][1]), 81);
+assert.equal(number(details.exits.stats[0][1]), 64 + 81);
+assert.equal(number(details.exits.stats[1][1]), 16 + 245);
+assert.equal(details.exits.stats.length, 5, 'Os cards anuais de exonerações e demissões devem permanecer consolidados');
+assert(!details.exits.stats.some(([label]) => label.includes('Impactos atribuídos')), 'Card de impacto atribuído ainda presente');
 assert.equal(number(details.exits.tableRows[1][4]), 326);
 assert.equal(number(details.exits.tableRows[3][4]), 1173);
 assert.equal(number(details.exits.tableRows[4][4]), 660);
 assert.equal(number(details.pog.total), 111 + 110 + 50);
 assert.equal(number(details.pog.total) + number(details.raio.total) + number(details.copac.total), 1543);
 assert.equal(number(details.battalions.total), 1346);
+
+assert.deepEqual(Object.keys(sortLabels), ['unit', 'battalionStrength', 'movementBalance', 'restructuringNeed', 'totalNeed']);
+assert.equal(sortLabels.unit, 'UNIDADE, ORDEM ALFANUMÉRICA');
+assert.equal(sortLabels.restructuringNeed, 'REESTRUTURAÇÃO - DEC. 36.491/2025');
+assert.equal(sortLabels.totalNeed, 'NECESSIDADE FINAL DE EFETIVO');
+assert.deepEqual(Array.from(mariaProjects, project => project.name), ['OPÇÃO 1', 'OPÇÃO 2']);
+assert(!source.includes('1O2D') && !source.includes('1O3D'), 'Nomenclaturas antigas ainda presentes no painel');
+assert(workforceStudies.find(study => study.key === 'mariaPenhaPog').meta.includes('OPÇÃO 1'));
 
 assert.deepEqual(
   Array.from(details.battalions.administrativeExits['15º BPM']),

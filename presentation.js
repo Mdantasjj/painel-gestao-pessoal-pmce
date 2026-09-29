@@ -223,14 +223,11 @@ const metricDetails = {
     unit: 'registros considerados',
     description: 'Indicador combinado: 80 processos de demissão/exoneração relacionados a outros concursos informados para 2025, 326 saídas administrativas únicas de 2026, 767 promoções requeridas de 2025–2026 e 374 movimentações dos BPMs para unidades especializadas. Movimentação interna, processo e promoção não comprovam baixa institucional nem pessoa única.',
     stats: [
-      ['Demissões de 2025 · outros concursos', '16', 'Processos informados · sem OPM identificada'],
-      ['Exonerações de 2025 · outros concursos', '64', 'Processos informados · sem OPM identificada'],
-      ['Demissões de 2026 · outros concursos', '245', 'Registros deduplicados da base de 2026'],
-      ['Exonerações de 2026 · outros concursos', '81', 'Registros únicos por NUP na base de 2026'],
+      ['Exonerações de 2025–2026 · outros concursos', '145', '64 processos de 2025 + 81 registros únicos de 2026'],
+      ['Demissões de 2025–2026 · outros concursos', '261', '16 processos de 2025 + 245 registros deduplicados de 2026'],
       ['Requeridas de 2025', '552', '320 nos BPMs · 232 em outras OPMs'],
       ['Requeridas de 2026', '215', '110 nos BPMs · 105 em outras OPMs'],
-      ['Perdas dos BPMs para especializadas', '374', 'Movimentações internas: 271 em 2025 · 103 em 2026'],
-      ['Impactos atribuídos aos 34 BPMs', '660', '230 saídas de 2026 · 430 requeridas; 2025 sem rateio']
+      ['Perdas dos BPMs para especializadas', '374', 'Movimentações internas: 271 em 2025 · 103 em 2026']
     ],
     breakdown: [
       ['Demissões · outros concursos · processos 2025', 16 / 1547 * 100, '16 · 1,0%', '#145c40'],
@@ -427,7 +424,7 @@ const metricDetails = {
     eyebrow: 'Memória de cálculo · interior e litoral',
     title: '',
     total: '',
-    unit: 'policiais adicionais necessários',
+    unit: 'policiais necessários - Dec.: 34.820/2022 para o Dec.: 36.491/2025',
     description: '',
     stats: [],
     breakdownTitle: 'Distribuição do reforço por batalhão',
@@ -682,14 +679,14 @@ function recalculateRestructuringFromConsolidatedStrength() {
   study.totalNumber = additionalTotal;
   study.regionalCounts = regionCounts;
   study.total = format(additionalTotal);
-  study.title = `Reestruturação do interior e litoral: ${format(additionalTotal)} policiais adicionais para implementação`;
+  study.title = `Reestruturação do interior e litoral: ${format(additionalTotal)} policiais necessários - Dec.: 34.820/2022 para o Dec.: 36.491/2025`;
   study.description = `Com os efetivos consolidados mais recentes, os nove batalhões do recorte estão abaixo da média atual de seus CRPMs. Para levá-los à referência inteira, são necessários ${format(additionalTotal)} policiais adicionais. O conjunto passa de ${format(currentTotal)} para ${format(targetTotal)} policiais. É uma comparação com a média atual, não uma nova média recalculada após o reforço.`;
   study.stats = [
     ['Efetivo atual', format(currentTotal), 'Policiais nos nove batalhões analisados'],
     ['Efetivo adicional necessário', format(additionalTotal), 'Reforço distribuído entre os nove batalhões'],
     ['Efetivo após implementação', format(targetTotal), `${format(currentTotal)} atuais + ${format(additionalTotal)} adicionais`]
   ];
-  study.breakdownSubtitle = `Participação de cada BPM nos ${format(additionalTotal)} policiais adicionais necessários.`;
+  study.breakdownSubtitle = `Participação de cada BPM nos ${format(additionalTotal)} policiais necessários à transição do Dec. 34.820/2022 para o Dec. 36.491/2025.`;
   study.sectionSubtitle = 'O 26º BPM exibe os bairros Jurema e Nova Metrópole; do 27º ao 34º BPM, aparecem respectivamente as cidades da 1ª e da 2ª Cias. Cada referência é a média atual do CRPM arredondada para cima; necessidade = referência inteira − efetivo atual.';
   study.tableRows = units.map(([name, current, reference, additional, , , losses], index) => [
     String(index + 1), name, format(current), format(reference),
@@ -705,7 +702,7 @@ function recalculateRestructuringFromConsolidatedStrength() {
   if (card) {
     card.querySelector('.metric-main strong').textContent = study.total;
     card.querySelector('.metric-foot span').textContent = `Reforço para os ${units.length} batalhões analisados`;
-    card.setAttribute('aria-label', `Detalhar os ${study.total} policiais adicionais necessários à implementação da reestruturação dos batalhões do interior e do litoral`);
+    card.setAttribute('aria-label', `Detalhar os ${study.total} policiais necessários à transição do Decreto 34.820 de 2022 para o Decreto 36.491 de 2025`);
   }
   const battalionCard = document.querySelector('.metric-card[data-detail="battalions"]');
   if (battalionCard) {
@@ -761,15 +758,15 @@ const workforceProjectStudies = [
     key: 'mariaPenhaPog',
     eyebrow: 'Eixo 04 · proteção especializada',
     title: 'MARIA DA PENHA - POG',
-    description: 'Eixo destinado à organização territorial dos projetos 1O2D e 1O3D no Policiamento Ostensivo Geral, com uma equipe fixa de três policiais por município: serviço de segunda a sexta e folga no sábado e domingo.',
+    description: 'Eixo destinado à organização territorial de duas opções do projeto no Policiamento Ostensivo Geral, com uma equipe fixa de três policiais por município: serviço de segunda a sexta e folga no sábado e domingo.',
     value: '21–60',
     unit: 'policiais fixos',
-    meta: '1O2D: 21 · 1O3D: 60',
+    meta: 'OPÇÃO 1: 21 · OPÇÃO 2: 60',
     image: 'assets/icone-reestruturacao-batalhoes.jpeg',
     imageAlt: 'Ícone provisório do eixo Maria da Penha - POG',
     stats: [
-      ['PROJETO 1O2D', '21 policiais', '07 patrulhas fixas · três policiais em cada município'],
-      ['PROJETO 1O3D', '60 policiais', '20 patrulhas fixas · três policiais em cada município'],
+      ['OPÇÃO 1', '21 policiais', '07 patrulhas fixas · três policiais em cada município'],
+      ['OPÇÃO 2', '60 policiais', '20 patrulhas fixas · três policiais em cada município'],
       ['Escala semanal', 'Regime 5 × 2', 'Serviço de segunda a sexta · folga sábado e domingo'],
       ['Impacto total projetado', '1.564 ou 1.603', 'Base de 1.543 + opção escolhida']
     ]
@@ -778,29 +775,25 @@ const workforceProjectStudies = [
 
 const mariaDaPenhaProjects = [
   {
-    id: '1o2d',
-    name: 'PROJETO 1O2D',
+    id: 'opcao1',
+    name: 'OPÇÃO 1',
     status: 'Municípios informados',
     cities: ['Barbalha', 'Crato', 'Itaitinga', 'Quixeramobim', 'Nova Russas', 'Pacatuba', 'Juazeiro do Norte']
   },
   {
-    id: '1o3d',
-    name: 'PROJETO 1O3D',
+    id: 'opcao2',
+    name: 'OPÇÃO 2',
     status: 'Municípios informados',
     cities: ['Aquiraz', 'Barbalha', 'Boa Viagem', 'Crato', 'Eusébio', 'Granja', 'Ipu', 'Itaitinga', 'Limoeiro do Norte', 'Missão Velha', 'Nova Russas', 'Quixeramobim', 'Pacajus', 'Pacatuba', 'Paracuru', 'Russas', 'São Benedito', 'São Gonçalo do Amarante', 'Viçosa do Ceará', 'Juazeiro do Norte']
   }
 ];
 
 const battalionSortLabels = {
-  unit: 'Unidade',
-  battalionStrength: 'Efetivo da unidade',
-  exonerations: 'Exonerações · outros concursos',
-  dismissals: 'Demissões · outros concursos',
-  requiredPromotions: 'Requeridas',
-  movementBalance: 'Movimentações',
-  losses: 'Perdas',
-  restructuringNeed: 'Reestruturação.',
-  totalNeed: 'Necessidade de efetivo'
+  unit: 'UNIDADE, ORDEM ALFANUMÉRICA',
+  battalionStrength: 'EFETIVO DA UNIDADE',
+  movementBalance: 'MOVIMENTAÇÕES',
+  restructuringNeed: 'REESTRUTURAÇÃO - DEC. 36.491/2025',
+  totalNeed: 'NECESSIDADE FINAL DE EFETIVO'
 };
 let battalionSortState = { field: 'totalNeed', direction: 'desc' };
 
@@ -1060,7 +1053,7 @@ function renderBattalionSortControls() {
   return `
     <div class="battalion-sort-toolbar" aria-label="Controles de classificação da tabela">
       <div class="battalion-sort-heading">
-        <div><span>Controle de classificação</span><strong>Escolha uma coluna para organizar a tabela</strong></div>
+        <div><span>Controle de classificação e filtro</span><strong>Escolha uma coluna para classificar / filtrar a tabela</strong></div>
         <button class="battalion-sort-direction" type="button" data-battalion-direction="${battalionSortState.direction}" aria-label="Inverter ordem da classificação">
           <b>${battalionSortState.direction === 'asc' ? '↑' : '↓'}</b>
           <span>${battalionSortState.direction === 'asc' ? 'Menor → maior' : 'Maior → menor'}</span>
@@ -1533,15 +1526,15 @@ function buildMariaDaPenhaProjectDetail(projectId) {
       <strong>${weeklyPolice}</strong>
       <small>policiais fixos em ${fixedPatrols} patrulhas</small>
     </div>
-    <p class="maria-project-note"><strong>Critério:</strong> cada município recebe uma patrulha fixa com três policiais. Os mesmos três policiais trabalham de segunda a sexta e folgam no sábado e domingo; portanto, não há multiplicação do efetivo pelos cinco dias úteis. Reserva técnica para férias, licenças ou substituições ainda não foi incorporada. Como 1O2D e 1O3D são opções alternativas, o impacto consolidado é de ${projectedProjectTotal.toLocaleString('pt-BR')} policiais para a opção selecionada; os dois modelos não são somados entre si.</p>`;
+    <p class="maria-project-note"><strong>Critério:</strong> cada município recebe uma patrulha fixa com três policiais. Os mesmos três policiais trabalham de segunda a sexta e folgam no sábado e domingo; portanto, não há multiplicação do efetivo pelos cinco dias úteis. Reserva técnica para férias, licenças ou substituições ainda não foi incorporada. Como as opções 1 e 2 são alternativas, o impacto consolidado é de ${projectedProjectTotal.toLocaleString('pt-BR')} policiais para a opção selecionada; os dois modelos não são somados entre si.</p>`;
 }
 
 function renderMariaDaPenhaStudy() {
   const study = workforceProjectStudies.find((item) => item.key === 'mariaPenhaPog');
   const options = mariaDaPenhaProjects.map((project, index) => `
     <button class="maria-project-option${index === 0 ? ' is-active' : ''}" type="button" data-maria-project="${project.id}" aria-pressed="${index === 0}">
-      <span>${project.name}</span>
-      <strong>Opção ${index + 1}</strong>
+      <span>PROJETO MARIA DA PENHA</span>
+      <strong>${project.name}</strong>
       <small>${project.cities.length ? `${project.cities.length} municípios · ${project.cities.length * 3} policiais fixos` : project.status}</small>
     </button>`).join('');
   return `
@@ -1549,11 +1542,11 @@ function renderMariaDaPenhaStudy() {
       ${renderProjectStudySummary(study.key)}
       <section class="detail-section maria-project-section">
         <div class="detail-section-heading">
-          <div><h3>Escolha uma opção do projeto</h3><p>Os modelos 1O2D e 1O3D permanecem separados para facilitar a leitura e a futura memória de cálculo.</p></div>
+          <div><h3>Escolha uma opção do projeto</h3><p>As opções 1 e 2 permanecem separadas para facilitar a leitura e a futura memória de cálculo.</p></div>
           <span>Maria da Penha - POG</span>
         </div>
         <div class="maria-project-options">${options}</div>
-        <div class="maria-project-detail" id="mariaProjectDetail" aria-live="polite">${buildMariaDaPenhaProjectDetail('1o2d')}</div>
+        <div class="maria-project-detail" id="mariaProjectDetail" aria-live="polite">${buildMariaDaPenhaProjectDetail('opcao1')}</div>
       </section>
     </div>`;
 }

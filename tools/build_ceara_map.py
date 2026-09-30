@@ -11,7 +11,7 @@ from pathlib import Path
 import shapefile
 from openpyxl import load_workbook
 from pyproj import Transformer
-from shapely.geometry import mapping, shape
+from shapely.geometry import MultiPolygon, Polygon, mapping, shape
 from shapely.ops import transform, unary_union
 
 
@@ -296,6 +296,16 @@ def build_crpm_regions(municipalities: dict, neighborhoods: dict) -> dict:
     for crpm, geometries in grouped_geometries.items():
         assert geometries, f"Nenhuma geometria encontrada para {crpm}"
         region = unary_union(geometries).buffer(0)
+        region_parts = list(region.geoms) if isinstance(region, MultiPolygon) else [region]
+        cleaned_parts = []
+        for part in region_parts:
+            meaningful_holes = [
+                ring.coords
+                for ring in part.interiors
+                if Polygon(ring).area >= 0.0001
+            ]
+            cleaned_parts.append(Polygon(part.exterior.coords, meaningful_holes))
+        region = MultiPolygon(cleaned_parts) if len(cleaned_parts) > 1 else cleaned_parts[0]
         label_point = region.representative_point()
         battalions = [name for name, regional_command in CRPM_BY_BPM.items() if regional_command == crpm]
         features.append({

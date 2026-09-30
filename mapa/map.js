@@ -112,10 +112,12 @@ function addCrpmRegions(data) {
     pane: 'crpmBordersPane',
     interactive: false,
     style: {
-      color: '#173f30',
-      weight: 2.6,
-      opacity: .92,
-      fill: false
+      color: '#203d32',
+      weight: 1.8,
+      opacity: .88,
+      fill: false,
+      lineCap: 'round',
+      lineJoin: 'round'
     },
     onEachFeature(feature, layer) {
       const properties = feature.properties;

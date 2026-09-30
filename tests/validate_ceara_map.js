@@ -60,6 +60,8 @@ assert.equal(regions.features.reduce((total, feature) => total + feature.propert
 for (const feature of regions.features) {
   assert(['Polygon', 'MultiPolygon'].includes(feature.geometry.type), `Geometria regional inválida: ${feature.properties.crpm}`);
   assert.equal(feature.properties.label_coordinates.length, 2, `Rótulo regional inválido: ${feature.properties.crpm}`);
+  const polygons = feature.geometry.type === 'Polygon' ? [feature.geometry.coordinates] : feature.geometry.coordinates;
+  assert.equal(polygons.reduce((total, polygon) => total + Math.max(0, polygon.length - 1), 0), 0, `Microfrestas internas no contorno: ${feature.properties.crpm}`);
 }
 
 const html = fs.readFileSync(path.join(root, 'mapa/index.html'), 'utf8');
@@ -69,6 +71,7 @@ assert(html.includes('map.js') && html.includes('vendor/leaflet.js'), 'Dependên
 assert(html.includes('vendor/leaflet.markercluster.js'), 'Agrupamento dos batalhões ausente');
 assert(html.includes('toggleRegions') && html.includes('Divisão territorial · CRPM'), 'Controles e legenda dos CRPMs ausentes');
 assert(script.includes("fetch('data/crpm-regioes.geojson')"), 'Camada geográfica dos CRPMs ausente');
+assert(script.includes("weight: 1.8") && script.includes("lineJoin: 'round'"), 'Acabamento dos contornos dos CRPMs divergente');
 const officialCrpmColors = {
   '1º CRPM': '#42a5f5', '2º CRPM': '#ff7043', '3º CRPM': '#7e57c2', '4º CRPM': '#ef5350',
   '5º CRPM': '#26a69a', '6º CRPM': '#ec407a', '7º CRPM': '#66bb6a', '8º CRPM': '#ffca28'

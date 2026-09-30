@@ -247,6 +247,7 @@ body.modal-open { overflow: hidden; }
 .detail-total-card small { color: #6f7c75; font-size: 11.5px; }
 .detail-total-card p { margin: 12px 0 0; color: #59675f; font-size: 11.5px; line-height: 1.5; }
 .detail-stat-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+#metricDetailContent[data-detail="exits"] .detail-stat-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 #metricDetailContent[data-detail="pog"] .detail-stat-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 .detail-stat { display: flex; min-height: 94px; padding: 14px 15px; align-items: center; justify-content: center; flex-direction: column; border: 1px solid #dfe7e3; border-radius: 11px; text-align: center; background: #fff; }
 .detail-stat span { display: block; color: #74817a; font-size: 9.5px; font-weight: 720; text-transform: uppercase; letter-spacing: .045em; }
@@ -531,6 +532,7 @@ body.modal-open { overflow: hidden; }
 #metricDetailContent[data-detail="restructuring"] .detail-table td { text-align: center; }
 #metricDetailContent[data-detail="restructuring"] .detail-table th:nth-child(2),
 #metricDetailContent[data-detail="restructuring"] .detail-table td:nth-child(2) { width: 190px; white-space: normal; }
+#metricDetailContent[data-detail="restructuring"] .detail-table td:nth-child(2) { text-align: left; }
 #metricDetailContent[data-detail="restructuring"] .detail-table th:nth-child(3),
 #metricDetailContent[data-detail="restructuring"] .detail-table td:nth-child(3) { width: 95px; white-space: normal; }
 #metricDetailContent[data-detail="restructuring"] .detail-table th:nth-child(4),
@@ -700,6 +702,7 @@ body.modal-open { overflow: hidden; }
   .metric-dialog-header h2 { font-size: clamp(20px, 5vw, 27px); }
   .metric-dialog-body { padding: 15px; }
   .detail-stat-grid { grid-template-columns: 1fr 1fr; }
+  #metricDetailContent[data-detail="exits"] .detail-stat-grid { grid-template-columns: 1fr 1fr; }
   .project-study-card { grid-template-columns: 44px minmax(0, 1fr); grid-template-rows: auto 1fr auto; }
   .project-study-card-icon { width: 44px; height: 44px; }
   .project-study-card-total { grid-column: 1 / -1; grid-row: auto; align-items: baseline; flex-direction: row; }
@@ -780,6 +783,7 @@ body.modal-open { overflow: hidden; }
   .panel-chip { display: none; }
   .horizontal-bar-row { grid-template-columns: 20px 120px minmax(55px, 1fr) 60px; gap: 6px; }
   .detail-stat-grid { grid-template-columns: 1fr; }
+  #metricDetailContent[data-detail="exits"] .detail-stat-grid { grid-template-columns: 1fr; }
   .exit-unit-summary-grid { grid-template-columns: 1fr; }
   .exit-unit-lists { grid-template-columns: 1fr; }
   #metricDetailContent[data-detail="pog"] .detail-stat-grid { grid-template-columns: 1fr; }

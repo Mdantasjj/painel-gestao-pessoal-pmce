@@ -63,7 +63,7 @@ button, input { font: inherit; }
 .map-legend small { color: #6c7f74; font-size: 7.5px; line-height: 1.4; }
 
 .crpm-label-marker { display: grid !important; place-items: center; background: none !important; border: 0 !important; }
-.crpm-label-marker span { display: block; min-width: 66px; padding: 4px 7px; border: 2px solid #fff; border-radius: 7px; color: #fff; text-align: center; background: var(--crpm-color); box-shadow: 0 4px 12px rgba(7, 43, 29, .25); font-size: 8px; font-weight: 900; letter-spacing: .025em; white-space: nowrap; }
+.crpm-label-marker span { display: block; min-width: 66px; padding: 4px 7px; border: 2px solid #fff; border-radius: 7px; color: var(--crpm-text, #fff); text-align: center; background: var(--crpm-color); box-shadow: 0 4px 12px rgba(7, 43, 29, .25); font-size: 8px; font-weight: 900; letter-spacing: .025em; white-space: nowrap; }
 
 .battalion-marker { display: grid; width: 34px !important; height: 34px !important; margin: -17px 0 0 -17px !important; place-items: center; border: 3px solid #fff; border-radius: 50% 50% 50% 12%; color: #fff; background: var(--marker-color, #176a47); box-shadow: 0 4px 12px rgba(4, 45, 28, .35); font-size: 9px; font-weight: 900; line-height: 1; transform: rotate(-45deg); transition: filter .15s ease, transform .15s ease; }
 .battalion-marker span { transform: rotate(45deg); }

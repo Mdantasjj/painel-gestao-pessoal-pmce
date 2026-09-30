@@ -1,12 +1,12 @@
 const CRPM_COLORS = {
-  '1º CRPM': '#2f6f4e',
-  '2º CRPM': '#2f7f77',
-  '3º CRPM': '#4775a8',
-  '4º CRPM': '#6a67a5',
-  '5º CRPM': '#9a6b3c',
-  '6º CRPM': '#78954b',
-  '7º CRPM': '#a45d6e',
-  '8º CRPM': '#526d86'
+  '1º CRPM': '#42a5f5',
+  '2º CRPM': '#ff7043',
+  '3º CRPM': '#7e57c2',
+  '4º CRPM': '#ef5350',
+  '5º CRPM': '#26a69a',
+  '6º CRPM': '#ec407a',
+  '7º CRPM': '#66bb6a',
+  '8º CRPM': '#ffca28'
 };
 
 const NEED_COLORS = {
@@ -131,7 +131,7 @@ function addCrpmRegions(data) {
         interactive: false,
         icon: L.divIcon({
           className: 'crpm-label-marker',
-          html: `<span style="--crpm-color:${CRPM_COLORS[properties.crpm]}">${escapeHtml(properties.crpm)}</span>`,
+          html: `<span style="--crpm-color:${CRPM_COLORS[properties.crpm]};--crpm-text:${properties.crpm === '8º CRPM' ? '#443600' : '#fff'}">${escapeHtml(properties.crpm)}</span>`,
           iconSize: [72, 22],
           iconAnchor: [36, 11]
         })

@@ -69,6 +69,14 @@ assert(html.includes('map.js') && html.includes('vendor/leaflet.js'), 'Dependên
 assert(html.includes('vendor/leaflet.markercluster.js'), 'Agrupamento dos batalhões ausente');
 assert(html.includes('toggleRegions') && html.includes('Divisão territorial · CRPM'), 'Controles e legenda dos CRPMs ausentes');
 assert(script.includes("fetch('data/crpm-regioes.geojson')"), 'Camada geográfica dos CRPMs ausente');
+const officialCrpmColors = {
+  '1º CRPM': '#42a5f5', '2º CRPM': '#ff7043', '3º CRPM': '#7e57c2', '4º CRPM': '#ef5350',
+  '5º CRPM': '#26a69a', '6º CRPM': '#ec407a', '7º CRPM': '#66bb6a', '8º CRPM': '#ffca28'
+};
+for (const [crpm, color] of Object.entries(officialCrpmColors)) {
+  assert(script.includes(`'${crpm}': '${color}'`), `Cor oficial divergente: ${crpm}`);
+  assert(html.includes(`--legend-color:${color}`), `Cor da legenda divergente: ${crpm}`);
+}
 assert(css.includes('*, *::before, *::after {') && css.includes('font-family: "Montserrat", "Segoe UI", Arial, sans-serif !important;'), 'Montserrat não aplicada globalmente ao mapa');
 
 console.log('Validated Ceará map: 8 CRPMs, 184 municipalities, 121 Fortaleza neighborhoods and 34 BPMs.');

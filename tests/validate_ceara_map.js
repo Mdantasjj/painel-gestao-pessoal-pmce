@@ -65,12 +65,16 @@ for (const feature of regions.features) {
 }
 
 const html = fs.readFileSync(path.join(root, 'mapa/index.html'), 'utf8');
+const dashboardHtml = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
 const css = fs.readFileSync(path.join(root, 'mapa/map.css'), 'utf8');
 const script = fs.readFileSync(path.join(root, 'mapa/map.js'), 'utf8');
 assert(html.includes('map.js') && html.includes('vendor/leaflet.js'), 'Dependências da página do mapa ausentes');
 assert(html.includes('vendor/leaflet.markercluster.js'), 'Agrupamento dos batalhões ausente');
 assert(html.includes('toggleRegions') && html.includes('Divisão territorial · CRPM'), 'Controles e legenda dos CRPMs ausentes');
 assert(script.includes("fetch('data/crpm-regioes.geojson')"), 'Camada geográfica dos CRPMs ausente');
+assert(dashboardHtml.includes('id="icon-map"'), 'Ícone do mapa ausente no painel');
+assert(dashboardHtml.includes('class="situational-map-button"') && dashboardHtml.includes('href="mapa/"'), 'Atalho do painel para o mapa ausente');
+assert(dashboardHtml.includes('target="_blank"') && dashboardHtml.includes('ANÁLISE SITUACIONAL'), 'Atalho do mapa deve abrir o ambiente em nova aba');
 assert(script.includes("weight: 1.8") && script.includes("lineJoin: 'round'"), 'Acabamento dos contornos dos CRPMs divergente');
 const officialCrpmColors = {
   '1º CRPM': '#42a5f5', '2º CRPM': '#ff7043', '3º CRPM': '#7e57c2', '4º CRPM': '#ef5350',

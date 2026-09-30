@@ -19,6 +19,7 @@
       <symbol id="icon-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
       <symbol id="icon-calendar" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 11h18"/></symbol>
       <symbol id="icon-location" viewBox="0 0 24 24"><path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></symbol>
+      <symbol id="icon-map" viewBox="0 0 24 24"><path d="m3 6 6-3 6 3 6-3v15l-6 3-6-3-6 3V6Z"/><path d="M9 3v15M15 6v15"/></symbol>
       <symbol id="icon-screen" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M8 22h8M12 18v4"/></symbol>
       <symbol id="icon-trend" viewBox="0 0 24 24"><path d="m3 17 6-6 4 4 8-9"/><path d="M15 6h6v6"/></symbol>
       <symbol id="icon-award" viewBox="0 0 24 24"><circle cx="12" cy="8" r="5"/><path d="m8.8 12.2-1.4 8.3L12 18l4.6 2.5-1.4-8.3"/></symbol>
@@ -36,6 +37,9 @@
         </div>
         <div class="header-status">
           <div class="date-block"><span id="currentDate">—</span><strong id="currentTime">--:--</strong></div>
+          <a class="situational-map-button" href="mapa/" target="_blank" rel="noopener" aria-label="Abrir a análise situacional no mapa em uma nova aba">
+            <svg aria-hidden="true"><use href="#icon-map"></use></svg><span>ANÁLISE SITUACIONAL</span>
+          </a>
           <button class="screen-button" id="fullscreenButton" type="button" title="Exibir em tela cheia">
             <svg><use href="#icon-screen"></use></svg><span>Tela cheia</span>
           </button>

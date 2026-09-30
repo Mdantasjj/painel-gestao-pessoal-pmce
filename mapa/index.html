@@ -14,18 +14,18 @@
     <link rel="stylesheet" href="map.css" />
   </head>
   <body>
-    <main id="map" aria-label="Mapa do Ceará dividido por municípios e bairros de Fortaleza, com a localização dos 34 batalhões"></main>
+    <main id="map" aria-label="Mapa do Ceará dividido pelos oito CRPMs, municípios e bairros de Fortaleza, com a localização dos 34 batalhões"></main>
 
     <section class="map-heading" aria-label="Identificação do mapa">
       <span>Polícia Militar do Ceará</span>
       <strong>Mapa territorial dos batalhões</strong>
-      <small>184 municípios · 121 bairros de Fortaleza · 34 BPMs</small>
+      <small>8 CRPMs · 184 municípios · 121 bairros de Fortaleza · 34 BPMs</small>
     </section>
 
     <form class="map-search" id="mapSearch" role="search">
       <label for="mapSearchInput">Localizar no mapa</label>
       <div>
-        <input id="mapSearchInput" type="search" autocomplete="off" placeholder="Batalhão, município ou bairro" list="mapSearchOptions" />
+        <input id="mapSearchInput" type="search" autocomplete="off" placeholder="CRPM, batalhão, município ou bairro" list="mapSearchOptions" />
         <button type="submit" aria-label="Pesquisar">⌕</button>
       </div>
       <datalist id="mapSearchOptions"></datalist>
@@ -34,18 +34,36 @@
 
     <aside class="map-layers" aria-label="Camadas do mapa">
       <strong>Camadas</strong>
+      <label><input type="checkbox" id="toggleRegions" checked /> Divisões por CRPM</label>
       <label><input type="checkbox" id="toggleMunicipalities" checked /> Municípios</label>
       <label><input type="checkbox" id="toggleNeighborhoods" checked /> Bairros de Fortaleza</label>
       <label><input type="checkbox" id="toggleBattalions" checked /> Batalhões</label>
     </aside>
 
-    <aside class="map-legend" aria-label="Legenda de necessidade de efetivo">
-      <strong>Necessidade de efetivo</strong>
-      <span><i class="need-zero"></i> Sem necessidade apurada</span>
-      <span><i class="need-low"></i> 1 a 39 policiais</span>
-      <span><i class="need-medium"></i> 40 a 79 policiais</span>
-      <span><i class="need-high"></i> 80 ou mais policiais</span>
-      <small>Passe o mouse sobre um batalhão para consultar a análise situacional.</small>
+    <aside class="map-legend" aria-label="Legendas das divisões por CRPM e da necessidade de efetivo">
+      <section class="crpm-legend">
+        <strong>Divisão territorial · CRPM</strong>
+        <div>
+          <span><i style="--legend-color:#2f6f4e"></i> 1º CRPM</span>
+          <span><i style="--legend-color:#2f7f77"></i> 2º CRPM</span>
+          <span><i style="--legend-color:#4775a8"></i> 3º CRPM</span>
+          <span><i style="--legend-color:#6a67a5"></i> 4º CRPM</span>
+          <span><i style="--legend-color:#9a6b3c"></i> 5º CRPM</span>
+          <span><i style="--legend-color:#78954b"></i> 6º CRPM</span>
+          <span><i style="--legend-color:#a45d6e"></i> 7º CRPM</span>
+          <span><i style="--legend-color:#526d86"></i> 8º CRPM</span>
+        </div>
+      </section>
+      <section class="need-legend">
+        <strong>Necessidade de efetivo</strong>
+        <div>
+          <span><i class="need-zero"></i> Sem necessidade</span>
+          <span><i class="need-low"></i> 1 a 39</span>
+          <span><i class="need-medium"></i> 40 a 79</span>
+          <span><i class="need-high"></i> 80 ou mais</span>
+        </div>
+      </section>
+      <small>As cores representam os CRPMs; os marcadores representam a necessidade dos BPMs.</small>
     </aside>
 
     <div class="map-loading" id="mapLoading" role="status">

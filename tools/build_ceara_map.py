@@ -12,7 +12,7 @@ import shapefile
 from openpyxl import load_workbook
 from pyproj import Transformer
 from shapely.geometry import mapping, shape
-from shapely.ops import transform
+from shapely.ops import transform, unary_union
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -20,7 +20,10 @@ MAP_DATA = ROOT / "mapa" / "data"
 IPECE_DIR = ROOT / "data" / "ipece_limites_2026"
 IPECE_ARCHIVE = ROOT / "data" / "Limites_municipais_Ceara_2026.zip"
 IPECE_URL = "https://www.ipece.ce.gov.br/wp-content/uploads/sites/45/2026/05/Limites_municipais_Ceara_2026.zip"
-DISTRI_VTR = Path.home() / "Downloads" / "DISTRI VTR (1).xlsx"
+DISTRI_VTR_CANDIDATES = (
+    ROOT / "PACOTE_FONTES_DADOS_PMCE_2026" / "01_FONTES_ORIGINAIS_USADAS" / "DISTRI VTR (1).xlsx",
+    Path.home() / "Downloads" / "DISTRI VTR (1).xlsx",
+)
 FORTALEZA_SOURCE = MAP_DATA / "bairros-fortaleza-2023.geojson"
 FORTALEZA_URL = "https://mapas.fortaleza.ce.gov.br/api/download/geojson/21"
 CSV_SOURCE = ROOT / "data" / "saidas_batalhoes_2026.csv"
@@ -95,6 +98,12 @@ CRPM_BY_BPM = {
     "33º BPM": "4º CRPM", "34º BPM": "4º CRPM",
 }
 
+FORTALEZA_NEIGHBORHOOD_ALIASES = {
+    "tauape": "saojoaodotauape",
+    "sapirangacoite": "sapiranga",
+    "boavistacastelao": "boavista",
+}
+
 
 def normalized(value: object) -> str:
     text = unicodedata.normalize("NFKD", str(value or ""))
@@ -106,23 +115,60 @@ def clean_unit(value: object) -> str:
     return re.sub(r"\s+", " ", str(value or "").replace(" º", "º").strip())
 
 
-def read_distribution() -> dict[str, dict[str, str]]:
-    workbook = load_workbook(DISTRI_VTR, read_only=True, data_only=True)
+def distribution_source() -> Path:
+    source = next((path for path in DISTRI_VTR_CANDIDATES if path.exists()), None)
+    if source is None:
+        raise FileNotFoundError("A planilha DISTRI VTR (1).xlsx não foi encontrada nas fontes do projeto nem em Downloads.")
+    return source
+
+
+def read_distribution() -> tuple[dict[str, dict[str, str]], dict[str, dict[str, str]]]:
+    workbook = load_workbook(distribution_source(), read_only=True, data_only=True)
     sheet = workbook["BASE"]
     rows = {}
+    fortaleza_by_ais = {}
     for row in sheet.iter_rows(min_row=2, values_only=True):
         if not row[0]:
             continue
-        rows[normalized(row[0])] = {
+        assignment = {
             "municipio": str(row[0]).strip(),
             "risp": str(row[1]).strip(),
             "ais": str(row[2]).strip(),
             "crpm": clean_unit(row[3]),
             "bpm": clean_unit(row[4]),
         }
+        municipality_key = normalized(row[0])
+        rows[municipality_key] = assignment
+        if municipality_key == "fortaleza":
+            fortaleza_by_ais[assignment["ais"]] = {
+                "ais": assignment["ais"],
+                "crpm": assignment["crpm"],
+                "bpm": assignment["bpm"],
+            }
+
+    neighborhood_assignments = {}
+    for row in workbook["BAIRROS FORTALEZA"].iter_rows(min_row=2, values_only=True):
+        if not row[0] or not row[1]:
+            continue
+        ais = str(row[0]).strip()
+        assignment = fortaleza_by_ais.get(ais)
+        if assignment is None:
+            raise ValueError(f"Bairro de Fortaleza associado a uma AIS sem vínculo territorial: {row[1]} · {ais}")
+        neighborhood_assignments[normalized(row[1])] = assignment
+
     workbook.close()
     assert len(rows) == 184, f"Esperados 184 municípios na distribuição; encontrados {len(rows)}"
-    return rows
+    assert len(neighborhood_assignments) == 121, (
+        f"Esperados 121 bairros na distribuição de Fortaleza; encontrados {len(neighborhood_assignments)}"
+    )
+    rows["fortaleza"] = {
+        "municipio": "Fortaleza",
+        "risp": "RISP Capital Oeste e Leste",
+        "ais": "10 AIS territoriais",
+        "crpm": "1º e 5º CRPM",
+        "bpm": "10 BPMs territoriais",
+    }
+    return rows, neighborhood_assignments
 
 
 def ensure_cartographic_sources() -> Path:
@@ -180,10 +226,31 @@ def build_municipalities(distribution: dict[str, dict[str, str]], shapefile_path
     }
     output = MAP_DATA / "municipios-ceara-2026.geojson"
     output.write_text(json.dumps(collection, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
-    return centers
+    return centers, collection
 
 
-def build_fortaleza_neighborhoods() -> dict[str, list[float]]:
+def add_neighborhood_assignments(source: dict, neighborhood_assignments: dict[str, dict[str, str]]) -> dict:
+    features = []
+    unmatched = []
+    for feature in source["features"]:
+        properties = feature["properties"]
+        name = str(properties.get("Nome") or properties.get("bairro") or "").strip()
+        source_key = FORTALEZA_NEIGHBORHOOD_ALIASES.get(normalized(name), normalized(name))
+        assignment = neighborhood_assignments.get(source_key)
+        if assignment is None:
+            unmatched.append(name)
+            continue
+        features.append({
+            "type": "Feature",
+            "properties": {"bairro": name, **assignment},
+            "geometry": feature["geometry"],
+        })
+    assert not unmatched, f"Bairros de Fortaleza sem vínculo de CRPM: {unmatched}"
+    assert len(features) == 121
+    return {"type": "FeatureCollection", "features": features}
+
+
+def build_fortaleza_neighborhoods(neighborhood_assignments: dict[str, dict[str, str]]) -> tuple[dict[str, list[float]], dict]:
     source = json.loads(FORTALEZA_SOURCE.read_text(encoding="utf-8"))
     features = []
     centers = {}
@@ -198,9 +265,61 @@ def build_fortaleza_neighborhoods() -> dict[str, list[float]]:
             "geometry": mapping(geometry),
         })
     assert len(features) == 121
+    collection = add_neighborhood_assignments(
+        {"type": "FeatureCollection", "features": features},
+        neighborhood_assignments,
+    )
     output = MAP_DATA / "bairros-fortaleza.geojson"
-    output.write_text(json.dumps({"type": "FeatureCollection", "features": features}, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
-    return centers
+    output.write_text(json.dumps(collection, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
+    return centers, collection
+
+
+def build_crpm_regions(municipalities: dict, neighborhoods: dict) -> dict:
+    grouped_geometries = {f"{number}º CRPM": [] for number in range(1, 9)}
+    municipality_counts = {crpm: 0 for crpm in grouped_geometries}
+    neighborhood_counts = {crpm: 0 for crpm in grouped_geometries}
+
+    for feature in municipalities["features"]:
+        properties = feature["properties"]
+        if properties["municipio"] == "Fortaleza":
+            continue
+        crpm = properties["crpm"]
+        grouped_geometries[crpm].append(shape(feature["geometry"]))
+        municipality_counts[crpm] += 1
+
+    for feature in neighborhoods["features"]:
+        crpm = feature["properties"]["crpm"]
+        grouped_geometries[crpm].append(shape(feature["geometry"]))
+        neighborhood_counts[crpm] += 1
+
+    features = []
+    for crpm, geometries in grouped_geometries.items():
+        assert geometries, f"Nenhuma geometria encontrada para {crpm}"
+        region = unary_union(geometries).buffer(0)
+        label_point = region.representative_point()
+        battalions = [name for name, regional_command in CRPM_BY_BPM.items() if regional_command == crpm]
+        features.append({
+            "type": "Feature",
+            "properties": {
+                "crpm": crpm,
+                "batalhoes": battalions,
+                "quantidade_batalhoes": len(battalions),
+                "municipios_integrais": municipality_counts[crpm],
+                "bairros_fortaleza": neighborhood_counts[crpm],
+                "label_coordinates": [round(label_point.x, 6), round(label_point.y, 6)],
+            },
+            "geometry": mapping(region),
+        })
+
+    collection = {
+        "type": "FeatureCollection",
+        "name": "Divisões territoriais dos oito CRPMs",
+        "source": "DISTRI VTR (1).xlsx · limites IPECE 2026 · bairros IPLANFOR 2023",
+        "features": features,
+    }
+    output = MAP_DATA / "crpm-regioes.geojson"
+    output.write_text(json.dumps(collection, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
+    return collection
 
 
 def read_situational_rows() -> dict[str, dict[str, object]]:
@@ -276,11 +395,12 @@ def build_battalions(municipal_centers, neighborhood_centers, distribution):
 def main():
     MAP_DATA.mkdir(parents=True, exist_ok=True)
     shapefile_path = ensure_cartographic_sources()
-    distribution = read_distribution()
-    municipal_centers = build_municipalities(distribution, shapefile_path)
-    neighborhood_centers = build_fortaleza_neighborhoods()
+    distribution, neighborhood_assignments = read_distribution()
+    municipal_centers, municipalities = build_municipalities(distribution, shapefile_path)
+    neighborhood_centers, neighborhoods = build_fortaleza_neighborhoods(neighborhood_assignments)
+    build_crpm_regions(municipalities, neighborhoods)
     build_battalions(municipal_centers, neighborhood_centers, distribution)
-    print("Mapa validado: 184 municípios, 121 bairros de Fortaleza e 34 BPMs.")
+    print("Mapa validado: 8 CRPMs, 184 municípios, 121 bairros de Fortaleza e 34 BPMs.")
 
 
 if __name__ == "__main__":

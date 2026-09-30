@@ -1,12 +1,12 @@
 const CRPM_COLORS = {
-  '1º CRPM': '#d7eadf',
-  '2º CRPM': '#c8e1d2',
-  '3º CRPM': '#b7d6c4',
-  '4º CRPM': '#a5cbb5',
-  '5º CRPM': '#91bea5',
-  '6º CRPM': '#7caf96',
-  '7º CRPM': '#659f83',
-  '8º CRPM': '#4d8d70'
+  '1º CRPM': '#2f6f4e',
+  '2º CRPM': '#2f7f77',
+  '3º CRPM': '#4775a8',
+  '4º CRPM': '#6a67a5',
+  '5º CRPM': '#9a6b3c',
+  '6º CRPM': '#78954b',
+  '7º CRPM': '#a45d6e',
+  '8º CRPM': '#526d86'
 };
 
 const NEED_COLORS = {
@@ -26,8 +26,16 @@ const map = L.map('map', {
 });
 
 L.control.zoom({ position: 'topleft', zoomInTitle: 'Aproximar', zoomOutTitle: 'Afastar' }).addTo(map);
+map.createPane('crpmBordersPane');
+map.getPane('crpmBordersPane').style.zIndex = 425;
+map.getPane('crpmBordersPane').style.pointerEvents = 'none';
+map.createPane('crpmLabelsPane');
+map.getPane('crpmLabelsPane').style.zIndex = 440;
+map.getPane('crpmLabelsPane').style.pointerEvents = 'none';
 
 const state = {
+  regions: null,
+  regionLabels: null,
   municipalities: null,
   neighborhoods: null,
   battalions: null,
@@ -77,15 +85,60 @@ function municipalityStyle(feature) {
     weight: .85,
     opacity: .96,
     fillColor: CRPM_COLORS[feature.properties.crpm] || '#d8e7de',
-    fillOpacity: .88
+    fillOpacity: .72
+  };
+}
+
+function neighborhoodStyle(feature) {
+  return {
+    color: '#ffffff',
+    weight: .8,
+    opacity: .8,
+    fillColor: CRPM_COLORS[feature.properties.crpm] || '#cce4d6',
+    fillOpacity: .72
   };
 }
 
 function municipalityTooltip(properties) {
   let territorialReference = `${properties.bpm} · ${properties.crpm}`;
-  if (properties.municipio === 'Fortaleza') territorialReference = '10 BPMs territoriais · Capital';
+  if (properties.municipio === 'Fortaleza') territorialReference = '10 BPMs territoriais · 1º e 5º CRPM';
   if (properties.municipio === 'Caucaia') territorialReference = '12º BPM e 26º BPM · 2º CRPM';
   return `<strong>${escapeHtml(properties.municipio)}</strong><span>${escapeHtml(territorialReference)} · ${formatNumber(properties.area_km2)} km²</span>`;
+}
+
+function addCrpmRegions(data) {
+  state.regionLabels = L.layerGroup();
+  state.regions = L.geoJSON(data, {
+    pane: 'crpmBordersPane',
+    interactive: false,
+    style: {
+      color: '#173f30',
+      weight: 2.6,
+      opacity: .92,
+      fill: false
+    },
+    onEachFeature(feature, layer) {
+      const properties = feature.properties;
+      state.searchItems.push({
+        label: `${properties.crpm} · ${properties.quantidade_batalhoes} BPMs`,
+        type: 'crpm',
+        target: layer,
+        properties
+      });
+      const [longitude, latitude] = properties.label_coordinates;
+      L.marker([latitude, longitude], {
+        pane: 'crpmLabelsPane',
+        interactive: false,
+        icon: L.divIcon({
+          className: 'crpm-label-marker',
+          html: `<span style="--crpm-color:${CRPM_COLORS[properties.crpm]}">${escapeHtml(properties.crpm)}</span>`,
+          iconSize: [72, 22],
+          iconAnchor: [36, 11]
+        })
+      }).addTo(state.regionLabels);
+    }
+  }).addTo(map);
+  state.regionLabels.addTo(map);
 }
 
 function battalionTooltip(properties) {
@@ -150,11 +203,11 @@ function addMunicipalities(data) {
 
 function addNeighborhoods(data) {
   state.neighborhoods = L.geoJSON(data, {
-    style: { color: '#0d5a3b', weight: 1, opacity: .75, fillColor: '#cce4d6', fillOpacity: .12 },
+    style: neighborhoodStyle,
     onEachFeature(feature, layer) {
       state.neighborhoodFeatures.set(normalize(feature.properties.bairro), layer);
       state.searchItems.push({ label: `${feature.properties.bairro} · Fortaleza`, type: 'bairro', target: layer });
-      layer.bindTooltip(`<strong>${escapeHtml(feature.properties.bairro)}</strong>`, { className: 'neighborhood-tooltip', sticky: true, direction: 'top' });
+      layer.bindTooltip(`<strong>${escapeHtml(feature.properties.bairro)}</strong><span>${escapeHtml(feature.properties.bpm)} · ${escapeHtml(feature.properties.crpm)}</span>`, { className: 'neighborhood-tooltip', sticky: true, direction: 'top' });
       layer.on({
         mouseover() { layer.setStyle({ color: '#0b4932', weight: 2, fillOpacity: .28 }); layer.bringToFront(); },
         mouseout() { state.neighborhoods.resetStyle(layer); },
@@ -210,6 +263,7 @@ function addBattalions(data) {
 
 function configureLayerControls() {
   const controls = [
+    ['toggleRegions', 'regions'],
     ['toggleMunicipalities', 'municipalities'],
     ['toggleNeighborhoods', 'neighborhoods'],
     ['toggleBattalions', 'battalions']
@@ -218,8 +272,13 @@ function configureLayerControls() {
     document.querySelector(`#${id}`).addEventListener('change', (event) => {
       const layer = state[key];
       if (!layer) return;
-      if (event.target.checked) layer.addTo(map);
-      else map.removeLayer(layer);
+      if (event.target.checked) {
+        layer.addTo(map);
+        if (key === 'regions' && state.regionLabels) state.regionLabels.addTo(map);
+      } else {
+        map.removeLayer(layer);
+        if (key === 'regions' && state.regionLabels) map.removeLayer(state.regionLabels);
+      }
       if (state.battalions && map.hasLayer(state.battalions)) state.battalions.bringToFront?.();
     });
   });
@@ -231,7 +290,7 @@ function configureSearch() {
   const feedback = document.querySelector('#mapSearchFeedback');
   const datalist = document.querySelector('#mapSearchOptions');
   datalist.innerHTML = state.searchItems
-    .filter((item) => item.type === 'batalhao' || item.type === 'municipio')
+    .filter((item) => ['batalhao', 'crpm', 'municipio'].includes(item.type))
     .map((item) => `<option value="${escapeHtml(item.label)}"></option>`)
     .join('');
   form.addEventListener('submit', (event) => {
@@ -253,7 +312,7 @@ function configureSearch() {
       window.setTimeout(() => result.target.openTooltip(), 650);
     } else {
       map.fitBounds(result.target.getBounds(), { padding: [35, 35], maxZoom: result.type === 'bairro' ? 14 : 11 });
-      window.setTimeout(() => result.target.openTooltip(), 450);
+      if (result.type !== 'crpm') window.setTimeout(() => result.target.openTooltip(), 450);
     }
   });
 }
@@ -261,19 +320,21 @@ function configureSearch() {
 function addAttribution() {
   const attribution = document.createElement('div');
   attribution.className = 'map-attribution';
-  attribution.innerHTML = 'Limites municipais: <a href="https://www.ipece.ce.gov.br/limites-municipais/" target="_blank" rel="noopener">IPECE 2026</a> · Bairros: <a href="https://mapas.fortaleza.ce.gov.br/mapa/21/bairros-de-fortaleza" target="_blank" rel="noopener">IPLANFOR 2023</a> · Análise: PMCE 2025–2026';
+  attribution.innerHTML = 'Limites municipais: <a href="https://www.ipece.ce.gov.br/limites-municipais/" target="_blank" rel="noopener">IPECE 2026</a> · Bairros: <a href="https://mapas.fortaleza.ce.gov.br/mapa/21/bairros-de-fortaleza" target="_blank" rel="noopener">IPLANFOR 2023</a> · Divisão territorial: DISTRI VTR · Análise: PMCE 2025–2026';
   document.body.append(attribution);
 }
 
 async function initialize() {
   try {
     const responses = await Promise.all([
+      fetch('data/crpm-regioes.geojson'),
       fetch('data/municipios-ceara-2026.geojson'),
       fetch('data/bairros-fortaleza.geojson'),
       fetch('data/batalhoes-situacao.geojson')
     ]);
     if (responses.some((response) => !response.ok)) throw new Error('Falha ao obter os dados geográficos.');
-    const [municipalities, neighborhoods, battalions] = await Promise.all(responses.map((response) => response.json()));
+    const [regions, municipalities, neighborhoods, battalions] = await Promise.all(responses.map((response) => response.json()));
+    addCrpmRegions(regions);
     addMunicipalities(municipalities);
     addNeighborhoods(neighborhoods);
     addBattalions(battalions);

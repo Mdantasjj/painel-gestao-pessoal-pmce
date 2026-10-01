@@ -301,11 +301,11 @@ function configureSearch() {
   let selectedGroup = null;
   let activeResult = null;
   const clearSelection = () => {
+    if (activeResult?.target?.closeTooltip) activeResult.target.closeTooltip();
     if (selectedLayer && selectedGroup) selectedGroup.resetStyle(selectedLayer);
     selectedLayer = null;
     selectedGroup = null;
     activeResult = null;
-    map.closeTooltip();
     feedback.classList.remove('is-visible');
     feedback.textContent = '';
   };

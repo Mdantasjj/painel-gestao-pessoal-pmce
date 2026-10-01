@@ -731,7 +731,7 @@ function recalculateRestructuringFromConsolidatedStrength() {
     String(index + 1), name, format(current), format(reference),
     additional > 0 ? 'Abaixo da média' : 'Na média ou acima', format(losses), additional > 0 ? `-${format(additional)}` : '0'
   ]);
-  study.note = `Escopo: nove BPMs numerados (26º a 34º) identificados na aba “Resumo Executivo” da planilha de reorganização; 6º a 9º BPRAIO continuam fora. Os efetivos atuais foram recalculados pela soma das 84 Companhias territoriais informadas, totalizando ${format(battalionStrengthTotal)} policiais nos 34 BPMs. A referência matemática original foi preservada. Sobre a coluna Reestruturação foram aplicados manualmente: 27º BPM −40; 28º BPM −40; 29º BPM −30; 30º BPM −20; 31º BPM −30; 32º BPM +20; 33º BPM −50. O 26º e o 34º BPM permanecem inalterados. O resultado ajustado dos nove batalhões soma ${format(additionalTotal)} policiais. A coluna Perdas não foi alterada.`;
+  study.note = '';
 
   consolidated.total = format(consolidatedNeed);
   consolidated.description = '';

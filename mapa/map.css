@@ -18,7 +18,7 @@ button, input { font: inherit; }
 .leaflet-control-zoom a { color: #145c40 !important; background: rgba(255,255,255,.96) !important; }
 .leaflet-control-zoom a:hover { color: #fff !important; background: #176a47 !important; }
 
-.map-heading, .map-search, .map-layers, .map-legend {
+.map-heading, .map-search, .map-layers, .map-legend, .map-back {
   position: fixed;
   z-index: 500;
   border: 1px solid rgba(63, 119, 87, .35);
@@ -28,6 +28,9 @@ button, input { font: inherit; }
   backdrop-filter: blur(10px);
 }
 
+.map-back { top: 16px; left: 16px; display: flex; width: 34px; height: 34px; align-items: center; justify-content: center; gap: 7px; overflow: hidden; color: #fff; background: #176a47; font-size: 0; font-weight: 850; text-decoration: none; transition: width .18s ease, background .18s ease; }
+.map-back span { font-size: 19px; line-height: 1; }
+.map-back:hover, .map-back:focus-visible { width: 94px; justify-content: flex-start; padding: 0 12px; background: #0d5136; font-size: 9px; outline: 0; }
 .map-heading { top: 16px; left: 58px; min-width: 295px; padding: 12px 16px 13px; border-left: 5px solid #176a47; }
 .map-heading span { display: block; color: #34805d; font-size: 8.5px; font-weight: 850; letter-spacing: .12em; text-transform: uppercase; }
 .map-heading strong { display: block; margin-top: 4px; color: #113f2d; font-size: 16px; line-height: 1.2; }
@@ -111,6 +114,7 @@ button, input { font: inherit; }
 
 @media (max-width: 620px) {
   .map-heading { top: 10px; right: 10px; left: 50px; min-width: 0; }
+  .map-back { top: 10px; left: 10px; }
   .map-heading strong { font-size: 13px; }
   .map-heading small { display: none; }
   .map-search { top: 91px; right: 10px; left: 10px; width: auto; }

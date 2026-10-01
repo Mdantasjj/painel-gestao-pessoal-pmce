@@ -735,7 +735,7 @@ function recalculateRestructuringFromConsolidatedStrength() {
 
   consolidated.total = format(consolidatedNeed);
   consolidated.description = '';
-  consolidated.note = `Para cada unidade, a situação é calculada por saldo das movimentações − exonerações − demissões − promoções requeridas de 2025 e 2026 vinculadas. A base SAPM de 30/09/2026 consolida sede, Companhias, Pelotões e Destacamentos subordinados em cada OPM e individualiza os nove BPRAIO. A base de efetivo preservada reúne 84 Companhias territoriais subordinadas aos 34 BPMs e soma ${format(battalionStrengthTotal)} policiais. As cidades foram obtidas da aba POG da planilha “ENDEREÇOS_DAS_BASES.xlsx”. As perdas somam ${format(battalionSituationalNeed)} policiais nos 34 BPMs, incluindo +48 de perdas anteriores acrescentadas manualmente ao 13º BPM. A reestruturação ajustada soma ${format(additionalTotal)} policiais e permanece restrita ao 26º–34º BPM; as unidades especializadas somam ${format(specializedNeed)}. O resultado consolidado é ${format(consolidatedNeed)} policiais (${format(battalionSituationalNeed)} + ${format(additionalTotal)} + ${format(specializedNeed)}). Os 80 processos agregados de exoneração e demissão de 2025 não foram distribuídos, pois a fonte não identifica a OPM. Promoção requerida não comprova baixa institucional, e o cenário não representa efetivo já autorizado.`;
+  consolidated.note = '';
 
   const card = document.querySelector('.metric-card[data-detail="restructuring"]');
   if (card) {
@@ -1692,7 +1692,6 @@ function renderMetricDetail(key) {
       ${discriminatedHeading}
       ${battalionSortControls}
       ${key === 'battalions' ? `<div id="battalionTableResult">${detailTable}</div>` : detailTable}
-      ${key === 'battalions' ? `<p class="battalion-table-source-note"><strong>Escopo ampliado:</strong> a tabela apresenta os 34 BPMs e 18 unidades especializadas, incluindo a COPAC e excluindo o BPGEP. Das 707 requeridas consideradas de 2025–2026, 430 estão nos BPMs, 94 nas especializadas listadas e 183 em outras OPMs. Os 80 processos agregados de exoneração e demissão de 2025 não foram rateados porque a fonte não identifica a unidade. <strong>Leitura da necessidade:</strong> 1.419 nos BPMs, incluindo 48 de perdas anteriores no 13º BPM, + 170 nas especializadas + ${metricDetails.restructuring.total} da reestruturação = ${data.total} policiais. Na COPAC, 13 demissões + 7 requeridas e saldo de movimentações de −5 resultam em 25 policiais de necessidade situacional. Os saldos reproduzem a base SAPM atualizada até setembro de 2026, consolidando a hierarquia subordinada de cada OPM. BPGEP, COGEIC e CGP não integram a tabela. Promoção requerida não é baixa institucional.</p>` : ''}
     </section>`;
   metricDetailContent.innerHTML = `
     <div class="detail-hero-grid">
@@ -1712,7 +1711,7 @@ function renderMetricDetail(key) {
     ${copacResources}
     ${discriminatedTable}
     ${pogImplementations}
-    <p class="detail-methodology">${data.note}</p>`;
+    ${data.note ? `<p class="detail-methodology">${data.note}</p>` : ''}`;
   if (key === 'restructuring') renderRestructuringUnitDetail('33º BPM');
 }
 

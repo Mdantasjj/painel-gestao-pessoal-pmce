@@ -41,7 +41,18 @@ button, input, select { font: inherit; }
 .map-search button { border: 0; border-radius: 0 8px 8px 0; color: #fff; background: #176a47; font-size: 24px; font-weight: 800; cursor: pointer; }
 .map-search button:hover { background: #0d5136; }
 .map-search p { display: none; margin: 7px 2px 0; color: #8a4f20; font-size: 8.5px; font-weight: 650; }
-.map-search p.is-visible { display: block; }
+.map-search p.is-visible { display: block; padding: 6px 8px; border-radius: 6px; color: #0c5438; background: #dff3e8; font-weight: 800; }
+
+.leaflet-overlay-pane path.is-filter-muted { opacity: .13 !important; fill-opacity: .08 !important; transition: opacity .2s ease, fill-opacity .2s ease; }
+.leaflet-overlay-pane path.is-filter-related { opacity: 1 !important; fill-opacity: .92 !important; stroke: #fff !important; stroke-width: 2.2px !important; filter: drop-shadow(0 2px 4px rgba(8, 54, 36, .28)); }
+.leaflet-overlay-pane path.is-filter-selected { opacity: 1 !important; fill-opacity: .98 !important; stroke: #ffe082 !important; stroke-width: 5px !important; filter: drop-shadow(0 0 7px rgba(255, 193, 7, .95)) drop-shadow(0 4px 8px rgba(8, 54, 36, .42)); }
+.leaflet-marker-icon.is-filter-selected { z-index: 1000 !important; opacity: 1 !important; }
+.leaflet-marker-icon.is-filter-selected .battalion-marker { border-color: #ffe082; box-shadow: 0 0 0 6px rgba(255, 193, 7, .34), 0 0 20px rgba(255, 193, 7, .95), 0 7px 16px rgba(4,45,28,.45); animation: filter-marker-pulse 1.25s ease-in-out infinite; }
+@keyframes filter-marker-pulse {
+  0%, 100% { box-shadow: 0 0 0 4px rgba(255, 193, 7, .28), 0 0 12px rgba(255, 193, 7, .72), 0 7px 16px rgba(4,45,28,.45); }
+  50% { box-shadow: 0 0 0 10px rgba(255, 193, 7, .10), 0 0 25px rgba(255, 193, 7, 1), 0 7px 16px rgba(4,45,28,.45); }
+}
+@media (prefers-reduced-motion: reduce) { .leaflet-marker-icon.is-filter-selected .battalion-marker { animation: none; } }
 
 .map-layers { top: 16px; right: 16px; display: grid; min-width: 190px; gap: 8px; padding: 12px 14px; }
 .map-layers > strong, .map-legend section > strong { color: #174d36; font-size: 10px; font-weight: 850; letter-spacing: .04em; text-transform: uppercase; }

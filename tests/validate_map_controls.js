@@ -29,13 +29,17 @@ const context = vm.createContext({
 const source = fs.readFileSync(path.join(__dirname, '../mapa/map.js'), 'utf8');
 vm.runInContext(source.replace(/initialize\(\);\s*$/, ''), context);
 function group() {
-  return { addTo() { visible.add(this); }, resetStyle(layer) { layer.style = null; },
+  return { layers: [], addTo() { visible.add(this); }, resetStyle(layer) { layer.style = null; },
+    eachLayer(callback) { this.layers.forEach(callback); },
     getBounds() { return 'state'; }, zoomToShowLayer(marker, callback) { callback(); } };
 }
 function target(bounds) {
+  const classes = new Set();
   return { feature: { properties: { crpm: '3º CRPM' } }, style: null, tooltip: false,
     getBounds() { return bounds; }, getLatLng() { return [-3.8, -40]; },
-    setStyle(style) { this.style = style; }, openTooltip() { this.tooltip = true; } };
+    getElement() { return { classList: { add: (...names) => names.forEach(name => classes.add(name)), remove: (...names) => names.forEach(name => classes.delete(name)) } }; },
+    setStyle(style) { this.style = style; }, setOpacity(value) { this.opacity = value; },
+    bringToFront() {}, openTooltip() { this.tooltip = true; } };
 }
 context.groups = Object.fromEntries(['regions', 'regionLabels', 'municipalities', 'neighborhoods', 'battalions'].map(key => [key, group()]));
 const region = target('regional');
@@ -43,11 +47,16 @@ const municipality = target('sobral');
 const battalion = target('bpm');
 const neighborhood = target('centro');
 context.items = [
-  { label: '3º CRPM · 3 BPMs', type: 'crpm', target: region },
+  { label: '3º CRPM · 3 BPMs', type: 'crpm', target: region, properties: { crpm: '3º CRPM' } },
   { label: 'Sobral', type: 'municipio', target: municipality },
   { label: '3º BPM · Sobral', type: 'batalhao', target: battalion, properties: { sede: 'Sobral' } },
   { label: 'Centro · Fortaleza', type: 'bairro', target: neighborhood }
 ];
+context.groups.regions.layers = [region];
+context.groups.municipalities.layers = [municipality];
+context.groups.neighborhoods.layers = [neighborhood];
+context.groups.battalions.layers = [battalion];
+battalion.filterProperties = { crpm: '3º CRPM' };
 // A checkbox changed during data loading must be respected when controls initialize.
 element('#toggleMunicipalities').checked = false;
 vm.runInContext('Object.assign(state, groups); state.searchItems = items; configureLayerControls(); configureSearch();', context);

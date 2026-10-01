@@ -42,7 +42,9 @@ const state = {
   municipalityFeatures: new Map(),
   neighborhoodFeatures: new Map(),
   battalionMarkers: new Map(),
-  searchItems: []
+  searchItems: [],
+  filterElements: new Set(),
+  filterMarkers: new Set()
 };
 
 function normalize(value) {
@@ -253,6 +255,7 @@ function addBattalions(data) {
       opacity: 1,
       interactive: true
     });
+    marker.filterProperties = properties;
     marker.on('click', () => {
       map.flyTo([latitude, longitude], Math.max(map.getZoom(), properties.sede === 'Fortaleza' ? 12 : 10), { duration: .55 });
       marker.openTooltip();
@@ -308,8 +311,48 @@ function configureSearch() {
   let selectedLayer = null;
   let selectedGroup = null;
   let activeResult = null;
+  const addFilterClass = (layer, className) => {
+    const element = layer?.getElement?.();
+    if (!element) return;
+    element.classList.add(className);
+    state.filterElements.add(element);
+  };
+  const clearFilterVisuals = () => {
+    state.filterElements.forEach((element) => element.classList.remove('is-filter-selected', 'is-filter-related', 'is-filter-muted'));
+    state.filterElements.clear();
+    state.filterMarkers.forEach((marker) => marker.setOpacity?.(1));
+    state.filterMarkers.clear();
+  };
+  const emphasizeResult = (result) => {
+    if (result.type === 'crpm') {
+      const selectedCrpm = result.properties.crpm;
+      state.municipalities.eachLayer((layer) => addFilterClass(layer,
+        layer.feature.properties.crpm === selectedCrpm ? 'is-filter-related' : 'is-filter-muted'));
+      state.neighborhoods.eachLayer((layer) => addFilterClass(layer,
+        layer.feature.properties.crpm === selectedCrpm ? 'is-filter-related' : 'is-filter-muted'));
+      state.battalions.eachLayer((marker) => {
+        marker.setOpacity(marker.filterProperties?.crpm === selectedCrpm ? 1 : .16);
+        state.filterMarkers.add(marker);
+      });
+    } else if (result.type === 'municipio') {
+      state.municipalities.eachLayer((layer) => addFilterClass(layer, layer === result.target ? 'is-filter-selected' : 'is-filter-muted'));
+    } else if (result.type === 'bairro') {
+      state.neighborhoods.eachLayer((layer) => addFilterClass(layer, layer === result.target ? 'is-filter-selected' : 'is-filter-muted'));
+    } else if (result.type === 'batalhao') {
+      const coveredMunicipalities = new Set((result.properties.municipios_cobertos || []).map(normalize));
+      state.municipalities.eachLayer((layer) => addFilterClass(layer,
+        coveredMunicipalities.has(normalize(layer.feature.properties.municipio)) ? 'is-filter-related' : 'is-filter-muted'));
+      state.battalions.eachLayer((marker) => {
+        marker.setOpacity(marker === result.target ? 1 : .14);
+        state.filterMarkers.add(marker);
+      });
+    }
+    addFilterClass(result.target, 'is-filter-selected');
+    result.target.bringToFront?.();
+  };
   const clearSelection = () => {
     if (activeResult?.target?.closeTooltip) activeResult.target.closeTooltip();
+    clearFilterVisuals();
     if (selectedLayer && selectedGroup) selectedGroup.resetStyle(selectedLayer);
     selectedLayer = null;
     selectedGroup = null;
@@ -342,13 +385,16 @@ function configureSearch() {
     const control = document.querySelector(`#${layerControls[result.type]}`);
     control.checked = true;
     control.dispatchEvent(new Event('change'));
-    feedback.textContent = `Exibindo: ${result.label}`;
+    feedback.textContent = `Filtro ativo · ${result.label}`;
     feedback.classList.add('is-visible');
     if (result.type === 'batalhao') {
       const position = result.target.getLatLng();
       map.setView(position, result.properties.sede === 'Fortaleza' ? 12 : 10, { animate: false });
       state.battalions.zoomToShowLayer(result.target, () => {
-        if (activeResult === result) result.target.openTooltip();
+        if (activeResult === result) {
+          emphasizeResult(result);
+          result.target.openTooltip();
+        }
       });
     } else {
       selectedLayer = result.target;
@@ -356,6 +402,7 @@ function configureSearch() {
         : result.type === 'bairro' ? state.neighborhoods : state.municipalities;
       result.target.setStyle({ color: '#0b4932', weight: 3, fill: true, fillOpacity: .9,
         fillColor: CRPM_COLORS[result.target.feature.properties.crpm] || '#8fba9f' });
+      emphasizeResult(result);
       map.fitBounds(result.target.getBounds(), { padding: [35, 35], maxZoom: result.type === 'bairro' ? 14 : 11 });
       if (result.type !== 'crpm') result.target.openTooltip();
     }

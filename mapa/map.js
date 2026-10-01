@@ -293,10 +293,18 @@ function configureSearch() {
   const form = document.querySelector('#mapSearch');
   const input = document.querySelector('#mapSearchInput');
   const feedback = document.querySelector('#mapSearchFeedback');
-  const datalist = document.querySelector('#mapSearchOptions');
-  datalist.innerHTML = state.searchItems
-    .map((item) => `<option value="${escapeHtml(item.label)}"></option>`)
-    .join('');
+  const typeLabels = { crpm: 'CRPMs', batalhao: 'Batalhões', municipio: 'Municípios', bairro: 'Bairros de Fortaleza' };
+  const typeOrder = ['crpm', 'batalhao', 'municipio', 'bairro'];
+  state.searchItems.forEach((item, index) => { item.filterKey = `${item.type}:${index}`; });
+  input.innerHTML = '<option value="">Selecione um CRPM, batalhão, município ou bairro</option>'
+    + typeOrder.map((type) => {
+      const options = state.searchItems
+        .filter((item) => item.type === type)
+        .sort((a, b) => a.label.localeCompare(b.label, 'pt-BR', { numeric: true }))
+        .map((item) => `<option value="${item.filterKey}">${escapeHtml(item.label)}</option>`)
+        .join('');
+      return `<optgroup label="${typeLabels[type]}">${options}</optgroup>`;
+    }).join('');
   let selectedLayer = null;
   let selectedGroup = null;
   let activeResult = null;
@@ -310,15 +318,17 @@ function configureSearch() {
     feedback.textContent = '';
   };
   const search = () => {
-    const query = normalize(input.value.split('·')[0]);
+    const selectedKey = input.value;
+    const query = normalize(selectedKey.split('·')[0]);
     clearSelection();
-    if (!query) {
+    if (!selectedKey) {
       map.fitBounds(state.municipalities.getBounds(), { padding: [18, 18] });
       return;
     }
+    const keyed = state.searchItems.find((item) => item.filterKey === selectedKey);
     const exact = state.searchItems.find((item) => normalize(item.label.split('·')[0]) === query);
     const partial = state.searchItems.find((item) => normalize(item.label).includes(query));
-    const result = exact || partial;
+    const result = keyed || exact || partial;
     if (!result) {
       feedback.textContent = 'Local não encontrado na base territorial.';
       feedback.classList.add('is-visible');
@@ -355,10 +365,6 @@ function configureSearch() {
     search();
   });
   input.addEventListener('change', search);
-  input.addEventListener('input', () => {
-    const query = normalize(input.value);
-    if (!query || state.searchItems.some((item) => normalize(item.label) === query)) search();
-  });
 }
 
 function addAttribution() {

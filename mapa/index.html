@@ -25,12 +25,13 @@
     </section>
 
     <form class="map-search" id="mapSearch" role="search">
-      <label for="mapSearchInput">Localizar no mapa</label>
+      <label for="mapSearchInput">Filtrar o mapa</label>
       <div>
-        <input id="mapSearchInput" type="search" autocomplete="off" placeholder="CRPM, batalhão, município ou bairro" list="mapSearchOptions" />
-        <button type="submit" aria-label="Pesquisar">⌕</button>
+        <select id="mapSearchInput" aria-label="Selecionar CRPM, batalhão, município ou bairro">
+          <option value="">Selecione um CRPM, batalhão, município ou bairro</option>
+        </select>
+        <button type="submit" aria-label="Aplicar filtro">⌕</button>
       </div>
-      <datalist id="mapSearchOptions"></datalist>
       <p id="mapSearchFeedback" aria-live="polite"></p>
     </form>
 
@@ -80,6 +81,6 @@
 
     <script src="vendor/leaflet.js"></script>
     <script src="vendor/leaflet.markercluster.js"></script>
-    <script src="map.js?v=20261001-filtros"></script>
+    <script src="map.js?v=20261001-filtros-v2"></script>
   </body>
 </html>

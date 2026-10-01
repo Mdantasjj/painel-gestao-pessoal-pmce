@@ -71,6 +71,7 @@ const script = fs.readFileSync(path.join(root, 'mapa/map.js'), 'utf8');
 assert(html.includes('map.js') && html.includes('vendor/leaflet.js'), 'Dependências da página do mapa ausentes');
 assert(html.includes('vendor/leaflet.markercluster.js'), 'Agrupamento dos batalhões ausente');
 assert(html.includes('toggleRegions') && html.includes('Divisão territorial · CRPM'), 'Controles e legenda dos CRPMs ausentes');
+assert(html.includes('<select id="mapSearchInput"') && script.includes("input.addEventListener('change', search)"), 'Filtro de seleção direta ausente');
 assert(html.includes('class="map-back"') && html.includes('href="../"'), 'Botão de retorno ao painel ausente no mapa');
 assert(script.includes("fetch('data/crpm-regioes.geojson')"), 'Camada geográfica dos CRPMs ausente');
 assert(dashboardHtml.includes('id="icon-map"'), 'Ícone do mapa ausente no painel');

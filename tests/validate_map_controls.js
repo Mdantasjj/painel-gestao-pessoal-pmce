@@ -57,13 +57,13 @@ element('#toggleRegions').dispatchEvent({ type: 'change' });
 assert(!visible.has(context.groups.regions) && !visible.has(context.groups.regionLabels));
 
 const input = element('#mapSearchInput');
-input.value = '3º CRPM · 3 BPMs';
-input.dispatchEvent({ type: 'input' });
+input.value = 'crpm:0';
+input.dispatchEvent({ type: 'change' });
 assert(visible.has(context.groups.regions) && visible.has(context.groups.regionLabels));
 assert.equal(views.at(-1)[1], 'regional');
 assert.equal(region.style.fillOpacity, .9);
 
-input.value = 'Sobral';
+input.value = 'municipio:1';
 input.dispatchEvent({ type: 'change' });
 assert(visible.has(context.groups.municipalities));
 assert.equal(views.at(-1)[1], 'sobral');
@@ -72,18 +72,19 @@ assert(municipality.tooltip);
 
 element('#toggleBattalions').checked = false;
 element('#toggleBattalions').dispatchEvent({ type: 'change' });
-input.value = '3º BPM · Sobral';
+input.value = 'batalhao:2';
 element('#mapSearch').dispatchEvent({ type: 'submit' });
 assert(visible.has(context.groups.battalions));
 assert.equal(views.at(-1)[0], 'position');
 assert(battalion.tooltip, 'Clustered marker must be revealed before opening its tooltip');
 
-input.value = 'Centro · Fortaleza';
-input.dispatchEvent({ type: 'input' });
+input.value = 'bairro:3';
+input.dispatchEvent({ type: 'change' });
 assert.equal(views.at(-1)[1], 'centro');
-assert(element('#mapSearchOptions').innerHTML.includes('Centro · Fortaleza'));
+assert(input.innerHTML.includes('<optgroup label="CRPMs">'));
+assert(input.innerHTML.includes('Centro · Fortaleza'));
 input.value = '';
-input.dispatchEvent({ type: 'input' });
+input.dispatchEvent({ type: 'change' });
 assert.equal(views.at(-1)[1], 'state');
 assert.equal(neighborhood.style, null);
 input.value = 'local inexistente';

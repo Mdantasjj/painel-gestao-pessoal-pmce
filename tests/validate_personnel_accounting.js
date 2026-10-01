@@ -303,6 +303,7 @@ assert(css.includes('.detail-table th:nth-child(7) { overflow-wrap: normal; whit
 assert(css.includes('*, *::before, *::after {') && css.includes('font-family: "Montserrat", "Segoe UI", Arial, sans-serif !important;'), 'Montserrat must be enforced across every dashboard element');
 assert(css.includes('.project-study-card-total--scenarios { display: grid; grid-template-columns: 1fr;'), 'Maria da Penha scenarios must be stacked in the project card');
 assert(html.includes('id="metricDetailBack"') && source.includes("metricDetailBack.addEventListener('click', closeMetricDetail)"), 'Botão de retorno ausente nos detalhamentos');
+assert(!html.includes('id="metricDetailClose"') && !css.includes('.metric-dialog-close'), 'Botão fechar ainda presente nos detalhamentos');
 assert(!html.includes('374 movimentações para especializadas'), 'Specialized-movement note must not be shown on the main card');
 assert(!source.includes('Perdas dos BPMs para especializadas'), 'Specialized-movement stat must not be shown in the loss study');
 assert(!source.includes('Movimentações dos BPMs para especializadas'), 'Specialized-movement breakdown must not be shown in the loss study');

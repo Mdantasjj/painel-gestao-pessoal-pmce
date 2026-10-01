@@ -1038,7 +1038,6 @@ const metricDetailTitle = document.querySelector('#metricDetailTitle');
 const metricDetailEyebrow = document.querySelector('#metricDetailEyebrow');
 const metricDetailContent = document.querySelector('#metricDetailContent');
 const metricDetailBack = document.querySelector('#metricDetailBack');
-const metricDetailClose = document.querySelector('#metricDetailClose');
 const metricCards = [...document.querySelectorAll('.metric-card[data-detail]')];
 let detailTrigger = null;
 
@@ -1804,7 +1803,7 @@ function openMetricDetail(card) {
   metricModal.classList.add('is-open');
   metricModal.setAttribute('aria-hidden', 'false');
   document.body.classList.add('modal-open');
-  requestAnimationFrame(() => metricDetailClose.focus());
+  requestAnimationFrame(() => metricDetailBack.focus());
 }
 
 function closeMetricDetail() {
@@ -1827,7 +1826,6 @@ metricCards.forEach((card) => {
   });
 });
 
-metricDetailClose.addEventListener('click', closeMetricDetail);
 metricDetailBack.addEventListener('click', closeMetricDetail);
 metricModal.querySelector('[data-modal-close]').addEventListener('click', closeMetricDetail);
 metricDetailContent.addEventListener('click', (event) => {

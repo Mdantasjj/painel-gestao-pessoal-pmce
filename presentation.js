@@ -1249,51 +1249,6 @@ function renderCopacPhaseDetail(phaseId) {
   detail.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }
 
-function renderPogUnitExplorer(data) {
-  const options = [...data.units]
-    .sort((a, b) => a[0].localeCompare(b[0], 'pt-BR', { numeric: true }))
-    .map(([name]) => `<option value="${name}"${name === '12º BPM' ? ' selected' : ''}>${formatPogUnitName(name)}</option>`)
-    .join('');
-  return `
-    <section class="detail-section pog-unit-section">
-      <div class="detail-section-heading">
-        <div><h3>Consultar perdas por batalhão</h3><p>Selecione um dos 34 BPMs para discriminar saídas, entradas, saldo e perda líquida.</p></div>
-        <span>Consulta individual</span>
-      </div>
-      <label class="pog-unit-control" for="pogUnitSelect">
-        <span>Batalhão</span>
-        <select id="pogUnitSelect">${options}</select>
-      </label>
-      <div class="pog-unit-result" id="pogUnitResult" aria-live="polite"></div>
-    </section>`;
-}
-
-function renderPogUnitDetail(unitName) {
-  const unit = metricDetails.pog.units.find(([name]) => name === unitName);
-  const result = document.querySelector('#pogUnitResult');
-  if (!unit || !result) return;
-  const [name, exits, entries, balance] = unit;
-  const netLoss = Math.max(0, -balance);
-  const status = balance < 0 ? 'Perda líquida' : balance > 0 ? 'Ganho líquido' : 'Equilíbrio';
-  const statusClass = balance < 0 ? 'is-loss' : balance > 0 ? 'is-gain' : 'is-balanced';
-  const signedBalance = balance > 0 ? `+${balance}` : String(balance);
-  const totalDeficit = metricDetails.pog.units.reduce((sum, [, , , unitBalance]) => sum + Math.max(0, -unitBalance), 0);
-  const share = netLoss ? `${(netLoss / totalDeficit * 100).toFixed(1).replace('.', ',')}% do déficit acumulado` : 'Não compõe o déficit acumulado';
-  const sourceNote = 'A base SAPM de 30/09/2026 consolida as movimentações mensais da sede e das OPMs subordinadas a cada batalhão. Ela não identifica o militar nem o pareamento individual entre unidade de origem e unidade de destino. Comandos regionais e demais unidades não integram este recorte.';
-  result.innerHTML = `
-    <div class="pog-unit-result-heading">
-      <div><span>Batalhão selecionado</span><strong>${formatPogUnitName(name)}</strong></div>
-      <b class="${statusClass}">${status}</b>
-    </div>
-    <div class="pog-unit-values">
-      <div><span>Saídas registradas</span><strong>${exits.toLocaleString('pt-BR')}</strong><small>Total lançado na coluna Origem</small></div>
-      <div><span>Entradas registradas</span><strong>${entries.toLocaleString('pt-BR')}</strong><small>Total lançado na coluna Destino</small></div>
-      <div><span>Saldo da unidade</span><strong>${signedBalance}</strong><small>${entries} entradas − ${exits} saídas</small></div>
-      <div class="${netLoss ? 'is-loss' : ''}"><span>Perda líquida</span><strong>${netLoss}</strong><small>${share}</small></div>
-    </div>
-    <p class="pog-unit-source-note">${sourceNote}</p>`;
-}
-
 function renderPogBreakdown(rows) {
   return rows.map(([label, share, value, rowColor]) => {
     const formattedLabel = label.includes('BPM') ? formatPogUnitName(label) : label;
@@ -1701,7 +1656,6 @@ function renderWorkforceProjectDetail() {
     <div class="project-study-panel" id="projectStudyPanel-pog" data-project-study-panel="pog" role="tabpanel" aria-labelledby="projectStudyTab-pog">
       ${renderProjectStudySummary('pog')}
       ${renderPogDeficitOverview(pog)}
-      ${renderPogUnitExplorer(pog)}
       ${renderProjectPogTable(pog)}
       ${renderPogImplementations(pog)}
       <p class="detail-methodology">${pog.note}</p>
@@ -1720,7 +1674,6 @@ function renderWorkforceProjectDetail() {
       <p class="detail-methodology">${copac.note}</p>
     </div>
     ${renderMariaDaPenhaStudy()}`;
-  renderPogUnitDetail('12º BPM');
 }
 
 function selectProjectStudy(studyKey) {
@@ -1771,7 +1724,6 @@ function renderMetricDetail(key) {
   const levelSelector = key === 'raio' ? renderRaioLevelSelector(data) : '';
   const copacPhaseSelector = key === 'copac' ? renderCopacPhaseSelector(data) : '';
   const pogDeficitOverview = key === 'pog' ? renderPogDeficitOverview(data) : '';
-  const pogUnitExplorer = key === 'pog' ? renderPogUnitExplorer(data) : '';
   const pogImplementations = key === 'pog' ? renderPogImplementations(data) : '';
   const battalionRankings = key === 'battalions' ? renderBattalionRankings() : '';
   const restructuringUnitExplorer = key === 'restructuring' ? renderRestructuringUnitExplorer(data) : '';
@@ -1798,7 +1750,6 @@ function renderMetricDetail(key) {
     ${levelSelector}
     ${copacPhaseSelector}
     ${pogDeficitOverview}
-    ${pogUnitExplorer}
     ${restructuringUnitExplorer}
     ${restructuringTopFive}
     ${breakdownSection}
@@ -1808,7 +1759,6 @@ function renderMetricDetail(key) {
     ${discriminatedTable}
     ${pogImplementations}
     <p class="detail-methodology">${data.note}</p>`;
-  if (key === 'pog') renderPogUnitDetail('12º BPM');
   if (key === 'restructuring') renderRestructuringUnitDetail('33º BPM');
 }
 
@@ -1883,9 +1833,6 @@ metricDetailContent.addEventListener('keydown', (event) => {
   selectProjectStudy(buttons[nextIndex].dataset.projectStudy);
 });
 metricDetailContent.addEventListener('change', (event) => {
-  if (event.target.matches('#pogUnitSelect')) {
-    renderPogUnitDetail(event.target.value);
-  }
   if (event.target.matches('#restructuringUnitSelect')) {
     renderRestructuringUnitDetail(event.target.value);
   }

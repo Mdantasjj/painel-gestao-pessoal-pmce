@@ -264,7 +264,7 @@ const metricDetails = {
         ['TOTAL DOS REGISTROS EXIBIDOS', 'Todas as parcelas apresentadas', '145', '259', '707']
       ]
     },
-    note: 'A aba “total_demissao_exoneracao” da planilha “MOVIMENTAÇÕES PMS 2025 - 2026.xlsx” informa 16 processos de demissão e 64 de exoneração em 2025, total de 80. Ela não discrimina batalhão, data do ato ou confirmação do desligamento; por isso, os 80 entram apenas no total geral, sem alterar a necessidade calculada por BPM. A base mais abrangente de 2026 contém originalmente 326 registros únicos após consolidar 14 NUPs repetidos. Por determinação metodológica, foram excluídas duas demissões do BPGEP, restando 243 demissões e 81 exonerações, total de 324 registros considerados em 2026. Da planilha de promoções por OPM também foram retiradas 48 requeridas de 2025 e 12 de 2026 vinculadas ao BPGEP; permanecem 504 em 2025 e 203 em 2026, total de 707. As 374 movimentações dos BPMs para unidades especializadas foram excluídas deste indicador por representarem transferência interna, e não saída institucional. O total visual de 1.111 combina registros e naturezas distintas, sem comprovação de pessoas únicas entre fontes diferentes.'
+    note: ''
   },
   raio: {
     accent: '#3b7e9d',
@@ -1581,7 +1581,6 @@ function renderExitUnitScope(data) {
       <div class="exit-unit-summary-grid">${summary}</div>
       <div class="exit-unit-lists">${unitLists}</div>
       ${renderDetailTable(scope, 'exits')}
-      <p class="exit-unit-scope-note"><strong>Leitura:</strong> os 80 processos de 2025 permanecem sem classificação administrativa ou operacional porque a fonte não informa a OPM.</p>
     </section>`;
 }
 

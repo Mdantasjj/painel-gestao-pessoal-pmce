@@ -271,10 +271,11 @@ function configureLayerControls() {
     ['toggleBattalions', 'battalions']
   ];
   controls.forEach(([id, key]) => {
-    document.querySelector(`#${id}`).addEventListener('change', (event) => {
+    const control = document.querySelector(`#${id}`);
+    const updateLayer = () => {
       const layer = state[key];
       if (!layer) return;
-      if (event.target.checked) {
+      if (control.checked) {
         layer.addTo(map);
         if (key === 'regions' && state.regionLabels) state.regionLabels.addTo(map);
       } else {
@@ -282,7 +283,9 @@ function configureLayerControls() {
         if (key === 'regions' && state.regionLabels) map.removeLayer(state.regionLabels);
       }
       if (state.battalions && map.hasLayer(state.battalions)) state.battalions.bringToFront?.();
-    });
+    };
+    control.addEventListener('change', updateLayer);
+    updateLayer();
   });
 }
 
@@ -292,30 +295,69 @@ function configureSearch() {
   const feedback = document.querySelector('#mapSearchFeedback');
   const datalist = document.querySelector('#mapSearchOptions');
   datalist.innerHTML = state.searchItems
-    .filter((item) => ['batalhao', 'crpm', 'municipio'].includes(item.type))
     .map((item) => `<option value="${escapeHtml(item.label)}"></option>`)
     .join('');
-  form.addEventListener('submit', (event) => {
-    event.preventDefault();
+  let selectedLayer = null;
+  let selectedGroup = null;
+  let activeResult = null;
+  const clearSelection = () => {
+    if (selectedLayer && selectedGroup) selectedGroup.resetStyle(selectedLayer);
+    selectedLayer = null;
+    selectedGroup = null;
+    activeResult = null;
+    map.closeTooltip();
+    feedback.classList.remove('is-visible');
+    feedback.textContent = '';
+  };
+  const search = () => {
     const query = normalize(input.value.split('·')[0]);
-    if (!query) return;
+    clearSelection();
+    if (!query) {
+      map.fitBounds(state.municipalities.getBounds(), { padding: [18, 18] });
+      return;
+    }
     const exact = state.searchItems.find((item) => normalize(item.label.split('·')[0]) === query);
     const partial = state.searchItems.find((item) => normalize(item.label).includes(query));
     const result = exact || partial;
-    feedback.classList.remove('is-visible');
     if (!result) {
       feedback.textContent = 'Local não encontrado na base territorial.';
       feedback.classList.add('is-visible');
       return;
     }
+    activeResult = result;
+    const layerControls = {
+      batalhao: 'toggleBattalions', crpm: 'toggleRegions',
+      municipio: 'toggleMunicipalities', bairro: 'toggleNeighborhoods'
+    };
+    const control = document.querySelector(`#${layerControls[result.type]}`);
+    control.checked = true;
+    control.dispatchEvent(new Event('change'));
+    feedback.textContent = `Exibindo: ${result.label}`;
+    feedback.classList.add('is-visible');
     if (result.type === 'batalhao') {
       const position = result.target.getLatLng();
-      map.flyTo(position, result.properties.sede === 'Fortaleza' ? 12 : 10, { duration: .7 });
-      window.setTimeout(() => result.target.openTooltip(), 650);
+      map.setView(position, result.properties.sede === 'Fortaleza' ? 12 : 10, { animate: false });
+      state.battalions.zoomToShowLayer(result.target, () => {
+        if (activeResult === result) result.target.openTooltip();
+      });
     } else {
+      selectedLayer = result.target;
+      selectedGroup = result.type === 'crpm' ? state.regions
+        : result.type === 'bairro' ? state.neighborhoods : state.municipalities;
+      result.target.setStyle({ color: '#0b4932', weight: 3, fill: true, fillOpacity: .9,
+        fillColor: CRPM_COLORS[result.target.feature.properties.crpm] || '#8fba9f' });
       map.fitBounds(result.target.getBounds(), { padding: [35, 35], maxZoom: result.type === 'bairro' ? 14 : 11 });
-      if (result.type !== 'crpm') window.setTimeout(() => result.target.openTooltip(), 450);
+      if (result.type !== 'crpm') result.target.openTooltip();
     }
+  };
+  form.addEventListener('submit', (event) => {
+    event.preventDefault();
+    search();
+  });
+  input.addEventListener('change', search);
+  input.addEventListener('input', () => {
+    const query = normalize(input.value);
+    if (!query || state.searchItems.some((item) => normalize(item.label) === query)) search();
   });
 }
 

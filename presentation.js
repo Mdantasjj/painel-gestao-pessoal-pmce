@@ -434,7 +434,7 @@ const metricDetails = {
     companyCitiesByBattalion: battalionCompanyCities,
     companyStrengthByBattalion: battalionCompanyStrengths,
     companyCountByBattalion,
-    note: 'O total de 1.007 reúne duas naturezas distintas: 847 policiais de déficit acumulado nos 19 BPMs do POG com saldo negativo e 160 policiais de necessidade adicional para implementação operacional. No POG, a base SAPM atualizada até setembro de 2026 apresenta exclusivamente os 34 BPMs numerados, com 7.068 saídas, 6.764 entradas e saldo conjunto de −304. Sede, Companhias, Pelotões e Destacamentos subordinados foram consolidados na respectiva OPM. Para a implementação, foram informados 10 oficiais e 100 praças para a COTAM e 02 oficiais e 48 praças para a 6ª Cia/BPTUR. Os 160 policiais não foram descontados nem redistribuídos dos batalhões analisados.'
+    note: ''
   },
   restructuring: {
     accent: '#557c45',

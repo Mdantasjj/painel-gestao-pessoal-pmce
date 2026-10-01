@@ -192,7 +192,7 @@ for (const line of csv.slice(1, -1)) {
   ], `CSV mismatch: ${name}`);
 }
 
-assert.equal(number(details.exits.total), 16 + 64 + 243 + 81 + 504 + 203 + 374);
+assert.equal(number(details.exits.total), 16 + 64 + 243 + 81 + 504 + 203);
 assert.equal(number(details.exits.stats[0][1]), 64 + 81);
 assert.equal(number(details.exits.stats[1][1]), 16 + 243);
 assert.equal(details.exits.stats.length, 4, 'Os cards anuais de exonerações e demissões devem permanecer consolidados');
@@ -207,7 +207,7 @@ assert(!details.exits.unitScope.unitLists[0][1].includes('BPGEP'), 'BPGEP must b
 assert(details.exits.unitScope.unitLists[1][1].includes('COGEIC'), 'Administrative units missing from the loss scope');
 assert.deepEqual(
   Array.from(details.exits.unitScope.summary, row => number(row[1])),
-  [1184, 221, 80],
+  [810, 221, 80],
   'Operational, administrative and unassigned loss scopes mismatch'
 );
 assert.deepEqual(
@@ -305,7 +305,7 @@ assert(css.includes('.project-study-card-total--scenarios { display: grid; grid-
 assert(!html.includes('374 movimentações para especializadas'), 'Specialized-movement note must not be shown on the main card');
 assert(!source.includes('Perdas dos BPMs para especializadas'), 'Specialized-movement stat must not be shown in the loss study');
 assert(!source.includes('Movimentações dos BPMs para especializadas'), 'Specialized-movement breakdown must not be shown in the loss study');
-for (const [key, expected] of Object.entries({ exits: 1485, pog: 1543, restructuring: 410, battalions: 1145 })) {
+for (const [key, expected] of Object.entries({ exits: 1111, pog: 1543, restructuring: 410, battalions: 1145 })) {
   const match = html.match(new RegExp(`data-detail="${key}"[\\s\\S]*?<div class="metric-main"><strong>([\\d.]+)</strong>`));
   assert(match, `Card not found: ${key}`);
   assert.equal(number(match[1]), expected, `Card total mismatch: ${key}`);

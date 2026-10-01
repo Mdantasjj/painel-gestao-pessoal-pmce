@@ -44,7 +44,7 @@ function renderDismissalsChart() {
   document.querySelector('#mainChart').innerHTML = `
     <div class="chart-key">${key}</div>
     <div class="bar-stage" style="--count:8">${groups}</div>
-    <div class="chart-source-note">A série mensal considera 338 lançamentos brutos de 2026 após excluir dois registros do BPGEP. Depois da consolidação dos NUPs repetidos, permanecem 324 registros únicos considerados. O indicador geral consolida 1.485 registros de fontes e naturezas diferentes.</div>`;
+    <div class="chart-source-note">A série mensal considera 338 lançamentos brutos de 2026 após excluir dois registros do BPGEP. Depois da consolidação dos NUPs repetidos, permanecem 324 registros únicos considerados. O indicador geral consolida 1.111 registros de fontes e naturezas diferentes.</div>`;
 }
 
 function renderPromotions() {
@@ -218,8 +218,8 @@ const metricDetails = {
   exits: {
     accent: '#23845b',
     eyebrow: 'Memória de cálculo · perda de efetivo',
-    title: '1.485 registros considerados na análise de perdas',
-    total: '1.485',
+    title: '1.111 registros considerados na análise de perdas',
+    total: '1.111',
     unit: 'registros considerados',
     description: '',
     stats: [
@@ -229,11 +229,11 @@ const metricDetails = {
       ['Requeridas de 2026', '203', '110 nos BPMs · 93 em outras OPMs']
     ],
     breakdown: [
-      ['Demissões · outros concursos · processos 2025', 16 / 1485 * 100, '16 · 1,1%', '#145c40'],
-      ['Exonerações · outros concursos · processos 2025', 64 / 1485 * 100, '64 · 4,3%', '#3d9065'],
-      ['Demissões · outros concursos 2026', 243 / 1485 * 100, '243 · 16,4%', '#28734e'],
-      ['Exonerações · outros concursos 2026', 81 / 1485 * 100, '81 · 5,5%', '#55a477'],
-      ['Requeridas · 2025–2026', 707 / 1485 * 100, '707 · 47,6%', '#698342']
+      ['Demissões · outros concursos · processos 2025', 16 / 1111 * 100, '16 · 1,4%', '#145c40'],
+      ['Exonerações · outros concursos · processos 2025', 64 / 1111 * 100, '64 · 5,8%', '#3d9065'],
+      ['Demissões · outros concursos 2026', 243 / 1111 * 100, '243 · 21,9%', '#28734e'],
+      ['Exonerações · outros concursos 2026', 81 / 1111 * 100, '81 · 7,3%', '#55a477'],
+      ['Requeridas · 2025–2026', 707 / 1111 * 100, '707 · 63,6%', '#698342']
     ],
     sectionTitle: 'Conciliação dos registros considerados',
     sectionSubtitle: 'Os processos de 2025 são agregados por ano e não foram atribuídos a batalhões.',
@@ -247,7 +247,7 @@ const metricDetails = {
     ],
     unitScope: {
       summary: [
-        ['Unidades operacionais', '1.184', '34 BPMs territoriais e 18 especializadas'],
+        ['Unidades operacionais', '810', '34 BPMs territoriais e 18 especializadas'],
         ['Administrativas e demais OPMs', '221', 'Comandos, diretorias, apoio e outras unidades'],
         ['Sem OPM individualizada', '80', 'Processos agregados de 2025']
       ],
@@ -264,7 +264,7 @@ const metricDetails = {
         ['TOTAL DOS REGISTROS EXIBIDOS', 'Todas as parcelas apresentadas', '145', '259', '707']
       ]
     },
-    note: 'A aba “total_demissao_exoneracao” da planilha “MOVIMENTAÇÕES PMS 2025 - 2026.xlsx” informa 16 processos de demissão e 64 de exoneração em 2025, total de 80. Ela não discrimina batalhão, data do ato ou confirmação do desligamento; por isso, os 80 entram apenas no total geral, sem alterar a necessidade calculada por BPM. A base mais abrangente de 2026 contém originalmente 326 registros únicos após consolidar 14 NUPs repetidos. Por determinação metodológica, foram excluídas duas demissões do BPGEP, restando 243 demissões e 81 exonerações, total de 324 registros considerados em 2026. Da planilha de promoções por OPM também foram retiradas 48 requeridas de 2025 e 12 de 2026 vinculadas ao BPGEP; permanecem 504 em 2025 e 203 em 2026, total de 707. O total visual de 1.485 combina registros e naturezas distintas, sem comprovação de pessoas únicas entre fontes diferentes.'
+    note: 'A aba “total_demissao_exoneracao” da planilha “MOVIMENTAÇÕES PMS 2025 - 2026.xlsx” informa 16 processos de demissão e 64 de exoneração em 2025, total de 80. Ela não discrimina batalhão, data do ato ou confirmação do desligamento; por isso, os 80 entram apenas no total geral, sem alterar a necessidade calculada por BPM. A base mais abrangente de 2026 contém originalmente 326 registros únicos após consolidar 14 NUPs repetidos. Por determinação metodológica, foram excluídas duas demissões do BPGEP, restando 243 demissões e 81 exonerações, total de 324 registros considerados em 2026. Da planilha de promoções por OPM também foram retiradas 48 requeridas de 2025 e 12 de 2026 vinculadas ao BPGEP; permanecem 504 em 2025 e 203 em 2026, total de 707. As 374 movimentações dos BPMs para unidades especializadas foram excluídas deste indicador por representarem transferência interna, e não saída institucional. O total visual de 1.111 combina registros e naturezas distintas, sem comprovação de pessoas únicas entre fontes diferentes.'
   },
   raio: {
     accent: '#3b7e9d',

@@ -1327,53 +1327,6 @@ function renderPogImplementations(data) {
     </section>`;
 }
 
-function renderBattalionRankings() {
-  const units = metricDetails.pog.units;
-  const lossTotal = units.reduce((sum, [, , , balance]) => sum + Math.max(0, -balance), 0);
-  const gainTotal = units.reduce((sum, [, , , balance]) => sum + Math.max(0, balance), 0);
-  const topLossTotal = [...units].filter(([, , , balance]) => balance < 0).sort((a, b) => a[3] - b[3]).slice(0, 5).reduce((sum, [, , , balance]) => sum - balance, 0);
-  const topGainTotal = [...units].filter(([, , , balance]) => balance > 0).sort((a, b) => b[3] - a[3]).slice(0, 5).reduce((sum, [, , , balance]) => sum + balance, 0);
-  const rankingGroups = [
-    {
-      title: 'Top 5 maiores perdas líquidas',
-      subtitle: `${topLossTotal.toLocaleString('pt-BR')} dos ${lossTotal.toLocaleString('pt-BR')} policiais do déficit localizado`,
-      total: lossTotal,
-      rows: [...units].filter(([, , , balance]) => balance < 0).sort((a, b) => a[3] - b[3]).slice(0, 5)
-    },
-    {
-      title: 'Top 5 maiores ganhos líquidos',
-      subtitle: `${topGainTotal.toLocaleString('pt-BR')} dos ${gainTotal.toLocaleString('pt-BR')} policiais recebidos acima das saídas`,
-      total: gainTotal,
-      rows: [...units].filter(([, , , balance]) => balance > 0).sort((a, b) => b[3] - a[3]).slice(0, 5)
-    }
-  ];
-  const groups = rankingGroups.map((group) => {
-    const rows = group.rows.map(([name, , , balance], index) => {
-      const value = Math.abs(balance);
-      const share = (value / group.total * 100).toLocaleString('pt-BR', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
-      return `
-        <div class="battalion-rank-row">
-          <span>${String(index + 1).padStart(2, '0')}</span>
-          <strong>${formatPogUnitName(name)}</strong>
-          <b>${balance > 0 ? '+' : '−'}${value}<small>${share}%</small></b>
-        </div>`;
-    }).join('');
-    return `
-      <div class="battalion-rank-card">
-        <div><strong>${group.title}</strong><span>${group.subtitle}</span></div>
-        <div class="battalion-rank-list">${rows}</div>
-      </div>`;
-  }).join('');
-  return `
-    <section class="detail-section battalion-ranking-section">
-      <div class="detail-section-heading">
-        <div><h3>Concentração das movimentações por batalhão</h3><p>Unidades com os maiores saldos negativos e positivos no período analisado.</p></div>
-        <span>Ranking comparativo</span>
-      </div>
-      <div class="battalion-rank-grid">${groups}</div>
-    </section>`;
-}
-
 function renderRestructuringUnitExplorer(data) {
   const options = data.units.map(([name]) => `<option value="${name}"${name === '33º BPM' ? ' selected' : ''}>${formatPogUnitName(name)}</option>`).join('');
   return `
@@ -1725,7 +1678,6 @@ function renderMetricDetail(key) {
   const copacPhaseSelector = key === 'copac' ? renderCopacPhaseSelector(data) : '';
   const pogDeficitOverview = key === 'pog' ? renderPogDeficitOverview(data) : '';
   const pogImplementations = key === 'pog' ? renderPogImplementations(data) : '';
-  const battalionRankings = key === 'battalions' ? renderBattalionRankings() : '';
   const restructuringUnitExplorer = key === 'restructuring' ? renderRestructuringUnitExplorer(data) : '';
   const restructuringTopFive = key === 'restructuring' ? renderRestructuringTopFive(data) : '';
   const copacResources = key === 'copac' ? renderCopacResources(data) : '';
@@ -1754,7 +1706,6 @@ function renderMetricDetail(key) {
     ${restructuringTopFive}
     ${breakdownSection}
     ${exitUnitScope}
-    ${battalionRankings}
     ${copacResources}
     ${discriminatedTable}
     ${pogImplementations}

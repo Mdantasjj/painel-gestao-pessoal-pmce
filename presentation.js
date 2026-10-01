@@ -1610,20 +1610,20 @@ function renderWorkforceProjectDetail() {
       ${renderPogDeficitOverview(pog)}
       ${renderProjectPogTable(pog)}
       ${renderPogImplementations(pog)}
-      <p class="detail-methodology">${pog.note}</p>
+      ${pog.note ? `<p class="detail-methodology">${pog.note}</p>` : ''}
     </div>
     <div class="project-study-panel" id="projectStudyPanel-raio" data-project-study-panel="raio" role="tabpanel" aria-labelledby="projectStudyTab-raio" hidden>
       ${renderProjectStudySummary('raio')}
       ${renderRaioLevelSelector(raio)}
       ${renderProjectBreakdown(raio, 'raio')}
-      <p class="detail-methodology">${raio.note}</p>
+      ${raio.note ? `<p class="detail-methodology">${raio.note}</p>` : ''}
     </div>
     <div class="project-study-panel" id="projectStudyPanel-copac" data-project-study-panel="copac" role="tabpanel" aria-labelledby="projectStudyTab-copac" hidden>
       ${renderProjectStudySummary('copac')}
       ${renderCopacPhaseSelector(copac)}
       ${renderProjectBreakdown(copac, 'copac')}
       ${renderCopacResources(copac)}
-      <p class="detail-methodology">${copac.note}</p>
+      ${copac.note ? `<p class="detail-methodology">${copac.note}</p>` : ''}
     </div>
     ${renderMariaDaPenhaStudy()}`;
 }

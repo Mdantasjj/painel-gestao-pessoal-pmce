@@ -476,7 +476,7 @@ const metricDetails = {
       ['Em equilíbrio', 2.94, '1 · 2,9%', '#83b99a']
     ],
     sectionTitle: 'Visão geral por batalhão e unidade especializada',
-    sectionSubtitle: 'A tabela preserva os 34 BPMs, suas 84 Companhias territoriais vinculadas e acrescenta 18 unidades especializadas, incluindo a COPAC e excluindo o BPGEP. Fora da Capital e de Caucaia, cada batalhão exibe, nesta ordem, as cidades da 1ª e da 2ª Companhia. Os batalhões da Capital e os dois batalhões de Caucaia exibem seus bairros de referência. A base SAPM atualizada até setembro de 2026 permite individualizar o saldo das nove unidades BPRAIO.',
+    sectionSubtitle: '',
     tableColumns: ['Posição', 'Unidade / cidades', '<span class="column-title-line">Efetivo da</span><span class="column-title-line">unidade</span>', 'Exonerações · outros concursos', 'Demissões · outros concursos', 'Requeridas', 'Movimentações', 'Perdas', 'Reestruturação.', '<span class="column-title-line">Necessidade de</span><span class="column-title-line">efetivo</span>'],
     tableRows: [],
     battalionTotals: battalionTotalsFromCompanies,
@@ -1684,9 +1684,12 @@ function renderMetricDetail(key) {
   const battalionSortControls = key === 'battalions' ? renderBattalionSortControls() : '';
   const exitUnitScope = key === 'exits' ? renderExitUnitScope(data) : '';
   const detailTable = renderDetailTable(data, key);
+  const discriminatedHeading = key === 'battalions'
+    ? `<div class="detail-section-heading"><div><h3>${data.sectionTitle}</h3></div></div>`
+    : `<div class="detail-section-heading"><div><h3>${data.sectionTitle}</h3><p>${data.sectionSubtitle}</p></div><span>Dados discriminados</span></div>`;
   const discriminatedTable = ['exits', 'raio', 'copac'].includes(key) ? '' : `
     <section class="detail-section">
-      <div class="detail-section-heading"><div><h3>${data.sectionTitle}</h3><p>${data.sectionSubtitle}</p></div><span>Dados discriminados</span></div>
+      ${discriminatedHeading}
       ${battalionSortControls}
       ${key === 'battalions' ? `<div id="battalionTableResult">${detailTable}</div>` : detailTable}
       ${key === 'battalions' ? `<p class="battalion-table-source-note"><strong>Escopo ampliado:</strong> a tabela apresenta os 34 BPMs e 18 unidades especializadas, incluindo a COPAC e excluindo o BPGEP. Das 707 requeridas consideradas de 2025–2026, 430 estão nos BPMs, 94 nas especializadas listadas e 183 em outras OPMs. Os 80 processos agregados de exoneração e demissão de 2025 não foram rateados porque a fonte não identifica a unidade. <strong>Leitura da necessidade:</strong> 1.419 nos BPMs, incluindo 48 de perdas anteriores no 13º BPM, + 170 nas especializadas + ${metricDetails.restructuring.total} da reestruturação = ${data.total} policiais. Na COPAC, 13 demissões + 7 requeridas e saldo de movimentações de −5 resultam em 25 policiais de necessidade situacional. Os saldos reproduzem a base SAPM atualizada até setembro de 2026, consolidando a hierarquia subordinada de cada OPM. BPGEP, COGEIC e CGP não integram a tabela. Promoção requerida não é baixa institucional.</p>` : ''}

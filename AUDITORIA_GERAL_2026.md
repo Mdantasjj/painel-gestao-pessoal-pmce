@@ -48,3 +48,9 @@ Nenhum dado pessoal foi incluído neste relatório. A validação de registros i
 ## Validação automatizada
 
 O teste `node tests/validate_personnel_accounting.js` verifica os 34 BPMs, os oito CRPMs, as 19 especializadas, os nove BPMs da reestruturação, os saldos oficiais das 15 especializadas, a COPAC, o POG, o RAIO, os cards e o CSV. Ele também impede a volta dos dois erros corrigidos: duplicidade no 15º BPM e subcontagem das requeridas da COPAC.
+
+## Atualização de 02/10/2026 — 12º e 26º BPM
+
+A revisão da série SAPM identificou 302 lançamentos recíprocos decorrentes da reorganização territorial de Caucaia: eles apareciam como saídas do 12º BPM e entradas do 26º BPM. Para não tratar a implantação da nova estrutura como perda e ganho operacional, as duas pontas foram neutralizadas. O saldo conjunto das unidades foi preservado em −49. O 12º BPM passou de 627 saídas, 285 entradas e saldo −342 para 325 saídas, 285 entradas e saldo −40; o 26º BPM passou de 533 saídas, 826 entradas e saldo +293 para 533 saídas, 524 entradas e saldo −9.
+
+Após essa conciliação, o déficit de movimentações do POG passa de 847 para 554; a necessidade situacional dos 34 BPMs, de 1.419 para 1.139; a análise consolidada, de 1.999 para 1.719; e o projeto-base 2027–2030, de 2.279 para 1.986 policiais.

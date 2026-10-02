@@ -365,35 +365,35 @@ const metricDetails = {
   pog: {
     accent: '#216f4c',
     eyebrow: 'Memória de cálculo · POG + COTAM/BPTUR',
-    title: '1.007 policiais entre déficit e implementação operacional',
-    total: '1.007',
+    title: '714 policiais entre déficit e implementação operacional',
+    total: '714',
     unit: 'policiais',
-    description: 'Indicador consolidado que reúne o déficit de 847 policiais nos BPMs do POG e a necessidade adicional de 160 policiais para implementação da COTAM e da 6ª Cia/BPTUR.',
+    description: 'Indicador consolidado que reúne o déficit de 554 policiais nos BPMs do POG e a necessidade adicional de 160 policiais para implementação da COTAM e da 6ª Cia/BPTUR.',
     stats: [
-      ['Déficit de efetivo do POG para as unidades especializadas', '847', 'Déficit localizado nos BPMs territoriais'],
+      ['Déficit de efetivo do POG para as unidades especializadas', '554', 'Déficit localizado nos BPMs territoriais'],
       ['COTAM - Necessidade de efetivo pronta resposta', '110', '10 oficiais · 100 praças'],
       ['BPTUR (Cariri e Guaramiranga)', '50', '02 oficiais · 48 praças'],
-      ['Total consolidado', '1.007', '847 POG · 110 COTAM · 50 BPTUR']
+      ['Total consolidado', '714', '554 POG · 110 COTAM · 50 BPTUR']
     ],
     hideBreakdown: true,
     breakdown: [],
     pogBreakdown: [
-      ['12º BPM', 40.4, '342 · 40,4%', '#145c40'],
-      ['3º BPM', 7.6, '64 · 7,6%', '#23794f'],
-      ['10º BPM', 7.1, '60 · 7,1%', '#368a60'],
-      ['2º BPM', 6.1, '52 · 6,1%', '#4c9b70'],
-      ['16º BPM', 4.8, '41 · 4,8%', '#65aa82'],
-      ['Demais 14 BPMs', 34.0, '288 · 34,0%', '#84b99a']
+      ['3º BPM', 11.6, '64 · 11,6%', '#145c40'],
+      ['10º BPM', 10.8, '60 · 10,8%', '#23794f'],
+      ['2º BPM', 9.4, '52 · 9,4%', '#368a60'],
+      ['16º BPM', 7.4, '41 · 7,4%', '#4c9b70'],
+      ['12º BPM', 7.2, '40 · 7,2%', '#65aa82'],
+      ['Demais 15 BPMs', 53.6, '297 · 53,6%', '#84b99a']
     ],
     sectionTitle: 'Batalhões com maior saldo negativo',
-    sectionSubtitle: 'Ranking das dez maiores perdas dentro do déficit acumulado de 847 policiais nos BPMs.',
+    sectionSubtitle: 'Ranking das dez maiores perdas dentro do déficit acumulado de 554 policiais nos BPMs.',
     tableColumns: ['Posição', 'Batalhão', 'Origem', 'Destino', 'Participação', 'Saldo'],
     tableRows: [
-      ['1', '12º BPM', '627', '285', '40,4%', '-342'], ['2', '3º BPM', '422', '358', '7,6%', '-64'],
-      ['3', '10º BPM', '226', '166', '7,1%', '-60'], ['4', '2º BPM', '179', '127', '6,1%', '-52'],
-      ['5', '16º BPM', '232', '191', '4,8%', '-41'], ['6', '1º BPM', '223', '184', '4,6%', '-39'],
-      ['7', '11º BPM', '104', '67', '4,4%', '-37'], ['8', '14º BPM', '133', '97', '4,3%', '-36'],
-      ['9', '18º BPM', '187', '155', '3,8%', '-32'], ['10', '21º BPM', '209', '179', '3,5%', '-30']
+      ['1', '3º BPM', '422', '358', '11,6%', '-64'], ['2', '10º BPM', '226', '166', '10,8%', '-60'],
+      ['3', '2º BPM', '179', '127', '9,4%', '-52'], ['4', '16º BPM', '232', '191', '7,4%', '-41'],
+      ['5', '12º BPM', '325', '285', '7,2%', '-40'], ['6', '1º BPM', '223', '184', '7,0%', '-39'],
+      ['7', '11º BPM', '104', '67', '6,7%', '-37'], ['8', '14º BPM', '133', '97', '6,5%', '-36'],
+      ['9', '18º BPM', '187', '155', '5,8%', '-32'], ['10', '21º BPM', '209', '179', '5,4%', '-30']
     ],
     implementationUnits: [
       {
@@ -417,12 +417,12 @@ const metricDetails = {
       }
     ],
     units: [
-      ['10º BPM', 226, 166, -60], ['11º BPM', 104, 67, -37], ['12º BPM', 627, 285, -342],
+      ['10º BPM', 226, 166, -60], ['11º BPM', 104, 67, -37], ['12º BPM', 325, 285, -40],
       ['13º BPM', 66, 76, 10], ['14º BPM', 133, 97, -36], ['15º BPM', 141, 143, 2],
       ['16º BPM', 232, 191, -41], ['17º BPM', 176, 172, -4], ['18º BPM', 187, 155, -32],
       ['19º BPM', 205, 210, 5], ['1º BPM', 223, 184, -39], ['20º BPM', 294, 270, -24],
       ['21º BPM', 209, 179, -30], ['22º BPM', 114, 92, -22], ['23º BPM', 137, 132, -5],
-      ['24º BPM', 75, 65, -10], ['25º BPM', 158, 165, 7], ['26º BPM', 533, 826, 293],
+      ['24º BPM', 75, 65, -10], ['25º BPM', 158, 165, 7], ['26º BPM', 533, 524, -9],
       ['27º BPM', 265, 282, 17], ['28º BPM', 290, 323, 33], ['29º BPM', 198, 198, 0],
       ['2º BPM', 179, 127, -52], ['30º BPM', 271, 288, 17], ['31º BPM', 203, 232, 29],
       ['32º BPM', 263, 288, 25], ['33º BPM', 191, 213, 22], ['34º BPM', 172, 245, 73],
@@ -765,9 +765,9 @@ const workforceProjectStudies = [
     eyebrow: 'Eixo 01 · policiamento e pronta resposta',
     title: 'POG + COTAM + BPTUR',
     description: 'Déficit localizado do POG e necessidades adicionais para implantação da COTAM e da 6ª Cia/BPTUR.',
-    value: '1.007',
+    value: '714',
     unit: 'policiais',
-    meta: '847 POG · 110 COTAM · 50 BPTUR',
+    meta: '554 POG · 110 COTAM · 50 BPTUR',
     image: 'assets/icone-deficit-efetivo.png',
     imageAlt: 'Ícone do eixo POG, COTAM e BPTUR'
   },
@@ -811,7 +811,7 @@ const workforceProjectStudies = [
       ['OPÇÃO 1', '21', 'POLICIAIS PARA 7 MUNICÍPIOS'],
       ['OPÇÃO 2', '60', 'POLICIAIS PARA 20 MUNICÍPIOS'],
       ['Escala semanal', 'Regime 5 × 2', 'Serviço de segunda a sexta · folga sábado e domingo'],
-      ['Impacto total projetado', '2.300 ou 2.339', 'Base de 2.279 + opção escolhida']
+      ['Impacto total projetado', '2.007 ou 2.046', 'Base de 1.986 + opção escolhida']
     ]
   }
 ];
@@ -1474,7 +1474,7 @@ function buildMariaDaPenhaProjectDetail(projectId) {
   const policePerPatrol = 3;
   const fixedPatrols = project.cities.length;
   const weeklyPolice = fixedPatrols * policePerPatrol;
-  const currentProjectTotal = 2279;
+  const currentProjectTotal = 1986;
   const projectedProjectTotal = currentProjectTotal + weeklyPolice;
   const effectiveItems = project.cities.map((city, index) => `
     <div class="maria-effective-item">
@@ -1492,7 +1492,7 @@ function buildMariaDaPenhaProjectDetail(projectId) {
       <div><span>Policiais por patrulha</span><strong>${policePerPatrol}</strong><small>Composição informada</small></div>
       <div><span>Efetivo semanal</span><strong>${weeklyPolice}</strong><small>Policiais fixos no projeto</small></div>
       <div><span>Regime de trabalho</span><strong>5 × 2</strong><small>Seg–sex · folga sáb–dom</small></div>
-      <div class="is-impact"><span>Impacto total projetado</span><strong>${projectedProjectTotal.toLocaleString('pt-BR')}</strong><small>2.279 + ${weeklyPolice} policiais</small></div>
+      <div class="is-impact"><span>Impacto total projetado</span><strong>${projectedProjectTotal.toLocaleString('pt-BR')}</strong><small>1.986 + ${weeklyPolice} policiais</small></div>
     </div>
     <div class="maria-schedule-heading"><strong>Efetivo por município</strong><span>Equipe fixa: serviço segunda–sexta · folga sábado–domingo</span></div>
     <div class="maria-effective-grid">${effectiveItems}</div>

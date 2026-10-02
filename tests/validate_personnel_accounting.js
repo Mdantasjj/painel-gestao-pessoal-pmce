@@ -101,11 +101,11 @@ for (const [field, expected] of Object.entries({
   exonerations: 60,
   dismissals: 170,
   grossLosses: 660,
-  losses: 1419,
+  losses: 1139,
   situation: -964,
-  calculatedDeficit: 1419,
+  calculatedDeficit: 1139,
   restructuringNeed: 410,
-  totalNeed: 1829
+  totalNeed: 1549
 })) {
   assert.equal(total(battalionRecords, record => record[field]), expected, field);
 }
@@ -122,17 +122,17 @@ const affectedTableRow = details.battalions.tableRows.find(row => row[1] === '26
 const battalionTotalRow = details.battalions.tableRows.find(row => row[1] === 'TOTAL DOS 34 BPMs');
 assert(unaffectedTableRow[8].includes('<strong>—</strong>'), 'Unaffected BPM must show a hyphen');
 assert(affectedTableRow[8].includes('<strong>39</strong>'), '26º BPM restructuring value missing');
-assert(affectedTableRow[9].includes('<strong>39</strong>'), '26º BPM consolidated need mismatch');
-assert(battalionTotalRow[7].includes('<strong>1.419</strong>'), 'Losses table total mismatch');
+assert(affectedTableRow[9].includes('<strong>61</strong>'), '26º BPM consolidated need mismatch');
+assert(battalionTotalRow[7].includes('<strong>1.139</strong>'), 'Losses table total mismatch');
 assert(battalionTotalRow[8].includes('<strong>410</strong>'), 'Restructuring table total mismatch');
-assert(battalionTotalRow[9].includes('<strong>1.829</strong>'), 'Consolidated table total mismatch');
+assert(battalionTotalRow[9].includes('<strong>1.549</strong>'), 'Consolidated table total mismatch');
 const thirteenthBattalionRow = details.battalions.tableRows.find(row => row[1] === '13º BPM');
 assert(thirteenthBattalionRow[7].includes('<strong>48</strong>'), '13º BPM previous losses adjustment missing');
 assert(!thirteenthBattalionRow[7].includes('<strong>+48</strong>'), '13º BPM losses must not display a plus sign');
 assert(thirteenthBattalionRow[7].includes('Perdas anteriores'), '13º BPM previous losses label missing');
 assert(!thirteenthBattalionRow[7].includes('PERDAS ANTERIORES'), '13º BPM previous losses label must not be uppercase');
-assert.equal(battalionRecords.filter(record => record.situation < 0).length, 25);
-assert.equal(battalionRecords.filter(record => record.situation > 0).length, 8);
+assert.equal(battalionRecords.filter(record => record.situation < 0).length, 26);
+assert.equal(battalionRecords.filter(record => record.situation > 0).length, 7);
 assert.equal(battalionRecords.filter(record => record.situation === 0).length, 1);
 
 assert.equal(Object.keys(details.pog.companyStrengthByBattalion).length, 34);
@@ -215,9 +215,9 @@ assert.deepEqual(
   [145, 259, 707],
   'Visible unit-scope component totals mismatch'
 );
-assert.equal(number(details.pog.total), 847 + 110 + 50);
-assert.equal(number(details.pog.total) + number(details.raio.total) + number(details.copac.total), 2279);
-assert.equal(number(details.battalions.total), 1999);
+assert.equal(number(details.pog.total), 554 + 110 + 50);
+assert.equal(number(details.pog.total) + number(details.raio.total) + number(details.copac.total), 1986);
+assert.equal(number(details.battalions.total), 1719);
 
 assert.deepEqual(Object.keys(sortLabels), ['unit', 'battalionStrength', 'movementBalance', 'restructuringNeed', 'totalNeed']);
 assert.equal(sortLabels.unit, 'UNIDADE, ORDEM ALFANUMÉRICA');
@@ -269,12 +269,19 @@ assert.equal(total(records, record => record.requiredPromotions), 524);
 
 const pogUnits = details.pog.units;
 assert.equal(pogUnits.length, 34);
-assert.equal(total(pogUnits, ([, origin]) => origin), 7068);
-assert.equal(total(pogUnits, ([, , destination]) => destination), 6764);
+assert.equal(total(pogUnits, ([, origin]) => origin), 6766);
+assert.equal(total(pogUnits, ([, , destination]) => destination), 6462);
 for (const [name, origin, destination, balance] of pogUnits) {
   assert.equal(destination - origin, balance, `POG movement mismatch: ${name}`);
 }
-assert.equal(total(pogUnits, ([, , , balance]) => Math.max(0, -balance)), 847);
+assert.equal(total(pogUnits, ([, , , balance]) => Math.max(0, -balance)), 554);
+assert.deepEqual(Array.from(pogUnits.find(([name]) => name === '12º BPM').slice(1)), [325, 285, -40]);
+assert.deepEqual(Array.from(pogUnits.find(([name]) => name === '26º BPM').slice(1)), [533, 524, -9]);
+assert.equal(
+  total(pogUnits.filter(([name]) => name === '12º BPM' || name === '26º BPM'), ([, , , balance]) => balance),
+  -49,
+  '12º/26º BPM combined movement balance must be preserved after removing the 302-person structural transfer'
+);
 
 const raioLevels = details.raio.levels;
 assert.equal(total(raioLevels, level => level.bases), 20);
@@ -308,7 +315,7 @@ assert(!html.includes('id="metricDetailClose"') && !css.includes('.metric-dialog
 assert(!html.includes('374 movimentações para especializadas'), 'Specialized-movement note must not be shown on the main card');
 assert(!source.includes('Perdas dos BPMs para especializadas'), 'Specialized-movement stat must not be shown in the loss study');
 assert(!source.includes('Movimentações dos BPMs para especializadas'), 'Specialized-movement breakdown must not be shown in the loss study');
-for (const [key, expected] of Object.entries({ exits: 1111, pog: 2279, restructuring: 410, battalions: 1999 })) {
+for (const [key, expected] of Object.entries({ exits: 1111, pog: 1986, restructuring: 410, battalions: 1719 })) {
   const match = html.match(new RegExp(`data-detail="${key}"[\\s\\S]*?<div class="metric-main"><strong>([\\d.]+)</strong>`));
   assert(match, `Card not found: ${key}`);
   assert.equal(number(match[1]), expected, `Card total mismatch: ${key}`);

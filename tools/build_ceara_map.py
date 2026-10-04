@@ -349,6 +349,7 @@ def read_situational_rows() -> dict[str, dict[str, object]]:
                 "situacao": int(row["situacao_media"]),
                 "perdas": int(row["deficit_situacional"]),
                 "reestruturacao": int(row["reestruturacao_interior_litoral"] or 0),
+                "ajuste_necessidade": int(row["ajuste_necessidade"] or 0),
                 "necessidade": int(row["necessidade_de_efetivo"]),
             }
     assert len(result) == 34

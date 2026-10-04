@@ -105,7 +105,8 @@ for (const [field, expected] of Object.entries({
   situation: -964,
   calculatedDeficit: 1139,
   restructuringNeed: 410,
-  totalNeed: 1549
+  needAdjustment: -111,
+  totalNeed: 1438
 })) {
   assert.equal(total(battalionRecords, record => record[field]), expected, field);
 }
@@ -115,17 +116,35 @@ for (const record of battalionRecords) {
   assert.equal(record.losses, Math.max(0, record.grossLosses - record.movementBalance) + expectedPreviousLosses, `Losses mismatch: ${record.name}`);
   const expected = expectedRestructuring[record.name]?.[2] ?? null;
   assert.equal(record.restructuringNeed, expected, `Integrated restructuring mismatch: ${record.name}`);
-  assert.equal(record.totalNeed, record.calculatedDeficit + (expected ?? 0), `Consolidated need mismatch: ${record.name}`);
+  assert.equal(record.totalNeed, Math.max(0, record.calculatedDeficit + (expected ?? 0) + record.needAdjustment), `Consolidated need mismatch: ${record.name}`);
+}
+const expectedNeedAdjustments = {
+  '1º BPM': -20, '2º BPM': -50, '3º BPM': -30, '4º BPM': -10,
+  '7º BPM': 24, '10º BPM': -40, '11º BPM': -30, '12º BPM': -10,
+  '15º BPM': 30, '19º BPM': 35, '25º BPM': 30, '26º BPM': -10,
+  '29º BPM': -10, '34º BPM': -20
+};
+for (const record of battalionRecords) {
+  assert.equal(record.needAdjustment, expectedNeedAdjustments[record.name] ?? 0, `Need adjustment mismatch: ${record.name}`);
+}
+const expectedAdjustedNeeds = {
+  '1º BPM': 42, '2º BPM': 44, '3º BPM': 57, '4º BPM': 36,
+  '7º BPM': 32, '10º BPM': 38, '11º BPM': 44, '12º BPM': 52,
+  '15º BPM': 40, '19º BPM': 50, '25º BPM': 40, '26º BPM': 51,
+  '29º BPM': 38, '34º BPM': 35
+};
+for (const [name, expected] of Object.entries(expectedAdjustedNeeds)) {
+  assert.equal(battalionRecords.find(record => record.name === name).totalNeed, expected, `Adjusted need mismatch: ${name}`);
 }
 const unaffectedTableRow = details.battalions.tableRows.find(row => row[1] === '1º BPM');
 const affectedTableRow = details.battalions.tableRows.find(row => row[1] === '26º BPM');
 const battalionTotalRow = details.battalions.tableRows.find(row => row[1] === 'TOTAL DOS 34 BPMs');
 assert(unaffectedTableRow[8].includes('<strong>—</strong>'), 'Unaffected BPM must show a hyphen');
 assert(affectedTableRow[8].includes('<strong>39</strong>'), '26º BPM restructuring value missing');
-assert(affectedTableRow[9].includes('<strong>61</strong>'), '26º BPM consolidated need mismatch');
+assert(affectedTableRow[9].includes('<strong>51</strong>'), '26º BPM adjusted need mismatch');
 assert(battalionTotalRow[7].includes('<strong>1.139</strong>'), 'Losses table total mismatch');
 assert(battalionTotalRow[8].includes('<strong>410</strong>'), 'Restructuring table total mismatch');
-assert(battalionTotalRow[9].includes('<strong>1.549</strong>'), 'Consolidated table total mismatch');
+assert(battalionTotalRow[9].includes('<strong>1.438</strong>'), 'Adjusted battalion table total mismatch');
 const thirteenthBattalionRow = details.battalions.tableRows.find(row => row[1] === '13º BPM');
 assert(thirteenthBattalionRow[7].includes('<strong>48</strong>'), '13º BPM previous losses adjustment missing');
 assert(!thirteenthBattalionRow[7].includes('<strong>+48</strong>'), '13º BPM losses must not display a plus sign');
@@ -188,6 +207,7 @@ for (const line of csv.slice(1, -1)) {
     record.situation,
     record.calculatedDeficit,
     record.restructuringNeed ?? 0,
+    record.needAdjustment,
     record.totalNeed
   ], `CSV mismatch: ${name}`);
 }
@@ -217,7 +237,7 @@ assert.deepEqual(
 );
 assert.equal(number(details.pog.total), 554 + 110 + 50);
 assert.equal(number(details.pog.total) + number(details.raio.total) + number(details.copac.total), 1986);
-assert.equal(number(details.battalions.total), 1719);
+assert.equal(number(details.battalions.total), 1598);
 
 assert.deepEqual(Object.keys(sortLabels), ['unit', 'battalionStrength', 'movementBalance', 'restructuringNeed', 'totalNeed']);
 assert.equal(sortLabels.unit, 'UNIDADE, ORDEM ALFANUMÉRICA');
@@ -255,6 +275,38 @@ for (const [name, expected] of Object.entries(expectedSpecializedMovement)) {
 }
 const copac = details.battalions.specializedUnits.find(item => item.name === 'COPAC');
 assert(!details.battalions.specializedUnits.some(item => item.name === 'BPGEP'), 'BPGEP must be excluded from the specialized-unit table');
+const raioTableRows = details.battalions.tableRows.filter(row => row[1].includes('RAIO'));
+assert.equal(raioTableRows.length, 1, 'The nine BPRAIO units must occupy a single table row');
+assert.equal(raioTableRows[0][1], 'BPRAIO (9 unidades)');
+assert(raioTableRows[0][2].includes('<strong>3.141</strong>'), 'Consolidated BPRAIO strength mismatch');
+assert(raioTableRows[0][3].includes('<strong>2</strong>'), 'Consolidated BPRAIO exonerations mismatch');
+assert(raioTableRows[0][4].includes('<strong>10</strong>'), 'Consolidated BPRAIO dismissals mismatch');
+assert(raioTableRows[0][5].includes('<strong>17</strong>'), 'Consolidated BPRAIO required promotions mismatch');
+assert(raioTableRows[0][5].includes('2025: 13') && raioTableRows[0][5].includes('2026: 4'), 'Consolidated BPRAIO promotion years mismatch');
+assert(raioTableRows[0][6].includes('<strong>-8</strong>'), 'Consolidated BPRAIO movement balance mismatch');
+assert(raioTableRows[0][7].includes('<strong>40</strong>'), 'Consolidated BPRAIO losses mismatch');
+assert(raioTableRows[0][9].includes('<strong>40</strong>'), 'Consolidated BPRAIO need mismatch');
+const raioRecords = specializedRecords.filter(record => record.name.startsWith('RAIO -'));
+const raioTotal = field => total(raioRecords, record => record[field] ?? 0);
+assert.equal(raioRecords.length, 9);
+assert.deepEqual(
+  Array.from(raioRecords, record => record.losses),
+  [7, 10, 2, 8, 11, 0, 1, 1, 0],
+  'BPRAIO losses must be calculated by unit before consolidation'
+);
+assert.deepEqual(
+  {
+    strength: raioTotal('battalionStrength'),
+    exonerations: raioTotal('exonerations'),
+    dismissals: raioTotal('dismissals'),
+    required2025: raioTotal('requiredPromotions2025'),
+    required2026: raioTotal('requiredPromotions2026'),
+    movementBalance: raioTotal('movementBalance'),
+    losses: raioTotal('losses'),
+    totalNeed: raioTotal('totalNeed')
+  },
+  { strength: 3141, exonerations: 2, dismissals: 10, required2025: 13, required2026: 4, movementBalance: -8, losses: 40, totalNeed: 40 }
+);
 assert.equal(copac.required2025, 5, 'COPAC 2025 required promotions mismatch');
 assert.equal(copac.required2026, 2, 'COPAC 2026 required promotions mismatch');
 assert.equal(total(specializedRecords, record => record.battalionStrength), 6250);
@@ -263,6 +315,10 @@ assert.equal(total(specializedRecords, record => record.dismissals), 43);
 assert.equal(total(specializedRecords, record => record.requiredPromotions), 94);
 assert.equal(total(specializedRecords, record => record.movementBalance ?? 0), -11);
 assert.equal(total(specializedRecords, record => record.losses ?? 0), 170);
+assert.equal(total(specializedRecords, record => record.needAdjustment), -10);
+assert.equal(total(specializedRecords, record => record.totalNeed), 160);
+assert.equal(specializedRecords.find(record => record.name === 'BPMA').needAdjustment, -10);
+assert.equal(specializedRecords.find(record => record.name === 'BPMA').totalNeed, 30);
 assert.equal(total(records, record => record.exonerations), 73);
 assert.equal(total(records, record => record.dismissals), 213);
 assert.equal(total(records, record => record.requiredPromotions), 524);
@@ -315,7 +371,7 @@ assert(!html.includes('id="metricDetailClose"') && !css.includes('.metric-dialog
 assert(!html.includes('374 movimentações para especializadas'), 'Specialized-movement note must not be shown on the main card');
 assert(!source.includes('Perdas dos BPMs para especializadas'), 'Specialized-movement stat must not be shown in the loss study');
 assert(!source.includes('Movimentações dos BPMs para especializadas'), 'Specialized-movement breakdown must not be shown in the loss study');
-for (const [key, expected] of Object.entries({ exits: 1111, pog: 1986, restructuring: 410, battalions: 1719 })) {
+for (const [key, expected] of Object.entries({ exits: 1111, pog: 1986, restructuring: 410, battalions: 1598 })) {
   const match = html.match(new RegExp(`data-detail="${key}"[\\s\\S]*?<div class="metric-main"><strong>([\\d.]+)</strong>`));
   assert(match, `Card not found: ${key}`);
   assert.equal(number(match[1]), expected, `Card total mismatch: ${key}`);

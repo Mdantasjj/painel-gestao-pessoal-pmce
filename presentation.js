@@ -460,12 +460,12 @@ const metricDetails = {
     eyebrow: 'Análise consolidada · batalhões',
     title: 'BATALHÕES - Análise situacional de Efetivo',
     total: '',
-    unit: 'necessidade consolidada apurada',
+    unit: 'necessidade consolidada ajustada',
     description: '',
     stats: [
       ['Unidades analisadas', '52', '34 BPMs · 18 unidades especializadas'],
       ['Exonerações e demissões · outros concursos', '73 + 213', '286 saídas discriminadas nas unidades da tabela'],
-      ['Necessidade nas especializadas', '170', 'Resultado apurado nas 18 unidades especializadas']
+      ['Necessidade nas especializadas', '160', 'Resultado ajustado nas 18 unidades especializadas']
     ],
     breakdownTitle: 'Situação integrada dos 34 batalhões',
     breakdownSubtitle: 'Distribuição dos BPMs após incorporar exonerações e demissões relacionadas a outros concursos, além das requeridas, ao saldo das movimentações.',
@@ -675,6 +675,24 @@ const battalionLossAdjustments = {
   '13º BPM': 48
 };
 
+const personnelNeedAdjustments = {
+  '1º BPM': -20,
+  '2º BPM': -50,
+  '3º BPM': -30,
+  '4º BPM': -10,
+  '7º BPM': 24,
+  '10º BPM': -40,
+  '11º BPM': -30,
+  '12º BPM': -10,
+  '15º BPM': 30,
+  '19º BPM': 35,
+  '25º BPM': 30,
+  '26º BPM': -10,
+  '29º BPM': -10,
+  '34º BPM': -20,
+  'BPMA': -10
+};
+
 function recalculateRestructuringFromConsolidatedStrength() {
   const study = metricDetails.restructuring;
   const consolidated = metricDetails.battalions;
@@ -711,8 +729,16 @@ function recalculateRestructuringFromConsolidatedStrength() {
     const required = unit.required2025 + unit.required2026;
     return sum + Math.max(0, unit.exonerations + unit.dismissals + required - unit.movementBalance);
   }, 0);
-  const battalionCombinedNeed = battalionSituationalNeed + additionalTotal;
-  const consolidatedNeed = battalionCombinedNeed + specializedNeed;
+  const battalionNeedAdjustment = Object.entries(personnelNeedAdjustments)
+    .filter(([name]) => name.endsWith('BPM'))
+    .reduce((sum, [, adjustment]) => sum + adjustment, 0);
+  const specializedNeedAdjustment = Object.entries(personnelNeedAdjustments)
+    .filter(([name]) => !name.endsWith('BPM'))
+    .reduce((sum, [, adjustment]) => sum + adjustment, 0);
+  const adjustedBattalionSituationalNeed = battalionSituationalNeed + battalionNeedAdjustment;
+  const adjustedSpecializedNeed = specializedNeed + specializedNeedAdjustment;
+  const battalionCombinedNeed = adjustedBattalionSituationalNeed + additionalTotal;
+  const consolidatedNeed = battalionCombinedNeed + adjustedSpecializedNeed;
 
   study.units = units;
   study.totalNumber = additionalTotal;
@@ -746,8 +772,8 @@ function recalculateRestructuringFromConsolidatedStrength() {
   const battalionCard = document.querySelector('.metric-card[data-detail="battalions"]');
   if (battalionCard) {
     battalionCard.querySelector('.metric-main strong').textContent = consolidated.total;
-    battalionCard.querySelector('.metric-foot span').textContent = `${format(battalionSituationalNeed)} BPMs + ${format(additionalTotal)} reestruturação + ${format(specializedNeed)} especializadas`;
-    battalionCard.setAttribute('aria-label', `Detalhar a necessidade consolidada apurada de ${consolidated.total} policiais nos 34 batalhões e nas unidades especializadas`);
+    battalionCard.querySelector('.metric-foot span').textContent = `${format(adjustedBattalionSituationalNeed)} BPMs + ${format(additionalTotal)} reestruturação + ${format(adjustedSpecializedNeed)} especializadas`;
+    battalionCard.setAttribute('aria-label', `Detalhar a necessidade consolidada ajustada de ${consolidated.total} policiais nos 34 batalhões e nas unidades especializadas`);
   }
 }
 
@@ -860,6 +886,7 @@ function getBattalionTableRecords() {
     const calculatedDeficit = losses;
     const restructuringUnit = metricDetails.restructuring.units.find(([unitName]) => unitName === name);
     const restructuringNeed = restructuringUnit ? restructuringUnit[3] : null;
+    const needAdjustment = personnelNeedAdjustments[name] ?? 0;
     return {
       name,
       battalionStrength: metricDetails.battalions.battalionTotals[name] ?? null,
@@ -880,7 +907,8 @@ function getBattalionTableRecords() {
       losses,
       calculatedDeficit,
       restructuringNeed,
-      totalNeed: calculatedDeficit + (restructuringNeed ?? 0)
+      needAdjustment,
+      totalNeed: Math.max(0, calculatedDeficit + (restructuringNeed ?? 0) + needAdjustment)
     };
   });
 
@@ -890,6 +918,7 @@ function getBattalionTableRecords() {
     const hasMovementBalance = unit.movementBalance != null;
     const situation = hasMovementBalance ? unit.movementBalance - grossLosses : null;
     const losses = hasMovementBalance ? Math.max(0, -situation) : null;
+    const needAdjustment = personnelNeedAdjustments[unit.name] ?? 0;
     return {
       name: unit.name,
       unitType: 'specialized',
@@ -905,7 +934,8 @@ function getBattalionTableRecords() {
       losses,
       calculatedDeficit: losses,
       restructuringNeed: null,
-      totalNeed: losses
+      needAdjustment,
+      totalNeed: losses == null ? null : Math.max(0, losses + needAdjustment)
     };
   });
 
@@ -923,6 +953,34 @@ function compareBattalionRecords(a, b, field, direction) {
     : aValue - bValue;
   if (comparison === 0) return a.name.localeCompare(b.name, 'pt-BR', { numeric: true });
   return direction === 'asc' ? comparison : -comparison;
+}
+
+function consolidateRaioTableRecords(records) {
+  const raioRecords = records.filter((record) => record.unitType === 'specialized' && record.name.startsWith('RAIO -'));
+  if (raioRecords.length === 0) return records;
+
+  const raioNames = new Set(raioRecords.map((record) => record.name));
+  const sum = (field) => raioRecords.reduce((total, record) => total + (record[field] ?? 0), 0);
+  const consolidatedRaio = {
+    name: `BPRAIO (${raioRecords.length} unidades)`,
+    unitType: 'specialized',
+    battalionStrength: sum('battalionStrength'),
+    movementBalance: sum('movementBalance'),
+    situation: sum('situation'),
+    exonerations: sum('exonerations'),
+    dismissals: sum('dismissals'),
+    requiredPromotions2025: sum('requiredPromotions2025'),
+    requiredPromotions2026: sum('requiredPromotions2026'),
+    requiredPromotions: sum('requiredPromotions'),
+    grossLosses: sum('grossLosses'),
+    losses: sum('losses'),
+    calculatedDeficit: sum('calculatedDeficit'),
+    restructuringNeed: null,
+    needAdjustment: sum('needAdjustment'),
+    totalNeed: sum('totalNeed')
+  };
+
+  return [...records.filter((record) => !raioNames.has(record.name)), consolidatedRaio];
 }
 
 function renderBattalionStrengthValue(total, note) {
@@ -960,19 +1018,28 @@ function renderBattalionLossValue(record) {
   return renderBattalionExitValue(record.losses, 'após movimentações');
 }
 
+function renderBattalionTotalNeedValue(record) {
+  if (record.totalNeed == null) return renderBattalionExitValue(0, 'necessidade total', true);
+  if (!record.needAdjustment) return renderBattalionExitValue(record.totalNeed, 'necessidade total');
+  const signal = record.needAdjustment > 0 ? '+' : '−';
+  return renderBattalionExitValue(record.totalNeed, `ajuste solicitado: ${signal}${Math.abs(record.needAdjustment)}`);
+}
+
 function buildBattalionTableRows(field = 'situation', direction = 'asc') {
   const records = getBattalionTableRecords();
+  const displayRecords = consolidateRaioTableRecords(records);
   const battalionRecords = records.filter((record) => record.unitType !== 'specialized');
   const specializedRecords = records.filter((record) => record.unitType === 'specialized');
   const sumField = (items, fieldName) => items.reduce((sum, record) => sum + (record[fieldName] ?? 0), 0);
   const battalionStrength = sumField(battalionRecords, 'battalionStrength');
   const battalionLosses = sumField(battalionRecords, 'losses');
   const restructuringNeed = metricDetails.restructuring.totalNumber;
-  const battalionNeed = battalionLosses + restructuringNeed;
+  const battalionNeed = sumField(battalionRecords, 'totalNeed');
   const specializedStrength = sumField(specializedRecords, 'battalionStrength');
   const specializedLosses = sumField(specializedRecords, 'losses');
-  const consolidatedNeed = battalionNeed + specializedLosses;
-  const rows = [...records]
+  const specializedNeed = sumField(specializedRecords, 'totalNeed');
+  const consolidatedNeed = battalionNeed + specializedNeed;
+  const rows = [...displayRecords]
     .sort((a, b) => compareBattalionRecords(a, b, field, direction))
     .map((record, index) => [
       String(index + 1),
@@ -984,7 +1051,7 @@ function buildBattalionTableRows(field = 'situation', direction = 'asc') {
       renderBattalionSignedValue(record.movementBalance, 'saldo'),
       renderBattalionLossValue(record),
       renderBattalionOptionalValue(record.restructuringNeed, 'interior e litoral'),
-      renderBattalionExitValue(record.totalNeed, 'necessidade total', record.totalNeed == null)
+      renderBattalionTotalNeedValue(record)
     ]);
   rows.push([
     '—',
@@ -1008,7 +1075,7 @@ function buildBattalionTableRows(field = 'situation', direction = 'asc') {
     renderBattalionSignedValue(sumField(battalionRecords, 'movementBalance'), 'saldo'),
     renderBattalionExitValue(battalionLosses, 'perdas locais'),
     renderBattalionExitValue(restructuringNeed, '26º ao 34º BPM'),
-    renderBattalionExitValue(battalionNeed, `${battalionLosses.toLocaleString('pt-BR')} + ${restructuringNeed.toLocaleString('pt-BR')}`)
+    renderBattalionExitValue(battalionNeed, 'necessidade ajustada dos BPMs')
   ]);
   rows.push([
     '—',
@@ -1017,10 +1084,10 @@ function buildBattalionTableRows(field = 'situation', direction = 'asc') {
     renderBattalionExitValue(sumField(specializedRecords, 'exonerations'), 'saídas'),
     renderBattalionExitValue(sumField(specializedRecords, 'dismissals'), 'saídas'),
     renderBattalionExitValue(sumField(specializedRecords, 'requiredPromotions'), '2025: 111 · 2026: 43'),
-    renderBattalionSignedValue(sumField(specializedRecords, 'movementBalance'), 'saldo das 18 unidades individualizadas'),
+    renderBattalionSignedValue(sumField(specializedRecords, 'movementBalance'), '18 unidades apuradas · 9 BPRAIO em uma linha'),
     renderBattalionExitValue(specializedLosses, 'perdas locais apuráveis'),
     '—',
-    renderBattalionExitValue(specializedLosses, 'necessidade apurável')
+    renderBattalionExitValue(specializedNeed, 'necessidade ajustada')
   ]);
   rows.push([
     '—',
@@ -1032,7 +1099,7 @@ function buildBattalionTableRows(field = 'situation', direction = 'asc') {
     renderBattalionSignedValue(sumField(records, 'movementBalance'), 'saldo conhecido'),
     renderBattalionExitValue(battalionLosses + specializedLosses, 'perdas locais apuráveis'),
     renderBattalionExitValue(restructuringNeed, '26º ao 34º BPM'),
-    renderBattalionExitValue(consolidatedNeed, `${(battalionLosses + specializedLosses).toLocaleString('pt-BR')} + ${restructuringNeed.toLocaleString('pt-BR')}`)
+    renderBattalionExitValue(consolidatedNeed, 'necessidade consolidada ajustada')
   ]);
   return rows;
 }
@@ -1071,12 +1138,15 @@ function formatCompanyStructure(companyCount) {
 }
 
 function renderBattalionUnitLabel(unitName) {
-  const isSpecialized = metricDetails.battalions.specializedUnits.some((unit) => unit.name === unitName);
+  const isConsolidatedRaio = unitName.startsWith('BPRAIO (');
+  const isSpecialized = isConsolidatedRaio || metricDetails.battalions.specializedUnits.some((unit) => unit.name === unitName);
   const companyCount = metricDetails.pog.companyCountByBattalion[unitName];
   const structureLabel = companyCount
     ? `<small class="battalion-company-structure">Estrutura: ${formatCompanyStructure(companyCount)}</small>`
     : '';
-  const complementaryLabel = isSpecialized ? '<small>Unidade especializada</small>' : structureLabel;
+  const complementaryLabel = isConsolidatedRaio
+    ? '<small>9 unidades especializadas consolidadas</small>'
+    : isSpecialized ? '<small>Unidade especializada</small>' : structureLabel;
   return `<span class="pog-opm-label${isSpecialized ? ' specialized-unit-label' : ''}"><strong>${formatPogUnitName(unitName)}</strong>${complementaryLabel}</span>`;
 }
 

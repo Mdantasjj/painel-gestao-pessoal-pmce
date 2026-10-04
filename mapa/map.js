@@ -170,6 +170,7 @@ function battalionTooltip(properties) {
       <div><span>Reestruturação</span><strong>${properties.reestruturacao ? formatNumber(properties.reestruturacao) : '—'}</strong></div>
       <div><span>Requeridas 2025</span><strong>${formatNumber(properties.requeridas_2025)}</strong></div>
       <div><span>Requeridas 2026</span><strong>${formatNumber(properties.requeridas_2026)}</strong></div>
+      ${properties.ajuste_necessidade ? `<div><span>Ajuste da necessidade</span><strong>${signed(properties.ajuste_necessidade)}</strong></div>` : ''}
     </div>
     <div class="tooltip-need"><span>Necessidade de efetivo</span><strong>${formatNumber(properties.necessidade)} policiais</strong></div>
     <div class="tooltip-foot">Posição do marcador: ${escapeHtml(properties.ancora)} (${escapeHtml(properties.tipo_ancora)}). Promoção requerida representa impacto de recomposição, não baixa institucional confirmada.</div>`;

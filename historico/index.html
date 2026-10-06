@@ -8,6 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../mapa/vendor/leaflet.css">
   <link rel="stylesheet" href="historico.css">
 </head>
 <body>
@@ -40,11 +41,10 @@
 
     <section class="dashboard-grid">
       <article class="panel heat-panel">
-        <div class="panel-head"><div><p class="eyebrow">INTENSIDADE TERRITORIAL</p><h2>Mapa de calor</h2></div><div class="legend"><span></span> baixa <span></span> alta</div></div>
+        <div class="panel-head"><div><p class="eyebrow">INTENSIDADE TERRITORIAL</p><h2>Mapa de calor · Ceará</h2></div><div class="legend"><span></span> baixa <span></span> alta</div></div>
         <div class="map-stage" id="heatMap" aria-label="Mapa de calor conceitual">
-          <div class="map-silhouette"></div><div class="map-grid"></div>
-          <div class="map-callout"><b>LEITURA POR AIS</b><span id="aisRanking">AIS02 · 3.357 cancelamentos<br>AIS06 · 3.277 cancelamentos</span><small>Mapa territorial será ativado com a malha das AIS.</small></div>
-          <div class="map-label label-norte">NORTE</div><div class="map-label label-capital">CAPITAL</div><div class="map-label label-sul">SUL</div>
+          <div id="cearaHeatMap" aria-label="Mapa dos municípios do Ceará com intensidade de cancelamentos"></div>
+          <div class="map-callout"><b>MAIOR CONCENTRAÇÃO</b><span id="aisRanking">Carregando dados municipais…</span><small>Municípios sem registro aparecem em tom neutro. 4.963 registros não possuem município informado.</small></div>
         </div>
         <div class="map-footer"><span>passe o cursor pelas zonas para explorar</span><span id="zoneReadout">sem dados selecionados</span></div>
       </article>
@@ -69,6 +69,7 @@
     </section>
   </main>
   <footer><span>PMCE · NÚCLEO DE INTELIGÊNCIA ESTRATÉGICA</span><span>BASE AGREGADA · SEM ENDEREÇOS OU IDENTIFICADORES INDIVIDUAIS</span></footer>
+  <script src="../mapa/vendor/leaflet.js"></script>
   <script src="historico.js"></script>
 </body>
 </html>

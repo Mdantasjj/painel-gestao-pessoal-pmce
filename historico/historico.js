@@ -7,13 +7,48 @@ function renderTimeline(months) {
   document.querySelectorAll('.point').forEach(point => point.addEventListener('mouseenter', () => document.querySelector('#timelineNote').textContent = `${point.dataset.month} · ${Number(point.dataset.total).toLocaleString('pt-BR')} cancelamentos registrados.`));
 }
 
-fetch('data/resumo_cancelamentos_2026.json').then(response => response.json()).then(data => {
+function normalize(value) {
+  return String(value || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toUpperCase().replace(/[^A-Z0-9]/g, '');
+}
+
+function heatColor(total, maximum) {
+  if (!total) return '#cbd5e8';
+  const ratio = Math.sqrt(total / maximum);
+  const hue = 215 - ratio * 195;
+  const lightness = 82 - ratio * 33;
+  return `hsl(${hue} 76% ${lightness}%)`;
+}
+
+function renderCearaMap(geojson, totals) {
+  const map = L.map('cearaHeatMap', { zoomControl: false, attributionControl: false, preferCanvas: true, minZoom: 6, maxZoom: 11 });
+  const maximum = Math.max(...Object.values(totals));
+  const layer = L.geoJSON(geojson, {
+    style(feature) {
+      const total = totals[normalize(feature.properties.municipio)] || 0;
+      return { color: '#ffffff', weight: .65, fillColor: heatColor(total, maximum), fillOpacity: total ? .9 : .56 };
+    },
+    onEachFeature(feature, featureLayer) {
+      const municipality = feature.properties.municipio;
+      const total = totals[normalize(municipality)] || 0;
+      featureLayer.bindTooltip(`<strong>${municipality}</strong><span>${total.toLocaleString('pt-BR')} cancelamentos</span>`, { className: 'municipal-heat-tooltip', sticky: true, direction: 'top' });
+      featureLayer.on({
+        mouseover() { featureLayer.setStyle({ color: '#172246', weight: 1.6, fillOpacity: 1 }); featureLayer.bringToFront(); },
+        mouseout() { layer.resetStyle(featureLayer); },
+        click() { map.fitBounds(featureLayer.getBounds(), { padding: [24, 24], maxZoom: 9 }); }
+      });
+    }
+  }).addTo(map);
+  map.fitBounds(layer.getBounds(), { padding: [12, 12] });
+}
+
+Promise.all([fetch('data/resumo_cancelamentos_2026.json').then(response => response.json()), fetch('../mapa/data/municipios-ceara-2026.geojson').then(response => response.json())]).then(([data, municipalities]) => {
   renderTimeline(data.por_mes);
   document.querySelector('#metricMain').textContent = data.total_registros.toLocaleString('pt-BR');
   document.querySelector('#metricVariation').textContent = data.ocorrencias_unicas.toLocaleString('pt-BR');
-  document.querySelector('#aisRanking').innerHTML = data.por_ais.slice(0, 2).map(item => `${item.ais} · ${item.total.toLocaleString('pt-BR')} cancelamentos`).join('<br>');
-  document.querySelector('#zoneReadout').textContent = `${data.por_ais.length} AIS na carga`;
-}).catch(() => renderTimeline([]));
+  const rankedMunicipalities = Object.entries(data.por_municipio).sort(([, left], [, right]) => right - left).slice(0, 2);
+  document.querySelector('#aisRanking').innerHTML = rankedMunicipalities.map(([municipality, total]) => `${municipality} · ${total.toLocaleString('pt-BR')} cancelamentos`).join('<br>');
+  document.querySelector('#zoneReadout').textContent = `${Object.keys(data.por_municipio).length} municípios com registro`;
+  renderCearaMap(municipalities, data.por_municipio);
+}).catch(() => { document.querySelector('#timelineNote').textContent = 'Não foi possível carregar a camada territorial.'; });
 document.querySelector('#simulate').addEventListener('click', () => { document.querySelector('#zoneReadout').textContent = 'recorte atual · cancelamentos'; });
 document.querySelector('#themeButton').addEventListener('click', () => document.body.classList.toggle('alt'));
-document.querySelector('#heatMap').addEventListener('mousemove', event => { const x = Math.round((event.offsetX / event.currentTarget.clientWidth) * 100); const y = Math.round((event.offsetY / event.currentTarget.clientHeight) * 100); document.querySelector('#zoneReadout').textContent = `zona conceitual · ${x}:${y}`; });

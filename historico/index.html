@@ -14,28 +14,28 @@
   <div class="aurora aurora-a"></div><div class="aurora aurora-b"></div><div class="noise"></div>
   <header>
     <div class="brand"><span class="brand-dot"></span><div><b>OBSERVATÓRIO</b><small>HISTÓRICO OPERACIONAL</small></div></div>
-    <div class="header-center"><span class="live-dot"></span> AMBIENTE DE ESTRUTURAÇÃO <em>·</em> SÉRIE 2006—2026</div>
+    <div class="header-center"><span class="live-dot"></span> PRIMEIRA CARGA RECEBIDA <em>·</em> JAN—SET 2026</div>
     <button class="outline-button" id="themeButton" type="button">ALTERAR ATMOSFERA</button>
   </header>
 
   <main>
     <section class="hero">
       <div><p class="eyebrow">ESTUDO EM CONSTRUÇÃO</p><h1>O tempo revela<br><i>o que os números escondem.</i></h1></div>
-      <p class="hero-copy">Arquitetura visual para leitura de ocorrências, atendimentos e cancelamentos ao longo de duas décadas. Os indicadores abaixo são meramente ilustrativos.</p>
+      <p class="hero-copy">Estrutura para leitura de ocorrências, atendimentos e cancelamentos ao longo de duas décadas. A primeira carga de cancelamentos já está incorporada.</p>
     </section>
 
     <section class="control-panel" aria-label="Filtros do estudo">
-      <label>PERÍODO <select id="period"><option>2006 — 2026</option><option>2006 — 2015</option><option>2016 — 2026</option></select></label>
-      <label>EVENTO <select id="event"><option>Ocorrências registradas</option><option>Cancelamentos</option><option>Atendimentos concluídos</option></select></label>
+      <label>PERÍODO <select id="period"><option>Jan — Set 2026</option><option disabled>2006 — 2026 · aguardando séries</option></select></label>
+      <label>EVENTO <select id="event"><option>Cancelamentos</option><option disabled>Ocorrências registradas · aguardando base</option></select></label>
       <label>RECORTE <select><option>Ceará · visão estadual</option><option>Fortaleza · bairros</option><option>Interior · municípios</option></select></label>
       <button class="apply" type="button" id="simulate">SIMULAR LEITURA <span>↗</span></button>
     </section>
 
     <section class="metrics">
-      <article><span>INDICADOR CENTRAL</span><strong id="metricMain">—</strong><small>Aguardando carga validada</small></article>
-      <article><span>VARIAÇÃO ANUAL</span><strong id="metricVariation">—</strong><small>Comparativo ainda indisponível</small></article>
-      <article><span>ÁREAS MAPEADAS</span><strong>184</strong><small>Malha municipal pronta</small></article>
-      <article class="status-card"><span>QUALIDADE DA BASE</span><strong>EM CURADORIA</strong><small><b></b> fontes e dicionário de dados pendentes</small></article>
+      <article><span>CANCELAMENTOS</span><strong id="metricMain">23.814</strong><small>registros recebidos</small></article>
+      <article><span>OCORRÊNCIAS ÚNICAS</span><strong id="metricVariation">23.489</strong><small>identificadores distintos</small></article>
+      <article><span>ÁREAS COBERTAS</span><strong>34</strong><small>AIS presentes na carga</small></article>
+      <article class="status-card"><span>QUALIDADE DA BASE</span><strong>CARGA PARCIAL</strong><small><b></b> jan—set/2026 · em curadoria</small></article>
     </section>
 
     <section class="dashboard-grid">
@@ -43,7 +43,7 @@
         <div class="panel-head"><div><p class="eyebrow">INTENSIDADE TERRITORIAL</p><h2>Mapa de calor</h2></div><div class="legend"><span></span> baixa <span></span> alta</div></div>
         <div class="map-stage" id="heatMap" aria-label="Mapa de calor conceitual">
           <div class="map-silhouette"></div><div class="map-grid"></div>
-          <div class="map-callout"><b>CAMADA DEMONSTRATIVA</b><span>As intensidades serão desenhadas a partir da base consolidada.</span></div>
+          <div class="map-callout"><b>LEITURA POR AIS</b><span id="aisRanking">AIS02 · 3.357 cancelamentos<br>AIS06 · 3.277 cancelamentos</span><small>Mapa territorial será ativado com a malha das AIS.</small></div>
           <div class="map-label label-norte">NORTE</div><div class="map-label label-capital">CAPITAL</div><div class="map-label label-sul">SUL</div>
         </div>
         <div class="map-footer"><span>passe o cursor pelas zonas para explorar</span><span id="zoneReadout">sem dados selecionados</span></div>
@@ -52,15 +52,15 @@
       <article class="panel timeline-panel">
         <div class="panel-head"><div><p class="eyebrow">PULSO DA SÉRIE</p><h2>Vinte anos em uma linha</h2></div><button class="tiny-button" type="button">VER METODOLOGIA</button></div>
         <div class="timeline-wrap"><svg id="timeline" viewBox="0 0 620 230" preserveAspectRatio="none" aria-label="Linha temporal ilustrativa"></svg></div>
-        <div class="timeline-years"><span>2006</span><span>2011</span><span>2016</span><span>2021</span><span>2026</span></div>
-        <div class="note">Nenhuma tendência está sendo inferida: esta curva é uma composição visual de exemplo.</div>
+        <div class="timeline-years"><span>JAN</span><span>MAR</span><span>MAI</span><span>JUL</span><span>SET · 2026</span></div>
+        <div class="note" id="timelineNote">Série mensal da primeira carga: janeiro a setembro de 2026.</div>
       </article>
 
       <article class="panel taxonomy-panel">
         <div class="panel-head"><div><p class="eyebrow">ESTRUTURA DA BASE</p><h2>O que será analisado</h2></div><span class="counter">03 EIXOS</span></div>
         <div class="taxonomy">
           <div><span class="icon orange">01</span><p><b>Ocorrências</b><small>natureza, data, local, prioridade e desfecho</small></p><i>AGUARDA BASE</i></div>
-          <div><span class="icon violet">02</span><p><b>Cancelamentos</b><small>motivo, tempo de resposta e reclassificação</small></p><i>AGUARDA BASE</i></div>
+          <div><span class="icon violet">02</span><p><b>Cancelamentos</b><small>motivo, tempo de resposta e reclassificação</small></p><i>CARREGADO</i></div>
           <div><span class="icon cyan">03</span><p><b>Contexto territorial</b><small>área, população e recortes administrativos</small></p><i>PRONTO</i></div>
         </div>
       </article>
@@ -68,7 +68,7 @@
       <article class="panel insight-panel"><p class="eyebrow">PRÓXIMO PASSO</p><h2>Transformar registros em decisões que atravessam o tempo.</h2><p>Quando a base chegar, este painel poderá comparar padrões, identificar concentrações e apresentar mudanças sem perder o contexto de cada ano.</p><button class="data-button" type="button">+ CONECTAR BASE DE DADOS</button></article>
     </section>
   </main>
-  <footer><span>PMCE · NÚCLEO DE INTELIGÊNCIA ESTRATÉGICA</span><span>PROTÓTIPO VISUAL · SEM DADOS OPERACIONAIS</span></footer>
+  <footer><span>PMCE · NÚCLEO DE INTELIGÊNCIA ESTRATÉGICA</span><span>BASE AGREGADA · SEM ENDEREÇOS OU IDENTIFICADORES INDIVIDUAIS</span></footer>
   <script src="historico.js"></script>
 </body>
 </html>

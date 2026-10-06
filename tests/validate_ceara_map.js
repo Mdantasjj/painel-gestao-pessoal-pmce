@@ -30,6 +30,8 @@ for (const feature of municipalities.features) {
   const properties = feature.properties;
   assert(properties.municipio && properties.codigo_ibge && properties.bpm && properties.crpm, `Município incompleto: ${properties.municipio}`);
   assert(['Polygon', 'MultiPolygon'].includes(feature.geometry.type), `Geometria municipal inválida: ${properties.municipio}`);
+  assert(Number.isInteger(properties.populacao_estimada_2026) && properties.populacao_estimada_2026 > 0, `População 2026 inválida: ${properties.municipio}`);
+  assert(properties.idhm_2010 > 0 && properties.idhm_2010 < 1, `IDHM 2010 inválido: ${properties.municipio}`);
 }
 
 for (const feature of battalions.features) {
@@ -44,6 +46,13 @@ for (const feature of neighborhoods.features) {
   assert(properties.bairro && properties.ais && properties.bpm && properties.crpm, `Bairro incompleto: ${properties.bairro}`);
   assert(['1º CRPM', '5º CRPM'].includes(properties.crpm), `CRPM inválido em Fortaleza: ${properties.bairro}`);
 }
+
+const neighborhoodsWithPopulation = neighborhoods.features.filter(feature => Number.isInteger(feature.properties.populacao_2010));
+const neighborhoodsWithIdhb = neighborhoods.features.filter(feature => Number.isFinite(feature.properties.idhb_2010));
+assert.equal(neighborhoodsWithPopulation.length, 116, 'Cobertura da população de bairros de Fortaleza divergente');
+assert.equal(neighborhoodsWithIdhb.length, 116, 'Cobertura do IDH-B de Fortaleza divergente');
+assert(neighborhoodsWithPopulation.every(feature => feature.properties.populacao_2010 > 0), 'População de bairro inválida');
+assert(neighborhoodsWithIdhb.every(feature => feature.properties.idhb_2010 > 0 && feature.properties.idhb_2010 < 1), 'IDH-B de bairro inválido');
 
 const neighborhoodsPerCrpm = neighborhoods.features.reduce((counts, feature) => {
   counts[feature.properties.crpm] = (counts[feature.properties.crpm] || 0) + 1;
@@ -76,6 +85,8 @@ assert(html.includes('<select id="mapSearchInput"') && script.includes("input.ad
 assert(script.includes('is-filter-selected') && css.includes('@keyframes filter-marker-pulse'), 'Destaque visual do filtro ausente');
 assert(!html.includes('class="map-back"'), 'Botão de retorno ainda presente no mapa');
 assert(script.includes("fetch('data/crpm-regioes.geojson')"), 'Camada geográfica dos CRPMs ausente');
+assert(script.includes('População estimada (IBGE, 2026)') && script.includes('IDHM (2010)'), 'Indicadores municipais socioeconômicos ausentes');
+assert(script.includes('População (Censo, 2010)') && script.includes('IDH-B (2010)'), 'Indicadores por bairro ausentes');
 assert(dashboardHtml.includes('id="icon-map"'), 'Ícone do mapa ausente no painel');
 assert(dashboardHtml.includes('class="situational-map-button"') && dashboardHtml.includes('href="mapa/"'), 'Atalho do painel para o mapa ausente');
 assert(dashboardHtml.includes('target="_blank"') && dashboardHtml.includes('ANÁLISE SITUACIONAL'), 'Atalho do mapa deve abrir o ambiente em nova aba');

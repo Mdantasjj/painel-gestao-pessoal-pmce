@@ -68,6 +68,16 @@ function formatNumber(value) {
   return Number(value || 0).toLocaleString('pt-BR');
 }
 
+function formatPopulation(value) {
+  return Number.isFinite(Number(value)) ? formatNumber(value) : 'Não disponível';
+}
+
+function formatIndex(value) {
+  return Number.isFinite(Number(value))
+    ? Number(value).toLocaleString('pt-BR', { minimumFractionDigits: 3, maximumFractionDigits: 3 })
+    : 'Não disponível';
+}
+
 function signed(value) {
   const number = Number(value || 0);
   return `${number > 0 ? '+' : ''}${formatNumber(number)}`;
@@ -105,7 +115,17 @@ function municipalityTooltip(properties) {
   let territorialReference = `${properties.bpm} · ${properties.crpm}`;
   if (properties.municipio === 'Fortaleza') territorialReference = '10 BPMs territoriais · 1º e 5º CRPM';
   if (properties.municipio === 'Caucaia') territorialReference = '12º BPM e 26º BPM · 2º CRPM';
-  return `<strong>${escapeHtml(properties.municipio)}</strong><span>${escapeHtml(territorialReference)} · ${formatNumber(properties.area_km2)} km²</span>`;
+  return `<strong>${escapeHtml(properties.municipio)}</strong>
+    <span>${escapeHtml(territorialReference)} · ${formatNumber(properties.area_km2)} km²</span>
+    <span>População estimada (IBGE, 2026): <b>${formatPopulation(properties.populacao_estimada_2026)}</b></span>
+    <span>IDHM (2010): <b>${formatIndex(properties.idhm_2010)}</b></span>`;
+}
+
+function neighborhoodTooltip(properties) {
+  return `<strong>${escapeHtml(properties.bairro)}</strong>
+    <span>${escapeHtml(properties.bpm)} · ${escapeHtml(properties.crpm)}</span>
+    <span>População (Censo, 2010): <b>${formatPopulation(properties.populacao_2010)}</b></span>
+    <span>IDH-B (2010): <b>${formatIndex(properties.idhb_2010)}</b></span>`;
 }
 
 function addCrpmRegions(data) {
@@ -212,7 +232,7 @@ function addNeighborhoods(data) {
     onEachFeature(feature, layer) {
       state.neighborhoodFeatures.set(normalize(feature.properties.bairro), layer);
       state.searchItems.push({ label: `${feature.properties.bairro} · Fortaleza`, type: 'bairro', target: layer });
-      layer.bindTooltip(`<strong>${escapeHtml(feature.properties.bairro)}</strong><span>${escapeHtml(feature.properties.bpm)} · ${escapeHtml(feature.properties.crpm)}</span>`, { className: 'neighborhood-tooltip', sticky: true, direction: 'top' });
+      layer.bindTooltip(neighborhoodTooltip(feature.properties), { className: 'neighborhood-tooltip', sticky: true, direction: 'top' });
       layer.on({
         mouseover() { layer.setStyle({ color: '#0b4932', weight: 2, fillOpacity: .28 }); layer.bringToFront(); },
         mouseout() { state.neighborhoods.resetStyle(layer); },
@@ -418,7 +438,7 @@ function configureSearch() {
 function addAttribution() {
   const attribution = document.createElement('div');
   attribution.className = 'map-attribution';
-  attribution.innerHTML = 'Limites municipais: <a href="https://www.ipece.ce.gov.br/limites-municipais/" target="_blank" rel="noopener">IPECE 2026</a> · Bairros: <a href="https://mapas.fortaleza.ce.gov.br/mapa/21/bairros-de-fortaleza" target="_blank" rel="noopener">IPLANFOR 2023</a> · Divisão territorial: DISTRI VTR · Análise: PMCE 2025–2026';
+  attribution.innerHTML = 'Limites municipais: <a href="https://www.ipece.ce.gov.br/limites-municipais/" target="_blank" rel="noopener">IPECE 2026</a> · Bairros: <a href="https://mapas.fortaleza.ce.gov.br/mapa/21/bairros-de-fortaleza" target="_blank" rel="noopener">IPLANFOR 2023</a> · População municipal: <a href="https://www.ibge.gov.br/estatisticas/sociais/populacao/9103-estimativas-de-populacao.html" target="_blank" rel="noopener">IBGE 2026</a> · IDHM/IDH-B: 2010 · Divisão territorial: DISTRI VTR';
   document.body.append(attribution);
 }
 

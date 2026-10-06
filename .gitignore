@@ -2,3 +2,6 @@
 PACOTE_FONTES_DADOS_PMCE_2026/
 PACOTE_FONTES_DADOS_PMCE_2026.zip
 
+# Estudo histórico em estruturação: manter apenas localmente.
+historico/
+tools/build_historico_summary.py

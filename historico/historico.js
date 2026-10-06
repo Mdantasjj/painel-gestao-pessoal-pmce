@@ -43,10 +43,10 @@ function renderCearaMap(geojson, totals) {
 
 Promise.all([fetch('data/resumo_cancelamentos_2026.json').then(response => response.json()), fetch('../mapa/data/municipios-ceara-2026.geojson').then(response => response.json())]).then(([data, municipalities]) => {
   renderTimeline(data.por_mes);
-  document.querySelector('#metricMain').textContent = data.total_registros.toLocaleString('pt-BR');
-  document.querySelector('#metricVariation').textContent = data.ocorrencias_unicas.toLocaleString('pt-BR');
-  const rankedMunicipalities = Object.entries(data.por_municipio).sort(([, left], [, right]) => right - left).slice(0, 2);
-  document.querySelector('#aisRanking').innerHTML = rankedMunicipalities.map(([municipality, total]) => `${municipality} · ${total.toLocaleString('pt-BR')} cancelamentos`).join('<br>');
+  document.querySelector('#metricMain').textContent = data.ocorrencias_atendidas.total.toLocaleString('pt-BR');
+  document.querySelector('#metricVariation').textContent = data.total_registros.toLocaleString('pt-BR');
+  document.querySelector('#metricRate').textContent = `${(data.total_registros / data.ocorrencias_atendidas.total * 100).toLocaleString('pt-BR', { maximumFractionDigits: 1 })}%`;
+  document.querySelector('#aisRanking').innerHTML = data.ocorrencias_atendidas.por_ais.slice(0, 2).map(item => `${item.ais} · ${item.total.toLocaleString('pt-BR')} ocorrências`).join('<br>');
   document.querySelector('#zoneReadout').textContent = `${Object.keys(data.por_municipio).length} municípios com registro`;
   renderCearaMap(municipalities, data.por_municipio);
 }).catch(() => { document.querySelector('#timelineNote').textContent = 'Não foi possível carregar a camada territorial.'; });

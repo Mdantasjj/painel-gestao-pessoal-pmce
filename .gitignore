@@ -2,6 +2,5 @@
 PACOTE_FONTES_DADOS_PMCE_2026/
 PACOTE_FONTES_DADOS_PMCE_2026.zip
 
-# Estudo histórico em estruturação: manter apenas localmente.
-historico/
+# Ferramenta local de consolidação das fontes restritas.
 tools/build_historico_summary.py

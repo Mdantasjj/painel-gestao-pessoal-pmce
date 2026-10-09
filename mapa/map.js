@@ -96,8 +96,29 @@ function formatMinutes(value) {
     : 'Não disponível';
 }
 
+function aisReferences(properties) {
+  if (properties.municipio === 'Fortaleza') return ['AIS 05', 'AIS 06', 'AIS 08', 'AIS 16', 'AIS 17', 'AIS 18', 'AIS 19', 'AIS 20', 'AIS 21', 'AIS 22'];
+  if (properties.municipio === 'Caucaia') return ['AIS 12', 'AIS 26'];
+  return properties.ais ? [String(properties.ais).replace(/AIS\s*(\d{1,2})/i, (_, number) => `AIS ${String(number).padStart(2, '0')}`)] : [];
+}
+
+function aisIdentification(properties) {
+  const references = aisReferences(properties);
+  return references.length ? `<span class="ais-identification">${references.map(escapeHtml).join(' · ')}</span>` : '';
+}
+
 function averageTimeDetails(properties) {
-  const metrics = state.averageTimeData?.por_ais?.[normalize(properties.ais)];
+  const references = aisReferences(properties);
+  if (references.length > 1) {
+    const summaries = references.map((reference) => {
+      const metrics = state.averageTimeData?.por_ais?.[normalize(reference)];
+      return metrics ? `${reference}: ${formatMinutes(metrics.resposta_min)}` : null;
+    }).filter(Boolean);
+    if (!summaries.length) return '';
+    return `<span class="average-time-primary">Resposta estimada por AIS</span>
+      <span class="average-time-secondary">${summaries.map(escapeHtml).join(' · ')}</span>`;
+  }
+  const metrics = state.averageTimeData?.por_ais?.[normalize(references[0])];
   if (!metrics) return '';
   const stateAverage = state.averageTimeData.tempo_estadual.resposta_min;
   const difference = metrics.resposta_min - stateAverage;
@@ -147,6 +168,7 @@ function municipalityTooltip(properties) {
   if (properties.municipio === 'Fortaleza') territorialReference = '10 BPMs territoriais · 1º e 5º CRPM';
   if (properties.municipio === 'Caucaia') territorialReference = '12º BPM e 26º BPM · 2º CRPM';
   return `<strong>${escapeHtml(properties.municipio)}</strong>
+    ${aisIdentification(properties)}
     <span>${escapeHtml(territorialReference)} · ${formatNumber(properties.area_km2)} km²</span>
     <span>População estimada (IBGE, 2026): <b>${formatPopulation(properties.populacao_estimada_2026)}</b></span>
     <span>IDHM (2010): <b>${formatIndex(properties.idhm_2010)}</b></span>
@@ -155,6 +177,7 @@ function municipalityTooltip(properties) {
 
 function neighborhoodTooltip(properties) {
   return `<strong>${escapeHtml(properties.bairro)}</strong>
+    ${aisIdentification(properties)}
     <span>${escapeHtml(properties.bpm)} · ${escapeHtml(properties.crpm)}</span>
     <span>População (Censo, 2010): <b>${formatPopulation(properties.populacao_2010)}</b></span>
     <span>IDH-B (2010): <b>${formatIndex(properties.idhb_2010)}</b></span>
@@ -303,12 +326,13 @@ function addAverageTimes(aisRegions, data) {
 
 function battalionTooltip(properties) {
   const locations = properties.localidades_referencia.join(' · ');
+  const ais = `AIS ${String(properties.numero).padStart(2, '0')}`;
   const coverage = properties.quantidade_municipios === 1
     ? properties.municipios_cobertos[0]
     : `${properties.quantidade_municipios} municípios na base territorial`;
   return `
     <div class="tooltip-head">
-      <span>${escapeHtml(properties.crpm)} · ANÁLISE SITUACIONAL 2025–2026</span>
+      <span>${escapeHtml(properties.crpm)} · ${escapeHtml(ais)} · ANÁLISE SITUACIONAL 2025–2026</span>
       <strong>${escapeHtml(properties.batalhao)}</strong>
       <small>${escapeHtml(locations)} · ${escapeHtml(coverage)}</small>
     </div>

@@ -128,6 +128,7 @@ button, input, select { font: inherit; }
 .average-time-source { color: #7d8983 !important; font-size: 6.8px !important; font-style: italic; line-height: 1.4; }
 .municipality-tooltip strong, .neighborhood-tooltip strong { display: block; color: #145c40; font-size: 10px; }
 .municipality-tooltip span, .neighborhood-tooltip span { display: block; margin-top: 3px; color: #687a70; font-size: 7.5px; font-weight: 600; }
+.municipality-tooltip .ais-identification, .neighborhood-tooltip .ais-identification, .cancellation-tooltip .ais-identification { display: inline-block; margin-top: 5px; padding: 3px 6px; border-radius: 999px; color: #fff !important; background: #176a47; font-size: 6.8px !important; font-weight: 850 !important; letter-spacing: .025em; }
 
 .map-loading, .map-error { position: fixed; z-index: 900; inset: 50% auto auto 50%; display: flex; min-width: 260px; padding: 18px 20px; align-items: center; justify-content: center; gap: 12px; border: 1px solid #a9cab7; border-radius: 13px; color: #174d36; background: rgba(255,255,255,.97); box-shadow: 0 15px 40px rgba(7,47,30,.2); transform: translate(-50%, -50%); }
 .map-loading span { width: 20px; height: 20px; border: 3px solid #cce2d5; border-top-color: #176a47; border-radius: 50%; animation: spin .8s linear infinite; }

@@ -41,7 +41,7 @@ assert.equal(sum('necessidade'), 1438, 'Necessidade consolidada ajustada dos 34 
 
 for (const feature of municipalities.features) {
   const properties = feature.properties;
-  assert(properties.municipio && properties.codigo_ibge && properties.bpm && properties.crpm, `Município incompleto: ${properties.municipio}`);
+  assert(properties.municipio && properties.codigo_ibge && properties.ais && properties.bpm && properties.crpm, `Município incompleto: ${properties.municipio}`);
   assert(['Polygon', 'MultiPolygon'].includes(feature.geometry.type), `Geometria municipal inválida: ${properties.municipio}`);
   assert(Number.isInteger(properties.populacao_estimada_2026) && properties.populacao_estimada_2026 > 0, `População 2026 inválida: ${properties.municipio}`);
   assert(properties.idhm_2010 > 0 && properties.idhm_2010 < 1, `IDHM 2010 inválido: ${properties.municipio}`);
@@ -109,6 +109,8 @@ assert(script.includes("fetch('data/ais-regioes.geojson')") && script.includes('
 assert(html.includes('toggleCancellations') && script.includes("fetch('data/cancelamentos-2026.json')") && script.includes('addCancellations'), 'Camada de ocorrências canceladas ausente');
 assert(html.includes('toggleAverageTimes') && script.includes("fetch('data/tempos-medios-2026.json')") && script.includes('addAverageTimes'), 'Camada de tempos médios ausente');
 assert(script.includes('averageTimeDetails') && script.includes('formatMinutes'), 'Detalhes dos tempos médios não foram preservados nos tooltips territoriais');
+assert(script.includes('aisIdentification(properties)') && script.includes("properties.municipio === 'Caucaia'") && script.includes("properties.municipio === 'Fortaleza'"), 'Identificação AIS territorial incompleta');
+assert(script.includes("`AIS ${String(properties.numero).padStart(2, '0')}`"), 'Identificação AIS ausente nos batalhões');
 assert(script.includes("getPane('aisBordersPane').style.pointerEvents = 'none'") && script.includes('territorialDetails'), 'Camadas sobrepostas não preservam os dados territoriais');
 assert(script.includes('População estimada (IBGE, 2026)') && script.includes('IDHM (2010)'), 'Indicadores municipais socioeconômicos ausentes');
 assert(script.includes('População (Censo, 2010)') && script.includes('IDH-B (2010)'), 'Indicadores por bairro ausentes');

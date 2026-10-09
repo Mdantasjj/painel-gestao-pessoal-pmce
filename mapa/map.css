@@ -114,6 +114,7 @@ button, input, select { font: inherit; }
 .cancellation-tooltip strong, .cancellation-tooltip span { display: block; }
 .cancellation-tooltip strong { color: #8d2840; font-size: 10px; }
 .cancellation-tooltip span { margin-top: 3px; color: #725b60; font-size: 7.5px; font-weight: 600; }
+.cancellation-tooltip .cancellation-count { margin-top: 6px; padding-top: 5px; border-top: 1px solid #efc8bd; color: #8d2840; font-weight: 800; }
 .municipality-tooltip strong, .neighborhood-tooltip strong { display: block; color: #145c40; font-size: 10px; }
 .municipality-tooltip span, .neighborhood-tooltip span { display: block; margin-top: 3px; color: #687a70; font-size: 7.5px; font-weight: 600; }
 

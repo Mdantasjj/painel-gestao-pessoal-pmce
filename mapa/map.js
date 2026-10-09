@@ -34,6 +34,7 @@ map.getPane('crpmLabelsPane').style.zIndex = 440;
 map.getPane('crpmLabelsPane').style.pointerEvents = 'none';
 map.createPane('aisBordersPane');
 map.getPane('aisBordersPane').style.zIndex = 435;
+map.getPane('aisBordersPane').style.pointerEvents = 'none';
 map.createPane('cancellationsPane');
 map.getPane('cancellationsPane').style.zIndex = 410;
 
@@ -195,11 +196,6 @@ function addAisRegions(data) {
         : `${properties.municipios} municípios`;
       state.searchItems.push({ label: `${properties.ais} · ${scope}`, type: 'ais', target: layer, properties });
       layer.bindTooltip(`<strong>${escapeHtml(properties.ais)}</strong><span>${escapeHtml(scope)}</span>`, { className: 'ais-tooltip', sticky: true, direction: 'top' });
-      layer.on({
-        mouseover() { layer.setStyle({ weight: 2.8, opacity: 1, fillOpacity: .4 }); layer.bringToFront(); },
-        mouseout() { state.aisRegions.resetStyle(layer); },
-        click() { map.fitBounds(layer.getBounds(), { padding: [30, 30], maxZoom: 11 }); layer.openTooltip(); }
-      });
     }
   });
 }
@@ -228,11 +224,10 @@ function addCancellations(municipalities, neighborhoods, data) {
     onEachFeature(feature, layer) {
       const properties = feature.properties;
       const isNeighborhood = Boolean(properties.bairro);
-      const name = isNeighborhood ? `${properties.bairro} · Fortaleza` : properties.municipio;
       const key = normalize(isNeighborhood ? properties.bairro : properties.municipio);
       const total = Number((isNeighborhood ? data.por_bairro_fortaleza[key] : data.por_municipio[key]) || 0);
-      const scope = properties.ais ? ` · ${properties.ais}` : '';
-      layer.bindTooltip(`<strong>${escapeHtml(name)}</strong><span>${formatNumber(total)} ocorrências canceladas${escapeHtml(scope)}</span>`, { className: 'cancellation-tooltip', sticky: true, direction: 'top' });
+      const territorialDetails = isNeighborhood ? neighborhoodTooltip(properties) : municipalityTooltip(properties);
+      layer.bindTooltip(`${territorialDetails}<span class="cancellation-count">Ocorrências canceladas (jan–set/2026): <b>${formatNumber(total)}</b></span>`, { className: 'cancellation-tooltip', sticky: true, direction: 'top' });
       layer.on({
         mouseover() { layer.setStyle({ color: '#5f1730', weight: 2, fillOpacity: .96 }); layer.bringToFront(); },
         mouseout() { state.cancellations.resetStyle(layer); },

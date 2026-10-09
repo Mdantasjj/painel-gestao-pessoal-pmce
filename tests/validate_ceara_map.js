@@ -102,6 +102,7 @@ assert(!html.includes('class="map-back"'), 'Botão de retorno ainda presente no 
 assert(script.includes("fetch('data/crpm-regioes.geojson')"), 'Camada geográfica dos CRPMs ausente');
 assert(script.includes("fetch('data/ais-regioes.geojson')") && script.includes('toggleAis'), 'Camada geográfica das AIS ausente');
 assert(html.includes('toggleCancellations') && script.includes("fetch('data/cancelamentos-2026.json')") && script.includes('addCancellations'), 'Camada de ocorrências canceladas ausente');
+assert(script.includes("getPane('aisBordersPane').style.pointerEvents = 'none'") && script.includes('territorialDetails'), 'Camadas sobrepostas não preservam os dados territoriais');
 assert(script.includes('População estimada (IBGE, 2026)') && script.includes('IDHM (2010)'), 'Indicadores municipais socioeconômicos ausentes');
 assert(script.includes('População (Censo, 2010)') && script.includes('IDH-B (2010)'), 'Indicadores por bairro ausentes');
 assert(dashboardHtml.includes('id="icon-map"'), 'Ícone do mapa ausente no painel');

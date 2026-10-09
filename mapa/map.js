@@ -99,8 +99,14 @@ function formatMinutes(value) {
 function averageTimeDetails(properties) {
   const metrics = state.averageTimeData?.por_ais?.[normalize(properties.ais)];
   if (!metrics) return '';
-  return `<span class="average-time-primary">Tempo médio de resposta da AIS: <b>${formatMinutes(metrics.resposta_min)}</b></span>
-    <span class="average-time-secondary">Despacho ${formatMinutes(metrics.despacho_min)} · deslocamento ${formatMinutes(metrics.deslocamento_min)} · resolução ${formatMinutes(metrics.resolucao_min)} · ${formatNumber(metrics.ocorrencias)} ocorrências</span>`;
+  const stateAverage = state.averageTimeData.tempo_estadual.resposta_min;
+  const difference = metrics.resposta_min - stateAverage;
+  const comparison = Math.abs(difference) <= .15 ? 'próximo da média estadual'
+    : difference < 0 ? 'abaixo da média estadual' : 'acima da média estadual';
+  return `<span class="average-time-primary">Resposta estimada da AIS: <b>${formatMinutes(metrics.resposta_min)}</b></span>
+    <span class="average-time-comparison">${comparison} de ${formatMinutes(stateAverage)}</span>
+    <span class="average-time-secondary">Despacho ${formatMinutes(metrics.despacho_min)} · deslocamento ${formatMinutes(metrics.deslocamento_min)} · resolução ${formatMinutes(metrics.resolucao_min)}</span>
+    <span class="average-time-source">Base ponderada: ${formatNumber(metrics.ocorrencias)} ocorrências · valores agregados e arredondados</span>`;
 }
 
 function signed(value) {
@@ -222,10 +228,18 @@ function addAisRegions(data) {
 
 function cancellationColor(total) {
   if (!total) return '#edf2ee';
-  if (total <= 10) return '#fee8c8';
-  if (total <= 50) return '#fdb863';
-  if (total <= 200) return '#e76f51';
-  return '#a61c3c';
+  if (total <= 4) return '#ede7f6';
+  if (total <= 21) return '#b39ddb';
+  if (total <= 113) return '#7e57c2';
+  return '#4527a0';
+}
+
+function cancellationLevel(total) {
+  if (!total) return 'sem registro localizado';
+  if (total <= 4) return 'faixa territorial baixa';
+  if (total <= 21) return 'faixa territorial moderada';
+  if (total <= 113) return 'faixa territorial elevada';
+  return 'faixa territorial muito elevada';
 }
 
 function addCancellations(municipalities, neighborhoods, data) {
@@ -247,7 +261,7 @@ function addCancellations(municipalities, neighborhoods, data) {
       const key = normalize(isNeighborhood ? properties.bairro : properties.municipio);
       const total = Number((isNeighborhood ? data.por_bairro_fortaleza[key] : data.por_municipio[key]) || 0);
       const territorialDetails = isNeighborhood ? neighborhoodTooltip(properties) : municipalityTooltip(properties);
-      layer.bindTooltip(`${territorialDetails}<span class="cancellation-count">Ocorrências canceladas (jan–set/2026): <b>${formatNumber(total)}</b></span>`, { className: 'cancellation-tooltip', sticky: true, direction: 'top' });
+      layer.bindTooltip(`${territorialDetails}<span class="cancellation-count">Cancelamentos localizados: <b>${formatNumber(total)}</b></span><span class="cancellation-level">${cancellationLevel(total)} · jan–set/2026</span>`, { className: 'cancellation-tooltip', sticky: true, direction: 'top' });
       layer.on({
         mouseover() { layer.setStyle({ color: '#5f1730', weight: 2, fillOpacity: .96 }); layer.bringToFront(); },
         mouseout() { state.cancellations.resetStyle(layer); },
@@ -259,10 +273,10 @@ function addCancellations(municipalities, neighborhoods, data) {
 
 function averageTimeColor(minutes) {
   if (!Number.isFinite(Number(minutes))) return '#e8edf0';
-  if (minutes <= 1.25) return '#2b83ba';
-  if (minutes <= 1.6) return '#80bfac';
-  if (minutes <= 2) return '#fdae61';
-  return '#d7191c';
+  if (minutes <= 1.57) return '#1a9850';
+  if (minutes <= 1.70) return '#91cf60';
+  if (minutes <= 1.98) return '#fdae61';
+  return '#d73027';
 }
 
 function addAverageTimes(aisRegions, data) {
@@ -424,6 +438,14 @@ function configureLayerControls() {
     ['toggleNeighborhoods', 'neighborhoods'],
     ['toggleBattalions', 'battalions']
   ];
+  const updateThematicInformation = (activeId) => {
+    const cancellationActive = activeId === 'toggleCancellations';
+    const averageTimeActive = activeId === 'toggleAverageTimes';
+    document.querySelector('#cancellationLegend').hidden = !cancellationActive;
+    document.querySelector('#cancellationNote').hidden = !cancellationActive;
+    document.querySelector('#averageTimeLegend').hidden = !averageTimeActive;
+    document.querySelector('#averageTimeNote').hidden = !averageTimeActive;
+  };
   controls.forEach(([id, key]) => {
     const control = document.querySelector(`#${id}`);
     const updateLayer = () => {
@@ -436,6 +458,9 @@ function configureLayerControls() {
           if (otherControl) otherControl.checked = false;
           if (state[otherKey]) map.removeLayer(state[otherKey]);
         });
+        updateThematicInformation(id);
+      } else if (!control.checked && thematicLayers[id]) {
+        updateThematicInformation(null);
       }
       if (control.checked) {
         layer.addTo(map);

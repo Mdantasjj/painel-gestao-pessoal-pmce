@@ -41,7 +41,7 @@ function target(bounds) {
     setStyle(style) { this.style = style; }, setOpacity(value) { this.opacity = value; },
     bringToFront() {}, openTooltip() { this.tooltip = true; } };
 }
-context.groups = Object.fromEntries(['regions', 'regionLabels', 'municipalities', 'neighborhoods', 'battalions'].map(key => [key, group()]));
+context.groups = Object.fromEntries(['regions', 'regionLabels', 'aisRegions', 'cancellations', 'averageTimes', 'municipalities', 'neighborhoods', 'battalions'].map(key => [key, group()]));
 const region = target('regional');
 const municipality = target('sobral');
 const battalion = target('bpm');
@@ -59,8 +59,20 @@ context.groups.battalions.layers = [battalion];
 battalion.filterProperties = { crpm: '3º CRPM' };
 // A checkbox changed during data loading must be respected when controls initialize.
 element('#toggleMunicipalities').checked = false;
+element('#toggleAis').checked = false;
+element('#toggleCancellations').checked = false;
+element('#toggleAverageTimes').checked = false;
 vm.runInContext('Object.assign(state, groups); state.searchItems = items; configureLayerControls(); configureSearch();', context);
 assert(!visible.has(context.groups.municipalities));
+assert(element('#cancellationLegend').hidden && element('#averageTimeLegend').hidden);
+element('#toggleCancellations').checked = true;
+element('#toggleCancellations').dispatchEvent({ type: 'change' });
+assert(visible.has(context.groups.cancellations) && !visible.has(context.groups.averageTimes));
+assert(!element('#cancellationLegend').hidden && element('#averageTimeLegend').hidden);
+element('#toggleAverageTimes').checked = true;
+element('#toggleAverageTimes').dispatchEvent({ type: 'change' });
+assert(visible.has(context.groups.averageTimes) && !visible.has(context.groups.cancellations));
+assert(element('#cancellationLegend').hidden && !element('#averageTimeLegend').hidden);
 element('#toggleRegions').checked = false;
 element('#toggleRegions').dispatchEvent({ type: 'change' });
 assert(!visible.has(context.groups.regions) && !visible.has(context.groups.regionLabels));

@@ -30,7 +30,14 @@ function configureFilters() {
   scope.value = [...scope.options].some(item => item.value === priorScope) ? priorScope : scope.options[0].value;
 }
 
-function color(total, max) { if (!total) return '#174334'; const ratio = Math.sqrt(total / max); return `hsl(${150-ratio*64} 88% ${20+ratio*42}%)`; }
+function color(total, max) {
+  if (!total) return '#263f34';
+  const ratio = total / max;
+  if (ratio < .08) return '#2d7551';
+  if (ratio < .22) return '#14a363';
+  if (ratio < .50) return '#5bd66e';
+  return '#c6ff5a';
+}
 function drawMap(totals, available, featureKey = feature => normalize(feature.properties.municipio), unitLabel = 'cancelamentos') {
   if (!map) map = L.map('cearaHeatMap', { zoomControl:false, attributionControl:false, preferCanvas:true, minZoom:6, maxZoom:11 });
   if (layer) map.removeLayer(layer);

@@ -19,7 +19,7 @@
     <section class="map-heading" aria-label="Identificação do mapa">
       <span>Polícia Militar do Ceará</span>
       <strong>Mapa territorial dos batalhões</strong>
-      <small>8 CRPMs · 184 municípios · 121 bairros de Fortaleza · 34 BPMs</small>
+      <small>8 CRPMs · 33 AIS com geometria · 184 municípios · 121 bairros de Fortaleza · 34 BPMs</small>
     </section>
 
     <form class="map-search" id="mapSearch" role="search">
@@ -36,6 +36,7 @@
     <aside class="map-layers" aria-label="Camadas do mapa">
       <strong>Camadas</strong>
       <label><input type="checkbox" id="toggleRegions" checked /> Divisões por CRPM</label>
+      <label><input type="checkbox" id="toggleAis" /> Divisão territorial · AIS</label>
       <label><input type="checkbox" id="toggleMunicipalities" checked /> Municípios</label>
       <label><input type="checkbox" id="toggleNeighborhoods" checked /> Bairros de Fortaleza</label>
       <label><input type="checkbox" id="toggleBattalions" checked /> Batalhões</label>
@@ -64,7 +65,7 @@
           <span><i class="need-high"></i> 80 ou mais</span>
         </div>
       </section>
-      <small>As cores representam os CRPMs; os marcadores representam a necessidade dos BPMs.</small>
+      <small>A camada AIS possui 33 regiões com geometria; a AIS 12 não tem polígono separado na malha de origem.</small>
     </aside>
 
     <div class="map-loading" id="mapLoading" role="status">

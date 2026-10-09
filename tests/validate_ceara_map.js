@@ -8,12 +8,14 @@ const municipalities = readJson('mapa/data/municipios-ceara-2026.geojson');
 const neighborhoods = readJson('mapa/data/bairros-fortaleza.geojson');
 const battalions = readJson('mapa/data/batalhoes-situacao.geojson');
 const regions = readJson('mapa/data/crpm-regioes.geojson');
+const aisRegions = readJson('mapa/data/ais-regioes.geojson');
 const sum = (field) => battalions.features.reduce((total, feature) => total + Number(feature.properties[field] || 0), 0);
 
 assert.equal(municipalities.features.length, 184, 'A malha deve conter os 184 municípios do Ceará');
 assert.equal(neighborhoods.features.length, 121, 'A camada deve conter os 121 bairros oficiais de Fortaleza');
 assert.equal(battalions.features.length, 34, 'O mapa deve conter os 34 BPMs territoriais');
 assert.equal(regions.features.length, 8, 'O mapa deve conter as oito divisões de CRPM');
+assert.equal(aisRegions.features.length, 33, 'A camada AIS deve conter as 33 regiões com geometria disponível');
 assert.equal(new Set(municipalities.features.map(feature => feature.properties.codigo_ibge)).size, 184, 'Códigos IBGE municipais duplicados');
 assert.equal(new Set(battalions.features.map(feature => feature.properties.batalhao)).size, 34, 'Batalhões duplicados');
 assert.equal(sum('efetivo'), 10241, 'Total do efetivo dos BPMs divergente');
@@ -74,6 +76,13 @@ for (const feature of regions.features) {
   assert.equal(polygons.reduce((total, polygon) => total + Math.max(0, polygon.length - 1), 0), 0, `Microfrestas internas no contorno: ${feature.properties.crpm}`);
 }
 
+assert.equal(new Set(aisRegions.features.map(feature => feature.properties.ais)).size, 33, 'AIS duplicadas na camada territorial');
+assert(!aisRegions.features.some(feature => feature.properties.ais === 'AIS 12'), 'A AIS 12 não deve receber polígono inventado');
+for (const feature of aisRegions.features) {
+  assert(['Polygon', 'MultiPolygon'].includes(feature.geometry.type), `Geometria AIS inválida: ${feature.properties.ais}`);
+  assert.equal(feature.properties.label_coordinates.length, 2, `Rótulo AIS inválido: ${feature.properties.ais}`);
+}
+
 const html = fs.readFileSync(path.join(root, 'mapa/index.html'), 'utf8');
 const dashboardHtml = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
 const css = fs.readFileSync(path.join(root, 'mapa/map.css'), 'utf8');
@@ -85,6 +94,7 @@ assert(html.includes('<select id="mapSearchInput"') && script.includes("input.ad
 assert(script.includes('is-filter-selected') && css.includes('@keyframes filter-marker-pulse'), 'Destaque visual do filtro ausente');
 assert(!html.includes('class="map-back"'), 'Botão de retorno ainda presente no mapa');
 assert(script.includes("fetch('data/crpm-regioes.geojson')"), 'Camada geográfica dos CRPMs ausente');
+assert(script.includes("fetch('data/ais-regioes.geojson')") && script.includes('toggleAis'), 'Camada geográfica das AIS ausente');
 assert(script.includes('População estimada (IBGE, 2026)') && script.includes('IDHM (2010)'), 'Indicadores municipais socioeconômicos ausentes');
 assert(script.includes('População (Censo, 2010)') && script.includes('IDH-B (2010)'), 'Indicadores por bairro ausentes');
 assert(dashboardHtml.includes('id="icon-map"'), 'Ícone do mapa ausente no painel');

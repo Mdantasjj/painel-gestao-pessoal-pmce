@@ -32,10 +32,13 @@ map.getPane('crpmBordersPane').style.pointerEvents = 'none';
 map.createPane('crpmLabelsPane');
 map.getPane('crpmLabelsPane').style.zIndex = 440;
 map.getPane('crpmLabelsPane').style.pointerEvents = 'none';
+map.createPane('aisBordersPane');
+map.getPane('aisBordersPane').style.zIndex = 435;
 
 const state = {
   regions: null,
   regionLabels: null,
+  aisRegions: null,
   municipalities: null,
   neighborhoods: null,
   battalions: null,
@@ -165,6 +168,33 @@ function addCrpmRegions(data) {
   state.regionLabels.addTo(map);
 }
 
+function aisColor(ais) {
+  const number = Number(String(ais).match(/\d+/)?.[0] || 0);
+  return `hsl(${(number * 47) % 360} 65% 38%)`;
+}
+
+function addAisRegions(data) {
+  state.aisRegions = L.geoJSON(data, {
+    pane: 'aisBordersPane',
+    style(feature) {
+      return { color: aisColor(feature.properties.ais), weight: 2, opacity: .9, fillColor: aisColor(feature.properties.ais), fillOpacity: .11, lineJoin: 'round' };
+    },
+    onEachFeature(feature, layer) {
+      const properties = feature.properties;
+      const scope = properties.bairros_fortaleza
+        ? `${properties.bairros_fortaleza} bairros de Fortaleza`
+        : `${properties.municipios} municípios`;
+      state.searchItems.push({ label: `${properties.ais} · ${scope}`, type: 'ais', target: layer, properties });
+      layer.bindTooltip(`<strong>${escapeHtml(properties.ais)}</strong><span>${escapeHtml(scope)}</span>`, { className: 'ais-tooltip', sticky: true, direction: 'top' });
+      layer.on({
+        mouseover() { layer.setStyle({ weight: 3.2, fillOpacity: .28 }); layer.bringToFront(); },
+        mouseout() { state.aisRegions.resetStyle(layer); },
+        click() { map.fitBounds(layer.getBounds(), { padding: [30, 30], maxZoom: 11 }); layer.openTooltip(); }
+      });
+    }
+  });
+}
+
 function battalionTooltip(properties) {
   const locations = properties.localidades_referencia.join(' · ');
   const coverage = properties.quantidade_municipios === 1
@@ -290,6 +320,7 @@ function addBattalions(data) {
 function configureLayerControls() {
   const controls = [
     ['toggleRegions', 'regions'],
+    ['toggleAis', 'aisRegions'],
     ['toggleMunicipalities', 'municipalities'],
     ['toggleNeighborhoods', 'neighborhoods'],
     ['toggleBattalions', 'battalions']
@@ -317,8 +348,8 @@ function configureSearch() {
   const form = document.querySelector('#mapSearch');
   const input = document.querySelector('#mapSearchInput');
   const feedback = document.querySelector('#mapSearchFeedback');
-  const typeLabels = { crpm: 'CRPMs', batalhao: 'Batalhões', municipio: 'Municípios', bairro: 'Bairros de Fortaleza' };
-  const typeOrder = ['crpm', 'batalhao', 'municipio', 'bairro'];
+  const typeLabels = { crpm: 'CRPMs', ais: 'AIS', batalhao: 'Batalhões', municipio: 'Municípios', bairro: 'Bairros de Fortaleza' };
+  const typeOrder = ['crpm', 'ais', 'batalhao', 'municipio', 'bairro'];
   state.searchItems.forEach((item, index) => { item.filterKey = `${item.type}:${index}`; });
   input.innerHTML = '<option value="">Selecione um CRPM, batalhão, município ou bairro</option>'
     + typeOrder.map((type) => {
@@ -355,6 +386,12 @@ function configureSearch() {
         marker.setOpacity(marker.filterProperties?.crpm === selectedCrpm ? 1 : .16);
         state.filterMarkers.add(marker);
       });
+    } else if (result.type === 'ais') {
+      const selectedAis = normalize(result.properties.ais);
+      state.municipalities.eachLayer((layer) => addFilterClass(layer,
+        normalize(layer.feature.properties.ais) === selectedAis ? 'is-filter-related' : 'is-filter-muted'));
+      state.neighborhoods.eachLayer((layer) => addFilterClass(layer,
+        normalize(layer.feature.properties.ais) === selectedAis ? 'is-filter-related' : 'is-filter-muted'));
     } else if (result.type === 'municipio') {
       state.municipalities.eachLayer((layer) => addFilterClass(layer, layer === result.target ? 'is-filter-selected' : 'is-filter-muted'));
     } else if (result.type === 'bairro') {
@@ -400,7 +437,7 @@ function configureSearch() {
     }
     activeResult = result;
     const layerControls = {
-      batalhao: 'toggleBattalions', crpm: 'toggleRegions',
+      batalhao: 'toggleBattalions', crpm: 'toggleRegions', ais: 'toggleAis',
       municipio: 'toggleMunicipalities', bairro: 'toggleNeighborhoods'
     };
     const control = document.querySelector(`#${layerControls[result.type]}`);
@@ -420,7 +457,8 @@ function configureSearch() {
     } else {
       selectedLayer = result.target;
       selectedGroup = result.type === 'crpm' ? state.regions
-        : result.type === 'bairro' ? state.neighborhoods : state.municipalities;
+        : result.type === 'ais' ? state.aisRegions
+          : result.type === 'bairro' ? state.neighborhoods : state.municipalities;
       result.target.setStyle({ color: '#0b4932', weight: 3, fill: true, fillOpacity: .9,
         fillColor: CRPM_COLORS[result.target.feature.properties.crpm] || '#8fba9f' });
       emphasizeResult(result);
@@ -446,13 +484,15 @@ async function initialize() {
   try {
     const responses = await Promise.all([
       fetch('data/crpm-regioes.geojson'),
+      fetch('data/ais-regioes.geojson'),
       fetch('data/municipios-ceara-2026.geojson'),
       fetch('data/bairros-fortaleza.geojson'),
       fetch('data/batalhoes-situacao.geojson')
     ]);
     if (responses.some((response) => !response.ok)) throw new Error('Falha ao obter os dados geográficos.');
-    const [regions, municipalities, neighborhoods, battalions] = await Promise.all(responses.map((response) => response.json()));
+    const [regions, aisRegions, municipalities, neighborhoods, battalions] = await Promise.all(responses.map((response) => response.json()));
     addCrpmRegions(regions);
+    addAisRegions(aisRegions);
     addMunicipalities(municipalities);
     addNeighborhoods(neighborhoods);
     addBattalions(battalions);

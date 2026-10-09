@@ -168,16 +168,19 @@ function addCrpmRegions(data) {
   state.regionLabels.addTo(map);
 }
 
-function aisColor(ais) {
-  const number = Number(String(ais).match(/\d+/)?.[0] || 0);
-  return `hsl(${(number * 47) % 360} 65% 38%)`;
-}
-
 function addAisRegions(data) {
   state.aisRegions = L.geoJSON(data, {
     pane: 'aisBordersPane',
-    style(feature) {
-      return { color: aisColor(feature.properties.ais), weight: 2, opacity: .9, fillColor: aisColor(feature.properties.ais), fillOpacity: .11, lineJoin: 'round' };
+    style() {
+      return {
+        color: '#0d6848',
+        weight: 1.25,
+        opacity: .92,
+        fill: false,
+        dashArray: '5 4',
+        lineCap: 'round',
+        lineJoin: 'round'
+      };
     },
     onEachFeature(feature, layer) {
       const properties = feature.properties;
@@ -187,7 +190,7 @@ function addAisRegions(data) {
       state.searchItems.push({ label: `${properties.ais} · ${scope}`, type: 'ais', target: layer, properties });
       layer.bindTooltip(`<strong>${escapeHtml(properties.ais)}</strong><span>${escapeHtml(scope)}</span>`, { className: 'ais-tooltip', sticky: true, direction: 'top' });
       layer.on({
-        mouseover() { layer.setStyle({ weight: 3.2, fillOpacity: .28 }); layer.bringToFront(); },
+        mouseover() { layer.setStyle({ color: '#008f5b', weight: 2.5, opacity: 1, dashArray: null }); layer.bringToFront(); },
         mouseout() { state.aisRegions.resetStyle(layer); },
         click() { map.fitBounds(layer.getBounds(), { padding: [30, 30], maxZoom: 11 }); layer.openTooltip(); }
       });

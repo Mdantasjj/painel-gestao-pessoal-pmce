@@ -4,9 +4,10 @@ const normalize = value => String(value || '').normalize('NFD').replace(/[\u0300
 let data, municipalities, map, layer;
 
 function option(value, label) { const node = document.createElement('option'); node.value = value; node.textContent = label; return node; }
-function set(id, value) { $(id).textContent = value; }
+function set(id, value) { const node = $(id); if (node) node.textContent = value; }
 function timeline(months, note) {
   const svg = $('timeline');
+  if (!svg) return;
   if (!months.length) { svg.innerHTML = ''; set('timelineNote', note); return; }
   const maximum = Math.max(...months.map(item => item.total));
   const points = months.map((item, index) => `${index * (620 / (months.length - 1))},${212 - item.total / maximum * 170}`).join(' ');

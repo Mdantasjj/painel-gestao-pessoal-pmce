@@ -174,12 +174,16 @@ function addCrpmRegions(data) {
 function addAisRegions(data) {
   state.aisRegions = L.geoJSON(data, {
     pane: 'aisBordersPane',
-    style() {
+    style(feature) {
+      const number = Number(String(feature.properties.ais).match(/\d+/)?.[0] || 0);
+      const color = `hsl(${Math.round((number * 137.508) % 360)} 68% 43%)`;
       return {
-        color: '#0d6848',
-        weight: 1.25,
-        opacity: .92,
-        fill: false,
+        color,
+        weight: 1.6,
+        opacity: .96,
+        fill: true,
+        fillColor: color,
+        fillOpacity: .18,
         lineCap: 'round',
         lineJoin: 'round'
       };
@@ -192,7 +196,7 @@ function addAisRegions(data) {
       state.searchItems.push({ label: `${properties.ais} · ${scope}`, type: 'ais', target: layer, properties });
       layer.bindTooltip(`<strong>${escapeHtml(properties.ais)}</strong><span>${escapeHtml(scope)}</span>`, { className: 'ais-tooltip', sticky: true, direction: 'top' });
       layer.on({
-        mouseover() { layer.setStyle({ color: '#008f5b', weight: 2.5, opacity: 1 }); layer.bringToFront(); },
+        mouseover() { layer.setStyle({ weight: 2.8, opacity: 1, fillOpacity: .4 }); layer.bringToFront(); },
         mouseout() { state.aisRegions.resetStyle(layer); },
         click() { map.fitBounds(layer.getBounds(), { padding: [30, 30], maxZoom: 11 }); layer.openTooltip(); }
       });
@@ -503,8 +507,10 @@ function configureSearch() {
       selectedGroup = result.type === 'crpm' ? state.regions
         : result.type === 'ais' ? state.aisRegions
           : result.type === 'bairro' ? state.neighborhoods : state.municipalities;
-      result.target.setStyle({ color: '#0b4932', weight: 3, fill: true, fillOpacity: .9,
-        fillColor: CRPM_COLORS[result.target.feature.properties.crpm] || '#8fba9f' });
+      const aisNumber = Number(String(result.target.feature.properties.ais || '').match(/\d+/)?.[0] || 0);
+      const aisFill = `hsl(${Math.round((aisNumber * 137.508) % 360)} 68% 43%)`;
+      result.target.setStyle({ color: '#0b4932', weight: 3, fill: true, fillOpacity: result.type === 'ais' ? .55 : .9,
+        fillColor: result.type === 'ais' ? aisFill : CRPM_COLORS[result.target.feature.properties.crpm] || '#8fba9f' });
       emphasizeResult(result);
       map.fitBounds(result.target.getBounds(), { padding: [35, 35], maxZoom: result.type === 'bairro' ? 14 : 11 });
       if (result.type !== 'crpm') result.target.openTooltip();

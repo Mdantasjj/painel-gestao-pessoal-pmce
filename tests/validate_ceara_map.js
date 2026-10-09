@@ -9,6 +9,7 @@ const neighborhoods = readJson('mapa/data/bairros-fortaleza.geojson');
 const battalions = readJson('mapa/data/batalhoes-situacao.geojson');
 const regions = readJson('mapa/data/crpm-regioes.geojson');
 const aisRegions = readJson('mapa/data/ais-regioes.geojson');
+const cancellations = readJson('mapa/data/cancelamentos-2026.json');
 const sum = (field) => battalions.features.reduce((total, feature) => total + Number(feature.properties[field] || 0), 0);
 
 assert.equal(municipalities.features.length, 184, 'A malha deve conter os 184 municípios do Ceará');
@@ -16,6 +17,11 @@ assert.equal(neighborhoods.features.length, 121, 'A camada deve conter os 121 ba
 assert.equal(battalions.features.length, 34, 'O mapa deve conter os 34 BPMs territoriais');
 assert.equal(regions.features.length, 8, 'O mapa deve conter as oito divisões de CRPM');
 assert.equal(aisRegions.features.length, 33, 'A camada AIS deve conter as 33 regiões com geometria disponível');
+assert.equal(cancellations.total_registros, 23816, 'Total de cancelamentos divergente');
+assert.equal(cancellations.ocorrencias_unicas, 23491, 'Total de ocorrências canceladas únicas divergente');
+assert.equal(Object.keys(cancellations.por_ais).length, 34, 'Cobertura AIS dos cancelamentos divergente');
+assert.equal(Object.values(cancellations.por_ais).reduce((total, value) => total + value, 0), 23816, 'Soma dos cancelamentos por AIS divergente');
+assert.equal(Object.keys(cancellations.por_municipio).length, 120, 'Cobertura municipal dos cancelamentos divergente');
 assert.equal(new Set(municipalities.features.map(feature => feature.properties.codigo_ibge)).size, 184, 'Códigos IBGE municipais duplicados');
 assert.equal(new Set(battalions.features.map(feature => feature.properties.batalhao)).size, 34, 'Batalhões duplicados');
 assert.equal(sum('efetivo'), 10241, 'Total do efetivo dos BPMs divergente');
@@ -95,6 +101,7 @@ assert(script.includes('is-filter-selected') && css.includes('@keyframes filter-
 assert(!html.includes('class="map-back"'), 'Botão de retorno ainda presente no mapa');
 assert(script.includes("fetch('data/crpm-regioes.geojson')"), 'Camada geográfica dos CRPMs ausente');
 assert(script.includes("fetch('data/ais-regioes.geojson')") && script.includes('toggleAis'), 'Camada geográfica das AIS ausente');
+assert(html.includes('toggleCancellations') && script.includes("fetch('data/cancelamentos-2026.json')") && script.includes('addCancellations'), 'Camada de ocorrências canceladas ausente');
 assert(script.includes('População estimada (IBGE, 2026)') && script.includes('IDHM (2010)'), 'Indicadores municipais socioeconômicos ausentes');
 assert(script.includes('População (Censo, 2010)') && script.includes('IDH-B (2010)'), 'Indicadores por bairro ausentes');
 assert(dashboardHtml.includes('id="icon-map"'), 'Ícone do mapa ausente no painel');

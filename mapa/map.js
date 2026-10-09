@@ -34,11 +34,14 @@ map.getPane('crpmLabelsPane').style.zIndex = 440;
 map.getPane('crpmLabelsPane').style.pointerEvents = 'none';
 map.createPane('aisBordersPane');
 map.getPane('aisBordersPane').style.zIndex = 435;
+map.createPane('cancellationsPane');
+map.getPane('cancellationsPane').style.zIndex = 410;
 
 const state = {
   regions: null,
   regionLabels: null,
   aisRegions: null,
+  cancellations: null,
   municipalities: null,
   neighborhoods: null,
   battalions: null,
@@ -197,6 +200,44 @@ function addAisRegions(data) {
   });
 }
 
+function cancellationColor(total) {
+  if (!total) return '#edf2ee';
+  if (total <= 10) return '#fee8c8';
+  if (total <= 50) return '#fdb863';
+  if (total <= 200) return '#e76f51';
+  return '#a61c3c';
+}
+
+function addCancellations(municipalities, neighborhoods, data) {
+  const features = [
+    ...municipalities.features.filter((feature) => feature.properties.municipio !== 'Fortaleza'),
+    ...neighborhoods.features
+  ];
+  state.cancellations = L.geoJSON({ type: 'FeatureCollection', features }, {
+    pane: 'cancellationsPane',
+    style(feature) {
+      const isNeighborhood = Boolean(feature.properties.bairro);
+      const key = normalize(isNeighborhood ? feature.properties.bairro : feature.properties.municipio);
+      const total = Number((isNeighborhood ? data.por_bairro_fortaleza[key] : data.por_municipio[key]) || 0);
+      return { color: '#fff', weight: .75, opacity: .92, fillColor: cancellationColor(total), fillOpacity: total ? .84 : .22 };
+    },
+    onEachFeature(feature, layer) {
+      const properties = feature.properties;
+      const isNeighborhood = Boolean(properties.bairro);
+      const name = isNeighborhood ? `${properties.bairro} · Fortaleza` : properties.municipio;
+      const key = normalize(isNeighborhood ? properties.bairro : properties.municipio);
+      const total = Number((isNeighborhood ? data.por_bairro_fortaleza[key] : data.por_municipio[key]) || 0);
+      const scope = properties.ais ? ` · ${properties.ais}` : '';
+      layer.bindTooltip(`<strong>${escapeHtml(name)}</strong><span>${formatNumber(total)} ocorrências canceladas${escapeHtml(scope)}</span>`, { className: 'cancellation-tooltip', sticky: true, direction: 'top' });
+      layer.on({
+        mouseover() { layer.setStyle({ color: '#5f1730', weight: 2, fillOpacity: .96 }); layer.bringToFront(); },
+        mouseout() { state.cancellations.resetStyle(layer); },
+        click() { map.fitBounds(layer.getBounds(), { padding: [30, 30], maxZoom: isNeighborhood ? 14 : 11 }); layer.openTooltip(); }
+      });
+    }
+  });
+}
+
 function battalionTooltip(properties) {
   const locations = properties.localidades_referencia.join(' · ');
   const coverage = properties.quantidade_municipios === 1
@@ -323,6 +364,7 @@ function configureLayerControls() {
   const controls = [
     ['toggleRegions', 'regions'],
     ['toggleAis', 'aisRegions'],
+    ['toggleCancellations', 'cancellations'],
     ['toggleMunicipalities', 'municipalities'],
     ['toggleNeighborhoods', 'neighborhoods'],
     ['toggleBattalions', 'battalions']
@@ -487,16 +529,18 @@ async function initialize() {
     const responses = await Promise.all([
       fetch('data/crpm-regioes.geojson'),
       fetch('data/ais-regioes.geojson'),
+      fetch('data/cancelamentos-2026.json'),
       fetch('data/municipios-ceara-2026.geojson'),
       fetch('data/bairros-fortaleza.geojson'),
       fetch('data/batalhoes-situacao.geojson')
     ]);
     if (responses.some((response) => !response.ok)) throw new Error('Falha ao obter os dados geográficos.');
-    const [regions, aisRegions, municipalities, neighborhoods, battalions] = await Promise.all(responses.map((response) => response.json()));
+    const [regions, aisRegions, cancellations, municipalities, neighborhoods, battalions] = await Promise.all(responses.map((response) => response.json()));
     addCrpmRegions(regions);
     addAisRegions(aisRegions);
     addMunicipalities(municipalities);
     addNeighborhoods(neighborhoods);
+    addCancellations(municipalities, neighborhoods, cancellations);
     addBattalions(battalions);
     configureLayerControls();
     configureSearch();

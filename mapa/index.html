@@ -38,6 +38,7 @@
       <label><input type="checkbox" id="toggleRegions" checked /> Divisões por CRPM</label>
       <label><input type="checkbox" id="toggleAis" /> Divisão territorial · AIS colorida</label>
       <label><input type="checkbox" id="toggleCancellations" /> Ocorrências canceladas · jan–set/2026</label>
+      <label><input type="checkbox" id="toggleAverageTimes" /> Tempo médio de ocorrências · AIS</label>
       <label><input type="checkbox" id="toggleMunicipalities" checked /> Municípios</label>
       <label><input type="checkbox" id="toggleNeighborhoods" checked /> Bairros de Fortaleza</label>
       <label><input type="checkbox" id="toggleBattalions" checked /> Batalhões</label>
@@ -75,7 +76,17 @@
           <span><i class="cancel-critical"></i> Mais de 200</span>
         </div>
       </section>
+      <section class="average-time-legend">
+        <strong>Tempo médio de resposta · AIS</strong>
+        <div>
+          <span><i class="time-fast"></i> Até 1,25 min</span>
+          <span><i class="time-balanced"></i> 1,26 a 1,60</span>
+          <span><i class="time-elevated"></i> 1,61 a 2,00</span>
+          <span><i class="time-high"></i> Acima de 2 min</span>
+        </div>
+      </section>
       <small>A camada de cancelamentos usa 120 municípios e 97 bairros de Fortaleza com correspondência territorial. A AIS 12 não tem polígono separado na malha de origem.</small>
+      <small>Tempos estimados pela ponderação de 37.814 ocorrências. A fonte fornece médias agregadas e arredondadas por tipo/subtipo.</small>
     </aside>
 
     <div class="map-loading" id="mapLoading" role="status">
@@ -90,6 +101,6 @@
 
     <script src="vendor/leaflet.js"></script>
     <script src="vendor/leaflet.markercluster.js"></script>
-    <script src="map.js?v=20261009-dados-preservados"></script>
+    <script src="map.js?v=20261009-tempos-medios"></script>
   </body>
 </html>

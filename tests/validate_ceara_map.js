@@ -10,6 +10,7 @@ const battalions = readJson('mapa/data/batalhoes-situacao.geojson');
 const regions = readJson('mapa/data/crpm-regioes.geojson');
 const aisRegions = readJson('mapa/data/ais-regioes.geojson');
 const cancellations = readJson('mapa/data/cancelamentos-2026.json');
+const averageTimes = readJson('mapa/data/tempos-medios-2026.json');
 const sum = (field) => battalions.features.reduce((total, feature) => total + Number(feature.properties[field] || 0), 0);
 
 assert.equal(municipalities.features.length, 184, 'A malha deve conter os 184 municípios do Ceará');
@@ -22,6 +23,10 @@ assert.equal(cancellations.ocorrencias_unicas, 23491, 'Total de ocorrências can
 assert.equal(Object.keys(cancellations.por_ais).length, 34, 'Cobertura AIS dos cancelamentos divergente');
 assert.equal(Object.values(cancellations.por_ais).reduce((total, value) => total + value, 0), 23816, 'Soma dos cancelamentos por AIS divergente');
 assert.equal(Object.keys(cancellations.por_municipio).length, 120, 'Cobertura municipal dos cancelamentos divergente');
+assert.equal(averageTimes.total_ocorrencias_analisadas, 37814, 'Total analisado dos tempos médios divergente');
+assert.equal(averageTimes.quantidade_ais, 34, 'Cobertura AIS dos tempos médios divergente');
+assert.equal(Object.keys(averageTimes.por_ais).length, 34, 'Agregados AIS dos tempos médios divergentes');
+assert(averageTimes.tempo_estadual.resposta_min > 0 && averageTimes.tempo_estadual.resposta_min < 60, 'Tempo médio estadual inválido');
 assert.equal(new Set(municipalities.features.map(feature => feature.properties.codigo_ibge)).size, 184, 'Códigos IBGE municipais duplicados');
 assert.equal(new Set(battalions.features.map(feature => feature.properties.batalhao)).size, 34, 'Batalhões duplicados');
 assert.equal(sum('efetivo'), 10241, 'Total do efetivo dos BPMs divergente');
@@ -102,6 +107,8 @@ assert(!html.includes('class="map-back"'), 'Botão de retorno ainda presente no 
 assert(script.includes("fetch('data/crpm-regioes.geojson')"), 'Camada geográfica dos CRPMs ausente');
 assert(script.includes("fetch('data/ais-regioes.geojson')") && script.includes('toggleAis'), 'Camada geográfica das AIS ausente');
 assert(html.includes('toggleCancellations') && script.includes("fetch('data/cancelamentos-2026.json')") && script.includes('addCancellations'), 'Camada de ocorrências canceladas ausente');
+assert(html.includes('toggleAverageTimes') && script.includes("fetch('data/tempos-medios-2026.json')") && script.includes('addAverageTimes'), 'Camada de tempos médios ausente');
+assert(script.includes('averageTimeDetails') && script.includes('formatMinutes'), 'Detalhes dos tempos médios não foram preservados nos tooltips territoriais');
 assert(script.includes("getPane('aisBordersPane').style.pointerEvents = 'none'") && script.includes('territorialDetails'), 'Camadas sobrepostas não preservam os dados territoriais');
 assert(script.includes('População estimada (IBGE, 2026)') && script.includes('IDHM (2010)'), 'Indicadores municipais socioeconômicos ausentes');
 assert(script.includes('População (Censo, 2010)') && script.includes('IDH-B (2010)'), 'Indicadores por bairro ausentes');

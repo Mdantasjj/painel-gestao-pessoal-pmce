@@ -37,12 +37,17 @@ map.getPane('aisBordersPane').style.zIndex = 435;
 map.getPane('aisBordersPane').style.pointerEvents = 'none';
 map.createPane('cancellationsPane');
 map.getPane('cancellationsPane').style.zIndex = 410;
+map.createPane('averageTimesPane');
+map.getPane('averageTimesPane').style.zIndex = 415;
+map.getPane('averageTimesPane').style.pointerEvents = 'none';
 
 const state = {
   regions: null,
   regionLabels: null,
   aisRegions: null,
   cancellations: null,
+  averageTimes: null,
+  averageTimeData: null,
   municipalities: null,
   neighborhoods: null,
   battalions: null,
@@ -85,6 +90,19 @@ function formatIndex(value) {
     : 'Não disponível';
 }
 
+function formatMinutes(value) {
+  return Number.isFinite(Number(value))
+    ? `${Number(value).toLocaleString('pt-BR', { minimumFractionDigits: 1, maximumFractionDigits: 1 })} min`
+    : 'Não disponível';
+}
+
+function averageTimeDetails(properties) {
+  const metrics = state.averageTimeData?.por_ais?.[normalize(properties.ais)];
+  if (!metrics) return '';
+  return `<span class="average-time-primary">Tempo médio de resposta da AIS: <b>${formatMinutes(metrics.resposta_min)}</b></span>
+    <span class="average-time-secondary">Despacho ${formatMinutes(metrics.despacho_min)} · deslocamento ${formatMinutes(metrics.deslocamento_min)} · resolução ${formatMinutes(metrics.resolucao_min)} · ${formatNumber(metrics.ocorrencias)} ocorrências</span>`;
+}
+
 function signed(value) {
   const number = Number(value || 0);
   return `${number > 0 ? '+' : ''}${formatNumber(number)}`;
@@ -125,14 +143,16 @@ function municipalityTooltip(properties) {
   return `<strong>${escapeHtml(properties.municipio)}</strong>
     <span>${escapeHtml(territorialReference)} · ${formatNumber(properties.area_km2)} km²</span>
     <span>População estimada (IBGE, 2026): <b>${formatPopulation(properties.populacao_estimada_2026)}</b></span>
-    <span>IDHM (2010): <b>${formatIndex(properties.idhm_2010)}</b></span>`;
+    <span>IDHM (2010): <b>${formatIndex(properties.idhm_2010)}</b></span>
+    ${averageTimeDetails(properties)}`;
 }
 
 function neighborhoodTooltip(properties) {
   return `<strong>${escapeHtml(properties.bairro)}</strong>
     <span>${escapeHtml(properties.bpm)} · ${escapeHtml(properties.crpm)}</span>
     <span>População (Censo, 2010): <b>${formatPopulation(properties.populacao_2010)}</b></span>
-    <span>IDH-B (2010): <b>${formatIndex(properties.idhb_2010)}</b></span>`;
+    <span>IDH-B (2010): <b>${formatIndex(properties.idhb_2010)}</b></span>
+    ${averageTimeDetails(properties)}`;
 }
 
 function addCrpmRegions(data) {
@@ -233,6 +253,36 @@ function addCancellations(municipalities, neighborhoods, data) {
         mouseout() { state.cancellations.resetStyle(layer); },
         click() { map.fitBounds(layer.getBounds(), { padding: [30, 30], maxZoom: isNeighborhood ? 14 : 11 }); layer.openTooltip(); }
       });
+    }
+  });
+}
+
+function averageTimeColor(minutes) {
+  if (!Number.isFinite(Number(minutes))) return '#e8edf0';
+  if (minutes <= 1.25) return '#2b83ba';
+  if (minutes <= 1.6) return '#80bfac';
+  if (minutes <= 2) return '#fdae61';
+  return '#d7191c';
+}
+
+function addAverageTimes(aisRegions, data) {
+  state.averageTimeData = data;
+  state.averageTimes = L.geoJSON(aisRegions, {
+    pane: 'averageTimesPane',
+    interactive: false,
+    style(feature) {
+      const metrics = data.por_ais[normalize(feature.properties.ais)];
+      const color = averageTimeColor(metrics?.resposta_min);
+      return {
+        color: '#fff',
+        weight: 1.1,
+        opacity: .95,
+        fill: true,
+        fillColor: color,
+        fillOpacity: metrics ? .78 : .18,
+        lineCap: 'round',
+        lineJoin: 'round'
+      };
     }
   });
 }
@@ -360,10 +410,16 @@ function addBattalions(data) {
 }
 
 function configureLayerControls() {
+  const thematicLayers = {
+    toggleAis: 'aisRegions',
+    toggleCancellations: 'cancellations',
+    toggleAverageTimes: 'averageTimes'
+  };
   const controls = [
     ['toggleRegions', 'regions'],
     ['toggleAis', 'aisRegions'],
     ['toggleCancellations', 'cancellations'],
+    ['toggleAverageTimes', 'averageTimes'],
     ['toggleMunicipalities', 'municipalities'],
     ['toggleNeighborhoods', 'neighborhoods'],
     ['toggleBattalions', 'battalions']
@@ -373,6 +429,14 @@ function configureLayerControls() {
     const updateLayer = () => {
       const layer = state[key];
       if (!layer) return;
+      if (control.checked && thematicLayers[id]) {
+        Object.entries(thematicLayers).forEach(([otherId, otherKey]) => {
+          if (otherId === id) return;
+          const otherControl = document.querySelector(`#${otherId}`);
+          if (otherControl) otherControl.checked = false;
+          if (state[otherKey]) map.removeLayer(state[otherKey]);
+        });
+      }
       if (control.checked) {
         layer.addTo(map);
         if (key === 'regions' && state.regionLabels) state.regionLabels.addTo(map);
@@ -531,14 +595,16 @@ async function initialize() {
       fetch('data/crpm-regioes.geojson'),
       fetch('data/ais-regioes.geojson'),
       fetch('data/cancelamentos-2026.json'),
+      fetch('data/tempos-medios-2026.json'),
       fetch('data/municipios-ceara-2026.geojson'),
       fetch('data/bairros-fortaleza.geojson'),
       fetch('data/batalhoes-situacao.geojson')
     ]);
     if (responses.some((response) => !response.ok)) throw new Error('Falha ao obter os dados geográficos.');
-    const [regions, aisRegions, cancellations, municipalities, neighborhoods, battalions] = await Promise.all(responses.map((response) => response.json()));
+    const [regions, aisRegions, cancellations, averageTimes, municipalities, neighborhoods, battalions] = await Promise.all(responses.map((response) => response.json()));
     addCrpmRegions(regions);
     addAisRegions(aisRegions);
+    addAverageTimes(aisRegions, averageTimes);
     addMunicipalities(municipalities);
     addNeighborhoods(neighborhoods);
     addCancellations(municipalities, neighborhoods, cancellations);

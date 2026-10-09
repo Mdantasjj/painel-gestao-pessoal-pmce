@@ -442,9 +442,7 @@ function configureLayerControls() {
     const cancellationActive = activeId === 'toggleCancellations';
     const averageTimeActive = activeId === 'toggleAverageTimes';
     document.querySelector('#cancellationLegend').hidden = !cancellationActive;
-    document.querySelector('#cancellationNote').hidden = !cancellationActive;
     document.querySelector('#averageTimeLegend').hidden = !averageTimeActive;
-    document.querySelector('#averageTimeNote').hidden = !averageTimeActive;
   };
   controls.forEach(([id, key]) => {
     const control = document.querySelector(`#${id}`);

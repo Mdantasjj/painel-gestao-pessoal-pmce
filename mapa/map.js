@@ -177,7 +177,6 @@ function addAisRegions(data) {
         weight: 1.25,
         opacity: .92,
         fill: false,
-        dashArray: '5 4',
         lineCap: 'round',
         lineJoin: 'round'
       };
@@ -190,7 +189,7 @@ function addAisRegions(data) {
       state.searchItems.push({ label: `${properties.ais} · ${scope}`, type: 'ais', target: layer, properties });
       layer.bindTooltip(`<strong>${escapeHtml(properties.ais)}</strong><span>${escapeHtml(scope)}</span>`, { className: 'ais-tooltip', sticky: true, direction: 'top' });
       layer.on({
-        mouseover() { layer.setStyle({ color: '#008f5b', weight: 2.5, opacity: 1, dashArray: null }); layer.bringToFront(); },
+        mouseover() { layer.setStyle({ color: '#008f5b', weight: 2.5, opacity: 1 }); layer.bringToFront(); },
         mouseout() { state.aisRegions.resetStyle(layer); },
         click() { map.fitBounds(layer.getBounds(), { padding: [30, 30], maxZoom: 11 }); layer.openTooltip(); }
       });

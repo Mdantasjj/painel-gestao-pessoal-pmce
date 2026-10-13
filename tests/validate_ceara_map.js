@@ -109,6 +109,7 @@ assert(html.includes('map.js') && html.includes('vendor/leaflet.js'), 'Dependên
 assert(html.includes('vendor/leaflet.markercluster.js'), 'Agrupamento dos batalhões ausente');
 assert(html.includes('toggleRegions') && html.includes('Divisão territorial · CRPM'), 'Controles e legenda dos CRPMs ausentes');
 assert(html.includes('<select id="mapSearchInput"') && script.includes("input.addEventListener('change', search)"), 'Filtro de seleção direta ausente');
+assert(html.includes('class="map-controls"') && css.includes('.map-controls .map-search') && css.includes('.map-controls .map-legend'), 'Controles e legendas nao estao agrupados em uma unica lateral');
 assert(script.includes('is-filter-selected') && css.includes('@keyframes filter-marker-pulse'), 'Destaque visual do filtro ausente');
 assert(!html.includes('class="map-back"'), 'Botão de retorno ainda presente no mapa');
 assert(script.includes("fetch('data/crpm-regioes.geojson')"), 'Camada geográfica dos CRPMs ausente');

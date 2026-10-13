@@ -110,8 +110,9 @@ assert(html.includes('vendor/leaflet.markercluster.js'), 'Agrupamento dos batalh
 assert(html.includes('toggleRegions') && html.includes('Divisão territorial · CRPM'), 'Controles e legenda dos CRPMs ausentes');
 assert(html.includes('<select id="mapSearchInput"') && script.includes("input.addEventListener('change', search)"), 'Filtro de seleção direta ausente');
 assert(html.includes('class="map-controls"') && css.includes('.map-controls .map-search') && css.includes('.map-controls .map-legend'), 'Controles e legendas nao estao agrupados em uma unica lateral');
-assert(/top:\s*104px;\r?\n\s*left:\s*58px;/.test(css) && css.includes('.map-heading { left: 52px;') && css.includes('.map-controls { left: 52px;'), 'A coluna de controles deve ficar alinhada ao titulo');
-assert(css.includes('.map-controls { top: 91px; right: 10px; left: 50px; bottom: 10px; width: auto; }'), 'O alinhamento entre titulo e controles deve ser preservado no celular');
+assert(css.includes('--map-panel-width: 272px;') && css.includes('.map-heading { top: 16px; left: 12px; width: var(--map-panel-width);') && css.includes('width: var(--map-panel-width);'), 'Titulo, filtro, camadas e legendas devem ter a mesma largura');
+assert(css.includes('.map-controls { top: 82px; right: auto; left: 10px;') && css.includes('width: min(var(--map-panel-width), calc(100vw - 20px));'), 'Os paineis devem permanecer discretos e junto a lateral no celular');
+assert(css.includes('.leaflet-top.leaflet-left { right: 0; left: auto; }'), 'O zoom deve evitar sobreposicao com os paineis laterais');
 assert(script.includes('is-filter-selected') && css.includes('@keyframes filter-marker-pulse'), 'Destaque visual do filtro ausente');
 assert(!css.includes('path.is-filter-muted { opacity:') && !css.includes('path.is-filter-muted { fill-opacity:'), 'O filtro nao deve apagar as cores das areas nao selecionadas');
 assert(script.includes('marker.setOpacity(1);') && !script.includes('marker.setOpacity(marker === result.target ? 1 : .14)'), 'O filtro nao deve apagar as cores dos batalhoes');

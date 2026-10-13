@@ -131,6 +131,17 @@ button, input, select { font: inherit; }
 .municipality-tooltip .ais-identification, .neighborhood-tooltip .ais-identification, .cancellation-tooltip .ais-identification, .territorial-information-tooltip .ais-identification { display: inline-block; margin-top: 5px; padding: 3px 6px; border-radius: 999px; color: #fff !important; background: #176a47; font-size: 6.8px !important; font-weight: 850 !important; letter-spacing: .025em; }
 .territorial-information-tooltip .cancellation-count { margin-top: 6px; padding-top: 5px; border-top: 1px solid #d9d0e8; color: #513777; font-weight: 800; }
 .territorial-information-tooltip .cancellation-level { color: #766987; font-size: 7px; font-weight: 750; text-transform: uppercase; }
+.territorial-information-tooltip { width: 380px; max-width: calc(100vw - 32px) !important; padding: 14px 16px !important; border-width: 2px !important; border-radius: 13px !important; font-size: 12px !important; line-height: 1.45; }
+.territorial-information-tooltip strong { margin-bottom: 7px; font-size: 16px; line-height: 1.2; }
+.territorial-information-tooltip span { margin-top: 6px; font-size: 10px; line-height: 1.5; }
+.territorial-information-tooltip b { font-size: 1.08em; font-weight: 900; }
+.territorial-information-tooltip .ais-identification { margin: 0 0 7px; padding: 5px 9px; font-size: 9px !important; }
+.territorial-information-tooltip .average-time-primary { margin-top: 10px !important; padding-top: 9px; font-size: 11px !important; }
+.territorial-information-tooltip .average-time-comparison { font-size: 8.5px !important; }
+.territorial-information-tooltip .average-time-secondary { font-size: 9.5px !important; }
+.territorial-information-tooltip .average-time-source { font-size: 8px !important; }
+.territorial-information-tooltip .cancellation-count { margin-top: 10px; padding-top: 9px; font-size: 11px !important; }
+.territorial-information-tooltip .cancellation-level { font-size: 8.5px !important; }
 
 .map-loading, .map-error { position: fixed; z-index: 900; inset: 50% auto auto 50%; display: flex; min-width: 260px; padding: 18px 20px; align-items: center; justify-content: center; gap: 12px; border: 1px solid #a9cab7; border-radius: 13px; color: #174d36; background: rgba(255,255,255,.97); box-shadow: 0 15px 40px rgba(7,47,30,.2); transform: translate(-50%, -50%); }
 .map-loading span { width: 20px; height: 20px; border: 3px solid #cce2d5; border-top-color: #176a47; border-radius: 50%; animation: spin .8s linear infinite; }
@@ -158,4 +169,7 @@ button, input, select { font: inherit; }
   .map-legend small { display: none; }
   .map-attribution { display: none; }
   .battalion-tooltip.leaflet-tooltip { width: 320px; }
+  .territorial-information-tooltip { width: 300px; padding: 11px 12px !important; }
+  .territorial-information-tooltip strong { font-size: 14px; }
+  .territorial-information-tooltip span { font-size: 9px; }
 }

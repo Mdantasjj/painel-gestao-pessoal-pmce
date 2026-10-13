@@ -11,7 +11,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="vendor/leaflet.css" />
     <link rel="stylesheet" href="vendor/MarkerCluster.css" />
-    <link rel="stylesheet" href="map.css?v=20261013-controles-esquerda" />
+    <link rel="stylesheet" href="map.css?v=20261013-camadas-organizadas" />
   </head>
   <body>
     <main id="map" aria-label="Mapa do Ceará dividido pelos oito CRPMs, municípios, bairros de Fortaleza e Favelas e Comunidades Urbanas, com a localização dos 34 batalhões"></main>
@@ -36,14 +36,29 @@
 
     <aside class="map-layers" aria-label="Camadas do mapa">
       <strong>Camadas</strong>
-      <label><input type="checkbox" id="toggleRegions" checked /> Divisões por CRPM</label>
-      <label><input type="checkbox" id="toggleAis" /> Divisão territorial · AIS colorida</label>
-      <label><input type="checkbox" id="toggleCancellations" /> Ocorrências canceladas · jan–set/2026</label>
-      <label><input type="checkbox" id="toggleAverageTimes" /> Tempo médio de ocorrências · AIS</label>
-      <label><input type="checkbox" id="toggleCommunities" /> Favelas e Comunidades Urbanas · IBGE 2022</label>
-      <label><input type="checkbox" id="toggleMunicipalities" checked /> Municípios</label>
-      <label><input type="checkbox" id="toggleNeighborhoods" checked /> Bairros de Fortaleza</label>
-      <label><input type="checkbox" id="toggleBattalions" checked /> Batalhões</label>
+      <div class="layer-group">
+        <span class="layer-group-title">Divisões territoriais</span>
+        <div class="layer-options layer-options--two">
+          <label><input type="checkbox" id="toggleRegions" checked /> CRPM</label>
+          <label><input type="checkbox" id="toggleAis" /> AIS colorida</label>
+        </div>
+      </div>
+      <div class="layer-group">
+        <span class="layer-group-title">Análises temáticas</span>
+        <div class="layer-options">
+          <label><input type="checkbox" id="toggleCancellations" /> Cancelamentos · jan–set/2026</label>
+          <label><input type="checkbox" id="toggleAverageTimes" /> Tempo médio · AIS</label>
+          <label><input type="checkbox" id="toggleCommunities" /> Comunidades · IBGE 2022</label>
+        </div>
+      </div>
+      <div class="layer-group">
+        <span class="layer-group-title">Referências do mapa</span>
+        <div class="layer-options layer-options--two">
+          <label><input type="checkbox" id="toggleMunicipalities" checked /> Municípios</label>
+          <label><input type="checkbox" id="toggleNeighborhoods" checked /> Bairros</label>
+          <label><input type="checkbox" id="toggleBattalions" checked /> Batalhões</label>
+        </div>
+      </div>
       <small>As camadas temáticas coloridas são exibidas uma por vez.</small>
     </aside>
 

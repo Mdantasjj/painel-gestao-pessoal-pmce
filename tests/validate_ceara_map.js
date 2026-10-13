@@ -111,6 +111,7 @@ assert(html.includes('toggleAverageTimes') && script.includes("fetch('data/tempo
 assert(script.includes('averageTimeDetails') && script.includes('formatMinutes'), 'Detalhes dos tempos médios não foram preservados nos tooltips territoriais');
 assert(script.includes('aisIdentification(properties)') && script.includes("properties.municipio === 'Caucaia'") && script.includes("properties.municipio === 'Fortaleza'"), 'Identificação AIS territorial incompleta');
 assert(script.includes("`AIS ${String(properties.numero).padStart(2, '0')}`"), 'Identificação AIS ausente nos batalhões');
+assert(script.includes("createPane('informationPane')") && script.includes('addInformationLayer(municipalities, neighborhoods)') && script.includes('fillOpacity: .001'), 'Camada estável de informações territoriais ausente');
 assert(script.includes("getPane('aisBordersPane').style.pointerEvents = 'none'") && script.includes('territorialDetails'), 'Camadas sobrepostas não preservam os dados territoriais');
 assert(script.includes('População estimada (IBGE, 2026)') && script.includes('IDHM (2010)'), 'Indicadores municipais socioeconômicos ausentes');
 assert(script.includes('População (Censo, 2010)') && script.includes('IDH-B (2010)'), 'Indicadores por bairro ausentes');

@@ -40,14 +40,18 @@ map.getPane('cancellationsPane').style.zIndex = 410;
 map.createPane('averageTimesPane');
 map.getPane('averageTimesPane').style.zIndex = 415;
 map.getPane('averageTimesPane').style.pointerEvents = 'none';
+map.createPane('informationPane');
+map.getPane('informationPane').style.zIndex = 445;
 
 const state = {
   regions: null,
   regionLabels: null,
   aisRegions: null,
   cancellations: null,
+  cancellationData: null,
   averageTimes: null,
   averageTimeData: null,
+  informationLayer: null,
   municipalities: null,
   neighborhoods: null,
   battalions: null,
@@ -265,31 +269,33 @@ function cancellationLevel(total) {
   return 'faixa territorial muito elevada';
 }
 
+function cancellationTotal(properties) {
+  if (!state.cancellationData) return 0;
+  const isNeighborhood = Boolean(properties.bairro);
+  const key = normalize(isNeighborhood ? properties.bairro : properties.municipio);
+  return Number((isNeighborhood ? state.cancellationData.por_bairro_fortaleza[key] : state.cancellationData.por_municipio[key]) || 0);
+}
+
+function cancellationDetails(properties) {
+  const total = cancellationTotal(properties);
+  return `<span class="cancellation-count">Cancelamentos localizados: <b>${formatNumber(total)}</b></span>
+    <span class="cancellation-level">${cancellationLevel(total)} · jan–set/2026</span>`;
+}
+
 function addCancellations(municipalities, neighborhoods, data) {
+  state.cancellationData = data;
   const features = [
     ...municipalities.features.filter((feature) => feature.properties.municipio !== 'Fortaleza'),
     ...neighborhoods.features
   ];
   state.cancellations = L.geoJSON({ type: 'FeatureCollection', features }, {
     pane: 'cancellationsPane',
+    interactive: false,
     style(feature) {
       const isNeighborhood = Boolean(feature.properties.bairro);
       const key = normalize(isNeighborhood ? feature.properties.bairro : feature.properties.municipio);
       const total = Number((isNeighborhood ? data.por_bairro_fortaleza[key] : data.por_municipio[key]) || 0);
       return { color: '#fff', weight: .75, opacity: .92, fillColor: cancellationColor(total), fillOpacity: total ? .84 : .22 };
-    },
-    onEachFeature(feature, layer) {
-      const properties = feature.properties;
-      const isNeighborhood = Boolean(properties.bairro);
-      const key = normalize(isNeighborhood ? properties.bairro : properties.municipio);
-      const total = Number((isNeighborhood ? data.por_bairro_fortaleza[key] : data.por_municipio[key]) || 0);
-      const territorialDetails = isNeighborhood ? neighborhoodTooltip(properties) : municipalityTooltip(properties);
-      layer.bindTooltip(`${territorialDetails}<span class="cancellation-count">Cancelamentos localizados: <b>${formatNumber(total)}</b></span><span class="cancellation-level">${cancellationLevel(total)} · jan–set/2026</span>`, { className: 'cancellation-tooltip', sticky: true, direction: 'top' });
-      layer.on({
-        mouseover() { layer.setStyle({ color: '#5f1730', weight: 2, fillOpacity: .96 }); layer.bringToFront(); },
-        mouseout() { state.cancellations.resetStyle(layer); },
-        click() { map.fitBounds(layer.getBounds(), { padding: [30, 30], maxZoom: isNeighborhood ? 14 : 11 }); layer.openTooltip(); }
-      });
     }
   });
 }
@@ -322,6 +328,32 @@ function addAverageTimes(aisRegions, data) {
       };
     }
   });
+}
+
+function addInformationLayer(municipalities, neighborhoods) {
+  const features = [
+    ...municipalities.features.filter((feature) => feature.properties.municipio !== 'Fortaleza'),
+    ...neighborhoods.features
+  ];
+  state.informationLayer = L.geoJSON({ type: 'FeatureCollection', features }, {
+    pane: 'informationPane',
+    style: { stroke: false, fill: true, fillColor: '#000', fillOpacity: .001 },
+    onEachFeature(feature, layer) {
+      const properties = feature.properties;
+      const isNeighborhood = Boolean(properties.bairro);
+      const territorialDetails = isNeighborhood ? neighborhoodTooltip(properties) : municipalityTooltip(properties);
+      layer.bindTooltip(`${territorialDetails}${cancellationDetails(properties)}`, {
+        className: 'territorial-information-tooltip',
+        sticky: true,
+        direction: 'top',
+        opacity: 1
+      });
+      layer.on('click', () => {
+        map.fitBounds(layer.getBounds(), { padding: [30, 30], maxZoom: isNeighborhood ? 14 : 11 });
+        layer.openTooltip();
+      });
+    }
+  }).addTo(map);
 }
 
 function battalionTooltip(properties) {
@@ -655,6 +687,7 @@ async function initialize() {
     addMunicipalities(municipalities);
     addNeighborhoods(neighborhoods);
     addCancellations(municipalities, neighborhoods, cancellations);
+    addInformationLayer(municipalities, neighborhoods);
     addBattalions(battalions);
     configureLayerControls();
     configureSearch();

@@ -37,7 +37,7 @@ button, input, select { font: inherit; }
   position: fixed;
   z-index: 500;
   top: 104px;
-  left: 16px;
+  left: 58px;
   bottom: 24px;
   display: flex;
   width: 300px;
@@ -87,18 +87,10 @@ button, input, select { font: inherit; }
 }
 @media (prefers-reduced-motion: reduce) { .leaflet-marker-icon.is-filter-selected .battalion-marker { animation: none; } }
 
-.map-layers { top: 16px; right: 16px; display: grid; min-width: 190px; gap: 10px; padding: 12px 14px; }
+.map-layers { top: 16px; right: 16px; display: grid; min-width: 190px; gap: 8px; padding: 12px 14px; }
 .map-layers > strong, .map-legend section > strong { color: #174d36; font-size: 10px; font-weight: 850; letter-spacing: .04em; text-transform: uppercase; }
-.layer-group { display: grid; gap: 5px; }
-.layer-group + .layer-group { padding-top: 8px; border-top: 1px solid #d7e5dd; }
-.layer-group-title { color: #668072; font-size: 7px; font-weight: 850; letter-spacing: .07em; text-transform: uppercase; }
-.layer-options { display: grid; gap: 5px; }
-.layer-options--two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-.map-layers label { display: flex; min-height: 31px; padding: 6px 8px; align-items: center; gap: 7px; border: 1px solid #c9ddd1; border-radius: 8px; color: #405b4d; background: #f7fbf8; font-size: 7.5px; font-weight: 750; line-height: 1.25; cursor: pointer; transition: border-color .16s ease, color .16s ease, background .16s ease, box-shadow .16s ease; }
-.map-layers label:hover { border-color: #68a083; background: #edf7f1; }
-.map-layers label:has(input:checked) { border-color: #176a47; color: #0d5036; background: #dff2e7; box-shadow: inset 3px 0 0 #176a47; }
-.map-layers input { width: 14px; height: 14px; margin: 0; flex: 0 0 auto; accent-color: #176a47; }
-.map-layers input:focus-visible { outline: 2px solid #f0b429; outline-offset: 2px; }
+.map-layers label { display: flex; align-items: center; gap: 8px; color: #405b4d; font-size: 9px; font-weight: 650; cursor: pointer; }
+.map-layers input { width: 15px; height: 15px; margin: 0; accent-color: #176a47; }
 .map-layers small { max-width: none; padding-top: 3px; border-top: 1px solid #d7e5dd; color: #6c7f74; font-size: 7px; font-weight: 650; line-height: 1.4; }
 
 .map-legend { right: 16px; bottom: 24px; display: grid; width: 260px; max-height: calc(100vh - 48px); gap: 11px; padding: 13px 15px; overflow-y: auto; }
@@ -210,14 +202,14 @@ button, input, select { font: inherit; }
 
 @media (max-width: 900px) {
   .map-heading { left: 52px; min-width: 245px; }
-  .map-controls { left: 12px; bottom: 12px; width: 280px; }
+  .map-controls { left: 52px; bottom: 12px; width: 280px; }
 }
 
 @media (max-width: 620px) {
   .map-heading { top: 10px; right: 10px; left: 50px; min-width: 0; }
   .map-heading strong { font-size: 13px; }
   .map-heading small { display: none; }
-  .map-controls { top: 91px; left: 10px; bottom: 10px; width: min(285px, calc(100vw - 20px)); }
+  .map-controls { top: 91px; right: 10px; left: 50px; bottom: 10px; width: auto; }
   .map-legend small { display: none; }
   .map-attribution { display: none; }
   .battalion-tooltip.leaflet-tooltip { width: 320px; }

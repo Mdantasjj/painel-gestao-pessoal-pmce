@@ -110,6 +110,7 @@ assert(html.includes('vendor/leaflet.markercluster.js'), 'Agrupamento dos batalh
 assert(html.includes('toggleRegions') && html.includes('Divisão territorial · CRPM'), 'Controles e legenda dos CRPMs ausentes');
 assert(html.includes('<select id="mapSearchInput"') && script.includes("input.addEventListener('change', search)"), 'Filtro de seleção direta ausente');
 assert(html.includes('class="map-controls"') && css.includes('.map-controls .map-search') && css.includes('.map-controls .map-legend'), 'Controles e legendas nao estao agrupados em uma unica lateral');
+assert(css.includes('top: 104px;\n  left: 16px;') && css.includes('.map-controls { top: 91px; left: 10px;'), 'A coluna de controles deve permanecer no lado esquerdo em telas grandes e pequenas');
 assert(script.includes('is-filter-selected') && css.includes('@keyframes filter-marker-pulse'), 'Destaque visual do filtro ausente');
 assert(!css.includes('path.is-filter-muted { opacity:') && !css.includes('path.is-filter-muted { fill-opacity:'), 'O filtro nao deve apagar as cores das areas nao selecionadas');
 assert(script.includes('marker.setOpacity(1);') && !script.includes('marker.setOpacity(marker === result.target ? 1 : .14)'), 'O filtro nao deve apagar as cores dos batalhoes');

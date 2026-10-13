@@ -36,8 +36,8 @@ button, input, select { font: inherit; }
 .map-controls {
   position: fixed;
   z-index: 500;
-  top: 16px;
-  right: 16px;
+  top: 104px;
+  left: 16px;
   bottom: 24px;
   display: flex;
   width: 300px;
@@ -202,14 +202,14 @@ button, input, select { font: inherit; }
 
 @media (max-width: 900px) {
   .map-heading { left: 52px; min-width: 245px; }
-  .map-controls { right: 12px; bottom: 12px; width: 280px; }
+  .map-controls { left: 12px; bottom: 12px; width: 280px; }
 }
 
 @media (max-width: 620px) {
   .map-heading { top: 10px; right: 10px; left: 50px; min-width: 0; }
   .map-heading strong { font-size: 13px; }
   .map-heading small { display: none; }
-  .map-controls { top: 91px; right: 10px; bottom: 10px; width: min(285px, calc(100vw - 20px)); }
+  .map-controls { top: 91px; left: 10px; bottom: 10px; width: min(285px, calc(100vw - 20px)); }
   .map-legend small { display: none; }
   .map-attribution { display: none; }
   .battalion-tooltip.leaflet-tooltip { width: 320px; }

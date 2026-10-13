@@ -42,39 +42,50 @@ function target(bounds) {
     setStyle(style) { this.style = style; }, setOpacity(value) { this.opacity = value; },
     bringToFront() {}, openTooltip() { this.tooltip = true; } };
 }
-context.groups = Object.fromEntries(['regions', 'regionLabels', 'aisRegions', 'cancellations', 'averageTimes', 'municipalities', 'neighborhoods', 'battalions'].map(key => [key, group()]));
+context.groups = Object.fromEntries(['regions', 'regionLabels', 'aisRegions', 'cancellations', 'averageTimes', 'communities', 'municipalities', 'neighborhoods', 'battalions'].map(key => [key, group()]));
 const region = target('regional');
 const municipality = target('sobral');
 const battalion = target('bpm');
 const neighborhood = target('centro');
+const community = target('comunidade');
 context.items = [
   { label: '3º CRPM · 3 BPMs', type: 'crpm', target: region, properties: { crpm: '3º CRPM' } },
   { label: 'Sobral', type: 'municipio', target: municipality },
   { label: '3º BPM · Sobral', type: 'batalhao', target: battalion, properties: { sede: 'Sobral' } },
-  { label: 'Centro · Fortaleza', type: 'bairro', target: neighborhood }
+  { label: 'Centro · Fortaleza', type: 'bairro', target: neighborhood },
+  { label: 'Comunidade Teste · Fortaleza', type: 'comunidade', target: community, properties: { municipio: 'Fortaleza', ais: 'AIS 01' } }
 ];
 context.groups.regions.layers = [region];
 context.groups.municipalities.layers = [municipality];
 context.groups.neighborhoods.layers = [neighborhood];
 context.groups.battalions.layers = [battalion];
+context.groups.communities.layers = [community];
 battalion.filterProperties = { crpm: '3º CRPM' };
 // A checkbox changed during data loading must be respected when controls initialize.
 element('#toggleMunicipalities').checked = false;
 element('#toggleAis').checked = false;
 element('#toggleCancellations').checked = false;
 element('#toggleAverageTimes').checked = false;
+element('#toggleCommunities').checked = false;
 vm.runInContext('Object.assign(state, groups); state.searchItems = items; configureLayerControls(); configureSearch();', context);
 assert(!visible.has(context.groups.municipalities));
-assert(element('#cancellationLegend').hidden && element('#averageTimeLegend').hidden);
+assert(element('#cancellationLegend').hidden && element('#averageTimeLegend').hidden && element('#communitiesLegend').hidden);
 element('#toggleCancellations').checked = true;
 element('#toggleCancellations').dispatchEvent({ type: 'change' });
 assert(visible.has(context.groups.cancellations) && !visible.has(context.groups.averageTimes));
+assert(!visible.has(context.groups.communities));
 assert(!element('#cancellationLegend').hidden && element('#averageTimeLegend').hidden);
 assert.equal(context.groups.municipalities.style({ properties: { crpm: '3º CRPM' } }).fillOpacity, 0);
 element('#toggleAverageTimes').checked = true;
 element('#toggleAverageTimes').dispatchEvent({ type: 'change' });
 assert(visible.has(context.groups.averageTimes) && !visible.has(context.groups.cancellations));
 assert(element('#cancellationLegend').hidden && !element('#averageTimeLegend').hidden);
+element('#toggleCommunities').checked = true;
+element('#toggleCommunities').dispatchEvent({ type: 'change' });
+assert(visible.has(context.groups.communities) && !visible.has(context.groups.averageTimes));
+assert(!element('#communitiesLegend').hidden && element('#averageTimeLegend').hidden);
+element('#toggleCommunities').checked = false;
+element('#toggleCommunities').dispatchEvent({ type: 'change' });
 element('#toggleAverageTimes').checked = false;
 element('#toggleAverageTimes').dispatchEvent({ type: 'change' });
 assert.equal(context.groups.municipalities.style({ properties: { crpm: '3º CRPM' } }).fillOpacity, .72);
@@ -113,6 +124,11 @@ input.dispatchEvent({ type: 'change' });
 assert.equal(views.at(-1)[1], 'centro');
 assert(input.innerHTML.includes('<optgroup label="CRPMs">'));
 assert(input.innerHTML.includes('Centro · Fortaleza'));
+input.value = 'comunidade:4';
+input.dispatchEvent({ type: 'change' });
+assert.equal(views.at(-1)[1], 'comunidade');
+assert(community.tooltip);
+assert(input.innerHTML.includes('<optgroup label="Favelas e Comunidades Urbanas">'));
 input.value = '';
 input.dispatchEvent({ type: 'change' });
 assert.equal(views.at(-1)[1], 'state');

@@ -11,6 +11,7 @@ const regions = readJson('mapa/data/crpm-regioes.geojson');
 const aisRegions = readJson('mapa/data/ais-regioes.geojson');
 const cancellations = readJson('mapa/data/cancelamentos-2026.json');
 const averageTimes = readJson('mapa/data/tempos-medios-2026.json');
+const communities = readJson('mapa/data/favelas-comunidades-urbanas-ceara-2022.geojson');
 const sum = (field) => battalions.features.reduce((total, feature) => total + Number(feature.properties[field] || 0), 0);
 
 assert.equal(municipalities.features.length, 184, 'A malha deve conter os 184 municípios do Ceará');
@@ -25,6 +26,12 @@ assert.equal(Object.values(cancellations.por_ais).reduce((total, value) => total
 assert.equal(Object.keys(cancellations.por_municipio).length, 120, 'Cobertura municipal dos cancelamentos divergente');
 assert.equal(averageTimes.total_ocorrencias_analisadas, 37814, 'Total analisado dos tempos médios divergente');
 assert.equal(averageTimes.quantidade_ais, 34, 'Cobertura AIS dos tempos médios divergente');
+assert.equal(communities.features.length, 702, 'Total de Favelas e Comunidades Urbanas do Ceará divergente');
+assert.equal(communities.metadata.fortaleza, 503, 'Total de comunidades de Fortaleza divergente');
+assert.equal(communities.metadata.municipios, 30, 'Cobertura municipal das comunidades divergente');
+assert.equal(new Set(communities.features.map(feature => feature.properties.codigo_fcu)).size, 702, 'Códigos de comunidades duplicados');
+assert(communities.features.every(feature => feature.properties.ais && feature.properties.bpm && feature.properties.crpm), 'Comunidade sem relação territorial');
+assert(communities.features.filter(feature => feature.properties.municipio === 'Fortaleza').every(feature => feature.properties.bairro_referencia), 'Comunidade de Fortaleza sem bairro de referência');
 assert.equal(Object.keys(averageTimes.por_ais).length, 34, 'Agregados AIS dos tempos médios divergentes');
 assert(averageTimes.tempo_estadual.resposta_min > 0 && averageTimes.tempo_estadual.resposta_min < 60, 'Tempo médio estadual inválido');
 assert.equal(new Set(municipalities.features.map(feature => feature.properties.codigo_ibge)).size, 184, 'Códigos IBGE municipais duplicados');
@@ -108,6 +115,8 @@ assert(script.includes("fetch('data/crpm-regioes.geojson')"), 'Camada geográfic
 assert(script.includes("fetch('data/ais-regioes.geojson')") && script.includes('toggleAis'), 'Camada geográfica das AIS ausente');
 assert(html.includes('toggleCancellations') && script.includes("fetch('data/cancelamentos-2026.json')") && script.includes('addCancellations'), 'Camada de ocorrências canceladas ausente');
 assert(html.includes('toggleAverageTimes') && script.includes("fetch('data/tempos-medios-2026.json')") && script.includes('addAverageTimes'), 'Camada de tempos médios ausente');
+assert(html.includes('toggleCommunities') && script.includes("fetch('data/favelas-comunidades-urbanas-ceara-2022.geojson')") && script.includes('addCommunities'), 'Camada de Favelas e Comunidades Urbanas ausente');
+assert(script.includes('communityCancellationTotal') && script.includes('communityTooltip'), 'Relação das comunidades com os dados existentes ausente');
 assert(script.includes('averageTimeDetails') && script.includes('formatMinutes'), 'Detalhes dos tempos médios não foram preservados nos tooltips territoriais');
 assert(script.includes('aisIdentification(properties)') && script.includes("properties.municipio === 'Caucaia'") && script.includes("properties.municipio === 'Fortaleza'"), 'Identificação AIS territorial incompleta');
 assert(script.includes("`AIS ${String(properties.numero).padStart(2, '0')}`"), 'Identificação AIS ausente nos batalhões');

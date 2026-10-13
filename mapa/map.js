@@ -42,6 +42,8 @@ map.getPane('averageTimesPane').style.zIndex = 415;
 map.getPane('averageTimesPane').style.pointerEvents = 'none';
 map.createPane('informationPane');
 map.getPane('informationPane').style.zIndex = 445;
+map.createPane('communitiesPane');
+map.getPane('communitiesPane').style.zIndex = 450;
 
 const state = {
   regions: null,
@@ -52,6 +54,7 @@ const state = {
   averageTimes: null,
   averageTimeData: null,
   activeThematicLayer: null,
+  communities: null,
   informationLayer: null,
   municipalities: null,
   neighborhoods: null,
@@ -336,6 +339,70 @@ function addAverageTimes(aisRegions, data) {
   });
 }
 
+function communityColor(properties) {
+  return properties.municipio === 'Fortaleza' ? '#f59e0b' : '#00a896';
+}
+
+function communityCancellationTotal(properties) {
+  if (!state.cancellationData) return 0;
+  const neighborhoodReference = properties.municipio === 'Fortaleza' && properties.bairro_referencia;
+  const key = normalize(neighborhoodReference ? properties.bairro_referencia : properties.municipio);
+  return Number((neighborhoodReference
+    ? state.cancellationData.por_bairro_fortaleza[key]
+    : state.cancellationData.por_municipio[key]) || 0);
+}
+
+function communityTooltip(properties) {
+  const cancellationTotal = communityCancellationTotal(properties);
+  const metrics = state.averageTimeData?.por_ais?.[normalize(properties.ais)];
+  const territory = properties.bairro_referencia
+    ? `${properties.bairro_referencia} · ${properties.municipio}`
+    : properties.municipio;
+  const populationYear = properties.referencia_socioeconomica === 'bairro' ? 'Censo 2010' : 'IBGE 2026';
+  const indexName = properties.referencia_socioeconomica === 'bairro' ? 'IDH-B 2010' : 'IDHM 2010';
+  return `<strong>${escapeHtml(properties.comunidade)}</strong>
+    <span class="community-classification">Favela e Comunidade Urbana · Censo 2022</span>
+    <span>${escapeHtml(territory)}</span>
+    <span>${escapeHtml(properties.ais)} · ${escapeHtml(properties.bpm)} · ${escapeHtml(properties.crpm)}</span>
+    <span>População do território de referência (${populationYear}): <b>${formatPopulation(properties.populacao_referencia)}</b></span>
+    <span>${indexName} do território de referência: <b>${formatIndex(properties.idh_referencia)}</b></span>
+    <span class="community-operational">Cancelamentos no território de referência: <b>${formatNumber(cancellationTotal)}</b> · jan–set/2026</span>
+    <span>Resposta estimada da ${escapeHtml(properties.ais)}: <b>${metrics ? formatMinutes(metrics.resposta_min) : 'Não disponível'}</b></span>
+    <span class="community-method">Relação territorial agregada; não representa ocorrências individualizadas dentro da comunidade.</span>`;
+}
+
+function addCommunities(data) {
+  state.communities = L.geoJSON(data, {
+    pane: 'communitiesPane',
+    style(feature) {
+      const color = communityColor(feature.properties);
+      return { color: '#5f3700', weight: 1, opacity: .95, fill: true, fillColor: color, fillOpacity: .76 };
+    },
+    onEachFeature(feature, layer) {
+      const properties = feature.properties;
+      const reference = properties.bairro_referencia
+        ? `${properties.bairro_referencia} · ${properties.municipio}`
+        : properties.municipio;
+      state.searchItems.push({
+        label: `${properties.comunidade} · ${reference}`,
+        type: 'comunidade',
+        target: layer,
+        properties
+      });
+      layer.bindTooltip(communityTooltip(properties), {
+        className: 'community-tooltip',
+        sticky: true,
+        direction: 'top',
+        opacity: 1
+      });
+      layer.on('click', () => {
+        map.fitBounds(layer.getBounds(), { padding: [35, 35], maxZoom: 15 });
+        layer.openTooltip();
+      });
+    }
+  });
+}
+
 function addInformationLayer(municipalities, neighborhoods) {
   const features = [
     ...municipalities.features.filter((feature) => feature.properties.municipio !== 'Fortaleza'),
@@ -489,13 +556,15 @@ function configureLayerControls() {
   const thematicLayers = {
     toggleAis: 'aisRegions',
     toggleCancellations: 'cancellations',
-    toggleAverageTimes: 'averageTimes'
+    toggleAverageTimes: 'averageTimes',
+    toggleCommunities: 'communities'
   };
   const controls = [
     ['toggleRegions', 'regions'],
     ['toggleAis', 'aisRegions'],
     ['toggleCancellations', 'cancellations'],
     ['toggleAverageTimes', 'averageTimes'],
+    ['toggleCommunities', 'communities'],
     ['toggleMunicipalities', 'municipalities'],
     ['toggleNeighborhoods', 'neighborhoods'],
     ['toggleBattalions', 'battalions']
@@ -503,8 +572,10 @@ function configureLayerControls() {
   const updateThematicInformation = (activeId) => {
     const cancellationActive = activeId === 'toggleCancellations';
     const averageTimeActive = activeId === 'toggleAverageTimes';
+    const communitiesActive = activeId === 'toggleCommunities';
     document.querySelector('#cancellationLegend').hidden = !cancellationActive;
     document.querySelector('#averageTimeLegend').hidden = !averageTimeActive;
+    document.querySelector('#communitiesLegend').hidden = !communitiesActive;
   };
   controls.forEach(([id, key]) => {
     const control = document.querySelector(`#${id}`);
@@ -543,8 +614,8 @@ function configureSearch() {
   const form = document.querySelector('#mapSearch');
   const input = document.querySelector('#mapSearchInput');
   const feedback = document.querySelector('#mapSearchFeedback');
-  const typeLabels = { crpm: 'CRPMs', ais: 'AIS', batalhao: 'Batalhões', municipio: 'Municípios', bairro: 'Bairros de Fortaleza' };
-  const typeOrder = ['crpm', 'ais', 'batalhao', 'municipio', 'bairro'];
+  const typeLabels = { crpm: 'CRPMs', ais: 'AIS', batalhao: 'Batalhões', municipio: 'Municípios', bairro: 'Bairros de Fortaleza', comunidade: 'Favelas e Comunidades Urbanas' };
+  const typeOrder = ['crpm', 'ais', 'batalhao', 'municipio', 'bairro', 'comunidade'];
   state.searchItems.forEach((item, index) => { item.filterKey = `${item.type}:${index}`; });
   input.innerHTML = '<option value="">Selecione um CRPM, batalhão, município ou bairro</option>'
     + typeOrder.map((type) => {
@@ -591,6 +662,8 @@ function configureSearch() {
       state.municipalities.eachLayer((layer) => addFilterClass(layer, layer === result.target ? 'is-filter-selected' : 'is-filter-muted'));
     } else if (result.type === 'bairro') {
       state.neighborhoods.eachLayer((layer) => addFilterClass(layer, layer === result.target ? 'is-filter-selected' : 'is-filter-muted'));
+    } else if (result.type === 'comunidade') {
+      state.communities.eachLayer((layer) => addFilterClass(layer, layer === result.target ? 'is-filter-selected' : 'is-filter-muted'));
     } else if (result.type === 'batalhao') {
       const coveredMunicipalities = new Set((result.properties.municipios_cobertos || []).map(normalize));
       state.municipalities.eachLayer((layer) => addFilterClass(layer,
@@ -633,7 +706,7 @@ function configureSearch() {
     activeResult = result;
     const layerControls = {
       batalhao: 'toggleBattalions', crpm: 'toggleRegions', ais: 'toggleAis',
-      municipio: 'toggleMunicipalities', bairro: 'toggleNeighborhoods'
+      municipio: 'toggleMunicipalities', bairro: 'toggleNeighborhoods', comunidade: 'toggleCommunities'
     };
     const control = document.querySelector(`#${layerControls[result.type]}`);
     control.checked = true;
@@ -653,14 +726,18 @@ function configureSearch() {
       selectedLayer = result.target;
       selectedGroup = result.type === 'crpm' ? state.regions
         : result.type === 'ais' ? state.aisRegions
-          : result.type === 'bairro' ? state.neighborhoods : state.municipalities;
+          : result.type === 'bairro' ? state.neighborhoods
+            : result.type === 'comunidade' ? state.communities : state.municipalities;
       const aisNumber = Number(String(result.target.feature.properties.ais || '').match(/\d+/)?.[0] || 0);
       const aisFill = `hsl(${Math.round((aisNumber * 137.508) % 360)} 68% 43%)`;
-      const highlightOpacity = result.type === 'ais' ? .74 : state.activeThematicLayer ? 0 : .9;
+      const highlightOpacity = result.type === 'ais' ? .74 : result.type === 'comunidade' ? .96 : state.activeThematicLayer ? 0 : .9;
+      const highlightColor = result.type === 'ais' ? aisFill
+        : result.type === 'comunidade' ? communityColor(result.target.feature.properties)
+          : CRPM_COLORS[result.target.feature.properties.crpm] || '#8fba9f';
       result.target.setStyle({ color: '#0b4932', weight: 3, fill: true, fillOpacity: highlightOpacity,
-        fillColor: result.type === 'ais' ? aisFill : CRPM_COLORS[result.target.feature.properties.crpm] || '#8fba9f' });
+        fillColor: highlightColor });
       emphasizeResult(result);
-      map.fitBounds(result.target.getBounds(), { padding: [35, 35], maxZoom: result.type === 'bairro' ? 14 : 11 });
+      map.fitBounds(result.target.getBounds(), { padding: [35, 35], maxZoom: result.type === 'comunidade' ? 15 : result.type === 'bairro' ? 14 : 11 });
       if (result.type !== 'crpm') result.target.openTooltip();
     }
   };
@@ -674,7 +751,7 @@ function configureSearch() {
 function addAttribution() {
   const attribution = document.createElement('div');
   attribution.className = 'map-attribution';
-  attribution.innerHTML = 'Limites municipais: <a href="https://www.ipece.ce.gov.br/limites-municipais/" target="_blank" rel="noopener">IPECE 2026</a> · Bairros: <a href="https://mapas.fortaleza.ce.gov.br/mapa/21/bairros-de-fortaleza" target="_blank" rel="noopener">IPLANFOR 2023</a> · População municipal: <a href="https://www.ibge.gov.br/estatisticas/sociais/populacao/9103-estimativas-de-populacao.html" target="_blank" rel="noopener">IBGE 2026</a> · IDHM/IDH-B: 2010 · Divisão territorial: DISTRI VTR';
+  attribution.innerHTML = 'Limites: <a href="https://www.ipece.ce.gov.br/limites-municipais/" target="_blank" rel="noopener">IPECE 2026</a> · Bairros: <a href="https://mapas.fortaleza.ce.gov.br/mapa/21/bairros-de-fortaleza" target="_blank" rel="noopener">IPLANFOR 2023</a> · FCU: <a href="https://ftp.ibge.gov.br/Censos/Censo_Demografico_2022/Favelas_e_comunidades_urbanas_Resultados_do_universo/arquivos_vetoriais/" target="_blank" rel="noopener">IBGE 2022</a> · Estudo: <a href="https://doi.org/10.4322/dilemas.v15n1.40294" target="_blank" rel="noopener">Dantas (2022)</a> · IDHM/IDH-B: 2010';
   document.body.append(attribution);
 }
 
@@ -687,16 +764,18 @@ async function initialize() {
       fetch('data/tempos-medios-2026.json'),
       fetch('data/municipios-ceara-2026.geojson'),
       fetch('data/bairros-fortaleza.geojson'),
-      fetch('data/batalhoes-situacao.geojson')
+      fetch('data/batalhoes-situacao.geojson'),
+      fetch('data/favelas-comunidades-urbanas-ceara-2022.geojson')
     ]);
     if (responses.some((response) => !response.ok)) throw new Error('Falha ao obter os dados geográficos.');
-    const [regions, aisRegions, cancellations, averageTimes, municipalities, neighborhoods, battalions] = await Promise.all(responses.map((response) => response.json()));
+    const [regions, aisRegions, cancellations, averageTimes, municipalities, neighborhoods, battalions, communities] = await Promise.all(responses.map((response) => response.json()));
     addCrpmRegions(regions);
     addAisRegions(aisRegions);
     addAverageTimes(aisRegions, averageTimes);
     addMunicipalities(municipalities);
     addNeighborhoods(neighborhoods);
     addCancellations(municipalities, neighborhoods, cancellations);
+    addCommunities(communities);
     addInformationLayer(municipalities, neighborhoods);
     addBattalions(battalions);
     configureLayerControls();

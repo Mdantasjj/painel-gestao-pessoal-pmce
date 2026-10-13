@@ -12,6 +12,8 @@ Página independente do painel principal, disponível em `/mapa/`. Nenhum estudo
 - quadro situacional ao passar o mouse sobre cada batalhão.
 - população estimada de 2026 e IDHM de 2010 em cada município;
 - população e IDH-B de 2010 nos bairros de Fortaleza quando há correspondência histórica.
+- 702 Favelas e Comunidades Urbanas identificadas pelo Censo 2022 em 30 municípios cearenses, sendo 503 em Fortaleza;
+- relação territorial de cada comunidade com município, bairro de referência, AIS, BPM, CRPM, cancelamentos e tempo estimado da AIS.
 
 O quadro do batalhão apresenta efetivo, companhias, saldo situacional, exonerações, demissões, promoções requeridas, movimentações, perdas, reestruturação e necessidade consolidada. Os marcadores são referências territoriais de visualização, não endereços operacionais.
 
@@ -32,6 +34,15 @@ A paleta regional reproduz as cores vetoriais do mapa oficial `RISP_AIS_ESTADO_2
 - Bairros de Fortaleza: população do Censo 2010 e IDH-B 2010, disponibilizados pelo portal de dados abertos de Fortaleza.
 
 Os anos são exibidos no próprio mapa. Assim, a população estimada de 2026 não é comparada como se fosse do mesmo período do IDHM/IDH-B de 2010. Os bairros Rachel de Queiroz, Aracapá, Olavo Oliveira, Novo Mondubim e Parque Santa Maria não possuem série histórica completa nas bases de 2010 e ficam marcados como “Não disponível” para o indicador ausente.
+
+## Favelas e Comunidades Urbanas
+
+A geometria estadual usa a classificação oficial **Favelas e Comunidades Urbanas**, do Censo Demográfico 2022 do IBGE. A camada contém 702 comunidades em 30 municípios: 503 em Fortaleza e 199 nos demais municípios. O artigo *Violência e vulnerabilidades urbanas: Teoria da ambiência restritiva* (Dantas, 2022) fundamenta a leitura analítica da relação entre vulnerabilidade e violência, mas não fornece uma malha estadual. O estudo utilizou 841 assentamentos precários definidos pela Prefeitura de Fortaleza em 2016 e criou 497 setores agregados apenas para a Capital.
+
+Por essa diferença conceitual e temporal, o mapa não trata as geometrias de 2022 como reprodução dos setores do artigo. Cancelamentos e tempos são exibidos como indicadores do bairro, município ou AIS de referência, sem afirmar que cada ocorrência aconteceu dentro da comunidade e sem produzir inferências individuais.
+
+- IBGE — arquivos vetoriais de Favelas e Comunidades Urbanas, Censo 2022: <https://ftp.ibge.gov.br/Censos/Censo_Demografico_2022/Favelas_e_comunidades_urbanas_Resultados_do_universo/arquivos_vetoriais/>
+- Dantas, R. F. (2022). *Violência e vulnerabilidades urbanas: Teoria da ambiência restritiva*. DOI: <https://doi.org/10.4322/dilemas.v15n1.40294>
 
 ## Validação
 

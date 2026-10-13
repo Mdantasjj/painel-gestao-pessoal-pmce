@@ -11,15 +11,15 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="vendor/leaflet.css" />
     <link rel="stylesheet" href="vendor/MarkerCluster.css" />
-    <link rel="stylesheet" href="map.css?v=20261013-tooltip-grande" />
+    <link rel="stylesheet" href="map.css?v=20261013-comunidades-urbanas" />
   </head>
   <body>
-    <main id="map" aria-label="Mapa do Ceará dividido pelos oito CRPMs, municípios e bairros de Fortaleza, com a localização dos 34 batalhões"></main>
+    <main id="map" aria-label="Mapa do Ceará dividido pelos oito CRPMs, municípios, bairros de Fortaleza e Favelas e Comunidades Urbanas, com a localização dos 34 batalhões"></main>
 
     <section class="map-heading" aria-label="Identificação do mapa">
       <span>Polícia Militar do Ceará</span>
       <strong>Mapa territorial dos batalhões</strong>
-      <small>8 CRPMs · 33 AIS com geometria · 23.816 cancelamentos (jan–set/2026) · 34 BPMs</small>
+      <small>8 CRPMs · 33 AIS com geometria · 702 comunidades (Censo 2022) · 34 BPMs</small>
     </section>
 
     <form class="map-search" id="mapSearch" role="search">
@@ -39,6 +39,7 @@
       <label><input type="checkbox" id="toggleAis" /> Divisão territorial · AIS colorida</label>
       <label><input type="checkbox" id="toggleCancellations" /> Ocorrências canceladas · jan–set/2026</label>
       <label><input type="checkbox" id="toggleAverageTimes" /> Tempo médio de ocorrências · AIS</label>
+      <label><input type="checkbox" id="toggleCommunities" /> Favelas e Comunidades Urbanas · IBGE 2022</label>
       <label><input type="checkbox" id="toggleMunicipalities" checked /> Municípios</label>
       <label><input type="checkbox" id="toggleNeighborhoods" checked /> Bairros de Fortaleza</label>
       <label><input type="checkbox" id="toggleBattalions" checked /> Batalhões</label>
@@ -86,6 +87,14 @@
           <span><i class="time-high"></i> Acima de 1,98</span>
         </div>
       </section>
+      <section class="communities-legend" id="communitiesLegend" hidden>
+        <strong>Favelas e Comunidades Urbanas</strong>
+        <div>
+          <span><i class="community-fortaleza"></i> Fortaleza · 503</span>
+          <span><i class="community-ceara"></i> Demais municípios · 199</span>
+        </div>
+        <small>702 comunidades em 30 municípios. Geometria: Censo 2022. O estudo de Dantas (2022) fundamenta a leitura territorial, mas analisou Fortaleza com dados de 2016.</small>
+      </section>
     </aside>
 
     <div class="map-loading" id="mapLoading" role="status">
@@ -100,6 +109,6 @@
 
     <script src="vendor/leaflet.js"></script>
     <script src="vendor/leaflet.markercluster.js"></script>
-    <script src="map.js?v=20261013-camadas-isoladas"></script>
+    <script src="map.js?v=20261013-comunidades-urbanas"></script>
   </body>
 </html>

@@ -111,6 +111,8 @@ assert(html.includes('toggleRegions') && html.includes('Divisão territorial · 
 assert(html.includes('<select id="mapSearchInput"') && script.includes("input.addEventListener('change', search)"), 'Filtro de seleção direta ausente');
 assert(html.includes('class="map-controls"') && css.includes('.map-controls .map-search') && css.includes('.map-controls .map-legend'), 'Controles e legendas nao estao agrupados em uma unica lateral');
 assert(script.includes('is-filter-selected') && css.includes('@keyframes filter-marker-pulse'), 'Destaque visual do filtro ausente');
+assert(!css.includes('path.is-filter-muted { opacity:') && !css.includes('path.is-filter-muted { fill-opacity:'), 'O filtro nao deve apagar as cores das areas nao selecionadas');
+assert(script.includes('marker.setOpacity(1);') && !script.includes('marker.setOpacity(marker === result.target ? 1 : .14)'), 'O filtro nao deve apagar as cores dos batalhoes');
 assert(!html.includes('class="map-back"'), 'Botão de retorno ainda presente no mapa');
 assert(script.includes("fetch('data/crpm-regioes.geojson')"), 'Camada geográfica dos CRPMs ausente');
 assert(script.includes("fetch('data/ais-regioes.geojson')") && script.includes('toggleAis'), 'Camada geográfica das AIS ausente');

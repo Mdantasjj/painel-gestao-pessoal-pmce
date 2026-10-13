@@ -76,9 +76,9 @@ button, input, select { font: inherit; }
 .map-search p { display: none; margin: 7px 2px 0; color: #8a4f20; font-size: 8.5px; font-weight: 650; }
 .map-search p.is-visible { display: block; padding: 6px 8px; border-radius: 6px; color: #0c5438; background: #dff3e8; font-weight: 800; }
 
-.leaflet-map-pane path.is-filter-muted { opacity: .13 !important; fill-opacity: .08 !important; transition: opacity .2s ease, fill-opacity .2s ease; }
-.leaflet-map-pane path.is-filter-related { opacity: 1 !important; fill-opacity: .92 !important; stroke: #fff !important; stroke-width: 2.2px !important; filter: drop-shadow(0 2px 4px rgba(8, 54, 36, .28)); }
-.leaflet-map-pane path.is-filter-selected { opacity: 1 !important; fill-opacity: .98 !important; stroke: #ffe082 !important; stroke-width: 5px !important; filter: drop-shadow(0 0 7px rgba(255, 193, 7, .95)) drop-shadow(0 4px 8px rgba(8, 54, 36, .42)); }
+.leaflet-map-pane path.is-filter-muted { transition: stroke .2s ease, stroke-width .2s ease, filter .2s ease; }
+.leaflet-map-pane path.is-filter-related { stroke: #0b4932 !important; stroke-width: 2.2px !important; filter: drop-shadow(0 2px 4px rgba(8, 54, 36, .28)); }
+.leaflet-map-pane path.is-filter-selected { stroke: #ffe082 !important; stroke-width: 5px !important; filter: drop-shadow(0 0 7px rgba(255, 193, 7, .95)) drop-shadow(0 4px 8px rgba(8, 54, 36, .42)); }
 .leaflet-marker-icon.is-filter-selected { z-index: 1000 !important; opacity: 1 !important; }
 .leaflet-marker-icon.is-filter-selected .battalion-marker { border-color: #ffe082; box-shadow: 0 0 0 6px rgba(255, 193, 7, .34), 0 0 20px rgba(255, 193, 7, .95), 0 7px 16px rgba(4,45,28,.45); animation: filter-marker-pulse 1.25s ease-in-out infinite; }
 @keyframes filter-marker-pulse {

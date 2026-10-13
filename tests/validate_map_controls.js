@@ -98,7 +98,8 @@ input.value = 'crpm:0';
 input.dispatchEvent({ type: 'change' });
 assert(visible.has(context.groups.regions) && visible.has(context.groups.regionLabels));
 assert.equal(views.at(-1)[1], 'regional');
-assert.equal(region.style.fillOpacity, .9);
+assert.equal(region.style.fillOpacity, .72, 'O filtro deve preservar a intensidade original das cores');
+assert.equal(battalion.opacity, 1, 'O filtro por CRPM deve preservar a cor dos batalhoes');
 
 input.value = 'municipio:1';
 input.dispatchEvent({ type: 'change' });
@@ -118,6 +119,7 @@ element('#mapSearch').dispatchEvent({ type: 'submit' });
 assert(visible.has(context.groups.battalions));
 assert.equal(views.at(-1)[0], 'position');
 assert(battalion.tooltip, 'Clustered marker must be revealed before opening its tooltip');
+assert.equal(battalion.opacity, 1, 'O filtro por batalhao deve preservar as cores dos marcadores');
 
 input.value = 'bairro:3';
 input.dispatchEvent({ type: 'change' });

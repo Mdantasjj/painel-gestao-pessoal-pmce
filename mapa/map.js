@@ -649,7 +649,7 @@ function configureSearch() {
       state.neighborhoods.eachLayer((layer) => addFilterClass(layer,
         layer.feature.properties.crpm === selectedCrpm ? 'is-filter-related' : 'is-filter-muted'));
       state.battalions.eachLayer((marker) => {
-        marker.setOpacity(marker.filterProperties?.crpm === selectedCrpm ? 1 : .16);
+        marker.setOpacity(1);
         state.filterMarkers.add(marker);
       });
     } else if (result.type === 'ais') {
@@ -669,7 +669,7 @@ function configureSearch() {
       state.municipalities.eachLayer((layer) => addFilterClass(layer,
         coveredMunicipalities.has(normalize(layer.feature.properties.municipio)) ? 'is-filter-related' : 'is-filter-muted'));
       state.battalions.eachLayer((marker) => {
-        marker.setOpacity(marker === result.target ? 1 : .14);
+        marker.setOpacity(1);
         state.filterMarkers.add(marker);
       });
     }
@@ -730,7 +730,7 @@ function configureSearch() {
             : result.type === 'comunidade' ? state.communities : state.municipalities;
       const aisNumber = Number(String(result.target.feature.properties.ais || '').match(/\d+/)?.[0] || 0);
       const aisFill = `hsl(${Math.round((aisNumber * 137.508) % 360)} 68% 43%)`;
-      const highlightOpacity = result.type === 'ais' ? .74 : result.type === 'comunidade' ? .96 : state.activeThematicLayer ? 0 : .9;
+      const highlightOpacity = result.type === 'ais' ? .62 : result.type === 'comunidade' ? .76 : state.activeThematicLayer ? 0 : .72;
       const highlightColor = result.type === 'ais' ? aisFill
         : result.type === 'comunidade' ? communityColor(result.target.feature.properties)
           : CRPM_COLORS[result.target.feature.properties.crpm] || '#8fba9f';

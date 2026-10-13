@@ -113,6 +113,7 @@ assert(script.includes('aisIdentification(properties)') && script.includes("prop
 assert(script.includes("`AIS ${String(properties.numero).padStart(2, '0')}`"), 'Identificação AIS ausente nos batalhões');
 assert(script.includes("createPane('informationPane')") && script.includes('addInformationLayer(municipalities, neighborhoods)') && script.includes('fillOpacity: .001'), 'Camada estável de informações territoriais ausente');
 assert(script.includes("getPane('aisBordersPane').style.pointerEvents = 'none'") && script.includes('territorialDetails'), 'Camadas sobrepostas não preservam os dados territoriais');
+assert(script.includes('activeThematicLayer') && script.includes('synchronizeReferenceStyles()'), 'Isolamento visual das camadas temáticas ausente');
 assert(script.includes('População estimada (IBGE, 2026)') && script.includes('IDHM (2010)'), 'Indicadores municipais socioeconômicos ausentes');
 assert(script.includes('População (Censo, 2010)') && script.includes('IDH-B (2010)'), 'Indicadores por bairro ausentes');
 assert(dashboardHtml.includes('id="icon-map"'), 'Ícone do mapa ausente no painel');

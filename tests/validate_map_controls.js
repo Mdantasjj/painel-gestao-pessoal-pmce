@@ -30,6 +30,7 @@ const source = fs.readFileSync(path.join(__dirname, '../mapa/map.js'), 'utf8');
 vm.runInContext(source.replace(/initialize\(\);\s*$/, ''), context);
 function group() {
   return { layers: [], addTo() { visible.add(this); }, resetStyle(layer) { layer.style = null; },
+    setStyle(style) { this.style = style; },
     eachLayer(callback) { this.layers.forEach(callback); },
     getBounds() { return 'state'; }, zoomToShowLayer(marker, callback) { callback(); } };
 }
@@ -69,10 +70,14 @@ element('#toggleCancellations').checked = true;
 element('#toggleCancellations').dispatchEvent({ type: 'change' });
 assert(visible.has(context.groups.cancellations) && !visible.has(context.groups.averageTimes));
 assert(!element('#cancellationLegend').hidden && element('#averageTimeLegend').hidden);
+assert.equal(context.groups.municipalities.style({ properties: { crpm: '3º CRPM' } }).fillOpacity, 0);
 element('#toggleAverageTimes').checked = true;
 element('#toggleAverageTimes').dispatchEvent({ type: 'change' });
 assert(visible.has(context.groups.averageTimes) && !visible.has(context.groups.cancellations));
 assert(element('#cancellationLegend').hidden && !element('#averageTimeLegend').hidden);
+element('#toggleAverageTimes').checked = false;
+element('#toggleAverageTimes').dispatchEvent({ type: 'change' });
+assert.equal(context.groups.municipalities.style({ properties: { crpm: '3º CRPM' } }).fillOpacity, .72);
 element('#toggleRegions').checked = false;
 element('#toggleRegions').dispatchEvent({ type: 'change' });
 assert(!visible.has(context.groups.regions) && !visible.has(context.groups.regionLabels));
@@ -90,6 +95,10 @@ assert(visible.has(context.groups.municipalities));
 assert.equal(views.at(-1)[1], 'sobral');
 assert.equal(region.style, null, 'Previous highlight must be reset');
 assert(municipality.tooltip);
+element('#toggleCancellations').checked = true;
+element('#toggleCancellations').dispatchEvent({ type: 'change' });
+input.dispatchEvent({ type: 'change' });
+assert.equal(municipality.style.fillOpacity, 0, 'Filtro territorial não deve encobrir a camada temática');
 
 element('#toggleBattalions').checked = false;
 element('#toggleBattalions').dispatchEvent({ type: 'change' });

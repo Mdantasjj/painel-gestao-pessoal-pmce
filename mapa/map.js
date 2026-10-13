@@ -51,6 +51,7 @@ const state = {
   cancellationData: null,
   averageTimes: null,
   averageTimeData: null,
+  activeThematicLayer: null,
   informationLayer: null,
   municipalities: null,
   neighborhoods: null,
@@ -153,7 +154,7 @@ function municipalityStyle(feature) {
     weight: .85,
     opacity: .96,
     fillColor: CRPM_COLORS[feature.properties.crpm] || '#d8e7de',
-    fillOpacity: .72
+    fillOpacity: state.activeThematicLayer ? 0 : .72
   };
 }
 
@@ -163,8 +164,13 @@ function neighborhoodStyle(feature) {
     weight: .8,
     opacity: .8,
     fillColor: CRPM_COLORS[feature.properties.crpm] || '#cce4d6',
-    fillOpacity: .72
+    fillOpacity: state.activeThematicLayer ? 0 : .72
   };
+}
+
+function synchronizeReferenceStyles() {
+  state.municipalities?.setStyle(municipalityStyle);
+  state.neighborhoods?.setStyle(neighborhoodStyle);
 }
 
 function municipalityTooltip(properties) {
@@ -237,7 +243,7 @@ function addAisRegions(data) {
         opacity: .96,
         fill: true,
         fillColor: color,
-        fillOpacity: .18,
+        fillOpacity: .62,
         lineCap: 'round',
         lineJoin: 'round'
       };
@@ -295,7 +301,7 @@ function addCancellations(municipalities, neighborhoods, data) {
       const isNeighborhood = Boolean(feature.properties.bairro);
       const key = normalize(isNeighborhood ? feature.properties.bairro : feature.properties.municipio);
       const total = Number((isNeighborhood ? data.por_bairro_fortaleza[key] : data.por_municipio[key]) || 0);
-      return { color: '#fff', weight: .75, opacity: .92, fillColor: cancellationColor(total), fillOpacity: total ? .84 : .22 };
+      return { color: '#fff', weight: .75, opacity: .92, fillColor: cancellationColor(total), fillOpacity: total ? .92 : .12 };
     }
   });
 }
@@ -322,7 +328,7 @@ function addAverageTimes(aisRegions, data) {
         opacity: .95,
         fill: true,
         fillColor: color,
-        fillOpacity: metrics ? .78 : .18,
+        fillOpacity: metrics ? .9 : .12,
         lineCap: 'round',
         lineJoin: 'round'
       };
@@ -407,7 +413,7 @@ function addMunicipalities(data) {
       state.searchItems.push({ label: feature.properties.municipio, type: 'municipio', target: layer });
       layer.bindTooltip(municipalityTooltip(feature.properties), { className: 'municipality-tooltip', sticky: true, direction: 'top' });
       layer.on({
-        mouseover() { layer.setStyle({ color: '#0e5a3c', weight: 2, fillOpacity: 1 }); layer.bringToFront(); },
+        mouseover() { layer.setStyle({ color: '#0e5a3c', weight: 2, fillOpacity: state.activeThematicLayer ? 0 : 1 }); layer.bringToFront(); },
         mouseout() { state.municipalities.resetStyle(layer); },
         click() { map.fitBounds(layer.getBounds(), { padding: [30, 30], maxZoom: 11 }); }
       });
@@ -426,7 +432,7 @@ function addNeighborhoods(data) {
       state.searchItems.push({ label: `${feature.properties.bairro} · Fortaleza`, type: 'bairro', target: layer });
       layer.bindTooltip(neighborhoodTooltip(feature.properties), { className: 'neighborhood-tooltip', sticky: true, direction: 'top' });
       layer.on({
-        mouseover() { layer.setStyle({ color: '#0b4932', weight: 2, fillOpacity: .28 }); layer.bringToFront(); },
+        mouseover() { layer.setStyle({ color: '#0b4932', weight: 2, fillOpacity: state.activeThematicLayer ? 0 : .28 }); layer.bringToFront(); },
         mouseout() { state.neighborhoods.resetStyle(layer); },
         click() { map.fitBounds(layer.getBounds(), { padding: [35, 35], maxZoom: 14 }); }
       });
@@ -512,9 +518,11 @@ function configureLayerControls() {
           if (otherControl) otherControl.checked = false;
           if (state[otherKey]) map.removeLayer(state[otherKey]);
         });
+        state.activeThematicLayer = id;
         updateThematicInformation(id);
       } else if (!control.checked && thematicLayers[id]) {
-        updateThematicInformation(null);
+        if (state.activeThematicLayer === id) state.activeThematicLayer = null;
+        updateThematicInformation(state.activeThematicLayer);
       }
       if (control.checked) {
         layer.addTo(map);
@@ -523,6 +531,7 @@ function configureLayerControls() {
         map.removeLayer(layer);
         if (key === 'regions' && state.regionLabels) map.removeLayer(state.regionLabels);
       }
+      synchronizeReferenceStyles();
       if (state.battalions && map.hasLayer(state.battalions)) state.battalions.bringToFront?.();
     };
     control.addEventListener('change', updateLayer);
@@ -647,7 +656,8 @@ function configureSearch() {
           : result.type === 'bairro' ? state.neighborhoods : state.municipalities;
       const aisNumber = Number(String(result.target.feature.properties.ais || '').match(/\d+/)?.[0] || 0);
       const aisFill = `hsl(${Math.round((aisNumber * 137.508) % 360)} 68% 43%)`;
-      result.target.setStyle({ color: '#0b4932', weight: 3, fill: true, fillOpacity: result.type === 'ais' ? .55 : .9,
+      const highlightOpacity = result.type === 'ais' ? .74 : state.activeThematicLayer ? 0 : .9;
+      result.target.setStyle({ color: '#0b4932', weight: 3, fill: true, fillOpacity: highlightOpacity,
         fillColor: result.type === 'ais' ? aisFill : CRPM_COLORS[result.target.feature.properties.crpm] || '#8fba9f' });
       emphasizeResult(result);
       map.fitBounds(result.target.getBounds(), { padding: [35, 35], maxZoom: result.type === 'bairro' ? 14 : 11 });

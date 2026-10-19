@@ -38,6 +38,7 @@
       <strong>Camadas</strong>
       <label><input type="checkbox" id="toggleRegions" checked /> Divisões por CRPM</label>
       <label><input type="checkbox" id="toggleAis" /> Divisão territorial · AIS colorida</label>
+      <label><input type="checkbox" id="toggleTotalOccurrences" /> Total de ocorrências atendidas · jan–set/2026</label>
       <label><input type="checkbox" id="toggleCancellations" /> Ocorrências canceladas · jan–set/2026</label>
       <label><input type="checkbox" id="toggleAverageTimes" /> Tempo médio de ocorrências · AIS</label>
       <label><input type="checkbox" id="toggleCommunities" /> Favelas e Comunidades Urbanas · IBGE 2022</label>
@@ -79,6 +80,16 @@
           <span><i class="cancel-critical"></i> 114 ou mais</span>
         </div>
       </section>
+      <section class="total-occurrences-legend" id="totalOccurrencesLegend" hidden>
+        <strong>Ocorrências atendidas · quartis AIS</strong>
+        <div>
+          <span><i class="occurrence-low"></i> Até 4.791</span>
+          <span><i class="occurrence-medium"></i> 4.792 a 14.245</span>
+          <span><i class="occurrence-high"></i> 14.246 a 21.303</span>
+          <span><i class="occurrence-critical"></i> 21.304 ou mais</span>
+        </div>
+        <small>Total estadual: 497.094 ocorrências. A AIS 12 possui 19.246 registros, mas não tem polígono separado na malha atual.</small>
+      </section>
       <section class="average-time-legend" id="averageTimeLegend" hidden>
         <strong>Resposta estimada · quartis AIS</strong>
         <div>
@@ -112,6 +123,6 @@
 
     <script src="vendor/leaflet.js"></script>
     <script src="vendor/leaflet.markercluster.js"></script>
-    <script src="map.js?v=20261013-cores-persistentes"></script>
+    <script src="map.js?v=20261019-total-ocorrencias"></script>
   </body>
 </html>

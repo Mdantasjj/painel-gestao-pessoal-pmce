@@ -1,0 +1,27 @@
+{
+  "periodo": {"inicio": "2026-01-01T09:07:54", "fim": "2026-09-30T23:59:59"},
+  "gerado_em": "2026-10-19T09:08:42",
+  "total_geral": 497094,
+  "quantidade_ais": 34,
+  "ais_com_geometria": 33,
+  "ais_sem_geometria": ["AIS 12"],
+  "quartis": {"q1": 4791, "q2": 14245.5, "q3": 21303.25},
+  "por_ais": {
+    "ais01": 15011, "ais02": 25514, "ais03": 23607, "ais04": 13980,
+    "ais05": 23236, "ais06": 27697, "ais07": 18845, "ais08": 18983,
+    "ais09": 22964, "ais10": 13394, "ais11": 22059, "ais12": 19246,
+    "ais13": 11387, "ais14": 40639, "ais15": 17871, "ais16": 14511,
+    "ais17": 16082, "ais18": 21989, "ais19": 34508, "ais20": 13897,
+    "ais21": 17317, "ais22": 7476, "ais23": 10701, "ais24": 11486,
+    "ais25": 13780, "ais26": 2801, "ais27": 3896, "ais28": 2726,
+    "ais29": 2980, "ais30": 2557, "ais31": 1065, "ais32": 2182,
+    "ais33": 970, "ais34": 1737
+  },
+  "auditoria": {
+    "linhas_validas": 497094,
+    "grupos_evento_ais": 7524,
+    "divergencias": 0,
+    "regra": "O total de cada AIS coincide com o rodapé do relatório, a quantidade de linhas e a soma das multiplicidades dos grupos de eventos."
+  },
+  "fonte": "Relatório OCORRÊNCIAS ATENDIDAS POR AIS, jan–set/2026"
+}

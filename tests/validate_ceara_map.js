@@ -10,6 +10,7 @@ const battalions = readJson('mapa/data/batalhoes-situacao.geojson');
 const regions = readJson('mapa/data/crpm-regioes.geojson');
 const aisRegions = readJson('mapa/data/ais-regioes.geojson');
 const cancellations = readJson('mapa/data/cancelamentos-2026.json');
+const totalOccurrences = readJson('mapa/data/ocorrencias-atendidas-2026.json');
 const averageTimes = readJson('mapa/data/tempos-medios-2026.json');
 const communities = readJson('mapa/data/favelas-comunidades-urbanas-ceara-2022.geojson');
 const sum = (field) => battalions.features.reduce((total, feature) => total + Number(feature.properties[field] || 0), 0);
@@ -24,6 +25,11 @@ assert.equal(cancellations.ocorrencias_unicas, 23491, 'Total de ocorrências can
 assert.equal(Object.keys(cancellations.por_ais).length, 34, 'Cobertura AIS dos cancelamentos divergente');
 assert.equal(Object.values(cancellations.por_ais).reduce((total, value) => total + value, 0), 23816, 'Soma dos cancelamentos por AIS divergente');
 assert.equal(Object.keys(cancellations.por_municipio).length, 120, 'Cobertura municipal dos cancelamentos divergente');
+assert.equal(totalOccurrences.total_geral, 497094, 'Total de ocorrências atendidas divergente');
+assert.equal(Object.keys(totalOccurrences.por_ais).length, 34, 'Cobertura AIS das ocorrências atendidas divergente');
+assert.equal(Object.values(totalOccurrences.por_ais).reduce((total, value) => total + value, 0), 497094, 'Soma das ocorrências atendidas por AIS divergente');
+assert.deepEqual(totalOccurrences.ais_sem_geometria, ['AIS 12'], 'Registro territorial sem geometria divergente');
+assert.equal(totalOccurrences.auditoria.divergencias, 0, 'A auditoria das ocorrências atendidas encontrou divergências');
 assert.equal(averageTimes.total_ocorrencias_analisadas, 37814, 'Total analisado dos tempos médios divergente');
 assert.equal(averageTimes.quantidade_ais, 34, 'Cobertura AIS dos tempos médios divergente');
 assert.equal(communities.features.length, 702, 'Total de Favelas e Comunidades Urbanas do Ceará divergente');
@@ -120,6 +126,7 @@ assert(!html.includes('class="map-back"'), 'Botão de retorno ainda presente no 
 assert(script.includes("fetch('data/crpm-regioes.geojson')"), 'Camada geográfica dos CRPMs ausente');
 assert(script.includes("fetch('data/ais-regioes.geojson')") && script.includes('toggleAis'), 'Camada geográfica das AIS ausente');
 assert(html.includes('toggleCancellations') && script.includes("fetch('data/cancelamentos-2026.json')") && script.includes('addCancellations'), 'Camada de ocorrências canceladas ausente');
+assert(html.includes('toggleTotalOccurrences') && html.includes('totalOccurrencesLegend') && script.includes("fetch('data/ocorrencias-atendidas-2026.json')") && script.includes('addTotalOccurrences'), 'Camada de total de ocorrências atendidas ausente');
 assert(html.includes('toggleAverageTimes') && script.includes("fetch('data/tempos-medios-2026.json')") && script.includes('addAverageTimes'), 'Camada de tempos médios ausente');
 assert(html.includes('toggleCommunities') && script.includes("fetch('data/favelas-comunidades-urbanas-ceara-2022.geojson')") && script.includes('addCommunities'), 'Camada de Favelas e Comunidades Urbanas ausente');
 assert(script.includes('communityCancellationTotal') && script.includes('communityTooltip'), 'Relação das comunidades com os dados existentes ausente');

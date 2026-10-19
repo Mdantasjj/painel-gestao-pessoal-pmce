@@ -113,6 +113,11 @@ button, input, select { font: inherit; }
 .map-legend .cancel-medium { background: #b39ddb; }
 .map-legend .cancel-high { background: #7e57c2; }
 .map-legend .cancel-critical { background: #4527a0; }
+.total-occurrences-legend i { border-radius: 3px; }
+.map-legend .occurrence-low { background: #e0f3db; }
+.map-legend .occurrence-medium { background: #a8ddb5; }
+.map-legend .occurrence-high { background: #43a2ca; }
+.map-legend .occurrence-critical { background: #0868ac; }
 .average-time-legend i { border-radius: 3px; }
 .map-legend .time-fast { background: #1a9850; }
 .map-legend .time-balanced { background: #91cf60; }
@@ -162,6 +167,8 @@ button, input, select { font: inherit; }
 .cancellation-tooltip .cancellation-count { margin-top: 6px; padding-top: 5px; border-top: 1px solid #efc8bd; color: #8d2840; font-weight: 800; }
 .cancellation-tooltip .cancellation-level { color: #634c73; font-size: 7px; font-weight: 750; text-transform: uppercase; }
 .average-time-primary { margin-top: 6px !important; padding-top: 5px; border-top: 1px solid #bdd9e7; color: #1f678f !important; font-weight: 800 !important; }
+.total-occurrence-primary { margin-top: 6px !important; padding-top: 5px; border-top: 1px solid #b9d8ca; color: #0b6b55 !important; font-weight: 850 !important; }
+.total-occurrence-secondary { color: #587268 !important; font-size: 8px !important; line-height: 1.45; }
 .average-time-comparison { color: #376f50 !important; font-size: 7px !important; font-weight: 750 !important; text-transform: uppercase; }
 .average-time-secondary { color: #5e737e !important; line-height: 1.45; }
 .average-time-source { color: #7d8983 !important; font-size: 6.8px !important; font-style: italic; line-height: 1.4; }
@@ -176,6 +183,8 @@ button, input, select { font: inherit; }
 .territorial-information-tooltip b { font-size: 1.08em; font-weight: 900; }
 .territorial-information-tooltip .ais-identification { margin: 0 0 7px; padding: 5px 9px; font-size: 9px !important; }
 .territorial-information-tooltip .average-time-primary { margin-top: 10px !important; padding-top: 9px; font-size: 11px !important; }
+.territorial-information-tooltip .total-occurrence-primary { margin-top: 10px !important; padding-top: 9px; font-size: 11px !important; }
+.territorial-information-tooltip .total-occurrence-secondary { font-size: 9px !important; }
 .territorial-information-tooltip .average-time-comparison { font-size: 8.5px !important; }
 .territorial-information-tooltip .average-time-secondary { font-size: 9.5px !important; }
 .territorial-information-tooltip .average-time-source { font-size: 8px !important; }

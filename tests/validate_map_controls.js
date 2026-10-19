@@ -42,7 +42,7 @@ function target(bounds) {
     setStyle(style) { this.style = style; }, setOpacity(value) { this.opacity = value; },
     bringToFront() {}, openTooltip() { this.tooltip = true; } };
 }
-context.groups = Object.fromEntries(['regions', 'regionLabels', 'aisRegions', 'cancellations', 'averageTimes', 'communities', 'municipalities', 'neighborhoods', 'battalions'].map(key => [key, group()]));
+context.groups = Object.fromEntries(['regions', 'regionLabels', 'aisRegions', 'totalOccurrences', 'cancellations', 'averageTimes', 'communities', 'municipalities', 'neighborhoods', 'battalions'].map(key => [key, group()]));
 const region = target('regional');
 const municipality = target('sobral');
 const battalion = target('bpm');
@@ -64,17 +64,22 @@ battalion.filterProperties = { crpm: '3º CRPM' };
 // A checkbox changed during data loading must be respected when controls initialize.
 element('#toggleMunicipalities').checked = false;
 element('#toggleAis').checked = false;
+element('#toggleTotalOccurrences').checked = false;
 element('#toggleCancellations').checked = false;
 element('#toggleAverageTimes').checked = false;
 element('#toggleCommunities').checked = false;
 vm.runInContext('Object.assign(state, groups); state.searchItems = items; configureLayerControls(); configureSearch();', context);
 assert(!visible.has(context.groups.municipalities));
-assert(element('#cancellationLegend').hidden && element('#averageTimeLegend').hidden && element('#communitiesLegend').hidden);
+assert(element('#totalOccurrencesLegend').hidden && element('#cancellationLegend').hidden && element('#averageTimeLegend').hidden && element('#communitiesLegend').hidden);
+element('#toggleTotalOccurrences').checked = true;
+element('#toggleTotalOccurrences').dispatchEvent({ type: 'change' });
+assert(visible.has(context.groups.totalOccurrences) && !visible.has(context.groups.cancellations));
+assert(!element('#totalOccurrencesLegend').hidden && element('#cancellationLegend').hidden);
 element('#toggleCancellations').checked = true;
 element('#toggleCancellations').dispatchEvent({ type: 'change' });
-assert(visible.has(context.groups.cancellations) && !visible.has(context.groups.averageTimes));
+assert(visible.has(context.groups.cancellations) && !visible.has(context.groups.totalOccurrences) && !visible.has(context.groups.averageTimes));
 assert(!visible.has(context.groups.communities));
-assert(!element('#cancellationLegend').hidden && element('#averageTimeLegend').hidden);
+assert(element('#totalOccurrencesLegend').hidden && !element('#cancellationLegend').hidden && element('#averageTimeLegend').hidden);
 assert.equal(context.groups.municipalities.style({ properties: { crpm: '3º CRPM' } }).fillOpacity, 0);
 element('#toggleAverageTimes').checked = true;
 element('#toggleAverageTimes').dispatchEvent({ type: 'change' });

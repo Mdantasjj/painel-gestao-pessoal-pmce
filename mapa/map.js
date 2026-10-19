@@ -37,6 +37,9 @@ map.getPane('aisBordersPane').style.zIndex = 435;
 map.getPane('aisBordersPane').style.pointerEvents = 'none';
 map.createPane('cancellationsPane');
 map.getPane('cancellationsPane').style.zIndex = 410;
+map.createPane('totalOccurrencesPane');
+map.getPane('totalOccurrencesPane').style.zIndex = 412;
+map.getPane('totalOccurrencesPane').style.pointerEvents = 'none';
 map.createPane('averageTimesPane');
 map.getPane('averageTimesPane').style.zIndex = 415;
 map.getPane('averageTimesPane').style.pointerEvents = 'none';
@@ -51,6 +54,8 @@ const state = {
   aisRegions: null,
   cancellations: null,
   cancellationData: null,
+  totalOccurrences: null,
+  totalOccurrenceData: null,
   averageTimes: null,
   averageTimeData: null,
   activeThematicLayer: null,
@@ -138,6 +143,25 @@ function averageTimeDetails(properties) {
     <span class="average-time-source">Base ponderada: ${formatNumber(metrics.ocorrencias)} ocorrências · valores agregados e arredondados</span>`;
 }
 
+function totalOccurrenceValue(reference) {
+  return Number(state.totalOccurrenceData?.por_ais?.[normalize(reference)] || 0);
+}
+
+function totalOccurrenceDetails(properties) {
+  const references = aisReferences(properties);
+  if (!references.length || !state.totalOccurrenceData) return '';
+  if (references.length > 1) {
+    const values = references.map((reference) => ({ reference, total: totalOccurrenceValue(reference) }));
+    const total = values.reduce((sum, item) => sum + item.total, 0);
+    const breakdown = values.map((item) => `${item.reference}: ${formatNumber(item.total)}`).join(' · ');
+    return `<span class="total-occurrence-primary">Ocorrências atendidas nas AIS: <b>${formatNumber(total)}</b></span>
+      <span class="total-occurrence-secondary">${escapeHtml(breakdown)} · jan–set/2026</span>`;
+  }
+  const total = totalOccurrenceValue(references[0]);
+  return `<span class="total-occurrence-primary">Ocorrências atendidas na ${escapeHtml(references[0])}: <b>${formatNumber(total)}</b></span>
+    <span class="total-occurrence-secondary">jan–set/2026 · total agregado da AIS</span>`;
+}
+
 function signed(value) {
   const number = Number(value || 0);
   return `${number > 0 ? '+' : ''}${formatNumber(number)}`;
@@ -185,6 +209,7 @@ function municipalityTooltip(properties) {
     <span>${escapeHtml(territorialReference)} · ${formatNumber(properties.area_km2)} km²</span>
     <span>População estimada (IBGE, 2026): <b>${formatPopulation(properties.populacao_estimada_2026)}</b></span>
     <span>IDHM (2010): <b>${formatIndex(properties.idhm_2010)}</b></span>
+    ${totalOccurrenceDetails(properties)}
     ${averageTimeDetails(properties)}`;
 }
 
@@ -194,6 +219,7 @@ function neighborhoodTooltip(properties) {
     <span>${escapeHtml(properties.bpm)} · ${escapeHtml(properties.crpm)}</span>
     <span>População (Censo, 2010): <b>${formatPopulation(properties.populacao_2010)}</b></span>
     <span>IDH-B (2010): <b>${formatIndex(properties.idhb_2010)}</b></span>
+    ${totalOccurrenceDetails(properties)}
     ${averageTimeDetails(properties)}`;
 }
 
@@ -257,7 +283,7 @@ function addAisRegions(data) {
         ? `${properties.bairros_fortaleza} bairros de Fortaleza`
         : `${properties.municipios} municípios`;
       state.searchItems.push({ label: `${properties.ais} · ${scope}`, type: 'ais', target: layer, properties });
-      layer.bindTooltip(`<strong>${escapeHtml(properties.ais)}</strong><span>${escapeHtml(scope)}</span>`, { className: 'ais-tooltip', sticky: true, direction: 'top' });
+      layer.bindTooltip(() => `<strong>${escapeHtml(properties.ais)}</strong><span>${escapeHtml(scope)}</span><span>Ocorrências atendidas: ${formatNumber(totalOccurrenceValue(properties.ais))} · jan–set/2026</span>`, { className: 'ais-tooltip', sticky: true, direction: 'top' });
     }
   });
 }
@@ -339,6 +365,35 @@ function addAverageTimes(aisRegions, data) {
   });
 }
 
+function totalOccurrenceColor(total) {
+  if (!Number.isFinite(Number(total))) return '#edf2ee';
+  if (total <= 4791) return '#e0f3db';
+  if (total <= 14245.5) return '#a8ddb5';
+  if (total <= 21303.25) return '#43a2ca';
+  return '#0868ac';
+}
+
+function addTotalOccurrences(aisRegions, data) {
+  state.totalOccurrenceData = data;
+  state.totalOccurrences = L.geoJSON(aisRegions, {
+    pane: 'totalOccurrencesPane',
+    interactive: false,
+    style(feature) {
+      const total = data.por_ais[normalize(feature.properties.ais)];
+      return {
+        color: '#fff',
+        weight: 1.1,
+        opacity: .95,
+        fill: true,
+        fillColor: totalOccurrenceColor(total),
+        fillOpacity: Number.isFinite(Number(total)) ? .9 : .12,
+        lineCap: 'round',
+        lineJoin: 'round'
+      };
+    }
+  });
+}
+
 function communityColor(properties) {
   return properties.municipio === 'Fortaleza' ? '#f59e0b' : '#00a896';
 }
@@ -367,6 +422,7 @@ function communityTooltip(properties) {
     <span>População do território de referência (${populationYear}): <b>${formatPopulation(properties.populacao_referencia)}</b></span>
     <span>${indexName} do território de referência: <b>${formatIndex(properties.idh_referencia)}</b></span>
     <span class="community-operational">Cancelamentos no território de referência: <b>${formatNumber(cancellationTotal)}</b> · jan–set/2026</span>
+    <span>Ocorrências atendidas na ${escapeHtml(properties.ais)}: <b>${formatNumber(totalOccurrenceValue(properties.ais))}</b> · jan–set/2026</span>
     <span>Resposta estimada da ${escapeHtml(properties.ais)}: <b>${metrics ? formatMinutes(metrics.resposta_min) : 'Não disponível'}</b></span>
     <span class="community-method">Relação territorial agregada; não representa ocorrências individualizadas dentro da comunidade.</span>`;
 }
@@ -555,6 +611,7 @@ function addBattalions(data) {
 function configureLayerControls() {
   const thematicLayers = {
     toggleAis: 'aisRegions',
+    toggleTotalOccurrences: 'totalOccurrences',
     toggleCancellations: 'cancellations',
     toggleAverageTimes: 'averageTimes',
     toggleCommunities: 'communities'
@@ -562,6 +619,7 @@ function configureLayerControls() {
   const controls = [
     ['toggleRegions', 'regions'],
     ['toggleAis', 'aisRegions'],
+    ['toggleTotalOccurrences', 'totalOccurrences'],
     ['toggleCancellations', 'cancellations'],
     ['toggleAverageTimes', 'averageTimes'],
     ['toggleCommunities', 'communities'],
@@ -571,9 +629,11 @@ function configureLayerControls() {
   ];
   const updateThematicInformation = (activeId) => {
     const cancellationActive = activeId === 'toggleCancellations';
+    const totalOccurrencesActive = activeId === 'toggleTotalOccurrences';
     const averageTimeActive = activeId === 'toggleAverageTimes';
     const communitiesActive = activeId === 'toggleCommunities';
     document.querySelector('#cancellationLegend').hidden = !cancellationActive;
+    document.querySelector('#totalOccurrencesLegend').hidden = !totalOccurrencesActive;
     document.querySelector('#averageTimeLegend').hidden = !averageTimeActive;
     document.querySelector('#communitiesLegend').hidden = !communitiesActive;
   };
@@ -760,6 +820,7 @@ async function initialize() {
     const responses = await Promise.all([
       fetch('data/crpm-regioes.geojson'),
       fetch('data/ais-regioes.geojson'),
+      fetch('data/ocorrencias-atendidas-2026.json'),
       fetch('data/cancelamentos-2026.json'),
       fetch('data/tempos-medios-2026.json'),
       fetch('data/municipios-ceara-2026.geojson'),
@@ -768,9 +829,10 @@ async function initialize() {
       fetch('data/favelas-comunidades-urbanas-ceara-2022.geojson')
     ]);
     if (responses.some((response) => !response.ok)) throw new Error('Falha ao obter os dados geográficos.');
-    const [regions, aisRegions, cancellations, averageTimes, municipalities, neighborhoods, battalions, communities] = await Promise.all(responses.map((response) => response.json()));
+    const [regions, aisRegions, totalOccurrences, cancellations, averageTimes, municipalities, neighborhoods, battalions, communities] = await Promise.all(responses.map((response) => response.json()));
     addCrpmRegions(regions);
     addAisRegions(aisRegions);
+    addTotalOccurrences(aisRegions, totalOccurrences);
     addAverageTimes(aisRegions, averageTimes);
     addMunicipalities(municipalities);
     addNeighborhoods(neighborhoods);

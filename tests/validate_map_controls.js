@@ -5,21 +5,29 @@ const path = require('node:path');
 
 const elements = new Map();
 function element(id) {
-  if (!elements.has(id)) elements.set(id, {
-    checked: true, value: '', textContent: '', innerHTML: '', handlers: {},
-    classList: { add() {}, remove() {} },
+  if (!elements.has(id)) {
+    const labelClasses = new Set();
+    elements.set(id, {
+    checked: true, value: '', textContent: '', innerHTML: '', handlers: {}, hidden: false, disabled: false, open: false,
+    classList: { add() {}, remove() {}, toggle() {} },
+    closest(selector) { return selector === 'label' ? { classList: { toggle: (name, active) => active ? labelClasses.add(name) : labelClasses.delete(name) } } : null; },
     addEventListener(type, handler) { this.handlers[type] = handler; },
-    dispatchEvent(event) { this.handlers[event.type]?.({ target: this, preventDefault() {} }); }
+    dispatchEvent(event) { this.handlers[event.type]?.({ target: this, currentTarget: this, preventDefault() {} }); },
+    click() { if (!this.disabled) this.dispatchEvent({ type: 'click' }); }
   });
+  }
   return elements.get(id);
 }
 const visible = new Set();
 const views = [];
 const map = {
+  zoom: 7, handlers: {},
   createPane() {}, getPane() { return { style: {} }; },
   hasLayer(layer) { return visible.has(layer); }, removeLayer(layer) { visible.delete(layer); },
   fitBounds(bounds) { views.push(['bounds', bounds]); },
-  setView(position, zoom) { views.push(['position', position, zoom]); }, closeTooltip() {}
+  setView(position, zoom) { this.zoom = zoom; views.push(['position', position, zoom]); }, closeTooltip() {},
+  getZoom() { return this.zoom; }, on(type, handler) { this.handlers[type] = handler; },
+  trigger(type) { this.handlers[type]?.(); }
 };
 const context = vm.createContext({
   console, Event: class { constructor(type) { this.type = type; } },
@@ -63,7 +71,9 @@ context.groups.communities.layers = [community];
 battalion.filterProperties = { crpm: '3º CRPM' };
 // A checkbox changed during data loading must be respected when controls initialize.
 element('#toggleMunicipalities').checked = false;
+element('#toggleRegions').checked = true;
 element('#toggleAis').checked = false;
+element('#toggleNoThematic').checked = true;
 element('#toggleTotalOccurrences').checked = false;
 element('#toggleCancellations').checked = false;
 element('#toggleAverageTimes').checked = false;
@@ -75,6 +85,11 @@ element('#toggleTotalOccurrences').checked = true;
 element('#toggleTotalOccurrences').dispatchEvent({ type: 'change' });
 assert(visible.has(context.groups.totalOccurrences) && !visible.has(context.groups.cancellations));
 assert(!element('#totalOccurrencesLegend').hidden && element('#cancellationLegend').hidden);
+assert.equal(element('#focusActiveLayer').disabled, false);
+element('#focusActiveLayer').click();
+assert(!visible.has(context.groups.battalions) && element('#focusActiveLayer').textContent === 'Restaurar referências');
+element('#focusActiveLayer').click();
+assert(visible.has(context.groups.battalions) && element('#focusActiveLayer').textContent === 'Somente camada ativa');
 element('#toggleCancellations').checked = true;
 element('#toggleCancellations').dispatchEvent({ type: 'change' });
 assert(visible.has(context.groups.cancellations) && !visible.has(context.groups.totalOccurrences) && !visible.has(context.groups.averageTimes));
@@ -86,17 +101,20 @@ element('#toggleAverageTimes').dispatchEvent({ type: 'change' });
 assert(visible.has(context.groups.averageTimes) && !visible.has(context.groups.cancellations));
 assert(element('#cancellationLegend').hidden && !element('#averageTimeLegend').hidden);
 element('#toggleCommunities').checked = true;
+map.zoom = 11;
+map.trigger('zoomend');
 element('#toggleCommunities').dispatchEvent({ type: 'change' });
-assert(visible.has(context.groups.communities) && !visible.has(context.groups.averageTimes));
-assert(!element('#communitiesLegend').hidden && element('#averageTimeLegend').hidden);
+assert(visible.has(context.groups.communities) && visible.has(context.groups.averageTimes), 'Referências não devem desligar o indicador ativo');
+assert(!element('#communitiesLegend').hidden && !element('#averageTimeLegend').hidden);
 element('#toggleCommunities').checked = false;
 element('#toggleCommunities').dispatchEvent({ type: 'change' });
-element('#toggleAverageTimes').checked = false;
-element('#toggleAverageTimes').dispatchEvent({ type: 'change' });
+element('#toggleNoThematic').checked = true;
+element('#toggleNoThematic').dispatchEvent({ type: 'change' });
 assert.equal(context.groups.municipalities.style({ properties: { crpm: '3º CRPM' } }).fillOpacity, .72);
-element('#toggleRegions').checked = false;
-element('#toggleRegions').dispatchEvent({ type: 'change' });
+element('#toggleAis').checked = true;
+element('#toggleAis').dispatchEvent({ type: 'change' });
 assert(!visible.has(context.groups.regions) && !visible.has(context.groups.regionLabels));
+assert(visible.has(context.groups.aisRegions));
 
 const input = element('#mapSearchInput');
 input.value = 'crpm:0';

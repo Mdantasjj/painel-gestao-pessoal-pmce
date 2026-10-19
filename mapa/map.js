@@ -59,6 +59,12 @@ const state = {
   averageTimes: null,
   averageTimeData: null,
   activeThematicLayer: null,
+  activeTerritorialLayer: 'toggleRegions',
+  focusMode: false,
+  referenceSnapshot: null,
+  layerUpdateCallbacks: new Map(),
+  initialBounds: null,
+  clearSearch: null,
   communities: null,
   informationLayer: null,
   municipalities: null,
@@ -153,13 +159,38 @@ function totalOccurrenceDetails(properties) {
   if (references.length > 1) {
     const values = references.map((reference) => ({ reference, total: totalOccurrenceValue(reference) }));
     const total = values.reduce((sum, item) => sum + item.total, 0);
-    const breakdown = values.map((item) => `${item.reference}: ${formatNumber(item.total)}`).join(' · ');
+    const breakdown = values.length <= 3
+      ? values.map((item) => `${item.reference}: ${formatNumber(item.total)}`).join(' · ')
+      : `${values.length} AIS agregadas; selecione uma AIS no filtro para ver o valor individual`;
     return `<span class="total-occurrence-primary">Ocorrências atendidas nas AIS: <b>${formatNumber(total)}</b></span>
       <span class="total-occurrence-secondary">${escapeHtml(breakdown)} · jan–set/2026</span>`;
   }
   const total = totalOccurrenceValue(references[0]);
   return `<span class="total-occurrence-primary">Ocorrências atendidas na ${escapeHtml(references[0])}: <b>${formatNumber(total)}</b></span>
     <span class="total-occurrence-secondary">jan–set/2026 · total agregado da AIS</span>`;
+}
+
+function activeMetricDetails(properties) {
+  if (state.activeThematicLayer === 'toggleTotalOccurrences') return totalOccurrenceDetails(properties);
+  if (state.activeThematicLayer === 'toggleCancellations') return cancellationDetails(properties);
+  if (state.activeThematicLayer === 'toggleAverageTimes') return averageTimeDetails(properties);
+  return '';
+}
+
+function aisMetricDetails(reference) {
+  const key = normalize(reference);
+  if (state.activeThematicLayer === 'toggleTotalOccurrences') {
+    return `<span>Ocorrências atendidas: <b>${formatNumber(totalOccurrenceValue(reference))}</b> · jan–set/2026</span>`;
+  }
+  if (state.activeThematicLayer === 'toggleCancellations') {
+    const total = Number(state.cancellationData?.por_ais?.[key] || 0);
+    return `<span>Cancelamentos registrados: <b>${formatNumber(total)}</b> · jan–set/2026</span>`;
+  }
+  if (state.activeThematicLayer === 'toggleAverageTimes') {
+    const metrics = state.averageTimeData?.por_ais?.[key];
+    return metrics ? `<span>Resposta estimada: <b>${formatMinutes(metrics.resposta_min)}</b> · ${formatNumber(metrics.ocorrencias)} registros ponderados</span>` : '';
+  }
+  return '<span>Selecione um indicador para consultar o valor analítico.</span>';
 }
 
 function signed(value) {
@@ -173,6 +204,21 @@ function needLevel(value) {
   if (number < 40) return 'low';
   if (number < 80) return 'medium';
   return 'high';
+}
+
+function aisRegionStyle(feature) {
+  const number = Number(String(feature.properties.ais).match(/\d+/)?.[0] || 0);
+  const color = `hsl(${Math.round((number * 137.508) % 360)} 68% 43%)`;
+  return {
+    color,
+    weight: state.activeThematicLayer ? 1.35 : 1.6,
+    opacity: .96,
+    fill: true,
+    fillColor: color,
+    fillOpacity: state.activeThematicLayer ? 0 : .62,
+    lineCap: 'round',
+    lineJoin: 'round'
+  };
 }
 
 function municipalityStyle(feature) {
@@ -198,6 +244,8 @@ function neighborhoodStyle(feature) {
 function synchronizeReferenceStyles() {
   state.municipalities?.setStyle(municipalityStyle);
   state.neighborhoods?.setStyle(neighborhoodStyle);
+  state.aisRegions?.setStyle(aisRegionStyle);
+  state.communities?.setStyle(communityStyle);
 }
 
 function municipalityTooltip(properties) {
@@ -207,20 +255,20 @@ function municipalityTooltip(properties) {
   return `<strong>${escapeHtml(properties.municipio)}</strong>
     ${aisIdentification(properties)}
     <span>${escapeHtml(territorialReference)} · ${formatNumber(properties.area_km2)} km²</span>
+    ${activeMetricDetails(properties)}
     <span>População estimada (IBGE, 2026): <b>${formatPopulation(properties.populacao_estimada_2026)}</b></span>
     <span>IDHM (2010): <b>${formatIndex(properties.idhm_2010)}</b></span>
-    ${totalOccurrenceDetails(properties)}
-    ${averageTimeDetails(properties)}`;
+    <span class="tooltip-context-note">Informações contextuais do território</span>`;
 }
 
 function neighborhoodTooltip(properties) {
   return `<strong>${escapeHtml(properties.bairro)}</strong>
     ${aisIdentification(properties)}
     <span>${escapeHtml(properties.bpm)} · ${escapeHtml(properties.crpm)}</span>
+    ${activeMetricDetails(properties)}
     <span>População (Censo, 2010): <b>${formatPopulation(properties.populacao_2010)}</b></span>
     <span>IDH-B (2010): <b>${formatIndex(properties.idhb_2010)}</b></span>
-    ${totalOccurrenceDetails(properties)}
-    ${averageTimeDetails(properties)}`;
+    <span class="tooltip-context-note">Informações contextuais do bairro</span>`;
 }
 
 function addCrpmRegions(data) {
@@ -263,27 +311,14 @@ function addCrpmRegions(data) {
 function addAisRegions(data) {
   state.aisRegions = L.geoJSON(data, {
     pane: 'aisBordersPane',
-    style(feature) {
-      const number = Number(String(feature.properties.ais).match(/\d+/)?.[0] || 0);
-      const color = `hsl(${Math.round((number * 137.508) % 360)} 68% 43%)`;
-      return {
-        color,
-        weight: 1.6,
-        opacity: .96,
-        fill: true,
-        fillColor: color,
-        fillOpacity: .62,
-        lineCap: 'round',
-        lineJoin: 'round'
-      };
-    },
+    style: aisRegionStyle,
     onEachFeature(feature, layer) {
       const properties = feature.properties;
       const scope = properties.bairros_fortaleza
         ? `${properties.bairros_fortaleza} bairros de Fortaleza`
         : `${properties.municipios} municípios`;
       state.searchItems.push({ label: `${properties.ais} · ${scope}`, type: 'ais', target: layer, properties });
-      layer.bindTooltip(() => `<strong>${escapeHtml(properties.ais)}</strong><span>${escapeHtml(scope)}</span><span>Ocorrências atendidas: ${formatNumber(totalOccurrenceValue(properties.ais))} · jan–set/2026</span>`, { className: 'ais-tooltip', sticky: true, direction: 'top' });
+      layer.bindTooltip(() => `<strong>${escapeHtml(properties.ais)}</strong><span>${escapeHtml(scope)}</span>${aisMetricDetails(properties.ais)}`, { className: 'ais-tooltip', sticky: true, direction: 'top' });
     }
   });
 }
@@ -398,6 +433,18 @@ function communityColor(properties) {
   return properties.municipio === 'Fortaleza' ? '#f59e0b' : '#00a896';
 }
 
+function communityStyle(feature) {
+  const color = communityColor(feature.properties);
+  return {
+    color: state.activeThematicLayer ? '#805a19' : '#5f3700',
+    weight: state.activeThematicLayer ? 1.25 : 1,
+    opacity: .95,
+    fill: true,
+    fillColor: color,
+    fillOpacity: state.activeThematicLayer ? .16 : .76
+  };
+}
+
 function communityCancellationTotal(properties) {
   if (!state.cancellationData) return 0;
   const neighborhoodReference = properties.municipio === 'Fortaleza' && properties.bairro_referencia;
@@ -407,9 +454,21 @@ function communityCancellationTotal(properties) {
     : state.cancellationData.por_municipio[key]) || 0);
 }
 
+function communityActiveMetricDetails(properties) {
+  if (state.activeThematicLayer === 'toggleTotalOccurrences') {
+    return `<span class="community-operational">Ocorrências atendidas na ${escapeHtml(properties.ais)}: <b>${formatNumber(totalOccurrenceValue(properties.ais))}</b> · jan–set/2026</span>`;
+  }
+  if (state.activeThematicLayer === 'toggleCancellations') {
+    return `<span class="community-operational">Cancelamentos no território de referência: <b>${formatNumber(communityCancellationTotal(properties))}</b> · jan–set/2026</span>`;
+  }
+  if (state.activeThematicLayer === 'toggleAverageTimes') {
+    const metrics = state.averageTimeData?.por_ais?.[normalize(properties.ais)];
+    return `<span class="community-operational">Resposta estimada da ${escapeHtml(properties.ais)}: <b>${metrics ? formatMinutes(metrics.resposta_min) : 'Não disponível'}</b></span>`;
+  }
+  return '';
+}
+
 function communityTooltip(properties) {
-  const cancellationTotal = communityCancellationTotal(properties);
-  const metrics = state.averageTimeData?.por_ais?.[normalize(properties.ais)];
   const territory = properties.bairro_referencia
     ? `${properties.bairro_referencia} · ${properties.municipio}`
     : properties.municipio;
@@ -419,21 +478,16 @@ function communityTooltip(properties) {
     <span class="community-classification">Favela e Comunidade Urbana · Censo 2022</span>
     <span>${escapeHtml(territory)}</span>
     <span>${escapeHtml(properties.ais)} · ${escapeHtml(properties.bpm)} · ${escapeHtml(properties.crpm)}</span>
+    ${communityActiveMetricDetails(properties)}
     <span>População do território de referência (${populationYear}): <b>${formatPopulation(properties.populacao_referencia)}</b></span>
     <span>${indexName} do território de referência: <b>${formatIndex(properties.idh_referencia)}</b></span>
-    <span class="community-operational">Cancelamentos no território de referência: <b>${formatNumber(cancellationTotal)}</b> · jan–set/2026</span>
-    <span>Ocorrências atendidas na ${escapeHtml(properties.ais)}: <b>${formatNumber(totalOccurrenceValue(properties.ais))}</b> · jan–set/2026</span>
-    <span>Resposta estimada da ${escapeHtml(properties.ais)}: <b>${metrics ? formatMinutes(metrics.resposta_min) : 'Não disponível'}</b></span>
     <span class="community-method">Relação territorial agregada; não representa ocorrências individualizadas dentro da comunidade.</span>`;
 }
 
 function addCommunities(data) {
   state.communities = L.geoJSON(data, {
     pane: 'communitiesPane',
-    style(feature) {
-      const color = communityColor(feature.properties);
-      return { color: '#5f3700', weight: 1, opacity: .95, fill: true, fillColor: color, fillOpacity: .76 };
-    },
+    style: communityStyle,
     onEachFeature(feature, layer) {
       const properties = feature.properties;
       const reference = properties.bairro_referencia
@@ -470,8 +524,7 @@ function addInformationLayer(municipalities, neighborhoods) {
     onEachFeature(feature, layer) {
       const properties = feature.properties;
       const isNeighborhood = Boolean(properties.bairro);
-      const territorialDetails = isNeighborhood ? neighborhoodTooltip(properties) : municipalityTooltip(properties);
-      layer.bindTooltip(`${territorialDetails}${cancellationDetails(properties)}`, {
+      layer.bindTooltip(() => isNeighborhood ? neighborhoodTooltip(properties) : municipalityTooltip(properties), {
         className: 'territorial-information-tooltip',
         sticky: true,
         direction: 'top',
@@ -534,7 +587,7 @@ function addMunicipalities(data) {
     onEachFeature(feature, layer) {
       state.municipalityFeatures.set(normalize(feature.properties.municipio), layer);
       state.searchItems.push({ label: feature.properties.municipio, type: 'municipio', target: layer });
-      layer.bindTooltip(municipalityTooltip(feature.properties), { className: 'municipality-tooltip', sticky: true, direction: 'top' });
+      layer.bindTooltip(() => municipalityTooltip(feature.properties), { className: 'municipality-tooltip', sticky: true, direction: 'top' });
       layer.on({
         mouseover() { layer.setStyle({ color: '#0e5a3c', weight: 2, fillOpacity: state.activeThematicLayer ? 0 : 1 }); layer.bringToFront(); },
         mouseout() { state.municipalities.resetStyle(layer); },
@@ -553,7 +606,7 @@ function addNeighborhoods(data) {
     onEachFeature(feature, layer) {
       state.neighborhoodFeatures.set(normalize(feature.properties.bairro), layer);
       state.searchItems.push({ label: `${feature.properties.bairro} · Fortaleza`, type: 'bairro', target: layer });
-      layer.bindTooltip(neighborhoodTooltip(feature.properties), { className: 'neighborhood-tooltip', sticky: true, direction: 'top' });
+      layer.bindTooltip(() => neighborhoodTooltip(feature.properties), { className: 'neighborhood-tooltip', sticky: true, direction: 'top' });
       layer.on({
         mouseover() { layer.setStyle({ color: '#0b4932', weight: 2, fillOpacity: state.activeThematicLayer ? 0 : .28 }); layer.bringToFront(); },
         mouseout() { state.neighborhoods.resetStyle(layer); },
@@ -610,11 +663,27 @@ function addBattalions(data) {
 
 function configureLayerControls() {
   const thematicLayers = {
-    toggleAis: 'aisRegions',
     toggleTotalOccurrences: 'totalOccurrences',
     toggleCancellations: 'cancellations',
-    toggleAverageTimes: 'averageTimes',
-    toggleCommunities: 'communities'
+    toggleAverageTimes: 'averageTimes'
+  };
+  const territorialLayers = {
+    toggleRegions: 'regions',
+    toggleAis: 'aisRegions'
+  };
+  const referenceMinimumZoom = { municipalities: 8, neighborhoods: 10.5, communities: 10.5 };
+  const referenceIds = ['toggleBattalions', 'toggleMunicipalities', 'toggleNeighborhoods', 'toggleCommunities'];
+  const restoreReferences = () => {
+    state.focusMode = false;
+    referenceIds.forEach((id) => {
+      const control = document.querySelector(`#${id}`);
+      control.checked = Boolean(state.referenceSnapshot?.[id]);
+      state.layerUpdateCallbacks.get(id)?.();
+    });
+    state.referenceSnapshot = null;
+    const button = document.querySelector('#focusActiveLayer');
+    button.classList.remove('is-active');
+    button.textContent = 'Somente camada ativa';
   };
   const controls = [
     ['toggleRegions', 'regions'],
@@ -631,11 +700,42 @@ function configureLayerControls() {
     const cancellationActive = activeId === 'toggleCancellations';
     const totalOccurrencesActive = activeId === 'toggleTotalOccurrences';
     const averageTimeActive = activeId === 'toggleAverageTimes';
-    const communitiesActive = activeId === 'toggleCommunities';
     document.querySelector('#cancellationLegend').hidden = !cancellationActive;
     document.querySelector('#totalOccurrencesLegend').hidden = !totalOccurrencesActive;
     document.querySelector('#averageTimeLegend').hidden = !averageTimeActive;
-    document.querySelector('#communitiesLegend').hidden = !communitiesActive;
+    document.querySelector('#noIndicatorLegend').hidden = Boolean(activeId);
+    const referenceDetails = document.querySelector('#referenceLegendDetails');
+    if (activeId && referenceDetails) referenceDetails.open = false;
+  };
+  const updateReferenceInformation = () => {
+    document.querySelector('#communitiesLegend').hidden = !document.querySelector('#toggleCommunities').checked;
+    document.querySelector('#crpmLegend').hidden = state.activeTerritorialLayer !== 'toggleRegions';
+  };
+  const updateActiveLayerCard = () => {
+    const title = document.querySelector('#activeLayerTitle');
+    const description = document.querySelector('#activeLayerDescription');
+    const division = state.activeTerritorialLayer === 'toggleAis' ? 'AIS' : 'CRPM';
+    const metadata = {
+      toggleTotalOccurrences: ['Ocorrências atendidas', 'Volume absoluto por AIS · jan–set/2026 · total estadual: 497.094.'],
+      toggleCancellations: ['Ocorrências canceladas', 'Quantidade localizada por município e bairro · jan–set/2026.'],
+      toggleAverageTimes: ['Tempo estimado de resposta', 'Minutos por AIS · base agregada e ponderada · jan–set/2026.']
+    }[state.activeThematicLayer];
+    title.textContent = metadata?.[0] || 'Nenhum indicador temático';
+    description.textContent = metadata?.[1] || `Divisão por ${division} · selecione um indicador para colorir o mapa.`;
+    const focusButton = document.querySelector('#focusActiveLayer');
+    if (!state.activeThematicLayer && state.focusMode) restoreReferences();
+    focusButton.disabled = !state.activeThematicLayer;
+  };
+  const layerShouldBeVisible = (control, key) => {
+    if (!control.checked) return false;
+    const minimumZoom = referenceMinimumZoom[key];
+    return minimumZoom === undefined || map.getZoom() >= minimumZoom;
+  };
+  const updateZoomHint = (id, key) => {
+    const control = document.querySelector(`#${id}`);
+    const label = control?.closest?.('label');
+    if (!label || referenceMinimumZoom[key] === undefined) return;
+    label.classList.toggle('is-zoom-hidden', control.checked && map.getZoom() < referenceMinimumZoom[key]);
   };
   controls.forEach(([id, key]) => {
     const control = document.querySelector(`#${id}`);
@@ -649,13 +749,24 @@ function configureLayerControls() {
           if (otherControl) otherControl.checked = false;
           if (state[otherKey]) map.removeLayer(state[otherKey]);
         });
+        document.querySelector('#toggleNoThematic').checked = false;
         state.activeThematicLayer = id;
         updateThematicInformation(id);
       } else if (!control.checked && thematicLayers[id]) {
         if (state.activeThematicLayer === id) state.activeThematicLayer = null;
         updateThematicInformation(state.activeThematicLayer);
       }
-      if (control.checked) {
+      if (control.checked && territorialLayers[id]) {
+        Object.entries(territorialLayers).forEach(([otherId, otherKey]) => {
+          if (otherId === id) return;
+          const otherControl = document.querySelector(`#${otherId}`);
+          if (otherControl) otherControl.checked = false;
+          if (state[otherKey]) map.removeLayer(state[otherKey]);
+          if (otherKey === 'regions' && state.regionLabels) map.removeLayer(state.regionLabels);
+        });
+        state.activeTerritorialLayer = id;
+      }
+      if (layerShouldBeVisible(control, key)) {
         layer.addTo(map);
         if (key === 'regions' && state.regionLabels) state.regionLabels.addTo(map);
       } else {
@@ -663,11 +774,57 @@ function configureLayerControls() {
         if (key === 'regions' && state.regionLabels) map.removeLayer(state.regionLabels);
       }
       synchronizeReferenceStyles();
+      updateZoomHint(id, key);
+      updateReferenceInformation();
+      updateActiveLayerCard();
       if (state.battalions && map.hasLayer(state.battalions)) state.battalions.bringToFront?.();
     };
+    state.layerUpdateCallbacks.set(id, updateLayer);
     control.addEventListener('change', updateLayer);
     updateLayer();
   });
+
+  const noThematic = document.querySelector('#toggleNoThematic');
+  noThematic.addEventListener('change', () => {
+    if (!noThematic.checked) return;
+    Object.entries(thematicLayers).forEach(([id, key]) => {
+      document.querySelector(`#${id}`).checked = false;
+      if (state[key]) map.removeLayer(state[key]);
+    });
+    state.activeThematicLayer = null;
+    updateThematicInformation(null);
+    synchronizeReferenceStyles();
+    updateActiveLayerCard();
+  });
+
+  map.on('zoomend', () => {
+    ['toggleMunicipalities', 'toggleNeighborhoods', 'toggleCommunities'].forEach((id) => state.layerUpdateCallbacks.get(id)?.());
+  });
+
+  document.querySelector('#clearMapSelection').addEventListener('click', () => state.clearSearch?.());
+  document.querySelector('#resetMapView').addEventListener('click', () => {
+    state.clearSearch?.();
+    if (state.initialBounds) map.fitBounds(state.initialBounds, { padding: [18, 18] });
+  });
+  document.querySelector('#focusActiveLayer').addEventListener('click', (event) => {
+    if (!state.activeThematicLayer) return;
+    state.focusMode = !state.focusMode;
+    if (state.focusMode) {
+      state.referenceSnapshot = Object.fromEntries(referenceIds.map((id) => [id, document.querySelector(`#${id}`).checked]));
+      referenceIds.forEach((id) => {
+        const control = document.querySelector(`#${id}`);
+        control.checked = false;
+        state.layerUpdateCallbacks.get(id)?.();
+      });
+    } else {
+      restoreReferences();
+    }
+    event.currentTarget.classList.toggle('is-active', state.focusMode);
+    event.currentTarget.textContent = state.focusMode ? 'Restaurar referências' : 'Somente camada ativa';
+  });
+  updateThematicInformation(null);
+  updateReferenceInformation();
+  updateActiveLayerCard();
 }
 
 function configureSearch() {
@@ -745,6 +902,10 @@ function configureSearch() {
     activeResult = null;
     feedback.classList.remove('is-visible');
     feedback.textContent = '';
+  };
+  state.clearSearch = () => {
+    input.value = '';
+    clearSelection();
   };
   const search = () => {
     const selectedKey = input.value;
@@ -840,6 +1001,7 @@ async function initialize() {
     addCommunities(communities);
     addInformationLayer(municipalities, neighborhoods);
     addBattalions(battalions);
+    state.initialBounds = state.municipalities.getBounds();
     configureLayerControls();
     configureSearch();
     addAttribution();

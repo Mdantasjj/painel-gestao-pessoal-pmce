@@ -34,43 +34,40 @@
       <p id="mapSearchFeedback" aria-live="polite"></p>
     </form>
 
-    <aside class="map-layers" aria-label="Camadas do mapa">
-      <strong>Camadas</strong>
-      <label><input type="checkbox" id="toggleRegions" checked /> Divisões por CRPM</label>
-      <label><input type="checkbox" id="toggleAis" /> Divisão territorial · AIS colorida</label>
-      <label><input type="checkbox" id="toggleTotalOccurrences" /> Total de ocorrências atendidas · jan–set/2026</label>
-      <label><input type="checkbox" id="toggleCancellations" /> Ocorrências canceladas · jan–set/2026</label>
-      <label><input type="checkbox" id="toggleAverageTimes" /> Tempo médio de ocorrências · AIS</label>
-      <label><input type="checkbox" id="toggleCommunities" /> Favelas e Comunidades Urbanas · IBGE 2022</label>
-      <label><input type="checkbox" id="toggleMunicipalities" checked /> Municípios</label>
-      <label><input type="checkbox" id="toggleNeighborhoods" checked /> Bairros de Fortaleza</label>
-      <label><input type="checkbox" id="toggleBattalions" checked /> Batalhões</label>
-      <small>As camadas temáticas coloridas são exibidas uma por vez.</small>
+    <aside class="map-layers" aria-label="Controles das camadas do mapa">
+      <fieldset class="layer-group" aria-label="Divisão territorial">
+        <legend>Divisão territorial</legend>
+        <label><input type="radio" name="territorialLayer" id="toggleRegions" checked /> CRPM</label>
+        <label><input type="radio" name="territorialLayer" id="toggleAis" /> AIS</label>
+      </fieldset>
+      <fieldset class="layer-group" aria-label="Indicador temático">
+        <legend>Indicador</legend>
+        <label><input type="radio" name="thematicLayer" id="toggleNoThematic" checked /> Nenhum</label>
+        <label><input type="radio" name="thematicLayer" id="toggleTotalOccurrences" /> Ocorrências atendidas · volume absoluto</label>
+        <label><input type="radio" name="thematicLayer" id="toggleCancellations" /> Cancelamentos · quantidade localizada</label>
+        <label><input type="radio" name="thematicLayer" id="toggleAverageTimes" /> Tempo estimado de resposta · AIS</label>
+      </fieldset>
+      <fieldset class="layer-group" aria-label="Referências territoriais">
+        <legend>Referências</legend>
+        <label><input type="checkbox" id="toggleBattalions" checked /> Batalhões</label>
+        <label><input type="checkbox" id="toggleMunicipalities" checked /> Municípios <small>a partir do zoom regional</small></label>
+        <label><input type="checkbox" id="toggleNeighborhoods" checked /> Bairros de Fortaleza <small>em aproximação urbana</small></label>
+        <label><input type="checkbox" id="toggleCommunities" /> Favelas e Comunidades Urbanas <small>em aproximação local</small></label>
+      </fieldset>
+      <div class="map-actions">
+        <button type="button" id="clearMapSelection">Limpar seleção</button>
+        <button type="button" id="resetMapView">Visão estadual</button>
+        <button type="button" id="focusActiveLayer">Somente camada ativa</button>
+      </div>
     </aside>
 
-    <aside class="map-legend" aria-label="Legendas das divisões por CRPM e da necessidade de efetivo">
-      <section class="crpm-legend">
-        <strong>Divisão territorial · CRPM</strong>
-        <div>
-          <span><i style="--legend-color:#42a5f5"></i> 1º CRPM</span>
-          <span><i style="--legend-color:#ff7043"></i> 2º CRPM</span>
-          <span><i style="--legend-color:#7e57c2"></i> 3º CRPM</span>
-          <span><i style="--legend-color:#ef5350"></i> 4º CRPM</span>
-          <span><i style="--legend-color:#26a69a"></i> 5º CRPM</span>
-          <span><i style="--legend-color:#ec407a"></i> 6º CRPM</span>
-          <span><i style="--legend-color:#66bb6a"></i> 7º CRPM</span>
-          <span><i style="--legend-color:#ffca28"></i> 8º CRPM</span>
-        </div>
-      </section>
-      <section class="need-legend">
-        <strong>Necessidade de efetivo</strong>
-        <div>
-          <span><i class="need-zero"></i> Sem necessidade</span>
-          <span><i class="need-low"></i> 1 a 39</span>
-          <span><i class="need-medium"></i> 40 a 79</span>
-          <span><i class="need-high"></i> 80 ou mais</span>
-        </div>
-      </section>
+    <aside class="active-layer-card" id="activeLayerCard" aria-live="polite">
+      <span>Camada ativa</span>
+      <strong id="activeLayerTitle">Nenhum indicador temático</strong>
+      <small id="activeLayerDescription">Divisão por CRPM · selecione um indicador para colorir o mapa.</small>
+    </aside>
+
+    <aside class="map-legend" aria-label="Legenda da camada ativa">
       <section class="cancellation-legend" id="cancellationLegend" hidden>
         <strong>Cancelamentos localizados · quartis</strong>
         <div>
@@ -99,14 +96,43 @@
           <span><i class="time-high"></i> Acima de 1,98</span>
         </div>
       </section>
-      <section class="communities-legend" id="communitiesLegend" hidden>
-        <strong>Favelas e Comunidades Urbanas</strong>
-        <div>
-          <span><i class="community-fortaleza"></i> Fortaleza · 503</span>
-          <span><i class="community-ceara"></i> Demais municípios · 199</span>
-        </div>
-        <small>702 comunidades em 30 municípios. Geometria: Censo 2022. O estudo de Dantas (2022) fundamenta a leitura territorial, mas analisou Fortaleza com dados de 2016.</small>
+      <section class="no-indicator-legend" id="noIndicatorLegend">
+        <strong>Leitura inicial</strong>
+        <small>As cores mostram a divisão territorial selecionada. Escolha um indicador para substituir o preenchimento por uma escala analítica.</small>
       </section>
+      <details class="reference-legends" id="referenceLegendDetails">
+        <summary>Referências territoriais</summary>
+        <section class="crpm-legend" id="crpmLegend">
+          <strong>Cores dos CRPMs</strong>
+          <div>
+            <span><i style="--legend-color:#42a5f5"></i> 1º CRPM</span>
+            <span><i style="--legend-color:#ff7043"></i> 2º CRPM</span>
+            <span><i style="--legend-color:#7e57c2"></i> 3º CRPM</span>
+            <span><i style="--legend-color:#ef5350"></i> 4º CRPM</span>
+            <span><i style="--legend-color:#26a69a"></i> 5º CRPM</span>
+            <span><i style="--legend-color:#ec407a"></i> 6º CRPM</span>
+            <span><i style="--legend-color:#66bb6a"></i> 7º CRPM</span>
+            <span><i style="--legend-color:#ffca28"></i> 8º CRPM</span>
+          </div>
+        </section>
+        <section class="need-legend">
+          <strong>Necessidade de efetivo</strong>
+          <div>
+            <span><i class="need-zero"></i> Sem necessidade</span>
+            <span><i class="need-low"></i> 1 a 39</span>
+            <span><i class="need-medium"></i> 40 a 79</span>
+            <span><i class="need-high"></i> 80 ou mais</span>
+          </div>
+        </section>
+        <section class="communities-legend" id="communitiesLegend" hidden>
+          <strong>Favelas e Comunidades Urbanas</strong>
+          <div>
+            <span><i class="community-fortaleza"></i> Fortaleza · 503</span>
+            <span><i class="community-ceara"></i> Demais municípios · 199</span>
+          </div>
+          <small>702 comunidades em 30 municípios · geometria do Censo 2022.</small>
+        </section>
+      </details>
     </aside>
 
     </div>
@@ -123,6 +149,6 @@
 
     <script src="vendor/leaflet.js"></script>
     <script src="vendor/leaflet.markercluster.js"></script>
-    <script src="map.js?v=20261019-total-ocorrencias"></script>
+    <script src="map.js?v=20261019-clareza-camadas"></script>
   </body>
 </html>

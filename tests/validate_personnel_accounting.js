@@ -255,6 +255,25 @@ assert.deepEqual(
     ['60', 'policiais para 20 municípios']
   ]
 );
+assert.deepEqual(
+  Array.from(mariaStudy.stats.at(-1), value => value),
+  ['Efetivo da opção', '21 ou 60', 'Somente os policiais desta opção; não inclui os 1.986 do projeto-base']
+);
+const mariaDetailStart = source.indexOf('function buildMariaDaPenhaProjectDetail(');
+const mariaDetailEnd = source.indexOf('\nfunction renderMariaDaPenhaStudy()', mariaDetailStart);
+assert(mariaDetailStart >= 0 && mariaDetailEnd > mariaDetailStart, 'Maria da Penha detail renderer not found');
+const mariaDetailSandbox = { mariaDaPenhaProjects: mariaProjects };
+vm.runInNewContext(
+  source.slice(mariaDetailStart, mariaDetailEnd) +
+    ';globalThis.renderMariaDetail = buildMariaDaPenhaProjectDetail;',
+  mariaDetailSandbox
+);
+const mariaOptionOneDetail = mariaDetailSandbox.renderMariaDetail('opcao1');
+const mariaOptionTwoDetail = mariaDetailSandbox.renderMariaDetail('opcao2');
+assert(mariaOptionOneDetail.includes('<span>Efetivo da opção</span><strong>21</strong>'));
+assert(mariaOptionTwoDetail.includes('<span>Efetivo da opção</span><strong>60</strong>'));
+assert(!mariaOptionOneDetail.includes('2.007') && !mariaOptionOneDetail.includes('1.986 +'));
+assert(!mariaOptionTwoDetail.includes('2.046') && !mariaOptionTwoDetail.includes('1.986 +'));
 
 assert.deepEqual(
   Array.from(details.battalions.administrativeExits['15º BPM']),

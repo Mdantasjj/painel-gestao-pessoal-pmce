@@ -837,7 +837,7 @@ const workforceProjectStudies = [
       ['OPÇÃO 1', '21', 'POLICIAIS PARA 7 MUNICÍPIOS'],
       ['OPÇÃO 2', '60', 'POLICIAIS PARA 20 MUNICÍPIOS'],
       ['Escala semanal', 'Regime 5 × 2', 'Serviço de segunda a sexta · folga sábado e domingo'],
-      ['Impacto total projetado', '2.007 ou 2.046', 'Base de 1.986 + opção escolhida']
+      ['Efetivo da opção', '21 ou 60', 'Somente os policiais desta opção; não inclui os 1.986 do projeto-base']
     ]
   }
 ];
@@ -1544,8 +1544,7 @@ function buildMariaDaPenhaProjectDetail(projectId) {
   const policePerPatrol = 3;
   const fixedPatrols = project.cities.length;
   const weeklyPolice = fixedPatrols * policePerPatrol;
-  const currentProjectTotal = 1986;
-  const projectedProjectTotal = currentProjectTotal + weeklyPolice;
+  const formattedWeeklyPolice = weeklyPolice.toLocaleString('pt-BR');
   const effectiveItems = project.cities.map((city, index) => `
     <div class="maria-effective-item">
       <span>${String(index + 1).padStart(2, '0')}</span>
@@ -1562,7 +1561,7 @@ function buildMariaDaPenhaProjectDetail(projectId) {
       <div><span>Policiais por patrulha</span><strong>${policePerPatrol}</strong><small>Composição informada</small></div>
       <div><span>Efetivo semanal</span><strong>${weeklyPolice}</strong><small>Policiais fixos no projeto</small></div>
       <div><span>Regime de trabalho</span><strong>5 × 2</strong><small>Seg–sex · folga sáb–dom</small></div>
-      <div class="is-impact"><span>Impacto total projetado</span><strong>${projectedProjectTotal.toLocaleString('pt-BR')}</strong><small>1.986 + ${weeklyPolice} policiais</small></div>
+      <div class="is-impact"><span>Efetivo da opção</span><strong>${formattedWeeklyPolice}</strong><small>Somente esta opção · não inclui os 1.986 do projeto-base</small></div>
     </div>
     <div class="maria-schedule-heading"><strong>Efetivo por município</strong><span>Equipe fixa: serviço segunda–sexta · folga sábado–domingo</span></div>
     <div class="maria-effective-grid">${effectiveItems}</div>
@@ -1571,7 +1570,7 @@ function buildMariaDaPenhaProjectDetail(projectId) {
       <strong>${weeklyPolice}</strong>
       <small>policiais fixos em ${fixedPatrols} patrulhas</small>
     </div>
-    <p class="maria-project-note"><strong>Critério:</strong> cada município recebe uma patrulha fixa com três policiais. Os mesmos três policiais trabalham de segunda a sexta e folgam no sábado e domingo; portanto, não há multiplicação do efetivo pelos cinco dias úteis. Reserva técnica para férias, licenças ou substituições ainda não foi incorporada. Como as opções 1 e 2 são alternativas, o impacto consolidado é de ${projectedProjectTotal.toLocaleString('pt-BR')} policiais para a opção selecionada; os dois modelos não são somados entre si.</p>`;
+    <p class="maria-project-note"><strong>Critério:</strong> cada município recebe uma patrulha fixa com três policiais. Os mesmos três policiais trabalham de segunda a sexta e folgam no sábado e domingo; portanto, não há multiplicação do efetivo pelos cinco dias úteis. O efetivo mostrado corresponde somente à opção selecionada e não é somado aos 1.986 policiais do projeto-base. Reserva técnica para férias, licenças ou substituições ainda não foi incorporada. Como as opções 1 e 2 são alternativas, apenas uma delas deve ser considerada.</p>`;
 }
 
 function renderMariaDaPenhaStudy() {

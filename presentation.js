@@ -1712,6 +1712,46 @@ function selectProjectStudy(studyKey) {
   metricDetailContent.dataset.projectStudy = studyKey;
 }
 
+function getRegionalPersonnelNeeds() {
+  const records = getBattalionTableRecords();
+  const territorialRecords = records.filter((record) => record.unitType !== 'specialized');
+  const territorialTotal = territorialRecords.reduce((sum, record) => sum + record.totalNeed, 0);
+  const specializedTotal = records.filter((record) => record.unitType === 'specialized')
+    .reduce((sum, record) => sum + (record.totalNeed ?? 0), 0);
+  const commands = Array.from({ length: 8 }, (_, index) => {
+    const name = `${index + 1}º CRPM`;
+    const territorialNeed = territorialRecords.filter((record) => record.crpm === name)
+      .reduce((sum, record) => sum + record.totalNeed, 0);
+    const exactShare = territorialTotal ? specializedTotal * territorialNeed / territorialTotal : 0;
+    return { name, territorialNeed, specializedShare: Math.floor(exactShare), remainder: exactShare % 1 };
+  });
+  const remaining = specializedTotal - commands.reduce((sum, command) => sum + command.specializedShare, 0);
+  if (territorialTotal) {
+    [...commands].sort((left, right) => right.remainder - left.remainder)
+      .slice(0, remaining).forEach((command) => { command.specializedShare += 1; });
+  }
+  return [
+    ['CAPITAL', [1, 5]], ['METROPOLITANA', [2, 6]],
+    ['NORTE', [3, 7]], ['SUL', [4, 8]]
+  ].map(([name, numbers]) => {
+    const members = numbers.map((number) => commands[number - 1]);
+    const territorialNeed = members.reduce((sum, command) => sum + command.territorialNeed, 0);
+    const specializedShare = members.reduce((sum, command) => sum + command.specializedShare, 0);
+    return { name, commands: `${numbers[0]}º E ${numbers[1]}º CRPM`, territorialNeed, specializedShare, totalNeed: territorialNeed + specializedShare };
+  });
+}
+
+function renderRegionalPersonnelNeeds() {
+  const cards = getRegionalPersonnelNeeds().map((region) => `
+    <article class="detail-total-card regional-need-card" style="--detail-accent:#145c40">
+      <h3>${region.name}<span>(${region.commands})</span></h3>
+      <div><strong>${region.totalNeed.toLocaleString('pt-BR')}</strong><small>PMs</small></div>
+      <p>${region.territorialNeed} territoriais + ${region.specializedShare} das especializadas</p>
+    </article>`).join('');
+  return `<div class="regional-need-summary">${cards}</div>
+    <p class="regional-need-note" id="metricDetailDescription">Inclui rateio proporcional da necessidade das especializadas, sem a implantação do Pronta-Resposta. O rateio representa um cenário de distribuição regional.</p>`;
+}
+
 function renderMetricDetail(key) {
   if (key === 'pog') {
     renderWorkforceProjectDetail();
@@ -1762,13 +1802,13 @@ function renderMetricDetail(key) {
       ${key === 'battalions' ? `<div id="battalionTableResult">${detailTable}</div>` : detailTable}
     </section>`;
   metricDetailContent.innerHTML = `
-    <div class="detail-hero-grid">
+    ${key === 'battalions' ? renderRegionalPersonnelNeeds() : `<div class="detail-hero-grid">
       <div class="detail-total-card" style="--detail-accent:${data.accent}">
         <span>Total apresentado</span><div><strong>${data.total}</strong><small>${data.unit}</small></div>
         <p id="metricDetailDescription">${data.description}</p>
       </div>
       <div class="detail-stat-grid">${stats}</div>
-    </div>
+    </div>`}
     ${levelSelector}
     ${copacPhaseSelector}
     ${pogDeficitOverview}

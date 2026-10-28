@@ -108,6 +108,8 @@ svg text { font-family: "Montserrat", "Segoe UI", Arial, sans-serif !important; 
 .online-status i { width: 7px; height: 7px; border-radius: 50%; background: #34ae76; box-shadow: 0 0 0 3px rgba(52,174,118,.12); }
 
 .dashboard-ticker {
+  display: flex;
+  align-items: center;
   width: 100%;
   min-width: 0;
   height: clamp(40px, 4.5vh, 52px);
@@ -116,6 +118,22 @@ svg text { font-family: "Montserrat", "Segoe UI", Arial, sans-serif !important; 
   border-radius: 12px;
   background: linear-gradient(112deg, #0b382a, #105039 58%, #176a47);
   box-shadow: 0 7px 20px rgba(12, 56, 40, .12);
+}
+.dashboard-ticker-track { display: flex; width: max-content; animation: dashboard-ticker-scroll 32s linear infinite; }
+.dashboard-ticker-group { display: flex; min-width: calc(100vw - 2 * clamp(18px, 2vw, 36px)); flex: 0 0 auto; align-items: center; justify-content: space-around; gap: 48px; padding: 0 24px; }
+.dashboard-ticker-group > span { display: flex; flex: 0 0 auto; align-items: baseline; gap: 10px; color: #fff; font-size: clamp(12px, .95vw, 16px); font-weight: 650; letter-spacing: .025em; white-space: nowrap; }
+.dashboard-ticker-group strong { color: #a5ebc6; font-size: 1.15em; font-weight: 850; font-variant-numeric: tabular-nums; }
+.dashboard-ticker:hover .dashboard-ticker-track, .dashboard-ticker:focus .dashboard-ticker-track { animation-play-state: paused; }
+.dashboard-ticker:focus-visible { outline: 3px solid #23845b; outline-offset: 3px; }
+@keyframes dashboard-ticker-scroll { to { transform: translateX(-50%); } }
+@media (prefers-reduced-motion: reduce) {
+  .dashboard-ticker-track { animation-duration: 64s; }
+}
+@media print {
+  .dashboard-ticker { height: auto; min-height: 40px; overflow: visible; }
+  .dashboard-ticker-track { width: 100%; animation: none; }
+  .dashboard-ticker-group { min-width: 0; width: 100%; flex-wrap: wrap; gap: 12px 24px; padding: 12px; }
+  .dashboard-ticker-group[aria-hidden="true"] { display: none; }
 }
 
 .metrics { display: grid; width: 100%; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(14px, 1.25vw, 24px); }

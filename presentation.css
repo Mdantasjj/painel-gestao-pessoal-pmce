@@ -290,7 +290,6 @@ body.modal-open { overflow: hidden; }
 .regional-need-card div { justify-content: center; }
 .regional-need-card strong { font-size: 42px; }
 .regional-need-card p { margin-top: 10px; font-size: 10px; }
-.regional-need-note { margin: 10px 2px 0; color: #5d7467; font-size: 10px; line-height: 1.5; }
 @media (max-width: 900px) { .regional-need-summary { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 560px) { .regional-need-summary { grid-template-columns: 1fr; } }
 #metricDetailContent[data-detail="exits"] .detail-stat-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }

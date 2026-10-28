@@ -1748,8 +1748,7 @@ function renderRegionalPersonnelNeeds() {
       <div><strong>${region.totalNeed.toLocaleString('pt-BR')}</strong><small>PMs</small></div>
       <p>${region.territorialNeed} territoriais + ${region.specializedShare} das especializadas</p>
     </article>`).join('');
-  return `<div class="regional-need-summary">${cards}</div>
-    <p class="regional-need-note" id="metricDetailDescription">Inclui rateio proporcional da necessidade das especializadas, sem a implantação do Pronta-Resposta. O rateio representa um cenário de distribuição regional.</p>`;
+  return `<div class="regional-need-summary" id="metricDetailDescription">${cards}</div>`;
 }
 
 function renderMetricDetail(key) {

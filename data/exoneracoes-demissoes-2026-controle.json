@@ -1,0 +1,361 @@
+{
+  "data_atualizacao": "2026-11-10",
+  "periodo_relacao": "janeiro a outubro de 2026",
+  "fonte": {
+    "arquivo": "RELAÇÃO EXONERAÇÃO E DEMISSÃO INICIADAS- 2026 (1).pdf",
+    "paginas": 30,
+    "sha256": "a7cf25810766be52bdb589662870642a330ec4898fd5a4aca9dfcbe5b1b29f56"
+  },
+  "brutos": {
+    "exoneracoes": 101,
+    "demissoes": 281,
+    "total": 382
+  },
+  "nups_distintos": 371,
+  "ocorrencias_repetidas_mesmo_nup": 11,
+  "excluidos_BPGEP": 2,
+  "processos_considerados": {
+    "exoneracoes": 97,
+    "demissoes": 272,
+    "total": 369
+  },
+  "historico_2025_preservado": {
+    "exoneracoes": 64,
+    "demissoes": 16,
+    "total": 80
+  },
+  "requeridas_preservadas": 707,
+  "total_registros_estudo": 1156,
+  "criterio_efetivo": "Contar uma vez o militar do 25º BPM com dois NUPs de exoneração; manter ambos no relatório de processos. Decisão expressa do usuário nesta conversa em 10/11/2026.",
+  "repeticao_25_BPM": {
+    "paginas": [
+      6,
+      29
+    ],
+    "ordens": [
+      "23",
+      "04"
+    ],
+    "natureza": "exoneracao",
+    "meses": [
+      4,
+      9
+    ],
+    "processos": 2,
+    "impactos_efetivo": 1
+  },
+  "unidades": {
+    "10º BPM": {
+      "processos_exoneracoes": 1,
+      "processos_demissoes": 6,
+      "impactos_exoneracoes": 1,
+      "impactos_demissoes": 6
+    },
+    "11º BPM": {
+      "processos_exoneracoes": 0,
+      "processos_demissoes": 5,
+      "impactos_exoneracoes": 0,
+      "impactos_demissoes": 5
+    },
+    "12º BPM": {
+      "processos_exoneracoes": 11,
+      "processos_demissoes": 9,
+      "impactos_exoneracoes": 11,
+      "impactos_demissoes": 9
+    },
+    "13º BPM": {
+      "processos_exoneracoes": 1,
+      "processos_demissoes": 4,
+      "impactos_exoneracoes": 1,
+      "impactos_demissoes": 4
+    },
+    "14º BPM": {
+      "processos_exoneracoes": 2,
+      "processos_demissoes": 9,
+      "impactos_exoneracoes": 2,
+      "impactos_demissoes": 9
+    },
+    "15º BPM": {
+      "processos_exoneracoes": 2,
+      "processos_demissoes": 2,
+      "impactos_exoneracoes": 2,
+      "impactos_demissoes": 2
+    },
+    "16º BPM": {
+      "processos_exoneracoes": 2,
+      "processos_demissoes": 6,
+      "impactos_exoneracoes": 2,
+      "impactos_demissoes": 6
+    },
+    "17º BPM": {
+      "processos_exoneracoes": 2,
+      "processos_demissoes": 12,
+      "impactos_exoneracoes": 2,
+      "impactos_demissoes": 12
+    },
+    "18º BPM": {
+      "processos_exoneracoes": 4,
+      "processos_demissoes": 13,
+      "impactos_exoneracoes": 4,
+      "impactos_demissoes": 13
+    },
+    "19º BPM": {
+      "processos_exoneracoes": 4,
+      "processos_demissoes": 13,
+      "impactos_exoneracoes": 4,
+      "impactos_demissoes": 13
+    },
+    "1º BPM": {
+      "processos_exoneracoes": 0,
+      "processos_demissoes": 6,
+      "impactos_exoneracoes": 0,
+      "impactos_demissoes": 6
+    },
+    "20º BPM": {
+      "processos_exoneracoes": 3,
+      "processos_demissoes": 8,
+      "impactos_exoneracoes": 3,
+      "impactos_demissoes": 8
+    },
+    "21º BPM": {
+      "processos_exoneracoes": 1,
+      "processos_demissoes": 6,
+      "impactos_exoneracoes": 1,
+      "impactos_demissoes": 6
+    },
+    "22º BPM": {
+      "processos_exoneracoes": 1,
+      "processos_demissoes": 6,
+      "impactos_exoneracoes": 1,
+      "impactos_demissoes": 6
+    },
+    "23º BPM": {
+      "processos_exoneracoes": 2,
+      "processos_demissoes": 6,
+      "impactos_exoneracoes": 2,
+      "impactos_demissoes": 6
+    },
+    "24º BPM": {
+      "processos_exoneracoes": 1,
+      "processos_demissoes": 9,
+      "impactos_exoneracoes": 1,
+      "impactos_demissoes": 9
+    },
+    "25º BPM": {
+      "processos_exoneracoes": 6,
+      "processos_demissoes": 4,
+      "impactos_exoneracoes": 5,
+      "impactos_demissoes": 4
+    },
+    "26º BPM": {
+      "processos_exoneracoes": 1,
+      "processos_demissoes": 6,
+      "impactos_exoneracoes": 1,
+      "impactos_demissoes": 6
+    },
+    "27º BPM": {
+      "processos_exoneracoes": 0,
+      "processos_demissoes": 2,
+      "impactos_exoneracoes": 0,
+      "impactos_demissoes": 2
+    },
+    "28º BPM": {
+      "processos_exoneracoes": 0,
+      "processos_demissoes": 4,
+      "impactos_exoneracoes": 0,
+      "impactos_demissoes": 4
+    },
+    "29º BPM": {
+      "processos_exoneracoes": 1,
+      "processos_demissoes": 1,
+      "impactos_exoneracoes": 1,
+      "impactos_demissoes": 1
+    },
+    "2º BPM": {
+      "processos_exoneracoes": 5,
+      "processos_demissoes": 3,
+      "impactos_exoneracoes": 5,
+      "impactos_demissoes": 3
+    },
+    "30º BPM": {
+      "processos_exoneracoes": 2,
+      "processos_demissoes": 3,
+      "impactos_exoneracoes": 2,
+      "impactos_demissoes": 3
+    },
+    "31º BPM": {
+      "processos_exoneracoes": 2,
+      "processos_demissoes": 0,
+      "impactos_exoneracoes": 2,
+      "impactos_demissoes": 0
+    },
+    "32º BPM": {
+      "processos_exoneracoes": 0,
+      "processos_demissoes": 1,
+      "impactos_exoneracoes": 0,
+      "impactos_demissoes": 1
+    },
+    "33º BPM": {
+      "processos_exoneracoes": 1,
+      "processos_demissoes": 4,
+      "impactos_exoneracoes": 1,
+      "impactos_demissoes": 4
+    },
+    "34º BPM": {
+      "processos_exoneracoes": 5,
+      "processos_demissoes": 1,
+      "impactos_exoneracoes": 5,
+      "impactos_demissoes": 1
+    },
+    "3º BPM": {
+      "processos_exoneracoes": 2,
+      "processos_demissoes": 3,
+      "impactos_exoneracoes": 2,
+      "impactos_demissoes": 3
+    },
+    "4º BPM": {
+      "processos_exoneracoes": 3,
+      "processos_demissoes": 5,
+      "impactos_exoneracoes": 3,
+      "impactos_demissoes": 5
+    },
+    "5º BPM": {
+      "processos_exoneracoes": 2,
+      "processos_demissoes": 3,
+      "impactos_exoneracoes": 2,
+      "impactos_demissoes": 3
+    },
+    "6º BPM": {
+      "processos_exoneracoes": 2,
+      "processos_demissoes": 13,
+      "impactos_exoneracoes": 2,
+      "impactos_demissoes": 13
+    },
+    "7º BPM": {
+      "processos_exoneracoes": 0,
+      "processos_demissoes": 3,
+      "impactos_exoneracoes": 0,
+      "impactos_demissoes": 3
+    },
+    "8º BPM": {
+      "processos_exoneracoes": 4,
+      "processos_demissoes": 8,
+      "impactos_exoneracoes": 4,
+      "impactos_demissoes": 8
+    },
+    "9º BPM": {
+      "processos_exoneracoes": 0,
+      "processos_demissoes": 8,
+      "impactos_exoneracoes": 0,
+      "impactos_demissoes": 8
+    },
+    "RAIO - 1º BPM": {
+      "processos_exoneracoes": 0,
+      "processos_demissoes": 1,
+      "impactos_exoneracoes": 0,
+      "impactos_demissoes": 1
+    },
+    "RAIO - 2º BPM": {
+      "processos_exoneracoes": 1,
+      "processos_demissoes": 3,
+      "impactos_exoneracoes": 1,
+      "impactos_demissoes": 3
+    },
+    "RAIO - 3º BPM": {
+      "processos_exoneracoes": 1,
+      "processos_demissoes": 1,
+      "impactos_exoneracoes": 1,
+      "impactos_demissoes": 1
+    },
+    "RAIO - 4º BPM": {
+      "processos_exoneracoes": 0,
+      "processos_demissoes": 6,
+      "impactos_exoneracoes": 0,
+      "impactos_demissoes": 6
+    },
+    "RAIO - 5º BPM": {
+      "processos_exoneracoes": 3,
+      "processos_demissoes": 5,
+      "impactos_exoneracoes": 3,
+      "impactos_demissoes": 5
+    },
+    "RAIO - 6º BPM": {
+      "processos_exoneracoes": 0,
+      "processos_demissoes": 1,
+      "impactos_exoneracoes": 0,
+      "impactos_demissoes": 1
+    },
+    "RAIO - 7º BPM": {
+      "processos_exoneracoes": 0,
+      "processos_demissoes": 0,
+      "impactos_exoneracoes": 0,
+      "impactos_demissoes": 0
+    },
+    "RAIO - 8º BPM": {
+      "processos_exoneracoes": 0,
+      "processos_demissoes": 0,
+      "impactos_exoneracoes": 0,
+      "impactos_demissoes": 0
+    },
+    "RAIO - 9º BPM": {
+      "processos_exoneracoes": 0,
+      "processos_demissoes": 0,
+      "impactos_exoneracoes": 0,
+      "impactos_demissoes": 0
+    },
+    "BEPI": {
+      "processos_exoneracoes": 0,
+      "processos_demissoes": 0,
+      "impactos_exoneracoes": 0,
+      "impactos_demissoes": 0
+    },
+    "BOPE": {
+      "processos_exoneracoes": 0,
+      "processos_demissoes": 0,
+      "impactos_exoneracoes": 0,
+      "impactos_demissoes": 0
+    },
+    "BPCHOQUE": {
+      "processos_exoneracoes": 2,
+      "processos_demissoes": 4,
+      "impactos_exoneracoes": 2,
+      "impactos_demissoes": 4
+    },
+    "BPMA": {
+      "processos_exoneracoes": 2,
+      "processos_demissoes": 5,
+      "impactos_exoneracoes": 2,
+      "impactos_demissoes": 5
+    },
+    "BPRE": {
+      "processos_exoneracoes": 0,
+      "processos_demissoes": 1,
+      "impactos_exoneracoes": 0,
+      "impactos_demissoes": 1
+    },
+    "BPTUR": {
+      "processos_exoneracoes": 5,
+      "processos_demissoes": 9,
+      "impactos_exoneracoes": 5,
+      "impactos_demissoes": 9
+    },
+    "COTAM": {
+      "processos_exoneracoes": 2,
+      "processos_demissoes": 0,
+      "impactos_exoneracoes": 2,
+      "impactos_demissoes": 0
+    },
+    "COPAC": {
+      "processos_exoneracoes": 1,
+      "processos_demissoes": 15,
+      "impactos_exoneracoes": 1,
+      "impactos_demissoes": 15
+    },
+    "RPMONT": {
+      "processos_exoneracoes": 0,
+      "processos_demissoes": 2,
+      "impactos_exoneracoes": 0,
+      "impactos_demissoes": 2
+    }
+  }
+}

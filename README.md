@@ -1,5 +1,7 @@
 # Painel de Apresentação PMCE
 
+> Atualização parcial dos dados em 10/11/2026: estudo de perdas **1.156 registros**, análise situacional **1.644 PMs**, necessidade nas especializadas **173 PMs**. Projeto **1.986** e reestruturação **410** preservados. Consulte `ATUALIZACAO_DADOS_2026-11-10.md` para a conciliação, o critério de um impacto por militar no caso do 25º BPM e as diferenças em relação às referências históricas descritas abaixo.
+
 Painel institucional responsivo da Polícia Militar do Ceará, preparado para apresentação em reunião, projetor ou telão no formato 16:9.
 
 ## Executar

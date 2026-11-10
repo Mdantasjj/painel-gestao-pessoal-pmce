@@ -43,14 +43,14 @@ assert(averageTimes.tempo_estadual.resposta_min > 0 && averageTimes.tempo_estadu
 assert.equal(new Set(municipalities.features.map(feature => feature.properties.codigo_ibge)).size, 184, 'Códigos IBGE municipais duplicados');
 assert.equal(new Set(battalions.features.map(feature => feature.properties.batalhao)).size, 34, 'Batalhões duplicados');
 assert.equal(sum('efetivo'), 10241, 'Total do efetivo dos BPMs divergente');
-assert.equal(sum('exoneracoes'), 60, 'Total de exonerações divergente');
-assert.equal(sum('demissoes'), 170, 'Total de demissões divergente');
+assert.equal(sum('exoneracoes'), 72, 'Total de exonerações divergente');
+assert.equal(sum('demissoes'), 192, 'Total de demissões divergente');
 assert.equal(sum('requeridas'), 430, 'Total de requeridas divergente');
 assert.equal(sum('movimentacoes'), -304, 'Saldo das movimentações divergente');
-assert.equal(sum('perdas'), 1139, 'Necessidade situacional divergente');
+assert.equal(sum('perdas'), 1172, 'Necessidade situacional divergente');
 assert.equal(sum('reestruturacao'), 410, 'Reestruturação divergente');
 assert.equal(sum('ajuste_necessidade'), -111, 'Ajustes da necessidade dos BPMs divergentes');
-assert.equal(sum('necessidade'), 1438, 'Necessidade consolidada ajustada dos 34 BPMs divergente');
+assert.equal(sum('necessidade'), 1471, 'Necessidade consolidada ajustada dos 34 BPMs divergente');
 
 for (const feature of municipalities.features) {
   const properties = feature.properties;

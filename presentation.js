@@ -25,12 +25,12 @@ function showToast(message) {
 }
 
 function renderDismissalsChart() {
-  const labels = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago'];
+  const labels = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out'];
   const series = [
-    { name: 'Demissões · outros concursos', color: '#1b8258', values: [6, 2, 0, 7, 143, 76, 14, 2] },
-    { name: 'Exonerações · outros concursos', color: '#c1a253', values: [10, 7, 7, 24, 22, 6, 12, 0] }
+    { name: 'Demissões · pedidos', color: '#1b8258', values: [8, 2, 0, 9, 151, 79, 18, 6, 5, 1] },
+    { name: 'Exonerações · pedidos', color: '#c1a253', values: [11, 7, 7, 26, 19, 7, 13, 5, 5, 1] }
   ];
-  const maxValue = 143;
+  const maxValue = 151;
   const key = series.map((item) => `<span><i style="background:${item.color}"></i>${item.name}</span>`).join('');
   const groups = labels.map((label, index) => {
     const bars = series.map((item) => {
@@ -43,8 +43,8 @@ function renderDismissalsChart() {
 
   document.querySelector('#mainChart').innerHTML = `
     <div class="chart-key">${key}</div>
-    <div class="bar-stage" style="--count:8">${groups}</div>
-    <div class="chart-source-note">A série mensal considera 338 lançamentos brutos de 2026 após excluir dois registros do BPGEP. Depois da consolidação dos NUPs repetidos, permanecem 324 registros únicos considerados. O indicador geral consolida 1.111 registros de fontes e naturezas diferentes.</div>`;
+    <div class="bar-stage" style="--count:10">${groups}</div>
+    <div class="chart-source-note">A série mensal apresenta 380 lançamentos brutos da relação janeiro–outubro/2026, sem os dois registros do BPGEP. Depois da consolidação de 11 repetições de NUP, permanecem 369 processos. O indicador geral combina 1.156 registros de fontes e naturezas distintas. Mês corresponde à seção da relação, não à conclusão do desligamento.</div>`;
 }
 
 function renderPromotions() {
@@ -216,56 +216,218 @@ const crpmTotalsFromCompanies = Object.entries(battalionTotalsFromCompanies).red
 
 const metricDetails = {
   exits: {
-    accent: '#23845b',
-    eyebrow: 'Memória de cálculo · perda de efetivo',
-    title: '1.111 registros considerados na análise de perdas',
-    total: '1.111',
-    unit: 'registros considerados',
-    description: '',
-    stats: [
-      ['Exonerações de 2025–2026 · outros concursos', '145', '64 processos de 2025 + 81 registros únicos de 2026'],
-      ['Demissões de 2025–2026 · outros concursos', '259', '16 processos de 2025 + 243 registros considerados de 2026'],
-      ['Requeridas de 2025', '504', '320 nos BPMs · 184 em outras OPMs'],
-      ['Requeridas de 2026', '203', '110 nos BPMs · 93 em outras OPMs']
+    "accent": "#23845b",
+    "eyebrow": "Memória de cálculo · pedidos e registros considerados",
+    "title": "1.156 registros considerados na análise de perdas",
+    "total": "1.156",
+    "unit": "registros considerados",
+    "description": "Atualização de 10/11/2026: a relação de janeiro a outubro reúne pedidos iniciados, não comprova a conclusão de todos os desligamentos. O indicador combina processos e requeridas de fontes distintas; não representa pessoas únicas.",
+    "stats": [
+        [
+            "Exonerações de 2025–2026 · pedidos",
+            "161",
+            "64 processos agregados de 2025 + 97 NUPs da relação 2026"
+        ],
+        [
+            "Demissões de 2025–2026 · pedidos",
+            "288",
+            "16 processos agregados de 2025 + 272 NUPs da relação 2026"
+        ],
+        [
+            "Requeridas de 2025",
+            "504",
+            "320 nos BPMs · 184 em outras OPMs"
+        ],
+        [
+            "Requeridas de 2026",
+            "203",
+            "110 nos BPMs · 93 em outras OPMs"
+        ]
     ],
-    breakdown: [
-      ['Demissões · outros concursos · processos 2025', 16 / 1111 * 100, '16 · 1,4%', '#145c40'],
-      ['Exonerações · outros concursos · processos 2025', 64 / 1111 * 100, '64 · 5,8%', '#3d9065'],
-      ['Demissões · outros concursos 2026', 243 / 1111 * 100, '243 · 21,9%', '#28734e'],
-      ['Exonerações · outros concursos 2026', 81 / 1111 * 100, '81 · 7,3%', '#55a477'],
-      ['Requeridas · 2025–2026', 707 / 1111 * 100, '707 · 63,6%', '#698342']
+    "breakdown": [
+        [
+            "Demissões · processos agregados 2025",
+            1.384083044982699,
+            "16 · 1,4%",
+            "#145c40"
+        ],
+        [
+            "Exonerações · processos agregados 2025",
+            5.536332179930796,
+            "64 · 5,5%",
+            "#3d9065"
+        ],
+        [
+            "Demissões · pedidos da relação 2026",
+            23.52941176470588,
+            "272 · 23,5%",
+            "#28734e"
+        ],
+        [
+            "Exonerações · pedidos da relação 2026",
+            8.391003460207612,
+            "97 · 8,4%",
+            "#55a477"
+        ],
+        [
+            "Requeridas · 2025–2026",
+            61.15916955017301,
+            "707 · 61,2%",
+            "#698342"
+        ]
     ],
-    sectionTitle: 'Conciliação dos registros considerados',
-    sectionSubtitle: 'Os processos de 2025 são agregados por ano e não foram atribuídos a batalhões.',
-    tableColumns: ['Etapa de validação', 'Exonerações · outros concursos', 'Demissões · outros concursos', 'Requeridas', 'Total'],
-    tableRows: [
-      ['Processos agregados de 2025', '64', '16', '0', '80'],
-      ['Saídas únicas de 2026 · sem BPGEP', '81', '243', '0', '324'],
-      ['Requeridas de 2025–2026 · sem BPGEP', '0', '0', '707', '707'],
-      ['Total combinado de registros', '145', '259', '707', '1.111'],
-      ['Recorte atribuível aos 34 BPMs', '60', '170', '430', '660']
+    "sectionTitle": "Conciliação dos registros considerados",
+    "sectionSubtitle": "Contagem por NUP na relação 2026. Os processos agregados de 2025 não são atribuídos a batalhões.",
+    "tableColumns": [
+        "Etapa de validação",
+        "Exonerações · pedidos",
+        "Demissões · pedidos",
+        "Requeridas",
+        "Total"
     ],
-    unitScope: {
-      summary: [
-        ['Unidades operacionais', '810', '34 BPMs territoriais e 18 especializadas'],
-        ['Administrativas e demais OPMs', '221', 'Comandos, diretorias, apoio e outras unidades'],
-        ['Sem OPM individualizada', '80', 'Processos agregados de 2025']
-      ],
-      unitLists: [
-        ['Operacionais consideradas', ['1º ao 34º BPM', 'RAIO - 1º ao 9º BPM', 'BEPI', 'BOPE', 'BPCHOQUE', 'BPMA', 'BPRE', 'BPTUR', 'COTAM', 'COPAC', 'RPMONT']],
-        ['Administrativas, comandos e apoio identificados', ['AGCG', 'ASCOI', 'ASINT', 'CCS/QCG', 'CGO', 'CGP', 'COGEIC', 'COLOG', 'CSASR', 'DPGO/DPGI', 'DS', 'HGPM', 'QCG/CBMPM', 'SUBCOMANDO-GERAL', 'CRPMs', 'CCPM/Colégios', 'CPGs', 'Outras OPMs']]
-      ],
-      tableColumns: ['Natureza da unidade', 'Escopo considerado', 'Exonerações', 'Demissões', 'Requeridas'],
-      tableRows: [
-        ['Operacional territorial', '34 BPMs', '60', '170', '430'],
-        ['Operacional especializada', '18 unidades especializadas', '13', '43', '94'],
-        ['Administrativa e demais OPMs', 'Comandos, diretorias, apoio e outras unidades', '8', '30', '183'],
-        ['Sem OPM individualizada', 'Processos agregados de 2025', '64', '16', '0'],
-        ['TOTAL DOS REGISTROS EXIBIDOS', 'Todas as parcelas apresentadas', '145', '259', '707']
-      ]
+    "tableRows": [
+        [
+            "Processos agregados de 2025",
+            "64",
+            "16",
+            "0",
+            "80"
+        ],
+        [
+            "NUPs da relação 2026 · sem BPGEP",
+            "97",
+            "272",
+            "0",
+            "369"
+        ],
+        [
+            "Requeridas 2025–2026 · sem BPGEP",
+            "0",
+            "0",
+            "707",
+            "707"
+        ],
+        [
+            "Total combinado de registros",
+            "161",
+            "288",
+            "707",
+            "1.156"
+        ],
+        [
+            "Processos atribuíveis aos 34 BPMs",
+            "73",
+            "192",
+            "430",
+            "695"
+        ]
+    ],
+    "unitScope": {
+        "summary": [
+            [
+                "Unidades operacionais",
+                "859",
+                "Processos e requeridas: 34 BPMs e 18 especializadas"
+            ],
+            [
+                "Administrativas e demais OPMs",
+                "217",
+                "Comandos, diretorias, apoio e outras unidades"
+            ],
+            [
+                "Sem OPM individualizada",
+                "80",
+                "Processos agregados de 2025"
+            ]
+        ],
+        "unitLists": [
+            [
+                "Operacionais consideradas",
+                [
+                    "1º ao 34º BPM",
+                    "RAIO - 1º ao 9º BPM",
+                    "BEPI",
+                    "BOPE",
+                    "BPCHOQUE",
+                    "BPMA",
+                    "BPRE",
+                    "BPTUR",
+                    "COTAM",
+                    "COPAC",
+                    "RPMONT"
+                ]
+            ],
+            [
+                "Administrativas, comandos e apoio identificados",
+                [
+                    "AGCG",
+                    "ASCOI",
+                    "ASINT",
+                    "CCS/QCG",
+                    "CGO",
+                    "CGP",
+                    "COGEIC",
+                    "COLOG",
+                    "CSASR",
+                    "DPGO/DPGI",
+                    "DS",
+                    "HGPM",
+                    "QCG/CBMPM",
+                    "SUBCOMANDO-GERAL",
+                    "CRPMs",
+                    "CCPM/Colégios",
+                    "CPGs",
+                    "Outras OPMs"
+                ]
+            ]
+        ],
+        "tableColumns": [
+            "Natureza da unidade",
+            "Escopo considerado",
+            "Exonerações · processos",
+            "Demissões · processos",
+            "Requeridas"
+        ],
+        "tableRows": [
+            [
+                "Operacional territorial",
+                "34 BPMs",
+                "73",
+                "192",
+                "430"
+            ],
+            [
+                "Operacional especializada",
+                "18 unidades especializadas",
+                "17",
+                "53",
+                "94"
+            ],
+            [
+                "Administrativa e demais OPMs",
+                "Comandos, diretorias, apoio e outras unidades",
+                "7",
+                "27",
+                "183"
+            ],
+            [
+                "Sem OPM individualizada",
+                "Processos agregados de 2025",
+                "64",
+                "16",
+                "0"
+            ],
+            [
+                "TOTAL DOS REGISTROS EXIBIDOS",
+                "Todas as parcelas apresentadas",
+                "161",
+                "288",
+                "707"
+            ]
+        ]
     },
-    note: ''
-  },
+    "note": "Conferência: 382 lançamentos → 371 NUPs distintos → 369 processos após excluir os dois do BPGEP. Um militar do 25º BPM tem dois NUPs de exoneração: ambos constam neste relatório de processos, mas contam uma única vez no cálculo de necessidade. A relação inclui cinco NUPs com ano 2025; o mês exibido corresponde à seção da fonte, não necessariamente à data do fato. A parcela agregada de 2025 não permite comprovar ausência de sobreposição individual."
+},
   raio: {
     accent: '#3b7e9d',
     eyebrow: 'Memória de cálculo · RAIO',
@@ -464,8 +626,8 @@ const metricDetails = {
     description: '',
     stats: [
       ['Unidades analisadas', '52', '34 BPMs · 18 unidades especializadas'],
-      ['Exonerações e demissões · outros concursos', '73 + 213', '286 saídas discriminadas nas unidades da tabela'],
-      ['Necessidade nas especializadas', '160', 'Resultado ajustado nas 18 unidades especializadas']
+      ['Impactos de pedidos de exoneração e demissão', '89 + 245', '334 impactos nas 52 unidades; um militar com dois NUPs contado uma vez'],
+      ['Necessidade nas especializadas', '173', 'Resultado ajustado nas 18 unidades especializadas']
     ],
     breakdownTitle: 'Situação integrada dos 34 batalhões',
     breakdownSubtitle: 'Distribuição dos BPMs após incorporar exonerações e demissões relacionadas a outros concursos, além das requeridas, ao saldo das movimentações.',
@@ -477,22 +639,149 @@ const metricDetails = {
     ],
     sectionTitle: 'Visão geral por batalhão e unidade especializada',
     sectionSubtitle: '',
-    tableColumns: ['Posição', 'Unidade / cidades', '<span class="column-title-line">Efetivo da</span><span class="column-title-line">unidade</span>', 'Exonerações · outros concursos', 'Demissões · outros concursos', 'Requeridas', 'Movimentações', 'Perdas', 'Reestruturação.', '<span class="column-title-line">Necessidade de</span><span class="column-title-line">efetivo</span>'],
+    tableColumns: ['Posição', 'Unidade / cidades', '<span class="column-title-line">Efetivo da</span><span class="column-title-line">unidade</span>', 'Exonerações · impactos', 'Demissões · impactos', 'Requeridas', 'Movimentações', 'Perdas', 'Reestruturação.', '<span class="column-title-line">Necessidade de</span><span class="column-title-line">efetivo</span>'],
     tableRows: [],
     battalionTotals: battalionTotalsFromCompanies,
     crpmByUnit: battalionCrpmByUnit,
     crpmTotals: crpmTotalsFromCompanies,
     administrativeExits: {
-      '1º BPM': [0, 6], '2º BPM': [4, 3], '3º BPM': [2, 3], '4º BPM': [3, 5],
-      '5º BPM': [1, 3], '6º BPM': [1, 13], '7º BPM': [0, 3], '8º BPM': [3, 6],
-      '9º BPM': [0, 7], '10º BPM': [0, 4], '11º BPM': [0, 4], '12º BPM': [9, 8],
-      '13º BPM': [1, 3], '14º BPM': [1, 9], '15º BPM': [1, 2], '16º BPM': [2, 5],
-      '17º BPM': [2, 12], '18º BPM': [3, 11], '19º BPM': [4, 8], '20º BPM': [3, 8],
-      '21º BPM': [1, 5], '22º BPM': [1, 4], '23º BPM': [1, 6], '24º BPM': [1, 9],
-      '25º BPM': [5, 3], '26º BPM': [1, 6], '27º BPM': [0, 2], '28º BPM': [0, 4],
-      '29º BPM': [1, 1], '30º BPM': [1, 1], '31º BPM': [2, 0], '32º BPM': [0, 1],
-      '33º BPM': [1, 4], '34º BPM': [5, 1]
-    },
+      "1º BPM": [
+            0,
+            6
+      ],
+      "2º BPM": [
+            5,
+            3
+      ],
+      "3º BPM": [
+            2,
+            3
+      ],
+      "4º BPM": [
+            3,
+            5
+      ],
+      "5º BPM": [
+            2,
+            3
+      ],
+      "6º BPM": [
+            2,
+            13
+      ],
+      "7º BPM": [
+            0,
+            3
+      ],
+      "8º BPM": [
+            4,
+            8
+      ],
+      "9º BPM": [
+            0,
+            8
+      ],
+      "10º BPM": [
+            1,
+            6
+      ],
+      "11º BPM": [
+            0,
+            5
+      ],
+      "12º BPM": [
+            11,
+            9
+      ],
+      "13º BPM": [
+            1,
+            4
+      ],
+      "14º BPM": [
+            2,
+            9
+      ],
+      "15º BPM": [
+            2,
+            2
+      ],
+      "16º BPM": [
+            2,
+            6
+      ],
+      "17º BPM": [
+            2,
+            12
+      ],
+      "18º BPM": [
+            4,
+            13
+      ],
+      "19º BPM": [
+            4,
+            13
+      ],
+      "20º BPM": [
+            3,
+            8
+      ],
+      "21º BPM": [
+            1,
+            6
+      ],
+      "22º BPM": [
+            1,
+            6
+      ],
+      "23º BPM": [
+            2,
+            6
+      ],
+      "24º BPM": [
+            1,
+            9
+      ],
+      "25º BPM": [
+            5,
+            4
+      ],
+      "26º BPM": [
+            1,
+            6
+      ],
+      "27º BPM": [
+            0,
+            2
+      ],
+      "28º BPM": [
+            0,
+            4
+      ],
+      "29º BPM": [
+            1,
+            1
+      ],
+      "30º BPM": [
+            2,
+            3
+      ],
+      "31º BPM": [
+            2,
+            0
+      ],
+      "32º BPM": [
+            0,
+            1
+      ],
+      "33º BPM": [
+            1,
+            4
+      ],
+      "34º BPM": [
+            5,
+            1
+      ]
+},
     requiredPromotions2025: {
       '1º BPM': 14, '2º BPM': 25, '3º BPM': 13, '4º BPM': 17,
       '5º BPM': 11, '6º BPM': 13, '7º BPM': 9, '8º BPM': 3,
@@ -516,12 +805,12 @@ const metricDetails = {
       '33º BPM': 2, '34º BPM': 3
     },
     specializedUnits: [
-      { name: 'RAIO - 1º BPM', strength: 572, exonerations: 0, dismissals: 0, required2025: 3, required2026: 1, movementBalance: -3 },
-      { name: 'RAIO - 2º BPM', strength: 261, exonerations: 1, dismissals: 1, required2025: 5, required2026: 0, movementBalance: -3 },
-      { name: 'RAIO - 3º BPM', strength: 294, exonerations: 0, dismissals: 1, required2025: 0, required2026: 1, movementBalance: 0 },
-      { name: 'RAIO - 4º BPM', strength: 376, exonerations: 0, dismissals: 3, required2025: 2, required2026: 0, movementBalance: -3 },
-      { name: 'RAIO - 5º BPM', strength: 522, exonerations: 1, dismissals: 5, required2025: 3, required2026: 2, movementBalance: 0 },
-      { name: 'RAIO - 6º BPM', strength: 450, exonerations: 0, dismissals: 0, required2025: 0, required2026: 0, movementBalance: 3 },
+      { name: 'RAIO - 1º BPM', strength: 572, exonerations: 0, dismissals: 1, required2025: 3, required2026: 1, movementBalance: -3 },
+      { name: 'RAIO - 2º BPM', strength: 261, exonerations: 1, dismissals: 3, required2025: 5, required2026: 0, movementBalance: -3 },
+      { name: 'RAIO - 3º BPM', strength: 294, exonerations: 1, dismissals: 1, required2025: 0, required2026: 1, movementBalance: 0 },
+      { name: 'RAIO - 4º BPM', strength: 376, exonerations: 0, dismissals: 6, required2025: 2, required2026: 0, movementBalance: -3 },
+      { name: 'RAIO - 5º BPM', strength: 522, exonerations: 3, dismissals: 5, required2025: 3, required2026: 2, movementBalance: 0 },
+      { name: 'RAIO - 6º BPM', strength: 450, exonerations: 0, dismissals: 1, required2025: 0, required2026: 0, movementBalance: 3 },
       { name: 'RAIO - 7º BPM', strength: 254, exonerations: 0, dismissals: 0, required2025: 0, required2026: 0, movementBalance: -1 },
       { name: 'RAIO - 8º BPM', strength: 233, exonerations: 0, dismissals: 0, required2025: 0, required2026: 0, movementBalance: -1 },
       { name: 'RAIO - 9º BPM', strength: 179, exonerations: 0, dismissals: 0, required2025: 0, required2026: 0, movementBalance: 0 },
@@ -530,9 +819,9 @@ const metricDetails = {
       { name: 'BPCHOQUE', strength: 412, exonerations: 2, dismissals: 4, required2025: 11, required2026: 11, movementBalance: 33 },
       { name: 'BPMA', strength: 266, exonerations: 2, dismissals: 5, required2025: 5, required2026: 1, movementBalance: -27 },
       { name: 'BPRE', strength: 614, exonerations: 0, dismissals: 1, required2025: 11, required2026: 4, movementBalance: 10 },
-      { name: 'BPTUR', strength: 559, exonerations: 5, dismissals: 8, required2025: 6, required2026: 6, movementBalance: 0 },
+      { name: 'BPTUR', strength: 559, exonerations: 5, dismissals: 9, required2025: 6, required2026: 6, movementBalance: 0 },
       { name: 'COTAM', strength: 189, exonerations: 2, dismissals: 0, required2025: 3, required2026: 1, movementBalance: -10 },
-      { name: 'COPAC', strength: 374, exonerations: 0, dismissals: 13, required2025: 5, required2026: 2, movementBalance: -5 },
+      { name: 'COPAC', strength: 374, exonerations: 1, dismissals: 15, required2025: 5, required2026: 2, movementBalance: -5 },
       { name: 'RPMONT', strength: 141, exonerations: 0, dismissals: 2, required2025: 6, required2026: 0, movementBalance: -8 }
     ],
     healthLeaveTotals: {
@@ -760,8 +1049,8 @@ function recalculateRestructuringFromConsolidatedStrength() {
   study.note = '';
 
   consolidated.total = format(consolidatedNeed);
-  consolidated.description = '';
-  consolidated.note = '';
+  consolidated.description = 'Base de pedidos janeiro–outubro/2026. O cálculo de necessidade considera uma única ocorrência para o militar do 25º BPM com dois NUPs; o relatório de processos preserva ambos.';
+  consolidated.note = 'Atualização de exonerações e demissões em 10/11/2026. Efetivo existente, movimentações, requeridas e ajustes manuais preservados. Os valores estimam recomposição no estudo; pedidos iniciados não comprovam todos os desligamentos concluídos.';
 
   const card = document.querySelector('.metric-card[data-detail="restructuring"]');
   if (card) {

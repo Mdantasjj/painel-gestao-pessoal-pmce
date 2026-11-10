@@ -366,13 +366,21 @@
   },
   "inclui_BPGEP": true,
   "reinclusao_BPGEP": {
-    "efetivo_referencia_preservado": 581,
     "requeridas_2025": 48,
     "requeridas_2026": 12,
-    "entradas_sapm": 135,
-    "saidas_sapm": 133,
-    "saldo": 2,
-    "necessidade": 60,
-    "criterio": "Reinclusão solicitada pelo usuário em 10/11/2026; restauração da referência histórica de efetivo, com saldo conferido na SAPM 30/09/2026."
+    "saldo": 77,
+    "necessidade": 0,
+    "atualizacao_movimentacoes": {
+      "arquivo": "2026.11.04---SAPM - transferencias BPGEP 202 e 2026.xlsx",
+      "sha256": "ea0ee20c929ed84c1db335ec417d0627383fd877399c91c5369762cc7e400aad",
+      "aba": "Sheet1",
+      "referencia_nome_arquivo": "04/11/2026",
+      "periodo_colunas": "JAN/2025 a NOV/2026"
+    },
+    "efetivo_atual": 582,
+    "nota": "A referência anterior de 581 PMs e saldo +2 foi substituída pela nova base. Os campos entradas_sapm e saidas_sapm da base anterior foram retirados para não misturar períodos; a fonte nova contém apenas saldos acumulados.",
+    "efetivo_anterior": 581,
+    "criterio_reinclusao_anterior": "Reinclusão solicitada pelo usuário em 10/11/2026; restauração da referência histórica de efetivo, com saldo conferido na SAPM 30/09/2026.",
+    "criterio_atual": "Nova base fornecida pelo usuário: saldo final acumulado +77, efetivo 582; necessidade max(0,2+48+12-77)=0."
   }
 }

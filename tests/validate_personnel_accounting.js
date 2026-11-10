@@ -247,7 +247,7 @@ assert.deepEqual(
 );
 assert.equal(number(details.pog.total), 554 + 110 + 50);
 assert.equal(number(details.pog.total) + number(details.raio.total) + number(details.copac.total), 1986);
-assert.equal(number(details.battalions.total), 1704);
+assert.equal(number(details.battalions.total), 1644);
 
 assert.deepEqual(Object.keys(sortLabels), ['unit', 'battalionStrength', 'movementBalance', 'restructuringNeed', 'totalNeed']);
 assert.equal(sortLabels.unit, 'UNIDADE, ORDEM ALFANUMÉRICA');
@@ -338,14 +338,14 @@ assert.deepEqual(
 );
 assert.equal(copac.required2025, 5, 'COPAC 2025 required promotions mismatch');
 assert.equal(copac.required2026, 2, 'COPAC 2026 required promotions mismatch');
-assert.equal(total(specializedRecords, record => record.battalionStrength), 6831);
+assert.equal(total(specializedRecords, record => record.battalionStrength), 6832);
 assert.equal(total(specializedRecords, record => record.exonerations), 17);
 assert.equal(total(specializedRecords, record => record.dismissals), 55);
 assert.equal(total(specializedRecords, record => record.requiredPromotions), 154);
-assert.equal(total(specializedRecords, record => record.movementBalance ?? 0), -9);
-assert.equal(total(specializedRecords, record => record.losses ?? 0), 243);
+assert.equal(total(specializedRecords, record => record.movementBalance ?? 0), 66);
+assert.equal(total(specializedRecords, record => record.losses ?? 0), 183);
 assert.equal(total(specializedRecords, record => record.needAdjustment), -10);
-assert.equal(total(specializedRecords, record => record.totalNeed), 233);
+assert.equal(total(specializedRecords, record => record.totalNeed), 173);
 assert.equal(specializedRecords.find(record => record.name === 'BPMA').needAdjustment, -10);
 assert.equal(specializedRecords.find(record => record.name === 'BPMA').totalNeed, 30);
 assert.equal(total(records, record => record.exonerations), 89);
@@ -400,7 +400,7 @@ assert(!html.includes('id="metricDetailClose"') && !css.includes('.metric-dialog
 assert(!html.includes('374 movimentações para especializadas'), 'Specialized-movement note must not be shown on the main card');
 assert(!source.includes('Perdas dos BPMs para especializadas'), 'Specialized-movement stat must not be shown in the loss study');
 assert(!source.includes('Movimentações dos BPMs para especializadas'), 'Specialized-movement breakdown must not be shown in the loss study');
-for (const [key, expected] of Object.entries({ exits: 1218, pog: 1986, restructuring: 410, battalions: 1704 })) {
+for (const [key, expected] of Object.entries({ exits: 1218, pog: 1986, restructuring: 410, battalions: 1644 })) {
   const match = html.match(new RegExp(`data-detail="${key}"[\\s\\S]*?<div class="metric-main"><strong>([\\d.]+)</strong>`));
   assert(match, `Card not found: ${key}`);
   assert.equal(number(match[1]), expected, `Card total mismatch: ${key}`);
@@ -433,4 +433,12 @@ for (const f of mapData.features) {
 
 
 const bpgepRestored=records.find(r=>r.name==='BPGEP');
-assert.deepEqual([bpgepRestored.battalionStrength,bpgepRestored.exonerations,bpgepRestored.dismissals,bpgepRestored.requiredPromotions2025,bpgepRestored.requiredPromotions2026,bpgepRestored.movementBalance,bpgepRestored.totalNeed],[581,0,2,48,12,2,60]);
+assert.deepEqual([bpgepRestored.battalionStrength,bpgepRestored.exonerations,bpgepRestored.dismissals,bpgepRestored.requiredPromotions2025,bpgepRestored.requiredPromotions2026,bpgepRestored.movementBalance,bpgepRestored.totalNeed],[582,0,2,48,12,77,0]);
+
+const newBpgepSource = JSON.parse(fs.readFileSync(path.join(root, 'data', 'movimentacoes-bpgep-20261104-controle.json'), 'utf8'));
+assert.equal(newBpgepSource.linhas.length, 6);
+assert.equal(newBpgepSource.linhas.reduce((s,r)=>s+r['EFETIVO ATUAL'],0),582);
+assert.equal(newBpgepSource.linhas.reduce((s,r)=>s+r['SALDO PERÍODO'],0),77);
+assert.equal(newBpgepSource.efetivo_inicial_calculado+newBpgepSource.saldo_periodo,newBpgepSource.efetivo_atual);
+assert.equal(newBpgepSource.totais['NOV/2026'],newBpgepSource.saldo_periodo);
+assert.equal(bpgepRestored.totalNeed,Math.max(0,2+48+12-newBpgepSource.saldo_periodo));

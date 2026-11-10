@@ -628,7 +628,7 @@ const metricDetails = {
     stats: [
       ['Unidades analisadas', '53', '34 BPMs · 19 unidades especializadas'],
       ['Impactos de pedidos de exoneração e demissão', '89 + 247', '336 impactos nas 53 unidades; um militar com dois NUPs contado uma vez'],
-      ['Necessidade nas especializadas', '233', 'Resultado ajustado nas 19 unidades especializadas']
+      ['Necessidade nas especializadas', '173', 'Resultado ajustado nas 19 unidades especializadas']
     ],
     breakdownTitle: 'Situação integrada dos 34 batalhões',
     breakdownSubtitle: 'Distribuição dos BPMs após incorporar exonerações e demissões relacionadas a outros concursos, além das requeridas, ao saldo das movimentações.',
@@ -806,7 +806,7 @@ const metricDetails = {
       '33º BPM': 2, '34º BPM': 3
     },
     specializedUnits: [
-      { name: 'BPGEP', strength: 581, exonerations: 0, dismissals: 2, required2025: 48, required2026: 12, movementBalance: 2 },
+      { name: 'BPGEP', strength: 582, exonerations: 0, dismissals: 2, required2025: 48, required2026: 12, movementBalance: 77 },
       { name: 'RAIO - 1º BPM', strength: 572, exonerations: 0, dismissals: 1, required2025: 3, required2026: 1, movementBalance: -3 },
       { name: 'RAIO - 2º BPM', strength: 261, exonerations: 1, dismissals: 3, required2025: 5, required2026: 0, movementBalance: -3 },
       { name: 'RAIO - 3º BPM', strength: 294, exonerations: 1, dismissals: 1, required2025: 0, required2026: 1, movementBalance: 0 },
@@ -1052,7 +1052,7 @@ function recalculateRestructuringFromConsolidatedStrength() {
 
   consolidated.total = format(consolidatedNeed);
   consolidated.description = 'Base de pedidos janeiro–outubro/2026. O cálculo de necessidade considera uma única ocorrência para o militar do 25º BPM com dois NUPs; o relatório de processos preserva ambos.';
-  consolidated.note = 'Atualização de exonerações e demissões em 10/11/2026. BPGEP reincluído: 581 PMs de referência, 2 demissões, 60 requeridas e saldo de movimentações +2. Demais efetivos, movimentações, requeridas e ajustes manuais preservados. Os valores estimam recomposição no estudo; pedidos iniciados não comprovam todos os desligamentos concluídos.';
+  consolidated.note = 'Atualização de exonerações e demissões em 10/11/2026. BPGEP atualizado pela base de 04/11/2026: 582 PMs, 2 demissões, 60 requeridas e saldo acumulado de transferências +77. Os meses não foram somados, pois representam saldos acumulados. Demais efetivos, movimentações, requeridas e ajustes manuais preservados. Os valores estimam recomposição no estudo; pedidos iniciados não comprovam todos os desligamentos concluídos.';
 
   const card = document.querySelector('.metric-card[data-detail="restructuring"]');
   if (card) {

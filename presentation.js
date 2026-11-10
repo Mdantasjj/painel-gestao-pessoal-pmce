@@ -1375,7 +1375,7 @@ function buildBattalionTableRows(field = 'situation', direction = 'asc') {
     renderBattalionExitValue(sumField(specializedRecords, 'exonerations'), 'saídas'),
     renderBattalionExitValue(sumField(specializedRecords, 'dismissals'), 'saídas'),
     renderBattalionExitValue(sumField(specializedRecords, 'requiredPromotions'), '2025: 111 · 2026: 43'),
-    renderBattalionSignedValue(sumField(specializedRecords, 'movementBalance'), '18 unidades apuradas · 9 BPRAIO em uma linha'),
+    renderBattalionSignedValue(sumField(specializedRecords, 'movementBalance'), `${specializedRecords.filter((record) => record.movementBalance != null).length} unidades apuradas · 9 BPRAIO em uma linha`),
     renderBattalionExitValue(specializedLosses, 'perdas locais apuráveis'),
     '—',
     renderBattalionExitValue(specializedNeed, 'necessidade ajustada')
@@ -1383,7 +1383,7 @@ function buildBattalionTableRows(field = 'situation', direction = 'asc') {
   rows.push([
     '—',
     'TOTAL CONSOLIDADO',
-    renderBattalionStrengthValue(battalionStrength + specializedStrength, '34 BPMs + 18 especializadas'),
+    renderBattalionStrengthValue(battalionStrength + specializedStrength, `${battalionRecords.length} BPMs + ${specializedRecords.length} especializadas`),
     renderBattalionExitValue(sumField(records, 'exonerations'), 'saídas'),
     renderBattalionExitValue(sumField(records, 'dismissals'), 'saídas'),
     renderBattalionExitValue(sumField(records, 'requiredPromotions'), 'unidades discriminadas'),

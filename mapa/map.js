@@ -986,7 +986,7 @@ async function initialize() {
       fetch('data/tempos-medios-2026.json'),
       fetch('data/municipios-ceara-2026.geojson'),
       fetch('data/bairros-fortaleza.geojson'),
-      fetch('data/batalhoes-situacao.geojson'),
+      fetch('data/batalhoes-situacao.geojson?v=20261110'),
       fetch('data/favelas-comunidades-urbanas-ceara-2022.geojson')
     ]);
     if (responses.some((response) => !response.ok)) throw new Error('Falha ao obter os dados geográficos.');

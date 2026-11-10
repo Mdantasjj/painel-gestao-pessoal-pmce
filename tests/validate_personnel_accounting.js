@@ -442,3 +442,28 @@ assert.equal(newBpgepSource.linhas.reduce((s,r)=>s+r['SALDO PERÍODO'],0),77);
 assert.equal(newBpgepSource.efetivo_inicial_calculado+newBpgepSource.saldo_periodo,newBpgepSource.efetivo_atual);
 assert.equal(newBpgepSource.totais['NOV/2026'],newBpgepSource.saldo_periodo);
 assert.equal(bpgepRestored.totalNeed,Math.max(0,2+48+12-newBpgepSource.saldo_periodo));
+
+
+// Every total shown in the situational table must use the current unit scope.
+const completeSpecializedRow = details.battalions.tableRows.find(row => row[1] === 'TOTAL DAS UNIDADES ESPECIALIZADAS');
+const completeTotalRow = details.battalions.tableRows.find(row => row[1] === 'TOTAL CONSOLIDADO');
+assert(completeSpecializedRow[6].includes(`${specializedRecords.length} unidades apuradas`));
+assert(completeTotalRow[2].includes(`${battalionRecords.length} BPMs + ${specializedRecords.length} especializadas`));
+assert(completeTotalRow[2].includes('<strong>17.073</strong>'));
+assert(completeTotalRow[9].includes('<strong>1.644</strong>'));
+
+// The regional cards must reconcile to the same consolidated need.
+const regionalSource = source.slice(source.indexOf('function getRegionalPersonnelNeeds()'), source.indexOf('function renderRegionalPersonnelNeeds()'));
+vm.runInNewContext(regionalSource + ';globalThis.regions = getRegionalPersonnelNeeds();', sandbox);
+assert.deepEqual(Array.from(sandbox.regions, row => row.totalNeed), [474, 337, 330, 503]);
+assert.equal(total(sandbox.regions, row => row.territorialNeed), 1471);
+assert.equal(total(sandbox.regions, row => row.specializedShare), 173);
+assert.equal(total(sandbox.regions, row => row.totalNeed), number(details.battalions.total));
+
+// Ticker totals refer to territorial strength, not the regional need cards.
+const ticker = html.match(/<section class="dashboard-ticker"[\s\S]*?<\/section>/)[0];
+for (const [commands, expected] of [[[1, 5], 3683], [[2, 6], 2121], [[3, 7], 1996], [[4, 8], 2441]]) {
+  assert.equal(total(commands, n => details.battalions.crpmTotals[`${n}º CRPM`]), expected);
+  assert(ticker.includes(`<strong>${expected.toLocaleString('pt-BR')} PMs</strong>`));
+}
+console.log('Validated all table totals, four regional need cards and territorial ticker.');

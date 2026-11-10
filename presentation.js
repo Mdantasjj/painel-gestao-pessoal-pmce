@@ -27,7 +27,7 @@ function showToast(message) {
 function renderDismissalsChart() {
   const labels = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out'];
   const series = [
-    { name: 'Demissões · pedidos', color: '#1b8258', values: [8, 2, 0, 9, 151, 79, 18, 6, 5, 1] },
+    { name: 'Demissões · pedidos', color: '#1b8258', values: [10, 2, 0, 9, 151, 79, 18, 6, 5, 1] },
     { name: 'Exonerações · pedidos', color: '#c1a253', values: [11, 7, 7, 26, 19, 7, 13, 5, 5, 1] }
   ];
   const maxValue = 151;
@@ -44,7 +44,7 @@ function renderDismissalsChart() {
   document.querySelector('#mainChart').innerHTML = `
     <div class="chart-key">${key}</div>
     <div class="bar-stage" style="--count:10">${groups}</div>
-    <div class="chart-source-note">A série mensal apresenta 380 lançamentos brutos da relação janeiro–outubro/2026, sem os dois registros do BPGEP. Depois da consolidação de 11 repetições de NUP, permanecem 369 processos. O indicador geral combina 1.156 registros de fontes e naturezas distintas. Mês corresponde à seção da relação, não à conclusão do desligamento.</div>`;
+    <div class="chart-source-note">A série mensal apresenta 382 lançamentos brutos da relação janeiro–outubro/2026, incluindo o BPGEP. Depois da consolidação de 11 repetições de NUP, permanecem 371 processos. O indicador geral combina 1.218 registros de fontes e naturezas distintas. Mês corresponde à seção da relação, não à conclusão do desligamento.</div>`;
 }
 
 function renderPromotions() {
@@ -218,8 +218,8 @@ const metricDetails = {
   exits: {
     "accent": "#23845b",
     "eyebrow": "Memória de cálculo · pedidos e registros considerados",
-    "title": "1.156 registros considerados na análise de perdas",
-    "total": "1.156",
+    "title": "1.218 registros considerados na análise de perdas",
+    "total": "1.218",
     "unit": "registros considerados",
     "description": "Atualização de 10/11/2026: a relação de janeiro a outubro reúne pedidos iniciados, não comprova a conclusão de todos os desligamentos. O indicador combina processos e requeridas de fontes distintas; não representa pessoas únicas.",
     "stats": [
@@ -230,49 +230,49 @@ const metricDetails = {
         ],
         [
             "Demissões de 2025–2026 · pedidos",
-            "288",
-            "16 processos agregados de 2025 + 272 NUPs da relação 2026"
+            "290",
+            "16 processos agregados de 2025 + 274 NUPs da relação 2026"
         ],
         [
             "Requeridas de 2025",
-            "504",
-            "320 nos BPMs · 184 em outras OPMs"
+            "552",
+            "320 nos BPMs · 232 em outras OPMs"
         ],
         [
             "Requeridas de 2026",
-            "203",
-            "110 nos BPMs · 93 em outras OPMs"
+            "215",
+            "110 nos BPMs · 105 em outras OPMs"
         ]
     ],
     "breakdown": [
         [
             "Demissões · processos agregados 2025",
-            1.384083044982699,
-            "16 · 1,4%",
+            1.3136288998357963,
+            "16 · 1,3%",
             "#145c40"
         ],
         [
             "Exonerações · processos agregados 2025",
-            5.536332179930796,
-            "64 · 5,5%",
+            5.254515599343185,
+            "64 · 5,3%",
             "#3d9065"
         ],
         [
             "Demissões · pedidos da relação 2026",
-            23.52941176470588,
-            "272 · 23,5%",
+            22.495894909688012,
+            "274 · 22,5%",
             "#28734e"
         ],
         [
             "Exonerações · pedidos da relação 2026",
-            8.391003460207612,
-            "97 · 8,4%",
+            7.963875205254515,
+            "97 · 8,0%",
             "#55a477"
         ],
         [
             "Requeridas · 2025–2026",
-            61.15916955017301,
-            "707 · 61,2%",
+            62.972085385878486,
+            "767 · 63,0%",
             "#698342"
         ]
     ],
@@ -294,25 +294,25 @@ const metricDetails = {
             "80"
         ],
         [
-            "NUPs da relação 2026 · sem BPGEP",
+            "NUPs da relação 2026 · com BPGEP",
             "97",
-            "272",
+            "274",
             "0",
-            "369"
+            "371"
         ],
         [
-            "Requeridas 2025–2026 · sem BPGEP",
+            "Requeridas 2025–2026 · com BPGEP",
             "0",
             "0",
-            "707",
-            "707"
+            "767",
+            "767"
         ],
         [
             "Total combinado de registros",
             "161",
-            "288",
-            "707",
-            "1.156"
+            "290",
+            "767",
+            "1.218"
         ],
         [
             "Processos atribuíveis aos 34 BPMs",
@@ -326,8 +326,8 @@ const metricDetails = {
         "summary": [
             [
                 "Unidades operacionais",
-                "859",
-                "Processos e requeridas: 34 BPMs e 18 especializadas"
+                "921",
+                "Processos e requeridas: 34 BPMs e 19 especializadas"
             ],
             [
                 "Administrativas e demais OPMs",
@@ -354,7 +354,8 @@ const metricDetails = {
                     "BPTUR",
                     "COTAM",
                     "COPAC",
-                    "RPMONT"
+                    "RPMONT",
+                    "BPGEP"
                 ]
             ],
             [
@@ -398,10 +399,10 @@ const metricDetails = {
             ],
             [
                 "Operacional especializada",
-                "18 unidades especializadas",
+                "19 unidades especializadas",
                 "17",
-                "53",
-                "94"
+                "55",
+                "154"
             ],
             [
                 "Administrativa e demais OPMs",
@@ -421,12 +422,12 @@ const metricDetails = {
                 "TOTAL DOS REGISTROS EXIBIDOS",
                 "Todas as parcelas apresentadas",
                 "161",
-                "288",
-                "707"
+                "290",
+                "767"
             ]
         ]
     },
-    "note": "Conferência: 382 lançamentos → 371 NUPs distintos → 369 processos após excluir os dois do BPGEP. Um militar do 25º BPM tem dois NUPs de exoneração: ambos constam neste relatório de processos, mas contam uma única vez no cálculo de necessidade. A relação inclui cinco NUPs com ano 2025; o mês exibido corresponde à seção da fonte, não necessariamente à data do fato. A parcela agregada de 2025 não permite comprovar ausência de sobreposição individual."
+    "note": "Conferência: 382 lançamentos → 371 NUPs distintos, incluindo os dois do BPGEP. Um militar do 25º BPM tem dois NUPs de exoneração: ambos constam neste relatório de processos, mas contam uma única vez no cálculo de necessidade. A relação inclui cinco NUPs com ano 2025; o mês exibido corresponde à seção da fonte, não necessariamente à data do fato. A parcela agregada de 2025 não permite comprovar ausência de sobreposição individual. BPGEP reincluído por orientação do responsável: 2 demissões e 60 requeridas (48 de 2025 e 12 de 2026)."
 },
   raio: {
     accent: '#3b7e9d',
@@ -625,9 +626,9 @@ const metricDetails = {
     unit: 'necessidade consolidada ajustada',
     description: '',
     stats: [
-      ['Unidades analisadas', '52', '34 BPMs · 18 unidades especializadas'],
-      ['Impactos de pedidos de exoneração e demissão', '89 + 245', '334 impactos nas 52 unidades; um militar com dois NUPs contado uma vez'],
-      ['Necessidade nas especializadas', '173', 'Resultado ajustado nas 18 unidades especializadas']
+      ['Unidades analisadas', '53', '34 BPMs · 19 unidades especializadas'],
+      ['Impactos de pedidos de exoneração e demissão', '89 + 247', '336 impactos nas 53 unidades; um militar com dois NUPs contado uma vez'],
+      ['Necessidade nas especializadas', '233', 'Resultado ajustado nas 19 unidades especializadas']
     ],
     breakdownTitle: 'Situação integrada dos 34 batalhões',
     breakdownSubtitle: 'Distribuição dos BPMs após incorporar exonerações e demissões relacionadas a outros concursos, além das requeridas, ao saldo das movimentações.',
@@ -805,6 +806,7 @@ const metricDetails = {
       '33º BPM': 2, '34º BPM': 3
     },
     specializedUnits: [
+      { name: 'BPGEP', strength: 581, exonerations: 0, dismissals: 2, required2025: 48, required2026: 12, movementBalance: 2 },
       { name: 'RAIO - 1º BPM', strength: 572, exonerations: 0, dismissals: 1, required2025: 3, required2026: 1, movementBalance: -3 },
       { name: 'RAIO - 2º BPM', strength: 261, exonerations: 1, dismissals: 3, required2025: 5, required2026: 0, movementBalance: -3 },
       { name: 'RAIO - 3º BPM', strength: 294, exonerations: 1, dismissals: 1, required2025: 0, required2026: 1, movementBalance: 0 },
@@ -1050,7 +1052,7 @@ function recalculateRestructuringFromConsolidatedStrength() {
 
   consolidated.total = format(consolidatedNeed);
   consolidated.description = 'Base de pedidos janeiro–outubro/2026. O cálculo de necessidade considera uma única ocorrência para o militar do 25º BPM com dois NUPs; o relatório de processos preserva ambos.';
-  consolidated.note = 'Atualização de exonerações e demissões em 10/11/2026. Efetivo existente, movimentações, requeridas e ajustes manuais preservados. Os valores estimam recomposição no estudo; pedidos iniciados não comprovam todos os desligamentos concluídos.';
+  consolidated.note = 'Atualização de exonerações e demissões em 10/11/2026. BPGEP reincluído: 581 PMs de referência, 2 demissões, 60 requeridas e saldo de movimentações +2. Demais efetivos, movimentações, requeridas e ajustes manuais preservados. Os valores estimam recomposição no estudo; pedidos iniciados não comprovam todos os desligamentos concluídos.';
 
   const card = document.querySelector('.metric-card[data-detail="restructuring"]');
   if (card) {

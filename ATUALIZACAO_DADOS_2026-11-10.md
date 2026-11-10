@@ -1,5 +1,7 @@
 # Atualização de exonerações e demissões — 10/11/2026
 
+> Segunda etapa de 10/11/2026 — BPGEP reincluído por orientação do responsável: +2 demissões e +60 requeridas no estudo de perdas (1.218 registros); +60 PMs de necessidade (1.704 no consolidado, 233 nas especializadas). São 53 unidades, incluindo 19 especializadas. O BPGEP mantém 581 PMs de referência, com saldo SAPM +2 (135 entradas − 133 saídas). Os dados abaixo também registram estados históricos anteriores à reinclusão. Nenhum nome ou matrícula é publicado.
+
 ## Resultado conferido
 
 - Fonte: RELAÇÃO EXONERAÇÃO E DEMISSÃO INICIADAS- 2026 (1).pdf, 30 páginas, janeiro a outubro.

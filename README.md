@@ -1,5 +1,7 @@
 # Painel de Apresentação PMCE
 
+> Segunda etapa de 10/11/2026 — BPGEP reincluído por orientação do responsável: +2 demissões e +60 requeridas no estudo de perdas (1.218 registros); +60 PMs de necessidade (1.704 no consolidado, 233 nas especializadas). São 53 unidades, incluindo 19 especializadas. O BPGEP mantém 581 PMs de referência, com saldo SAPM +2 (135 entradas − 133 saídas). Os dados abaixo também registram estados históricos anteriores à reinclusão. Nenhum nome ou matrícula é publicado.
+
 > Atualização parcial dos dados em 10/11/2026: estudo de perdas **1.156 registros**, análise situacional **1.644 PMs**, necessidade nas especializadas **173 PMs**. Projeto **1.986** e reestruturação **410** preservados. Consulte `ATUALIZACAO_DADOS_2026-11-10.md` para a conciliação, o critério de um impacto por militar no caso do 25º BPM e as diferenças em relação às referências históricas descritas abaixo.
 
 Painel institucional responsivo da Polícia Militar do Ceará, preparado para apresentação em reunião, projetor ou telão no formato 16:9.

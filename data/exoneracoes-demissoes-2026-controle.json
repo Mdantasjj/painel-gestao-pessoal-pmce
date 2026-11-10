@@ -13,19 +13,19 @@
   },
   "nups_distintos": 371,
   "ocorrencias_repetidas_mesmo_nup": 11,
-  "excluidos_BPGEP": 2,
+  "excluidos_BPGEP": 0,
   "processos_considerados": {
     "exoneracoes": 97,
-    "demissoes": 272,
-    "total": 369
+    "demissoes": 274,
+    "total": 371
   },
   "historico_2025_preservado": {
     "exoneracoes": 64,
     "demissoes": 16,
     "total": 80
   },
-  "requeridas_preservadas": 707,
-  "total_registros_estudo": 1156,
+  "requeridas_preservadas": 767,
+  "total_registros_estudo": 1218,
   "criterio_efetivo": "Contar uma vez o militar do 25º BPM com dois NUPs de exoneração; manter ambos no relatório de processos. Decisão expressa do usuário nesta conversa em 10/11/2026.",
   "repeticao_25_BPM": {
     "paginas": [
@@ -356,6 +356,23 @@
       "processos_demissoes": 2,
       "impactos_exoneracoes": 0,
       "impactos_demissoes": 2
+    },
+    "BPGEP": {
+      "processos_exoneracoes": 0,
+      "processos_demissoes": 2,
+      "impactos_exoneracoes": 0,
+      "impactos_demissoes": 2
     }
+  },
+  "inclui_BPGEP": true,
+  "reinclusao_BPGEP": {
+    "efetivo_referencia_preservado": 581,
+    "requeridas_2025": 48,
+    "requeridas_2026": 12,
+    "entradas_sapm": 135,
+    "saidas_sapm": 133,
+    "saldo": 2,
+    "necessidade": 60,
+    "criterio": "Reinclusão solicitada pelo usuário em 10/11/2026; restauração da referência histórica de efetivo, com saldo conferido na SAPM 30/09/2026."
   }
 }
